@@ -31,6 +31,7 @@ public class MainMenuManager : MonoBehaviour
 	public void StartGame()
 	{
 		PlayerManager.instance.SetJoiningEnabled(false);
+		SceneManager.LoadScene(sceneToLoad);
 	}
 
 	void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)
@@ -86,7 +87,7 @@ public class MainMenuManager : MonoBehaviour
 			yield return new WaitForSeconds(1.0f);
 		}
 
-		SceneManager.LoadScene(sceneToLoad);
+		StartGame();
 	}
 
 
