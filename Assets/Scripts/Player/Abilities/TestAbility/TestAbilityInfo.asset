@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
   m_Name: TestAbilityInfo
   m_EditorClassIdentifier: 
-  abilityName: 
-  description: 
-  cooldown: 0
-  damage: 0
-  projectilePrefab: {fileID: 0}
+  abilityName: test
+  description: test
+  cooldown: 3
+  damage: 1
+  projectilePrefab: {fileID: 2600358840593189108, guid: 2784db48419428443b80b333a74bd155, type: 3}
+  projectileDestoryAfterCollision: 1
+  projectileTargetDirection: {x: 1, y: 0, z: 0}
+  projectileTargetSpeed: 3
