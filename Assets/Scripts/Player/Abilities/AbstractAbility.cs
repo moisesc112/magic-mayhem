@@ -4,11 +4,7 @@ using UnityEngine;
 // TODO make a controller to handle adding the abilities dynamically in game
 public abstract class AbstractAbility : MonoBehaviour
 {
-    public abstract string AbilityName { get; set; }
-    public abstract string Description { get; set; }
-    public abstract float Cooldown { get; set; }
-    public abstract float Damage { get; set; }
-    public abstract string ProjectilePrefabPath { get; set; }
+    public AbilityInfo AbilityInfo;
 
     public virtual void Start()
     {
@@ -18,7 +14,7 @@ public abstract class AbstractAbility : MonoBehaviour
 
     public virtual IEnumerator UseAttackCoroutine()
     {
-        yield return new WaitForSeconds(Cooldown);
+        yield return new WaitForSeconds(AbilityInfo.cooldown);
         UseAttack();
         StartCoroutine(UseAttackCoroutine());
     }
@@ -30,10 +26,8 @@ public abstract class AbstractAbility : MonoBehaviour
 
     public virtual GameObject CreateProjectile(string prefabPath = "")
     {
-        prefabPath = prefabPath == "" ? ProjectilePrefabPath : prefabPath;
-        var projectile = Resources.Load<GameObject>(prefabPath);
-        var projectileGameObject = Instantiate(projectile, transform.position, Quaternion.identity);
-        projectileGameObject.GetComponent<AbstractProjectile>().IncomingDamage = Damage;
+        var projectileGameObject = Instantiate(AbilityInfo.projectilePrefab, transform.position, Quaternion.identity);
+        projectileGameObject.GetComponent<AbstractProjectile>().IncomingDamage = AbilityInfo.damage;
         return projectileGameObject;
     }
 }

@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class PlayerStats : AbstractEntity
+public class PlayerStats : HealthComponent
 {
     public float healthRegenPerSecond;
+    public float armor;
     public float dodgeChance;
     public int gold;
 
@@ -23,7 +24,12 @@ public class PlayerStats : AbstractEntity
             Debug.Log("Attack Dodged");
             return;
         }
+        var armorReducedDamage = damage * GetPercentDamageTakenWithArmor(armor);
+        base.TakeDamage(armorReducedDamage);
+    }
 
-        base.TakeDamage(damage);
+    public float GetPercentDamageTakenWithArmor(float armor)
+    {
+        return 1 / (1 + (armor / 15));
     }
 }

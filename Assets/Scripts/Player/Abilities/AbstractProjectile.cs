@@ -4,6 +4,8 @@ public abstract class AbstractProjectile : MonoBehaviour
 {
     public abstract float IncomingDamage { get; set; }
     public abstract bool DestroyAfterCollision { get; set; }
+    public abstract Vector3 TargetDirection { get; set; }
+    public abstract float TargetSpeed { get; set; }
 
     public virtual void Update()
     {
@@ -12,10 +14,10 @@ public abstract class AbstractProjectile : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider collision)
     {
-        if (collision != null && collision.GetComponent<AbstractEnemy>() != null)
+        if (collision != null && collision.tag != "Player" && collision.GetComponent<HealthComponent>() != null)
         {
             Debug.Log("Hit Enemy");
-            collision.GetComponent<AbstractEnemy>().TakeDamage(IncomingDamage);
+            collision.GetComponent<HealthComponent>().TakeDamage(IncomingDamage);
             if (DestroyAfterCollision)
             {
                 Destroy(gameObject);
@@ -25,6 +27,6 @@ public abstract class AbstractProjectile : MonoBehaviour
 
     public virtual void UpdateProjectileVelocity()
     {
-        transform.position += new Vector3(1,0,0) * Time.deltaTime;
+        transform.position += TargetDirection * TargetSpeed * Time.deltaTime;
     }
 }

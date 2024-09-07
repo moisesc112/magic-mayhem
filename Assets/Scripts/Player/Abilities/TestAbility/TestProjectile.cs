@@ -6,9 +6,7 @@ public class TestProjectile : AbstractProjectile
 {
     public override float IncomingDamage { get; set; }
     public override bool DestroyAfterCollision { get; set; } = true;
+    public override Vector3 TargetDirection { get; set; } = new Vector3(1,0,0);
+    public override float TargetSpeed { get; set; } = 3;
 
-    public override void UpdateProjectileVelocity()
-    {
-        transform.position += new Vector3(3, 0, 0) * Time.deltaTime;
-    }
 }
