@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 7577125164243507158}
   - component: {fileID: 398397636699602122}
   - component: {fileID: 5564528207782960891}
-  m_Layer: 0
+  - component: {fileID: 7683034594021963268}
+  - component: {fileID: 1395241669339847006}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -145,6 +147,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 5
+--- !u!114 &7683034594021963268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680389239630583605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52e5547ac45b054981f1ca294fd6706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityInfo: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
+--- !u!114 &1395241669339847006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680389239630583605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddf9269558068443a5d001ac19e8acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  health: 10
+  healthRegenPerSecond: 0
+  armor: 0
+  dodgeChance: 0
+  gold: 0
 --- !u!1 &5885146287673937312
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +189,7 @@ GameObject:
   - component: {fileID: 7472902937417704122}
   - component: {fileID: 5888444495030979594}
   - component: {fileID: 3078805190770716253}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}

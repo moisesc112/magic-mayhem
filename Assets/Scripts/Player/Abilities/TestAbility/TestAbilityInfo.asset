@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
+  m_Name: TestAbilityInfo
+  m_EditorClassIdentifier: 
+  abilityName: test
+  description: test
+  cooldown: 3
+  damage: 1
+  projectilePrefab: {fileID: 2600358840593189108, guid: 2784db48419428443b80b333a74bd155, type: 3}
+  projectileDestoryAfterCollision: 1
+  projectileTargetDirection: {x: 1, y: 0, z: 0}
+  projectileTargetSpeed: 3

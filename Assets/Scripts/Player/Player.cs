@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent (typeof(Mover))]
+[RequireComponent(typeof(Mover), typeof(PlayerStats))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
