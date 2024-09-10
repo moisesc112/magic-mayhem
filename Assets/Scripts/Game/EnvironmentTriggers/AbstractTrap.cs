@@ -5,25 +5,37 @@ public abstract class AbstractTrap : MonoBehaviour
 {
     public TrapInfo trapInfo;
 
-    //refer to TrapInfo about why this is here
-    private bool isActive = true;
+    //TODO Replace activating OnTriggerEnter with player activating trap through interact button
+
+    public virtual void OnTriggerEnter(Collider collision)
+    {
+
+        if (collision.tag != "Player")
+        { 
+            trapInfo.isActive = true;  
+        }
+        else
+        {
+            Debug.Log("Player Entered Trap");
+        }
+    }
 
     public virtual void OnTriggerStay(Collider collision)
     {
 
         if (collision.tag != "Player")
         {
-            if (isActive)
+            if (trapInfo.isActive)
             {
                 Debug.Log("Enemy Taking Trap Damage");
                 collision.GetComponent<HealthComponent>().TakeDamage(trapInfo.damage);
-                isActive = false;
+                trapInfo.isActive = false;
                 StartCoroutine(UseTrapCoroutine());
             }
         }
         else
         {
-            Debug.Log("Player Entered Trap");
+            Debug.Log("Player still in Trap");
         }
     }
 
@@ -33,7 +45,7 @@ public abstract class AbstractTrap : MonoBehaviour
     public virtual IEnumerator UseTrapCoroutine()
     {
         yield return new WaitForSeconds(trapInfo.cooldown);
-        isActive = true;
+        trapInfo.isActive = true;
     }
 
     public virtual void OnTriggerExit(Collider collision)
@@ -41,7 +53,7 @@ public abstract class AbstractTrap : MonoBehaviour
         if (collision.tag != "Player")
         {
             Debug.Log("Enemy left trap");
-            isActive = true;
+            trapInfo.isActive = true;
         }
         else
         {
