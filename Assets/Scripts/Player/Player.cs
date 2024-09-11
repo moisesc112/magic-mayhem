@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
+	public Camera playerCamera;
 	
 	void Awake()
 	{

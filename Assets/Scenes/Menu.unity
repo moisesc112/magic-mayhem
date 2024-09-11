@@ -307,17 +307,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7701280730418655737, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: spawnPlayerOnConnect
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655741, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 2
+      propertyPath: m_SplitScreen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
+      propertyPath: m_MaxPlayerCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
+      propertyPath: m_MaintainAspectRatioInSplitScreen
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655743, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_RootOrder
