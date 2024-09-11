@@ -54,6 +54,7 @@ public class MainMenuManager : MonoBehaviour
 		Destroy(cardController.gameObject);
 		_playerCardByIndex.Remove(e.playerIndex);
 		_totalPlayers--;
+		_readyPlayers--;
 	}
 
 	private void CharacterCardController_OnPlayerReadyStatusChanged(object sender, CharacterCardController.PlayerReadyEventArgs e)
