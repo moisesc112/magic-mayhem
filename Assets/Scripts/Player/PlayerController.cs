@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 	{
 		_player = player;
 		_player.SetPlayerIndex(_playerInput.playerIndex);
+		_playerInput.camera = _player.playerCamera;
 	}
 
 	public void ReleaseControl()

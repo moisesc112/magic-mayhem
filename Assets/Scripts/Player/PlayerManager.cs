@@ -55,6 +55,11 @@ public class PlayerManager : MonoBehaviour
 		PlayerControllerRemoved?.Invoke(sender: this, new PlayerRemovedEventArgs(index));
 	}
 
+	public void EnableSplitScreen()
+	{
+		_inputManager.splitScreen = true;
+	}
+
 	public Player SpawnPlayer(PlayerController owningController)
 	{
 		EnsurePlayerIsRegistered(owningController);
