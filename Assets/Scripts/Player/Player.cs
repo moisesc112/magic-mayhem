@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Mover), typeof(PlayerStats))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
@@ -8,7 +7,9 @@ public class Player : MonoBehaviour
 	
 	void Awake()
 	{
-		_mover = GetComponent<Mover>();
+		_mover = GetComponentInChildren<Mover>();
+		_mover.SetPlayer(this);
+		_castingComponent = GetComponentInChildren<CastingComponent>();
 	}
 
 	public void SetPlayerIndex(int index) => _playerIndex = index;
@@ -21,6 +22,19 @@ public class Player : MonoBehaviour
 		_mover.SetMovement(movement);
 	}
 
+	public void UpdateCasting(bool isCasting)
+	{
+		_castingComponent.UpdateCasting(isCasting);
+	}
+
+	public void SetAiming(bool aiming)
+	{
+		_mover.SetAiming(aiming);
+	}
+
+	public Camera PlayerCamera => GetComponentInChildren<Camera>();
+
 	Mover _mover;
+	CastingComponent _castingComponent;
 	int _playerIndex = -1;
 }
