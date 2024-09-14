@@ -39,6 +39,19 @@ public class PlayerController : MonoBehaviour
 			_player.MovePlayer(moveInput);
 	}
 
+	public void OnCastSpell(InputAction.CallbackContext context)
+	{
+		if (_player)
+			_player.UpdateCasting(context.performed);
+
+	}
+
+	public void OnAim(InputAction.CallbackContext context)
+	{
+		if (_player)
+			_player.SetAiming(context.performed);
+	}
+
 	public void OnDeviceLost(PlayerInput lostPlayer)
 	{
 		Debug.Log($"Player {lostPlayer.playerIndex} was lost.");
