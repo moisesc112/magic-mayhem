@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
 		PlayerManager.instance.OnPlayerRejoined(this);
 	}
 
+	public void SetUpInputCamera() => _playerInput.camera = _player.playerCamera;
+
 	Player _player;
 	PlayerInput _playerInput;
 }
