@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: c515562228e8a004690fc9129399581f, type: 2}
 --- !u!1001 &134675875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -193,6 +193,14 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
+      propertyPath: movementSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
+      propertyPath: farPollingDistance
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
 --- !u!1 &562546023
@@ -212,7 +220,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &562546024
 MeshCollider:
@@ -607,6 +615,14 @@ PrefabInstance:
     - target: {fileID: 1670978564886079381, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
       propertyPath: m_Name
       value: TestEnemy1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
+      propertyPath: movementSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
+      propertyPath: farPollingDistance
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
