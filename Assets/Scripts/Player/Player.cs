@@ -27,9 +27,9 @@ public class Player : MonoBehaviour
 		_castingComponent.UpdateCasting(isCasting);
 	}
 
-	public void SetAiming(bool aiming)
+	public void SetAiming(bool isAiming, Vector2 aimingDir, bool useMouse)
 	{
-		_mover.SetAiming(aiming);
+		_mover.SetAiming(isAiming, aimingDir, useMouse);
 	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
