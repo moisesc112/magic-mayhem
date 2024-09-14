@@ -34,7 +34,7 @@ public class Mover : MonoBehaviour
 		
 		if (_isAiming && _isMoving)
 		{
-			var targetRotation = Quaternion.LookRotation(new Vector3(_directionToMouse.x, 0, _directionToMouse.y), Vector3.up);
+			var targetRotation = Quaternion.LookRotation(new Vector3(_aimDirection.x, 0, _aimDirection.y), Vector3.up);
 			newRootRot = Quaternion.LerpUnclamped(transform.rotation, targetRotation, _rootRotationSpeed * Time.deltaTime);
 		}
 		else
@@ -48,10 +48,14 @@ public class Mover : MonoBehaviour
 
 	public void SetMovement(Vector3 movement) => _targetMovement = movement;
 	
-	public void SetAiming(bool aiming)
+	public void SetAiming(bool aiming, Vector2 aimDir, bool useMouse)
 	{
 		_anim.SetBool("IsAiming", aiming);
 		_isAiming = aiming;
+		_useMouse = useMouse;
+
+		Debug.Log(aimDir);
+		_aimDirection = aimDir;
 	}
 
 	public void SetPlayer(Player player) => _player = player;
@@ -61,7 +65,8 @@ public class Mover : MonoBehaviour
 		var inputDir = _currentMovement.normalized;
 		var inputAmount = _currentMovement.magnitude;
 		_isMoving = Mathf.Abs(inputAmount) > 0.1;
-		_directionToMouse = GetMouseDirection();
+		if (_useMouse)
+			_aimDirection = GetMouseDirection();
 
 		if (_isAiming) // Player maintains rotation while moving
 		{
@@ -73,7 +78,7 @@ public class Mover : MonoBehaviour
 			}
 			else // Player rotates to aim position (mouse)
 			{
-				var dirToMouse3D = new Vector3(_directionToMouse.x, 0, _directionToMouse.y);
+				var dirToMouse3D = new Vector3(_aimDirection.x, 0, _aimDirection.y);
 				var turnDirection = Vector3.Cross(transform.forward, dirToMouse3D).y;
 				
 				// Cross product can produce a vector of mag 0 if vectors are parallel.
@@ -125,7 +130,8 @@ public class Mover : MonoBehaviour
 
 	Vector3 _currentMovement;
 	Vector3 _targetMovement;
-	Vector2 _directionToMouse;
+	Vector2 _aimDirection;
 	bool _isAiming;
 	bool _isMoving;
+	bool _useMouse;
 }

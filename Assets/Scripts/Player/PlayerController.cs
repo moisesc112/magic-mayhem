@@ -49,7 +49,12 @@ public class PlayerController : MonoBehaviour
 	public void OnAim(InputAction.CallbackContext context)
 	{
 		if (_player)
-			_player.SetAiming(context.performed);
+		{
+			var dir = Vector2.zero;
+			if (_playerInput.currentControlScheme == c_gamepadScheme)
+				dir = context.ReadValue<Vector2>();
+			_player.SetAiming(context.performed, dir, useMouse: _playerInput.currentControlScheme == c_keyboardScheme);
+		}
 	}
 
 	public void OnDeviceLost(PlayerInput lostPlayer)
@@ -65,6 +70,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void SetUpInputCamera() => _playerInput.camera = _player.playerCamera;
+
+	const string c_gamepadScheme = "Gamepad";
+	const string c_keyboardScheme = "MK";
 
 	Player _player;
 	PlayerInput _playerInput;
