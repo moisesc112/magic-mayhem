@@ -18,7 +18,7 @@ public abstract class AbstractEnemy : MonoBehaviour
     public float movementSpeed;
     public float closePollingInterval = 0.1f;
     public float farPollingInterval = 1f;
-    public float farDistance = 10f;
+    public float farPollingDistance = 25f;
 
     // Private bools
     private bool inAttackRange= false;
@@ -39,26 +39,24 @@ public abstract class AbstractEnemy : MonoBehaviour
         inAttackRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
         // Attack or Find player
-        if (inAttackRange)
-        {
-            AttackPlayer();
-        }
-        else
-        {
-            FindPlayer();
-        }
-
+        if (inAttackRange) AttackPlayer();
+        else FindPlayer();
     }
 
     public virtual void FindPlayer()
     {
-        // For now have a base AI to always move towards the player
+        // For now have a base AI that always moves towards the player
         // Will need to have more advanced logic/ways to
         // distinguish when there are multiple players but
         // good enough for demo
         target = GameObject.FindGameObjectWithTag("Player");
-        agent.destination = target.transform.position;
-        StartCoroutine(EnemyPolling());
+        
+        //If target is found then pursue
+        if (target != null)
+        {
+            agent.destination = target.transform.position;
+            StartCoroutine(EnemyPolling());
+        }
     }
 
     public virtual void AttackPlayer()
@@ -83,14 +81,8 @@ public abstract class AbstractEnemy : MonoBehaviour
     {
         // Use the squared distance to determine what poll inverval we should be using
         sqDistance = (target.transform.position - transform.position).sqrMagnitude;
-        if (sqDistance < farDistance*farDistance)
-        {
-            pollInterval = closePollingInterval;
-        }
-        else
-        {
-            pollInterval = farPollingInterval;
-        }
+        if (sqDistance < farPollingDistance * farPollingDistance) pollInterval = closePollingInterval;
+        else pollInterval = farPollingInterval;
         yield return new WaitForSeconds(farPollingInterval);
     }
 

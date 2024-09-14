@@ -197,6 +197,10 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
+      propertyPath: farPollingDistance
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
 --- !u!1 &562546023
@@ -615,6 +619,10 @@ PrefabInstance:
     - target: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
       propertyPath: movementSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
+      propertyPath: farPollingDistance
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
