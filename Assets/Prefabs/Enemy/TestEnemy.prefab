@@ -152,14 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d781219ae279a4c86969e752ab1198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1680389239630583605, guid: 336bfff29efae624b9c725f8ba8b2eb1, type: 3}
+  target: {fileID: 7701280730418655741, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
   isPlayer:
     serializedVersion: 2
     m_Bits: 64
-  enemyStats: {fileID: 0}
   attackRange: 1
   attackDamage: 25
   attackCooldownTimer: 3
+  movementSpeed: 0
 --- !u!114 &-7181993239657775553
 MonoBehaviour:
   m_ObjectHideFlags: 0
