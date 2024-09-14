@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "Aim",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "8f71b8a0-0c29-4bf8-98eb-13a0e51d6376",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -114,7 +114,7 @@
                 {
                     "name": "",
                     "id": "2ec6658d-bb63-4d65-b22c-aa15fca677a1",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -135,8 +135,8 @@
                 },
                 {
                     "name": "",
-                    "id": "85a10e51-d7d7-4027-bb38-d40a0597f876",
-                    "path": "<Keyboard>/f",
+                    "id": "b2665f11-61a6-46ee-bdcc-3ba5d1c48035",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
