@@ -13,6 +13,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "UseAbility1",
+                    "type": "Button",
+                    "id": "d13ef56a-ec23-4cc2-b7b6-1e3ef547ec48",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseAbility2",
+                    "type": "Button",
+                    "id": "39e5ac21-8fca-4db1-837a-cf27e31ac30a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseAbility3",
+                    "type": "Button",
+                    "id": "cb0d0a5d-663a-4c7d-bf92-7d7710b3f371",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -79,6 +106,116 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "453cb810-f032-4e19-927e-1050fae8b250",
+                    "path": "<HID::Core (Plus) Wired Controller>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0816d73d-4d17-4c2b-be6b-49d16899d2c6",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2db9d720-ca9f-4f2f-9829-868606f80118",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae8a4e22-6565-4bc3-bd58-d450fb66fb0d",
+                    "path": "<HID::Core (Plus) Wired Controller>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce073052-b602-4e59-a996-92d730907a96",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a848e8b0-6fd8-4f8a-aaa0-1e4c1f54f4f9",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "775c75d7-9a08-4f73-a8e3-1631a5ce1108",
+                    "path": "<HID::Core (Plus) Wired Controller>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d57ebc4-d2e1-46a6-9ddf-25d2d9889572",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f85f2b9-8ab2-4093-a608-429ed22d01d6",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8dd8460-2690-4f2d-ab52-25b6bd929f13",
+                    "path": "<HID::Core (Plus) Wired Controller>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseAbility3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -207,6 +344,17 @@
                 },
                 {
                     "name": "",
+                    "id": "24e8b769-a22d-419e-9a94-3ace88ec4187",
+                    "path": "<HID::Core (Plus) Wired Controller>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8f85b739-c607-4a4c-9a04-059af6f0ad99",
                     "path": "<Keyboard>/backspace",
                     "interactions": "",
@@ -220,6 +368,17 @@
                     "name": "",
                     "id": "d8a32cdf-deb0-47ec-9d51-48cf8d35faa0",
                     "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b8f9b21-6b14-4dd1-8592-4f533a3a3434",
+                    "path": "<HID::Core (Plus) Wired Controller>/button2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

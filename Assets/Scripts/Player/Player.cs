@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Mover), typeof(PlayerStats))]
+[RequireComponent(typeof(Mover), typeof(PlayerStats), typeof(AbilitySlotsComponent))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
 	void Awake()
 	{
 		_mover = GetComponent<Mover>();
-	}
+        _abilitySlotsComponent = GetComponent<AbilitySlotsComponent>();
+    }
 
 	public void SetPlayerIndex(int index) => _playerIndex = index;
 
@@ -21,6 +22,12 @@ public class Player : MonoBehaviour
 		_mover.SetMovement(movement);
 	}
 
+	public void UseAbility(int slotNumber)
+	{
+		_abilitySlotsComponent.UseAbility(slotNumber);
+	}
+
 	Mover _mover;
+	AbilitySlotsComponent _abilitySlotsComponent;
 	int _playerIndex = -1;
 }

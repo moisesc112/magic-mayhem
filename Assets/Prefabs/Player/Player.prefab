@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 7577125164243507158}
   - component: {fileID: 398397636699602122}
   - component: {fileID: 5564528207782960891}
-  - component: {fileID: 7683034594021963268}
   - component: {fileID: 1395241669339847006}
+  - component: {fileID: 1310218053251731954}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -148,19 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 5
---- !u!114 &7683034594021963268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680389239630583605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f52e5547ac45b054981f1ca294fd6706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityInfo: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
 --- !u!114 &1395241669339847006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +166,24 @@ MonoBehaviour:
   armor: 0
   dodgeChance: 0
   gold: 0
+--- !u!114 &1310218053251731954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680389239630583605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1352e687275d80447a5e239ec4392d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySlot1: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
+  abilitySlot2: {fileID: 11400000, guid: ea97eab57df687e44bff3f2acfb734e1, type: 2}
+  abilitySlot3: {fileID: 0}
+  ability1Cooldown: 0
+  ability2Cooldown: 0
+  ability3Cooldown: 0
 --- !u!1 &5885146287673937312
 GameObject:
   m_ObjectHideFlags: 0

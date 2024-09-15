@@ -1,12 +1,23 @@
 using UnityEngine;
 
-public abstract class AbstractProjectile : MonoBehaviour
+public class Ability : MonoBehaviour
 {
     public AbilityInfo abilityInfo;
+    protected float remainingDespawnTime;
+
+    public virtual void Awake()
+    {
+        remainingDespawnTime = abilityInfo.despawnTime;
+    }
 
     public virtual void Update()
     {
         UpdateProjectileVelocity();
+        remainingDespawnTime -= Time.deltaTime;
+        if (remainingDespawnTime <= 0)
+        {
+            Despawn();
+        }
     }
 
     public virtual void OnTriggerEnter(Collider collision)
@@ -17,9 +28,14 @@ public abstract class AbstractProjectile : MonoBehaviour
             collision.GetComponent<HealthComponent>().TakeDamage(abilityInfo.damage);
             if (abilityInfo.projectileDestoryAfterCollision)
             {
-                Destroy(gameObject);
+                Despawn();
             }
         }
+    }
+
+    public virtual void Despawn()
+    {
+        Destroy(gameObject);
     }
 
     public virtual void UpdateProjectileVelocity()
