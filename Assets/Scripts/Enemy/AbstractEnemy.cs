@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public abstract class AbstractEnemy : MonoBehaviour
 {
     //properties that will be used to reference
-    private GameObject target;
+    private Player targetPlayer;
     private NavMeshAgent agent;
     public LayerMask isPlayer;
 
@@ -16,57 +16,51 @@ public abstract class AbstractEnemy : MonoBehaviour
     public float attackDamage;
     public float attackCooldownTimer = 1.5f;
     public float movementSpeed;
-    public float closePollingInterval = 0.1f;
-    public float farPollingInterval = 1f;
-    public float farPollingDistance = 25f;
 
     // Private bools
     private bool inAttackRange= false;
     private bool onCooldown = false;
-    private float pollInterval;
-    private float sqDistance;
+	bool isAttacking = true;
+
+    [SerializeField] DistancePollObject[] distancePollInfos;
+    float _distancePollInterval = 0.1f;
 
     private void Awake()
     {
         // Set up the agent and target
         agent = GetComponent<NavMeshAgent>();
         agent.speed = movementSpeed;
-    }
 
-    void FixedUpdate()
+        // Order infos based on distance threshold to make querying a bit faster.
+		distancePollInfos = distancePollInfos.OrderBy(p => p.DistanceSqThreshold).ToArray();
+	}
+
+	void Start()
+	{
+		StartCoroutine(nameof(EnemyPolling));
+	}
+
+	void Update()
+	{
+        UpdatePollInfo();
+	}
+
+	void FixedUpdate()
     {
         // Check if enemy is in attack range to the player
         inAttackRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
         // Attack or Find player
         if (inAttackRange) AttackPlayer();
-        else FindPlayer();
-    }
-
-    public virtual void FindPlayer()
-    {
-        // For now have a base AI that always moves towards the player
-        // Will need to have more advanced logic/ways to
-        // distinguish when there are multiple players but
-        // good enough for demo
-        target = GameObject.FindGameObjectWithTag("Player");
-        
-        //If target is found then pursue
-        if (target != null)
-        {
-            agent.destination = target.transform.position;
-            StartCoroutine(EnemyPolling());
-        }
     }
 
     public virtual void AttackPlayer()
     {
         // If in range don't move and face player
-        agent.SetDestination(target.transform.position);
-        transform.LookAt(target.transform);
+        transform.LookAt(targetPlayer.transform.position);
 
         // Get health of player and attack with cooldown
-        HealthComponent targetHealth = target.GetComponent<HealthComponent>();
+        HealthComponent targetHealth = targetPlayer.GetComponent<HealthComponent>();
         if (targetHealth != null && !onCooldown)
         {
             Debug.Log("Enemy attacking player!");
@@ -79,11 +73,16 @@ public abstract class AbstractEnemy : MonoBehaviour
     // Enemy Polling
     IEnumerator EnemyPolling()
     {
-        // Use the squared distance to determine what poll inverval we should be using
-        sqDistance = (target.transform.position - transform.position).sqrMagnitude;
-        if (sqDistance < farPollingDistance * farPollingDistance) pollInterval = closePollingInterval;
-        else pollInterval = farPollingInterval;
-        yield return new WaitForSeconds(farPollingInterval);
+		while (isAttacking)
+		{
+			Debug.Log("updating agent destination");
+			// There is a chance that the coroutine could start before players are intialized. Wait a frame before processing.
+			if (targetPlayer is null)
+				yield return new WaitForEndOfFrame();
+
+			agent.SetDestination(targetPlayer.transform.position);
+			yield return new WaitForSeconds(_distancePollInterval);
+		}
     }
 
     // Cooldown reset
@@ -92,4 +91,77 @@ public abstract class AbstractEnemy : MonoBehaviour
         yield return new WaitForSeconds(attackCooldownTimer);
         onCooldown = false;
     }
+
+    /// <summary>
+    /// Grabs distance poll info accordeing to nearest player. In addition, sets target player.
+    /// </summary>
+	void UpdatePollInfo()
+	{
+		var newPollInterval = GetPollStateInfoFromDistance().PollInterval;
+		if (_distancePollInterval != newPollInterval)
+		{
+			_distancePollInterval = newPollInterval;
+
+			// ResetCoroutine
+			StopCoroutine(nameof(EnemyPolling));
+			StartCoroutine(nameof(EnemyPolling));
+		}
+	}
+
+	DistancePollObject GetPollStateInfoFromDistance()
+	{
+        (var player, var distanceSq) = FindNearestPlayer();
+
+        targetPlayer = player;
+
+		DistancePollObject pollStateInfo = null;
+
+		// Default to closest distance poll state
+		foreach (var pollStat in distancePollInfos)
+		{
+			if (distanceSq > pollStat.DistanceSqThreshold) // Target is too far to use this poll info
+			{
+				continue;
+			}
+			else
+			{
+				pollStateInfo = pollStat;
+				break;
+			}
+		}
+
+		// If we are outside the range of all polls, use the furthest one.
+		return pollStateInfo ?? distancePollInfos.Last();
+	}
+
+
+	(Player player, float distanceSq) FindNearestPlayer()
+	{
+		// For now have a base AI that always moves towards the player
+		// Will need to have more advanced logic/ways to
+		// distinguish when there are multiple players but
+		// good enough for demo
+		var players = FindObjectsOfType<Player>();
+		var closestPlayer = players.FirstOrDefault();
+
+		float closestDistance = float.MaxValue;
+		foreach (var player in players)
+		{
+			var distSq = (player.GetAvatarPosition() - transform.position).sqrMagnitude;
+			if (distSq < closestDistance)
+			{
+				closestPlayer = player;
+				closestDistance = distSq;
+			}
+		}
+
+		// If there are no targets found, stop nav-ing.
+		if (closestDistance is float.MaxValue || closestPlayer is null)
+		{
+			agent.destination = transform.position;
+			StopCoroutine(EnemyPolling());
+		}
+
+		return (closestPlayer, closestDistance);
+	}
 }
