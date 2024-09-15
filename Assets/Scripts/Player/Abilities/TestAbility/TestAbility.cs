@@ -1,4 +1,4 @@
-public class TestAbility : AbstractAbility
+public class TestAbility : Ability
 {
 
 }

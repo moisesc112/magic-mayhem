@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
 		_mover = GetComponentInChildren<Mover>();
 		_mover.SetPlayer(this);
 		_castingComponent = GetComponentInChildren<CastingComponent>();
-	}
+        _abilitySlotsComponent = GetComponent<AbilitySlotsComponent>();
+    }
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
 
@@ -34,10 +35,17 @@ public class Player : MonoBehaviour
 	{
 		_mover.SetAiming(isAiming, aimingDir, useMouse);
 	}
+	
+	public void UseAbility(int slotNumber)
+	{
+		_abilitySlotsComponent.UseAbility(slotNumber);
+	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
 
+
 	Mover _mover;
 	CastingComponent _castingComponent;
+	AbilitySlotsComponent _abilitySlotsComponent;
 	int _playerIndex = -1;
 }

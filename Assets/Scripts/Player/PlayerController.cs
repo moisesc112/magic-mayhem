@@ -57,6 +57,12 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void OnUseAbility(int slotNumber)
+	{
+        if (_player)
+            _player.UseAbility(slotNumber);
+    }
+
 	public void OnDeviceLost(PlayerInput lostPlayer)
 	{
 		Debug.Log($"Player {lostPlayer.playerIndex} was lost.");

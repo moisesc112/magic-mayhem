@@ -7,8 +7,9 @@ public class AbilityInfo : ScriptableObject
     public string description;
     public float cooldown;
     public float damage;
-    public GameObject projectilePrefab;
+    public GameObject abilityPrefab;
     public bool projectileDestoryAfterCollision = true;
+    public float despawnTime;
     public Vector3 projectileTargetDirection;
     public float projectileTargetSpeed;
 }
