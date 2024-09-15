@@ -57,6 +57,8 @@ public class PlayerManager : MonoBehaviour
 
 	public void EnableSplitScreen()
 	{
+		foreach (var controller in _playersByOwningController.Keys)
+			controller.SetUpInputCamera();
 		_inputManager.splitScreen = true;
 	}
 

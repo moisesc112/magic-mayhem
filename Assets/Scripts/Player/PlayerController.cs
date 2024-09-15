@@ -45,6 +45,24 @@ public class PlayerController : MonoBehaviour
             _player.UseAbility(slotNumber);
     }
 
+	public void OnCastSpell(InputAction.CallbackContext context)
+	{
+		if (_player)
+			_player.UpdateCasting(context.performed);
+
+	}
+
+	public void OnAim(InputAction.CallbackContext context)
+	{
+		if (_player)
+		{
+			var dir = Vector2.zero;
+			if (_playerInput.currentControlScheme == c_gamepadScheme)
+				dir = context.ReadValue<Vector2>();
+			_player.SetAiming(context.performed, dir, useMouse: _playerInput.currentControlScheme == c_keyboardScheme);
+		}
+	}
+
 	public void OnDeviceLost(PlayerInput lostPlayer)
 	{
 		Debug.Log($"Player {lostPlayer.playerIndex} was lost.");
@@ -56,6 +74,11 @@ public class PlayerController : MonoBehaviour
 		Debug.Log($"Player {player.playerIndex} has rejoined!");
 		PlayerManager.instance.OnPlayerRejoined(this);
 	}
+
+	public void SetUpInputCamera() => _playerInput.camera = _player.playerCamera;
+
+	const string c_gamepadScheme = "Gamepad";
+	const string c_keyboardScheme = "MK";
 
 	Player _player;
 	PlayerInput _playerInput;

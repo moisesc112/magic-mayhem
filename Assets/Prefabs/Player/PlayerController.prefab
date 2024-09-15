@@ -101,63 +101,47 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: da229b65-5e3c-49ca-b52b-42ca21d55764
-    m_ActionName: UI/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+    m_ActionName: UI/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 9d0d69ec-75bf-4b86-9fb5-688c21c1bb3b
-    m_ActionName: UI/Select[/Keyboard/space,/Core (Plus) Wired Controller/button3]
+    m_ActionName: UI/Select[/Keyboard/space,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 1c19ea7d-c4f1-47f8-a96b-0807341249eb
-    m_ActionName: UI/Cancel[/Keyboard/backspace,/Core (Plus) Wired Controller/button2]
+    m_ActionName: UI/Cancel[/Keyboard/backspace,/XInputControllerWindows/buttonEast]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnUseAbility
-        m_Mode: 3
+        m_MethodName: OnCastSpell
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: d13ef56a-ec23-4cc2-b7b6-1e3ef547ec48
-    m_ActionName: Gameplay/UseAbility1[/Keyboard/1,/Core (Plus) Wired Controller/button3]
+    m_ActionId: 642035b4-66fb-4854-b873-5272465bcb05
+    m_ActionName: Gameplay/CastSpell[/Keyboard/space,/XInputControllerWindows/buttonWest]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnUseAbility
-        m_Mode: 3
+        m_MethodName: OnAim
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 39e5ac21-8fca-4db1-837a-cf27e31ac30a
-    m_ActionName: Gameplay/UseAbility2[/Keyboard/2,/Core (Plus) Wired Controller/button4]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 665746253984361426}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnUseAbility
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cb0d0a5d-663a-4c7d-bf92-7d7710b3f371
-    m_ActionName: Gameplay/UseAbility3[/Keyboard/3,/Core (Plus) Wired Controller/button2]
+    m_ActionId: 8f71b8a0-0c29-4bf8-98eb-13a0e51d6376
+    m_ActionName: Gameplay/Aim[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
