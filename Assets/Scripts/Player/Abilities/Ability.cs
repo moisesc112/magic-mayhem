@@ -42,4 +42,9 @@ public class Ability : MonoBehaviour
     {
         transform.position += abilityInfo.projectileTargetDirection * abilityInfo.projectileTargetSpeed * Time.deltaTime;
     }
+
+    public void SetAbilitySlotComponent(AbilitySlotsComponent abilitySlotsComponent) => _abilitySlotsComponent = abilitySlotsComponent;
+
+    // Really just for avatar position, can change if there is a better way to grab that
+    protected AbilitySlotsComponent _abilitySlotsComponent;
 }

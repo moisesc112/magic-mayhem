@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ebf8273e0b24f4f8fadc958c6eddef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityInfo: {fileID: 11400000, guid: ea97eab57df687e44bff3f2acfb734e1, type: 2}
   flamethrowerProjectile: {fileID: 7941334543955111465, guid: a620e1bc522952c418d2d93ec6c6dfa2, type: 3}

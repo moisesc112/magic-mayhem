@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Flamethrower : MonoBehaviour
+public class Flamethrower : Ability
 {
     public GameObject flamethrowerProjectile;
 
@@ -8,7 +8,12 @@ public class Flamethrower : MonoBehaviour
     private float timeBetweenProjectiles = 0.2f;
     private float currentTimeBetweenProjectiles = 0f;
 
-    public void Update()
+    public override void Awake()
+    {
+        remainingDespawnTime = abilityInfo.despawnTime + (timeBetweenProjectiles * numberOfFlameProjectiles);
+    }
+
+    public override void Update()
     {
         if (numberOfFlameProjectiles > 0)
         {
@@ -32,9 +37,9 @@ public class Flamethrower : MonoBehaviour
     {
         numberOfFlameProjectiles -= 1;
         // TODO change to where player is facing
+        // TODO add player velocity to projectiles?
         var direction = new Vector3(1, 0, 0);
-        //transform.position = PlayerManager.instance.PlayerControllers[0]..transform.position;
-        var projectile = Instantiate(flamethrowerProjectile, transform.position, Quaternion.identity);
+        var projectile = Instantiate(flamethrowerProjectile, _abilitySlotsComponent.transform.position, Quaternion.identity);
         projectile.GetComponent<FlamethrowerProjectile>().castingDirection = direction;
     }
 }
