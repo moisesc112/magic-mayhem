@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerStats), typeof(AbilitySlotsComponent))]
+[RequireComponent(typeof(PlayerStats))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 	
 	void Awake()
 	{
-        _abilitySlotsComponent = GetComponent<AbilitySlotsComponent>();
 		_mover = GetComponentInChildren<Mover>();
 		_mover.SetPlayer(this);
 		_castingComponent = GetComponentInChildren<CastingComponent>();
@@ -26,8 +25,10 @@ public class Player : MonoBehaviour
 
 	public void UseAbility(int slotNumber)
 	{
-		_abilitySlotsComponent.UseAbility(slotNumber);
-	}
+		//TODO unify casting animations with abilities
+		Debug.Log("asd");
+        _castingComponent.UseAbility(slotNumber);
+    }
 	
 	public void UpdateCasting(bool isCasting)
 	{
@@ -42,7 +43,6 @@ public class Player : MonoBehaviour
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
 
 	Mover _mover;
-	AbilitySlotsComponent _abilitySlotsComponent;
 	CastingComponent _castingComponent;
 	int _playerIndex = -1;
 }
