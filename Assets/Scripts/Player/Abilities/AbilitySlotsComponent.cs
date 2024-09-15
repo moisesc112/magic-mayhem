@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AbilitySlotsComponent : MonoBehaviour
@@ -6,7 +5,7 @@ public class AbilitySlotsComponent : MonoBehaviour
     public AbilityInfo abilitySlot1;
     public AbilityInfo abilitySlot2;
     public AbilityInfo abilitySlot3;
-
+    
     public float ability1Cooldown = 0;
     public float ability2Cooldown = 0;
     public float ability3Cooldown = 0;
@@ -17,6 +16,8 @@ public class AbilitySlotsComponent : MonoBehaviour
         if (ability2Cooldown > 0) SetAbilityCooldown(2, ability2Cooldown -= Time.deltaTime);
         if (ability3Cooldown > 0) SetAbilityCooldown(3, ability3Cooldown -= Time.deltaTime);
     }
+
+    public void SetPlayer(Player player) => _player = player;
 
     public void UpdateAbilitySlot(AbilityInfo newAbility, int slotNumber)
     {
@@ -78,14 +79,10 @@ public class AbilitySlotsComponent : MonoBehaviour
         if (ability != null && GetAbilityCooldown(slotNumber) <= 0)
         {
             SetAbilityCooldown(slotNumber, ability.cooldown);
-            var abilityPrefab = Instantiate(ability.abilityPrefab, transform.position, Quaternion.identity);
-            abilityPrefab.transform.parent = transform;
-
+            var abilityPrefab = Instantiate(ability.abilityPrefab, _player.transform.position, Quaternion.identity);
+            //abilityPrefab.transform.parent = transform;
         }
     }
 
-    private void GetPlayerIndex()
-    {
-        
-    }
+    private Player _player;
 }

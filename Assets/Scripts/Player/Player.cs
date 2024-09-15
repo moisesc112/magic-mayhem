@@ -26,6 +26,13 @@ public class Player : MonoBehaviour
 		_mover.SetMovement(movement);
 	}
 
+	public void UseAbility(int slotNumber)
+	{
+		//TODO unify casting animations with abilities
+		Debug.Log("asd");
+        _castingComponent.UseAbility(slotNumber);
+    }
+	
 	public void UpdateCasting(bool isCasting)
 	{
 		_castingComponent.UpdateCasting(isCasting);
@@ -35,7 +42,7 @@ public class Player : MonoBehaviour
 	{
 		_mover.SetAiming(isAiming, aimingDir, useMouse);
 	}
-	
+
 	public void UseAbility(int slotNumber)
 	{
 		_abilitySlotsComponent.UseAbility(slotNumber);
