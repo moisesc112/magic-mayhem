@@ -269,6 +269,17 @@
                 },
                 {
                     "name": "",
+                    "id": "24e8b769-a22d-419e-9a94-3ace88ec4187",
+                    "path": "<HID::Core (Plus) Wired Controller>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8f85b739-c607-4a4c-9a04-059af6f0ad99",
                     "path": "<Keyboard>/backspace",
                     "interactions": "",
@@ -285,6 +296,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b8f9b21-6b14-4dd1-8592-4f533a3a3434",
+                    "path": "<HID::Core (Plus) Wired Controller>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false

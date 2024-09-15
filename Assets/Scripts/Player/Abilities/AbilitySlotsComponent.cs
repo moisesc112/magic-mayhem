@@ -1,0 +1,91 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class AbilitySlotsComponent : MonoBehaviour
+{
+    public AbilityInfo abilitySlot1;
+    public AbilityInfo abilitySlot2;
+    public AbilityInfo abilitySlot3;
+
+    public float ability1Cooldown = 0;
+    public float ability2Cooldown = 0;
+    public float ability3Cooldown = 0;
+
+    private void Update()
+    {
+        if (ability1Cooldown > 0) SetAbilityCooldown(1, ability1Cooldown -= Time.deltaTime);
+        if (ability2Cooldown > 0) SetAbilityCooldown(2, ability2Cooldown -= Time.deltaTime);
+        if (ability3Cooldown > 0) SetAbilityCooldown(3, ability3Cooldown -= Time.deltaTime);
+    }
+
+    public void UpdateAbilitySlot(AbilityInfo newAbility, int slotNumber)
+    {
+        switch (slotNumber)
+        {
+            case 1:
+                abilitySlot1 = newAbility;
+                break;
+            case 2:
+                abilitySlot2 = newAbility;
+                break;
+            case 3:
+                abilitySlot3 = newAbility;
+                break;
+        }
+    }
+
+    public AbilityInfo GetAbility(int slotNumber)
+    {
+        return slotNumber switch
+        {
+            1 => abilitySlot1,
+            2 => abilitySlot2,
+            3 => abilitySlot3,
+            _ => throw new System.NotImplementedException(),
+        };
+    }
+
+    public float GetAbilityCooldown(int slotNumber)
+    {
+        return slotNumber switch
+        {
+            1 => ability1Cooldown,
+            2 => ability2Cooldown,
+            3 => ability3Cooldown,
+            _ => throw new System.NotImplementedException(),
+        };
+    }
+
+    public void SetAbilityCooldown(int slotNumber, float newValue)
+    {
+        switch (slotNumber)
+        {
+            case 1:
+                ability1Cooldown = newValue;
+                break;
+            case 2:
+                ability2Cooldown = newValue;
+                break;
+            case 3:
+                ability3Cooldown = newValue;
+                break;
+        }
+    }
+
+    public void UseAbility(int slotNumber)
+    {
+        var ability = GetAbility(slotNumber);
+        if (ability != null && GetAbilityCooldown(slotNumber) <= 0)
+        {
+            SetAbilityCooldown(slotNumber, ability.cooldown);
+            var abilityPrefab = Instantiate(ability.abilityPrefab, transform.position, Quaternion.identity);
+            abilityPrefab.transform.parent = transform;
+
+        }
+    }
+
+    private void GetPlayerIndex()
+    {
+        
+    }
+}
