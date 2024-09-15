@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d781219ae279a4c86969e752ab1198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 7701280730418655741, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
   isPlayer:
     serializedVersion: 2
     m_Bits: 64
@@ -160,6 +159,10 @@ MonoBehaviour:
   attackDamage: 25
   attackCooldownTimer: 3
   movementSpeed: 0
+  distancePollInfos:
+  - {fileID: 11400000, guid: 9cf8749a1f7bb3e4e85aa2b298537a49, type: 2}
+  - {fileID: 11400000, guid: 54f4d3eeaa68bdb439ac0ef2704fac83, type: 2}
+  - {fileID: 11400000, guid: 15dea98fc126db14caa9999e07dc9285, type: 2}
 --- !u!114 &-7181993239657775553
 MonoBehaviour:
   m_ObjectHideFlags: 0

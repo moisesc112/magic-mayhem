@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 		_mover = GetComponent<Mover>();
 	}
 
+	public Vector3 GetAvatarPosition() => transform.position;
+
 	public void SetPlayerIndex(int index) => _playerIndex = index;
 
 	public void MovePlayer(Vector2 input)
