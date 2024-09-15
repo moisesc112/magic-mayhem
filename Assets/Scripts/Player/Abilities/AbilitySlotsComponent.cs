@@ -17,8 +17,6 @@ public class AbilitySlotsComponent : MonoBehaviour
         if (ability3Cooldown > 0) SetAbilityCooldown(3, ability3Cooldown -= Time.deltaTime);
     }
 
-    public void SetPlayer(Player player) => _player = player;
-
     public void UpdateAbilitySlot(AbilityInfo newAbility, int slotNumber)
     {
         switch (slotNumber)
@@ -79,10 +77,12 @@ public class AbilitySlotsComponent : MonoBehaviour
         if (ability != null && GetAbilityCooldown(slotNumber) <= 0)
         {
             SetAbilityCooldown(slotNumber, ability.cooldown);
-            var abilityPrefab = Instantiate(ability.abilityPrefab, _player.transform.position, Quaternion.identity);
-            //abilityPrefab.transform.parent = transform;
+            var abilityPrefab = Instantiate(ability.abilityPrefab, transform.position, Quaternion.identity);
+            var abilityComponent = abilityPrefab.GetComponent<Ability>();
+            if (abilityComponent != null)
+            {
+                abilityComponent.SetAbilitySlotComponent(this);
+            }
         }
     }
-
-    private Player _player;
 }

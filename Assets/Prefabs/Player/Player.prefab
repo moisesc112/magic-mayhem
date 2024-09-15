@@ -2922,6 +2922,24 @@ MonoBehaviour:
   - {fileID: 7537738459056172504}
   - {fileID: 5229771966923562252}
   - {fileID: 1102876462964686254}
+--- !u!114 &4708179505898091589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7794382454369318645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1352e687275d80447a5e239ec4392d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySlot1: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
+  abilitySlot2: {fileID: 11400000, guid: ea97eab57df687e44bff3f2acfb734e1, type: 2}
+  abilitySlot3: {fileID: 11400000, guid: 4819498cb99624d449a8f42982db3643, type: 2}
+  ability1Cooldown: 0
+  ability2Cooldown: 0
+  ability3Cooldown: 0
 --- !u!114 &5477680008808372190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2938,24 +2956,6 @@ MonoBehaviour:
   _animSpeed: 1
   _rootMovementSpeed: 4.5
   _rootRotationSpeed: 6
---- !u!114 &4708179505898091589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7794382454369318645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1352e687275d80447a5e239ec4392d87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySlot1: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
-  abilitySlot2: {fileID: 11400000, guid: ea97eab57df687e44bff3f2acfb734e1, type: 2}
-  abilitySlot3: {fileID: 0}
-  ability1Cooldown: 0
-  ability2Cooldown: 0
-  ability3Cooldown: 0
 --- !u!4 &7832707418550595386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8333627713332763490, guid: e97b00eb03f8a3940860dbefdf69a0e9, type: 3}

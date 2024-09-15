@@ -12,6 +12,7 @@ public class HealthComponent : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
+        Debug.Log($"took {damage} damage");
         health -= damage;
         if (health <= 0)
         {
