@@ -142,6 +142,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8f71b8a0-0c29-4bf8-98eb-13a0e51d6376
     m_ActionName: Gameplay/Aim[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 665746253984361426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUseAbility
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 80734064-011f-4214-80ab-862642e9122f
+    m_ActionName: Gameplay/UseAbility1[/Keyboard/1,/Core (Plus) Wired Controller/button3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 665746253984361426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUseAbility
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b2d154be-b9ca-4b82-b854-819e68e2fa3c
+    m_ActionName: Gameplay/UseAbility2[/Keyboard/2,/Core (Plus) Wired Controller/button4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 665746253984361426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUseAbility
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b2d5c85a-5ef2-4b32-8323-e7c669ddd5fa
+    m_ActionName: Gameplay/UseAbility3[/Keyboard/3,/Core (Plus) Wired Controller/button2]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
