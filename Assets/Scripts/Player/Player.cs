@@ -28,8 +28,7 @@ public class Player : MonoBehaviour
 
 	public void UseAbility(int slotNumber)
 	{
-		//TODO unify casting animations with abilities
-		Debug.Log("asd");
+		//TODO unify casting animations with abilities and direction
         _castingComponent.UseAbility(slotNumber);
     }
 	
