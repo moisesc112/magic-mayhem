@@ -2950,7 +2950,7 @@ MonoBehaviour:
   _movementAcceleration: 5
   _animSpeed: 1
   _rootMovementSpeed: 4
-  _rootRotationSpeed: 6
+  _rootRotationSpeed: 10
 --- !u!4 &7832707418550595386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8333627713332763490, guid: e97b00eb03f8a3940860dbefdf69a0e9, type: 3}
