@@ -54,7 +54,15 @@ public abstract class AbstractEnemy : MonoBehaviour
         if (inAttackRange) AttackPlayer();
     }
 
-    public virtual void AttackPlayer()
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.color = new Color(1, 1, 0, 0.75F);
+		Gizmos.DrawSphere(transform.position, attackRange);
+		Gizmos.color = new Color(0, 0, 1, 0.75f);
+		Gizmos.DrawWireSphere(agent.destination, 0.5f);
+	}
+
+	public virtual void AttackPlayer()
     {
         // If in range don't move and face player
         transform.LookAt(targetPlayer.transform.position);
@@ -80,7 +88,7 @@ public abstract class AbstractEnemy : MonoBehaviour
 			if (targetPlayer is null)
 				yield return new WaitForEndOfFrame();
 
-			agent.SetDestination(targetPlayer.transform.position);
+			agent.SetDestination(targetPlayer.GetAvatarPosition());
 			yield return new WaitForSeconds(_distancePollInterval);
 		}
     }

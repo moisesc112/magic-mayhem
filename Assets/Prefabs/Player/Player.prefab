@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 5888444495030979594}
+  _avatar: {fileID: 7794382454369318645}
 --- !u!114 &7683034594021963268
 MonoBehaviour:
   m_ObjectHideFlags: 0
