@@ -34,6 +34,7 @@ public class MainMenuManager : MonoBehaviour
 	{
 		PlayerManager.instance.SetJoiningEnabled(false);
 		SceneManager.LoadScene(sceneToLoad);
+		WaveManager.OnSceneLoaded(sceneToLoad);
 	}
 
 	void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)

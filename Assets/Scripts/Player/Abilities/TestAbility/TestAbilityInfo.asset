@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: test
   description: test
-  cooldown: 3
+  cooldown: 1
   damage: 1
   projectilePrefab: {fileID: 2600358840593189108, guid: 2784db48419428443b80b333a74bd155, type: 3}
   projectileDestoryAfterCollision: 1
