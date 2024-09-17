@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e216d7fcddfef64e9d7848214cb861c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
+  maxHealth: 500
+  health: 500
 --- !u!1 &4935919243479598771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,8 +2827,6 @@ MonoBehaviour:
   m_RigLayers:
   - m_Rig: {fileID: 5578096885735726423}
     m_Active: 1
-  - m_Rig: {fileID: 0}
-    m_Active: 1
   m_Effectors:
   - m_Transform: {fileID: 7449205739983744079}
     m_Style:
@@ -2951,7 +2949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementAcceleration: 5
   _animSpeed: 1
-  _rootMovementSpeed: 4.5
+  _rootMovementSpeed: 4
   _rootRotationSpeed: 6
 --- !u!4 &7832707418550595386 stripped
 Transform:
