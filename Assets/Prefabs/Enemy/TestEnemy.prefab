@@ -176,8 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c9b7e2f4188eb46ab8d9f09b4050e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  health: 10
+  maxHealth: 1
+  health: 1
   dodgeChance: 0
 --- !u!135 &5218303701976412108
 SphereCollider:

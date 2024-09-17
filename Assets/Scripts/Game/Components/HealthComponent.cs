@@ -20,10 +20,21 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
+    // To work with the different instances from the object pool, need to release test enemy in its own class
+
     public virtual void HandleDeath()
     {
         Debug.Log("Died");
-        Destroy(gameObject);
+        if (gameObject.CompareTag("TestEnemyPool"))
+        {
+            TestEnemy testEnemy = GetComponent<TestEnemy>();
+            testEnemy.TestEnemyPoolRelease();
+            TestEnemy.CountDeadTestEnemies();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public virtual void Heal(float healAmount)
