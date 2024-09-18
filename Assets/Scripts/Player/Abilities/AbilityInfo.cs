@@ -5,6 +5,7 @@ public class AbilityInfo : ScriptableObject
 {
     public string abilityName;
     public string description;
+    public AbiltyType abiltyType;
     public float cooldown;
     public float damage;
     public GameObject abilityPrefab;

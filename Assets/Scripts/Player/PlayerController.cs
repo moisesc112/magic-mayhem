@@ -46,6 +46,17 @@ public class PlayerController : MonoBehaviour
 
 	}
 
+	public void OnToggleShopUI(InputAction.CallbackContext context)
+	{
+		if (_player && context.performed)
+		{
+			_player.ToggleShopUI(true);
+            _playerInput.actions.FindActionMap("Gameplay").Disable();
+            _playerInput.actions.FindActionMap("UI").Enable();
+
+        }
+    }
+
 	public void OnAim(InputAction.CallbackContext context)
 	{
 		if (_player)
@@ -63,7 +74,14 @@ public class PlayerController : MonoBehaviour
             _player.UseAbility(slotNumber);
     }
 
-	public void OnDeviceLost(PlayerInput lostPlayer)
+	public void OnCloseShopUI(InputAction.CallbackContext context)
+    {
+        _playerInput.actions.FindActionMap("UI").Disable();
+        _playerInput.actions.FindActionMap("Gameplay").Enable();
+        _player.ToggleShopUI(false);
+    }
+
+    public void OnDeviceLost(PlayerInput lostPlayer)
 	{
 		Debug.Log($"Player {lostPlayer.playerIndex} was lost.");
 		PlayerManager.instance.OnPlayerLeft(this);
