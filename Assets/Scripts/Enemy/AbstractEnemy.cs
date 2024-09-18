@@ -71,7 +71,6 @@ public abstract class AbstractEnemy : MonoBehaviour
         HealthComponent targetHealth = targetPlayer.GetComponent<HealthComponent>();
         if (targetHealth != null && !onCooldown)
         {
-            Debug.Log("Enemy attacking player!");
             targetHealth.TakeDamage(attackDamage);
             onCooldown = true;
             StartCoroutine(AttackCooldown());
@@ -83,12 +82,11 @@ public abstract class AbstractEnemy : MonoBehaviour
     {
 		while (isAttacking)
 		{
-			Debug.Log("updating agent destination");
 			// There is a chance that the coroutine could start before players are intialized. Wait a frame before processing.
 			if (targetPlayer is null)
 				yield return new WaitForEndOfFrame();
 
-			agent.SetDestination(targetPlayer.GetAvatarPosition());
+			agent.SetDestination(targetPlayer?.GetAvatarPosition() ?? Vector3.zero);
 			yield return new WaitForSeconds(_distancePollInterval);
 		}
     }
