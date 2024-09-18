@@ -103,7 +103,19 @@ MonoBehaviour:
     m_ActionId: da229b65-5e3c-49ca-b52b-42ca21d55764
     m_ActionName: UI/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 665746253984361426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 9d0d69ec-75bf-4b86-9fb5-688c21c1bb3b
     m_ActionName: UI/Select[/Keyboard/space,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:

@@ -12,11 +12,13 @@ public class Player : MonoBehaviour
 		_mover.SetPlayer(this);
 		_castingComponent = GetComponentInChildren<CastingComponent>();
         _abilitySlotsComponent = GetComponent<AbilitySlotsComponent>();
-    }
+		_shop = GetComponentInChildren<Shop>();
+	}
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
+	public Vector2 GetAimDirection() => _mover.GetAimDirection();
 
-	public void SetPlayerIndex(int index) => _playerIndex = index;
+    public void SetPlayerIndex(int index) => _playerIndex = index;
 
 	public void MovePlayer(Vector2 input)
 	{
@@ -42,9 +44,9 @@ public class Player : MonoBehaviour
 		_mover.SetAiming(isAiming, aimingDir, useMouse);
 	}
 
-	public void UseAbility(int slotNumber)
+	public void ToggleShopUI(bool isEnabled)
 	{
-		_abilitySlotsComponent.UseAbility(slotNumber);
+		_shop.ToggleShopUI(isEnabled);
 	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
@@ -53,5 +55,6 @@ public class Player : MonoBehaviour
 	Mover _mover;
 	CastingComponent _castingComponent;
 	AbilitySlotsComponent _abilitySlotsComponent;
+	Shop _shop;
 	int _playerIndex = -1;
 }

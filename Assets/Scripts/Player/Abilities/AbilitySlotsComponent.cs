@@ -10,6 +10,11 @@ public class AbilitySlotsComponent : MonoBehaviour
     public float ability2Cooldown = 0;
     public float ability3Cooldown = 0;
 
+    private void Awake()
+    {
+        _player = GetComponentInParent<Player>();
+    }
+
     private void Update()
     {
         if (ability1Cooldown > 0) SetAbilityCooldown(1, ability1Cooldown -= Time.deltaTime);
@@ -77,12 +82,14 @@ public class AbilitySlotsComponent : MonoBehaviour
         if (ability != null && GetAbilityCooldown(slotNumber) <= 0)
         {
             SetAbilityCooldown(slotNumber, ability.cooldown);
-            var abilityPrefab = Instantiate(ability.abilityPrefab, transform.position, Quaternion.identity);
+            var abilityPrefab = Instantiate(ability.abilityPrefab, _player.GetAvatarPosition(), Quaternion.identity);
             var abilityComponent = abilityPrefab.GetComponent<Ability>();
             if (abilityComponent != null)
             {
-                abilityComponent.SetAbilitySlotComponent(this);
+                abilityComponent.SetPlayer(_player);
             }
         }
     }
+
+    private Player _player;
 }

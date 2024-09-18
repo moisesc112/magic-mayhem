@@ -38,6 +38,6 @@ public class Storm : Ability
 
     public override void UpdateProjectileVelocity()
     {
-        transform.position = _abilitySlotsComponent.transform.position;
+        transform.position = _player.GetAvatarPosition();
     }
 }
