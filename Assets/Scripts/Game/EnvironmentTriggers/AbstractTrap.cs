@@ -10,24 +10,24 @@ public abstract class AbstractTrap : MonoBehaviour
     public virtual void OnTriggerEnter(Collider collision)
     {
 
-        if (collision.tag != "Player")
+        if (collision.tag == "TestEnemyPool")
         { 
             trapInfo.isActive = true;  
         }
         else
         {
-            Debug.Log("Player Entered Trap");
+            //Debug.Log("Player Entered Trap");
         }
     }
 
     public virtual void OnTriggerStay(Collider collision)
     {
 
-        if (collision.tag != "Player")
+        if (collision.tag == "TestEnemyPool")
         {
             if (trapInfo.isActive)
             {
-                Debug.Log("Enemy Taking Trap Damage");
+                //Debug.Log("Enemy Taking Trap Damage");
                 collision.GetComponent<HealthComponent>().TakeDamage(trapInfo.damage);
                 trapInfo.isActive = false;
                 StartCoroutine(UseTrapCoroutine());
@@ -35,7 +35,7 @@ public abstract class AbstractTrap : MonoBehaviour
         }
         else
         {
-            Debug.Log("Player still in Trap");
+            //Debug.Log("Player still in Trap");
         }
     }
 
@@ -50,14 +50,14 @@ public abstract class AbstractTrap : MonoBehaviour
 
     public virtual void OnTriggerExit(Collider collision)
     {
-        if (collision.tag != "Player")
+        if (collision.tag == "TestEnemyPool")
         {
-            Debug.Log("Enemy left trap");
+            //Debug.Log("Enemy left trap");
             trapInfo.isActive = true;
         }
         else
         {
-            Debug.Log("Player left Trap");
+            //Debug.Log("Player left Trap");
         }
     }
 }
