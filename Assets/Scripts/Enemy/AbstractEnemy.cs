@@ -84,10 +84,14 @@ public abstract class AbstractEnemy : MonoBehaviour
 		{
 			// There is a chance that the coroutine could start before players are intialized. Wait a frame before processing.
 			if (targetPlayer is null)
+            {
 				yield return new WaitForEndOfFrame();
-
-			agent.SetDestination(targetPlayer?.GetAvatarPosition() ?? Vector3.zero);
-			yield return new WaitForSeconds(_distancePollInterval);
+			}
+			else
+            {
+				agent.SetDestination(targetPlayer.GetAvatarPosition() ?? Vector3.zero);
+				yield return new WaitForSeconds(_distancePollInterval);
+			}
 		}
     }
 
@@ -107,11 +111,10 @@ public abstract class AbstractEnemy : MonoBehaviour
 		if (_distancePollInterval != newPollInterval)
 		{
 			_distancePollInterval = newPollInterval;
-
-			// ResetCoroutine
-			StopCoroutine(nameof(EnemyPolling));
-			StartCoroutine(nameof(EnemyPolling));
 		}
+		//ResetCoroutine
+		StopCoroutine(nameof(EnemyPolling));
+		StartCoroutine(nameof(EnemyPolling));
 	}
 
 	DistancePollObject GetPollStateInfoFromDistance()
@@ -149,7 +152,6 @@ public abstract class AbstractEnemy : MonoBehaviour
 		// good enough for demo
 		var players = FindObjectsOfType<Player>();
 		var closestPlayer = players.FirstOrDefault();
-
 		float closestDistance = float.MaxValue;
 		foreach (var player in players)
 		{
@@ -160,7 +162,6 @@ public abstract class AbstractEnemy : MonoBehaviour
 				closestDistance = distSq;
 			}
 		}
-
 		// If there are no targets found, stop nav-ing.
 		if (closestDistance is float.MaxValue || closestPlayer is null)
 		{

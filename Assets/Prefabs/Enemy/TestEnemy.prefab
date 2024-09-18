@@ -159,7 +159,7 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 25
   attackCooldownTimer: 3
-  movementSpeed: 0
+  movementSpeed: 3
   distancePollInfos:
   - {fileID: 11400000, guid: 9cf8749a1f7bb3e4e85aa2b298537a49, type: 2}
   - {fileID: 11400000, guid: 54f4d3eeaa68bdb439ac0ef2704fac83, type: 2}
