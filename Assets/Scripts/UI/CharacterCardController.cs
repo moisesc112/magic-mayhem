@@ -66,8 +66,9 @@ public class CharacterCardController : MonoBehaviour
 	{
 		readyIcon.SetActive(ready);
 		readyText.text = ready ? "Ready!" : "Ready?";
+		if (_isReady != ready)
+			PlayerReadyStatusChanged?.Invoke(sender: this, new PlayerReadyEventArgs(ready, _playerIndex));
 		_isReady = ready;
-		PlayerReadyStatusChanged?.Invoke(sender: this, new PlayerReadyEventArgs(ready));
 	}
 	
 	void OnCancel(InputAction.CallbackContext context)
@@ -80,12 +81,14 @@ public class CharacterCardController : MonoBehaviour
 
 	public class PlayerReadyEventArgs : EventArgs
 	{
-		public PlayerReadyEventArgs(bool isReady)
+		public PlayerReadyEventArgs(bool isReady, int id)
 		{
 			ready = isReady;
+			playerId = id;
 		}
 
 		public bool ready { get; private set; }
+		public int playerId { get; private set; }
 	}
 
 	int _playerIndex;

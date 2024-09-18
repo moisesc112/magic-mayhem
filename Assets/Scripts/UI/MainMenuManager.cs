@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ public class MainMenuManager : MonoBehaviour
 	private void Awake()
 	{
 		_playerCardByIndex = new Dictionary<int, CharacterCardController> ();
+		_readyStatusByPlayerId = new Dictionary<int, bool>();
 	}
 
 	void Start()
@@ -42,7 +44,8 @@ public class MainMenuManager : MonoBehaviour
 		newCard.PlayerReadyStatusChanged += CharacterCardController_OnPlayerReadyStatusChanged;
 		playerController.playerInput.uiInputModule = newCard.inputSystemUIInputModule;
 		_playerCardByIndex.Add(e.playerController.playerIndex, newCard);
-		_totalPlayers++;
+		_readyStatusByPlayerId[e.playerController.playerIndex] = false;
+		CheckIfShouldStartGame();
 	}
 
 	void PlayerManager_OnPlayerControllerRemoved(object sender, PlayerManager.PlayerRemovedEventArgs e)
@@ -53,19 +56,20 @@ public class MainMenuManager : MonoBehaviour
 
 		Destroy(cardController.gameObject);
 		_playerCardByIndex.Remove(e.playerIndex);
-		_totalPlayers--;
-		_readyPlayers--;
+		_readyStatusByPlayerId.Remove(e.playerIndex);
+		CheckIfShouldStartGame();
 	}
 
-	private void CharacterCardController_OnPlayerReadyStatusChanged(object sender, CharacterCardController.PlayerReadyEventArgs e)
+	void CharacterCardController_OnPlayerReadyStatusChanged(object sender, CharacterCardController.PlayerReadyEventArgs e)
 	{
-		if (e.ready)
-			_readyPlayers++;
-		else
-			_readyPlayers--;
+		_readyStatusByPlayerId[e.playerId] = e.ready;
+		CheckIfShouldStartGame();
+	}
 
-		// This is hacky, maybe think of a better way in the future.
-		if (_readyPlayers == _totalPlayers)
+	void CheckIfShouldStartGame()
+	{
+		var ready = _readyStatusByPlayerId.Keys.Count > 0 && _readyStatusByPlayerId.Values.All(ready => ready);
+		if (ready)
 		{
 			// Show countdown
 			countDownText.gameObject.transform.parent.gameObject.SetActive(true);
@@ -91,8 +95,6 @@ public class MainMenuManager : MonoBehaviour
 		StartGame();
 	}
 
-
-	int _readyPlayers;
-	int _totalPlayers;
 	Dictionary<int, CharacterCardController> _playerCardByIndex;
+	Dictionary<int, bool> _readyStatusByPlayerId;
 }
