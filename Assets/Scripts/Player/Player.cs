@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
 	public Camera playerCamera;
+	[SerializeField] GameObject _avatar;
 	
 	void Awake()
 	{
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
 		_mover.SetPlayer(this);
 		_castingComponent = GetComponentInChildren<CastingComponent>();
 	}
+
+	public Vector3 GetAvatarPosition() => _avatar.transform.position;
 
 	public void SetPlayerIndex(int index) => _playerIndex = index;
 

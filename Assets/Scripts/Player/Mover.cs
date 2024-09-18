@@ -32,12 +32,16 @@ public class Mover : MonoBehaviour
 		Vector3 newRootPos = Vector3.LerpUnclamped(transform.position, _anim.rootPosition, _rootMovementSpeed);
 		Quaternion newRootRot;
 		
-		if (_isAiming && _isMoving)
+		
+		if (_isMoving) // Drive rotation manualy, but still use root motion position
 		{
-			var targetRotation = Quaternion.LookRotation(new Vector3(_aimDirection.x, 0, _aimDirection.y), Vector3.up);
+
+			Quaternion targetRotation = _isAiming
+				? Quaternion.LookRotation(new Vector3(_aimDirection.x, 0, _aimDirection.y), Vector3.up)
+				: Quaternion.LookRotation(_currentMovement, Vector3.up);
 			newRootRot = Quaternion.LerpUnclamped(transform.rotation, targetRotation, _rootRotationSpeed * Time.deltaTime);
 		}
-		else
+		else // Drive rotation via root motion since motion wont hide any foot sliding
 		{
 			newRootRot = Quaternion.LerpUnclamped(transform.rotation, _anim.rootRotation, _rootRotationSpeed);
 		}
@@ -50,6 +54,12 @@ public class Mover : MonoBehaviour
 	
 	public void SetAiming(bool aiming, Vector2 aimDir, bool useMouse)
 	{
+		if (_isAiming != aiming && !aiming) // If we transtion from aiming to not aiming, rotate player to match input
+		{
+			var targetRot = Quaternion.LookRotation(_currentMovement, Vector3.up);
+			var angleBetween = Vector3.Angle(transform.forward, _currentMovement);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, angleBetween * 0.5f);
+		}
 		_anim.SetBool("IsAiming", aiming);
 		_isAiming = aiming;
 		_useMouse = useMouse;
@@ -62,7 +72,6 @@ public class Mover : MonoBehaviour
 
 	void HandleMovement()
 	{
-		var inputDir = _currentMovement.normalized;
 		var inputAmount = _currentMovement.magnitude;
 		_isMoving = Mathf.Abs(inputAmount) > 0.1;
 		if (_useMouse)
@@ -91,22 +100,7 @@ public class Mover : MonoBehaviour
 		}
 		else // Player rotates to face movement direction
 		{
-			var facing = transform.forward;
-
-			var alignment = Vector3.Dot(facing, inputDir);
-			float turnAmount;
-			if (alignment == 1)
-			{
-				turnAmount = 0;
-			}
-			else
-			{
-				var turnDirection = Vector3.Cross(facing, _currentMovement);
-				turnAmount = Mathf.Sign(turnDirection.y) * Mathf.Acos(alignment);
-			}
-			
 			_anim.SetFloat("Forward", inputAmount);
-			_anim.SetFloat("Right", turnAmount * inputAmount);
 		}
 
 		_anim.SetBool("IsMoving", _isMoving);

@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8904973973435959970}
   - component: {fileID: -3416126643142204928}
+  - component: {fileID: 7683034594021963268}
   - component: {fileID: 1395241669339847006}
   - component: {fileID: 5579374289128665795}
   m_Layer: 0
@@ -80,6 +81,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 5888444495030979594}
+  _avatar: {fileID: 7794382454369318645}
+--- !u!114 &7683034594021963268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680389239630583605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52e5547ac45b054981f1ca294fd6706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityInfo: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
 --- !u!114 &1395241669339847006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e216d7fcddfef64e9d7848214cb861c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
+  maxHealth: 500
+  health: 500
 --- !u!1 &4935919243479598771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,8 +2827,6 @@ MonoBehaviour:
   m_RigLayers:
   - m_Rig: {fileID: 5578096885735726423}
     m_Active: 1
-  - m_Rig: {fileID: 0}
-    m_Active: 1
   m_Effectors:
   - m_Transform: {fileID: 7449205739983744079}
     m_Style:
@@ -2922,24 +2935,6 @@ MonoBehaviour:
   - {fileID: 7537738459056172504}
   - {fileID: 5229771966923562252}
   - {fileID: 1102876462964686254}
---- !u!114 &4708179505898091589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7794382454369318645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1352e687275d80447a5e239ec4392d87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySlot1: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
-  abilitySlot2: {fileID: 11400000, guid: ea97eab57df687e44bff3f2acfb734e1, type: 2}
-  abilitySlot3: {fileID: 11400000, guid: 4819498cb99624d449a8f42982db3643, type: 2}
-  ability1Cooldown: 0
-  ability2Cooldown: 0
-  ability3Cooldown: 0
 --- !u!114 &5477680008808372190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2954,8 +2949,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementAcceleration: 5
   _animSpeed: 1
-  _rootMovementSpeed: 4.5
-  _rootRotationSpeed: 6
+  _rootMovementSpeed: 4
+  _rootRotationSpeed: 10
 --- !u!4 &7832707418550595386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8333627713332763490, guid: e97b00eb03f8a3940860dbefdf69a0e9, type: 3}
