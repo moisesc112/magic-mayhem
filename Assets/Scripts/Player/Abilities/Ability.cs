@@ -4,10 +4,16 @@ public class Ability : MonoBehaviour
 {
     public AbilityInfo abilityInfo;
     protected float remainingDespawnTime;
+    protected Vector3 aimDirection;
 
     public virtual void Awake()
     {
         remainingDespawnTime = abilityInfo.despawnTime;
+    }
+
+    public virtual void Start()
+    {
+        SetDirectionToPlayerAimDirection();
     }
 
     public virtual void Update()
@@ -38,13 +44,24 @@ public class Ability : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void UpdateProjectileVelocity()
+    public virtual Vector3 SetDirectionToPlayerAimDirection()
     {
-        transform.position += abilityInfo.projectileTargetDirection * abilityInfo.projectileTargetSpeed * Time.deltaTime;
+        if (_player != null)
+        {
+            var playerAimDirection = _player.GetAimDirection();
+            aimDirection = new Vector3(playerAimDirection.x, 0, playerAimDirection.y);
+            return aimDirection;
+        }
+        Debug.LogWarning("Player not set in ability");
+        return Vector3.zero;
     }
 
-    public void SetAbilitySlotComponent(AbilitySlotsComponent abilitySlotsComponent) => _abilitySlotsComponent = abilitySlotsComponent;
+    public virtual void UpdateProjectileVelocity()
+    {
+        transform.position += aimDirection * abilityInfo.projectileTargetSpeed * Time.deltaTime;
+    }
 
-    // Really just for avatar position, can change if there is a better way to grab that
-    protected AbilitySlotsComponent _abilitySlotsComponent;
+    public void SetPlayer(Player player) => _player = player;
+
+    protected Player _player;
 }

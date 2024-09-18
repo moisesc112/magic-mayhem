@@ -11,6 +11,7 @@ public class Flamethrower : Ability
     public override void Awake()
     {
         remainingDespawnTime = abilityInfo.despawnTime + (timeBetweenProjectiles * numberOfFlameProjectiles);
+        SetDirectionToPlayerAimDirection();
     }
 
     public override void Update()
@@ -36,10 +37,9 @@ public class Flamethrower : Ability
     private void CastFlamethrowerProjectile()
     {
         numberOfFlameProjectiles -= 1;
-        // TODO change to where player is facing
-        // TODO add player velocity to projectiles?
-        var direction = new Vector3(1, 0, 0);
-        var projectile = Instantiate(flamethrowerProjectile, _abilitySlotsComponent.transform.position, Quaternion.identity);
+        var direction = SetDirectionToPlayerAimDirection();
+        var projectile = Instantiate(flamethrowerProjectile, _player.GetAvatarPosition(), Quaternion.identity);
+        projectile.GetComponent<FlamethrowerProjectile>().SetPlayer(_player);
         projectile.GetComponent<FlamethrowerProjectile>().castingDirection = direction;
     }
 }
