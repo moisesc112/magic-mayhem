@@ -52,7 +52,8 @@ public class ObjectPooler : MonoBehaviour
     // This is how an enemy gets spawned in the wave, used in WaveManager.cs
     public static void SpawnTestEnemy()
     {
-        testEnemyPool.Get();
+        var enemy = testEnemyPool.Get();
+        enemy.ResetPolling();
     }
 
 }
