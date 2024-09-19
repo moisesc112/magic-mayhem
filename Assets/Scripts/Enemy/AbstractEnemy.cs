@@ -96,7 +96,7 @@ public abstract class AbstractEnemy : MonoBehaviour
 			}
 			else
             {
-				agent.SetDestination(targetPlayer.GetAvatarPosition() ?? Vector3.zero);
+				agent.SetDestination(targetPlayer?.GetAvatarPosition() ?? Vector3.zero);
 				yield return new WaitForSeconds(_distancePollInterval);
 			}
 		}
@@ -169,10 +169,7 @@ public abstract class AbstractEnemy : MonoBehaviour
 		}
 		// If there are no targets found, stop nav-ing.
 		if (closestDistance is float.MaxValue || closestPlayer is null)
-		{
 			agent.destination = transform.position;
-			StopCoroutine(EnemyPolling());
-		}
 
 		return (closestPlayer, closestDistance);
 	}

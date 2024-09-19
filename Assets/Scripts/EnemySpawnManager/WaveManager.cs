@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class WaveManager : MonoBehaviour
 {
     // Maybe add a WaveInfo file for all these variables?
-    public static bool inTestingScene;
+    public static bool inTestingScene = true;
     public static bool gameStarted;
     public static bool inWaveCooldown;
     public static bool inGameStartCooldown;
