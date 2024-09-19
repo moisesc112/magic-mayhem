@@ -62,7 +62,6 @@ public class Mover : MonoBehaviour
 		_isAiming = aiming;
 		_useMouse = useMouse;
 
-		Debug.Log(aimDir);
 		_aimDirection = aimDir;
 		if (aimDir != Vector2.zero) _prevAimDirection = aimDir;
 
@@ -118,7 +117,7 @@ public class Mover : MonoBehaviour
 		return (cursorPos - playerPos).normalized;
 	}
 
-	public Vector2 GetAimDirection() => _prevAimDirection.normalized;
+	public Vector2 GetAimDirection() => _useMouse ? GetMouseDirection() : _prevAimDirection.normalized;
 
 	Animator _anim;
 	Rigidbody _rigidbody;
