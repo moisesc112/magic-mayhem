@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3748d34b1ca81ce44a3c1e6f6514fa20, type: 3}
   m_Name: Far
   m_EditorClassIdentifier: 
-  PollInterval: 1
+  PollInterval: 0.25
   DistanceSqThreshold: 100

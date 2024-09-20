@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(HealthComponent))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
@@ -13,6 +14,12 @@ public class Player : MonoBehaviour
 		_castingComponent = GetComponentInChildren<CastingComponent>();
         _abilitySlotsComponent = GetComponent<AbilitySlotsComponent>();
 		_shop = GetComponentInChildren<Shop>();
+		_healthComponent = GetComponentInChildren<HealthComponent>();
+	}
+
+	void Update()
+	{
+		UIDebugUtility.instance.UpdateTrackedHealth(_healthComponent.health);
 	}
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
@@ -51,7 +58,7 @@ public class Player : MonoBehaviour
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
 
-
+	HealthComponent _healthComponent;
 	Mover _mover;
 	CastingComponent _castingComponent;
 	AbilitySlotsComponent _abilitySlotsComponent;

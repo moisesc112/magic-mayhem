@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(AbilitySlotsComponent))]
 public class CastingComponent : MonoBehaviour
 {
+    [SerializeField] Transform _castingLocation;
 	void Awake()
 	{
 		_animator = GetComponent<Animator>();
