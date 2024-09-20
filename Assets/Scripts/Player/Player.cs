@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
 	public Vector2 GetAimDirection() => _mover.GetAimDirection();
 
+	public int GetPlayerIndex() => _playerIndex;
     public void SetPlayerIndex(int index) => _playerIndex = index;
 
 	public void MovePlayer(Vector2 input)
