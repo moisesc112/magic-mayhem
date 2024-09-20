@@ -2,30 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
     public List<AbilityInfo> abilityRegistry;
+    public List<AbilityInfo> currentAbilitiesInShop;
 
-    [SerializeField]
-    private TextMeshProUGUI abilityOption1;
-    [SerializeField]
-    private TextMeshProUGUI abilityOption2;
-    [SerializeField]
-    private TextMeshProUGUI abilityOption3;
-
-    private List<AbilityInfo> currentAbilitiesInShop;
 
     private void Awake()
     {
+        _shopUIController = GetComponent<ShopUIController>();
         gameObject.SetActive(false);
     }
 
     private void Start()
     {
         ShuffleShopAbilityOptions();
-        UpdateShopDisplay();
+        _shopUIController.UpdateShopDisplay(currentAbilitiesInShop);
     }
 
     public void ShuffleShopAbilityOptions()
@@ -50,23 +45,15 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void UpdateShopDisplay()
+    public void PurchaseAbility(int abilityOption)
     {
-        if (currentAbilitiesInShop != null && currentAbilitiesInShop.Count() >= 3)
-        {
-            abilityOption1.text = currentAbilitiesInShop[0].name;
-            abilityOption2.text = currentAbilitiesInShop[1].name;
-            abilityOption3.text = currentAbilitiesInShop[2].name;
-        }
-    }
-
-    public void PurchaseAbility(int abilityIndex)
-    {
-        
+        Debug.LogWarning($"Ability Purchased! {currentAbilitiesInShop[abilityOption].name}");
     }
 
     public void ToggleShopUI(bool isEnabled)
     {
         gameObject.SetActive(isEnabled);
     }
+
+    private ShopUIController _shopUIController;
 }
