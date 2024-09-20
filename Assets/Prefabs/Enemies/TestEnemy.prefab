@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7744972654298733127}
   - component: {fileID: -7181993239657775553}
   - component: {fileID: 5218303701976412108}
+  - component: {fileID: 6680254653383103371}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -153,17 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d781219ae279a4c86969e752ab1198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer:
-    serializedVersion: 2
-    m_Bits: 64
-  attackRange: 1
-  attackDamage: 25
-  attackCooldownTimer: 3
-  movementSpeed: 3
-  distancePollInfos:
-  - {fileID: 11400000, guid: 9cf8749a1f7bb3e4e85aa2b298537a49, type: 2}
-  - {fileID: 11400000, guid: 54f4d3eeaa68bdb439ac0ef2704fac83, type: 2}
-  - {fileID: 11400000, guid: 15dea98fc126db14caa9999e07dc9285, type: 2}
 --- !u!114 &-7181993239657775553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,3 +182,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6680254653383103371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670978564886079381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d0c9bc55971be48ae5fcaafc8558bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distancePollInfos:
+  - {fileID: 11400000, guid: 9cf8749a1f7bb3e4e85aa2b298537a49, type: 2}
