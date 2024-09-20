@@ -1,24 +1,36 @@
+using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(Rigidbody))]
+[RequireComponent(typeof(Animator), typeof(CharacterController))]
 public class Mover : MonoBehaviour
 {
 	[Header("Speed Settings")]
-	[SerializeField] float _movementAcceleration = 5.0f;
+	[SerializeField] float _maxPlayerSpeed = 4.8f;
+	[SerializeField] float _rotationSpeedDegrees = 180.0f;
 	[SerializeField] float _animSpeed = 1.0f;
-	[SerializeField] float _rootMovementSpeed = 1.0f;
-	[SerializeField] float _rootRotationSpeed = 1.0f;
+	[SerializeField] float _rootOverride = 1.0f;
+	[SerializeField] float _acceleration = 0.1f;
+
+	public TextMeshProUGUI playerVelocityCounter;
 
 	void Awake()
 	{
 		_anim = GetComponent<Animator>();
-		_rigidbody = GetComponent<Rigidbody>();
+		_characterController = GetComponent<CharacterController>();
+		_anim.applyRootMotion = true;
+	}
+
+	private void Start()
+	{
+		playerVelocityCounter = GameObject.FindGameObjectWithTag("VelocityTracker").GetComponent<TextMeshProUGUI>();
 	}
 
 	void Update()
 	{
-		_currentMovement = Vector3.Lerp(_currentMovement, _targetMovement, Time.deltaTime * _movementAcceleration);
-		HandleMovement();
+		_currentMovement = _targetMovement;
+		UpdateGravity();
+		UpdateAnimParams();
+		UpdateRotation();
 	}
 
 	void OnAnimatorMove()
@@ -27,25 +39,10 @@ public class Mover : MonoBehaviour
 		if (!anim)
 			return;
 
-		Vector3 newRootPos = Vector3.LerpUnclamped(transform.position, _anim.rootPosition, _rootMovementSpeed);
-		Quaternion newRootRot;
-		
-		
-		if (_isMoving) // Drive rotation manualy, but still use root motion position
-		{
+		var targetMovement = _anim.deltaPosition * _rootOverride;
+		targetMovement.y = _gravitySpeed * Time.deltaTime;
 
-			Quaternion targetRotation = _isAiming
-				? Quaternion.LookRotation(new Vector3(_aimDirection.x, 0, _aimDirection.y), Vector3.up)
-				: Quaternion.LookRotation(_currentMovement, Vector3.up);
-			newRootRot = Quaternion.LerpUnclamped(transform.rotation, targetRotation, _rootRotationSpeed * Time.deltaTime);
-		}
-		else // Drive rotation via root motion since motion wont hide any foot sliding
-		{
-			newRootRot = Quaternion.LerpUnclamped(transform.rotation, _anim.rootRotation, _rootRotationSpeed);
-		}
-
-		_rigidbody.MovePosition(newRootPos);
-		_rigidbody.MoveRotation(newRootRot);
+		_characterController.Move(targetMovement);
 	}
 
 	public void SetMovement(Vector3 movement) => _targetMovement = movement;
@@ -63,15 +60,26 @@ public class Mover : MonoBehaviour
 		_useMouse = useMouse;
 
 		_aimDirection = aimDir;
-		if (aimDir != Vector2.zero) _prevAimDirection = aimDir;
-
+		if (aimDir != Vector2.zero)
+			_prevAimDirection = aimDir;
     }
 
 	public void SetPlayer(Player player) => _player = player;
 
-	void HandleMovement()
+	void UpdateGravity()
+	{
+        if (_characterController.isGrounded)
+			_gravitySpeed = 0;
+		else
+			_gravitySpeed += Physics.gravity.y * Time.deltaTime;
+	}
+
+	void UpdateAnimParams()
 	{
 		var inputAmount = _currentMovement.magnitude;
+		var targetForward = 0.0f;
+		var targetRight = 0.0f;
+
 		_isMoving = Mathf.Abs(inputAmount) > 0.1;
 		if (_useMouse)
 			_aimDirection = GetMouseDirection();
@@ -81,8 +89,8 @@ public class Mover : MonoBehaviour
 			if (_isMoving)
 			{
 				var localInput = transform.InverseTransformDirection(_currentMovement);
-				_anim.SetFloat("Forward", localInput.z);
-				_anim.SetFloat("Right", localInput.x);
+				targetForward = localInput.z;
+				targetRight =  localInput.x;
 			}
 			else // Player rotates to aim position (mouse)
 			{
@@ -93,18 +101,42 @@ public class Mover : MonoBehaviour
 				// If this happens, fall back to dot product to see if they are aligned or opposed.
 				if (turnDirection == float.NaN)
 					turnDirection = Vector3.Dot(transform.forward, dirToMouse3D) > 0 ? 0.0f : 1.0f;
-				
-				_anim.SetFloat("Right", turnDirection);
+
+				targetRight = turnDirection;
 			}
 		}
 		else // Player rotates to face movement direction
 		{
-			_anim.SetFloat("Forward", inputAmount);
+			targetForward = _maxPlayerSpeed * inputAmount;
 		}
+
+		var forward = Mathf.MoveTowards(_anim.GetFloat("Forward"), targetForward, _acceleration);
+		_anim.SetFloat("Forward", forward);
+
+		var right = Mathf.MoveTowards(_anim.GetFloat("Right"), targetRight, _acceleration);
+		_anim.SetFloat("Right", right);
 
 		_anim.SetBool("IsMoving", _isMoving);
 
 		_anim.speed = _animSpeed;
+	}
+
+	void UpdateRotation()
+	{
+		if (_isAiming)
+		{
+			var aimDir = _useMouse ? GetMouseDirection() : _aimDirection;
+			var targetDir = new Vector3(aimDir.x, 0, aimDir.y);
+			var lookRotation = Quaternion.LookRotation(targetDir, Vector3.up);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, _rotationSpeedDegrees * Time.deltaTime);
+		}
+		else // Rotate to face direction of movement
+		{
+			var lookRotation = _currentMovement == Vector3.zero 
+				? transform.rotation 
+				: Quaternion.LookRotation(_currentMovement, Vector3.up);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, _rotationSpeedDegrees * Time.deltaTime);
+		}
 	}
 
 	/// <summary>
@@ -120,7 +152,7 @@ public class Mover : MonoBehaviour
 	public Vector2 GetAimDirection() => _useMouse ? GetMouseDirection() : _prevAimDirection.normalized;
 
 	Animator _anim;
-	Rigidbody _rigidbody;
+	CharacterController _characterController;
 	Player _player;
 
 	Vector3 _currentMovement;
@@ -130,4 +162,5 @@ public class Mover : MonoBehaviour
 	bool _isAiming;
 	bool _isMoving;
 	bool _useMouse;
+	float _gravitySpeed;
 }

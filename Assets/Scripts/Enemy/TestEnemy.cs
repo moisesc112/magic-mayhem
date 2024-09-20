@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Pool;
-public class TestEnemy : AbstractEnemy
+public class TestEnemy : MonoBehaviour
 {
     public static int deadTestEnemies;
 
