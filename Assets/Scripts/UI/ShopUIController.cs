@@ -27,7 +27,7 @@ public class ShopUIController : MonoBehaviour
 
     private void Awake()
     {
-        var playerController = PlayerManager.instance.PlayerControllers.Where(x => x.playerIndex == _player.GetPlayerIndex()).First();
+        var playerController = PlayerManager.instance.PlayerControllers.First(x => x.playerIndex == _player.GetPlayerIndex());
         if (playerController != null)
         {
             playerController.playerInput.uiInputModule = _inputModule;
