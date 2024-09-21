@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 1
   cooldown: 1
+  windup: 1
   damage: 1
