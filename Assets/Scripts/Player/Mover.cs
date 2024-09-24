@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 [RequireComponent(typeof(Animator), typeof(CharacterController))]
 public class Mover : MonoBehaviour
@@ -9,7 +11,7 @@ public class Mover : MonoBehaviour
 	[SerializeField] float _rotationSpeedDegrees = 180.0f;
 	[SerializeField] float _animSpeed = 1.0f;
 	[SerializeField] float _rootOverride = 1.0f;
-	[SerializeField] float _acceleration = 0.1f;
+	[SerializeField] float _rollCooldown = 1.5f;
 
 	public TextMeshProUGUI playerVelocityCounter;
 
@@ -18,11 +20,13 @@ public class Mover : MonoBehaviour
 		_anim = GetComponent<Animator>();
 		_characterController = GetComponent<CharacterController>();
 		_anim.applyRootMotion = true;
+		_rigBuilder = GetComponent<RigBuilder>();
+		_upperBodyIndex = _anim.GetLayerIndex("UpperBody");
+		_canRoll = true;
 	}
 
 	private void Start()
 	{
-		playerVelocityCounter = GameObject.FindGameObjectWithTag("VelocityTracker").GetComponent<TextMeshProUGUI>();
 	}
 
 	void Update()
@@ -31,6 +35,11 @@ public class Mover : MonoBehaviour
 		UpdateGravity();
 		UpdateAnimParams();
 		UpdateRotation();
+	}
+
+	void FixedUpdate()
+	{
+		HandleRoll();
 	}
 
 	void OnAnimatorMove()
@@ -45,7 +54,7 @@ public class Mover : MonoBehaviour
 		_characterController.Move(targetMovement);
 	}
 
-	public void SetMovement(Vector3 movement) => _targetMovement = movement;
+	public void SetMovement(Vector3 movement) => _targetMovement = movement.sqrMagnitude > 1 ? movement.normalized : movement;
 	
 	public void SetAiming(bool aiming, Vector2 aimDir, bool useMouse)
 	{
@@ -62,13 +71,26 @@ public class Mover : MonoBehaviour
 		_aimDirection = aimDir;
 		if (aimDir != Vector2.zero)
 			_prevAimDirection = aimDir;
-    }
+	}
 
 	public void SetPlayer(Player player) => _player = player;
 
+	public void OnRoll()
+	{
+		_shouldRoll = true;
+	}
+
+	public void OnRollingFinished()
+	{
+		foreach (var layer in _rigBuilder.layers)
+			layer.active = true;
+
+		_anim.SetLayerWeight(_upperBodyIndex, 1);
+	}
+
 	void UpdateGravity()
 	{
-        if (_characterController.isGrounded)
+		if (_characterController.isGrounded)
 			_gravitySpeed = 0;
 		else
 			_gravitySpeed += Physics.gravity.y * Time.deltaTime;
@@ -110,11 +132,9 @@ public class Mover : MonoBehaviour
 			targetForward = _maxPlayerSpeed * inputAmount;
 		}
 
-		var forward = Mathf.MoveTowards(_anim.GetFloat("Forward"), targetForward, _acceleration);
-		_anim.SetFloat("Forward", forward);
+		_anim.SetFloat("Forward", targetForward);
 
-		var right = Mathf.MoveTowards(_anim.GetFloat("Right"), targetRight, _acceleration);
-		_anim.SetFloat("Right", right);
+		_anim.SetFloat("Right", targetRight);
 
 		_anim.SetBool("IsMoving", _isMoving);
 
@@ -139,6 +159,31 @@ public class Mover : MonoBehaviour
 		}
 	}
 
+	void HandleRoll()
+	{
+		if (_shouldRoll && _canRoll)
+		{
+			_canRoll = false;
+			_shouldRoll = false;
+
+			transform.rotation = Quaternion.LookRotation(_currentMovement);
+			
+			_anim.SetBool("IsRolling", true);
+
+			// Disable all rig builder layers while rolling
+			foreach (var layer in _rigBuilder.layers)
+				layer.active = false;
+
+			_anim.SetLayerWeight(_upperBodyIndex, 0);
+			StartCoroutine(nameof(StartRollCooldown));
+		}
+		else
+		{
+			_shouldRoll = false;
+			_anim.SetBool("IsRolling", false);
+		}
+	}
+
 	/// <summary>
 	/// Returns normalized Vector2 pointing from Player to mouse cursor.
 	/// </summary>
@@ -151,9 +196,18 @@ public class Mover : MonoBehaviour
 
 	public Vector2 GetAimDirection() => _useMouse ? GetMouseDirection() : _prevAimDirection.normalized;
 
+	IEnumerator StartRollCooldown()
+	{
+		yield return new WaitForSeconds(_rollCooldown);
+		_canRoll = true;
+	}
+
 	Animator _anim;
 	CharacterController _characterController;
 	Player _player;
+	RigBuilder _rigBuilder;
+
+	int _upperBodyIndex;
 
 	Vector3 _currentMovement;
 	Vector3 _targetMovement;
@@ -162,5 +216,7 @@ public class Mover : MonoBehaviour
 	bool _isAiming;
 	bool _isMoving;
 	bool _useMouse;
+	bool _shouldRoll;
+	bool _canRoll;
 	float _gravitySpeed;
 }

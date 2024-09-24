@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(HealthComponent))]
@@ -36,10 +37,10 @@ public class Player : MonoBehaviour
 		_mover.SetMovement(movement);
 	}
 
-	public void UseAbility(int slotNumber)
+	public void SelectAbility(int slotNumber)
 	{
 		//TODO unify casting animations with abilities and direction
-        _castingComponent.UseAbility(slotNumber);
+        _castingComponent.SetSelectedAbility(slotNumber);
     }
 	
 	public void UpdateCasting(bool isCasting)
@@ -55,6 +56,11 @@ public class Player : MonoBehaviour
 	public void ToggleShopUI(bool isEnabled)
 	{
 		_shop.ToggleShopUI(isEnabled);
+	}
+
+	public void OnRoll()
+	{
+		_mover.OnRoll();
 	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();

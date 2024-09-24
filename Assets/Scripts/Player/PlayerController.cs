@@ -68,11 +68,17 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void OnUseAbility(int slotNumber)
+	public void OnSelectAbility(int slotNumber)
 	{
         if (_player)
-            _player.UseAbility(slotNumber);
+            _player.SelectAbility(slotNumber);
     }
+
+	public void OnRoll()
+	{
+		if (_player)
+			_player.OnRoll();
+	}
 
 	public void OnCloseShopUI(InputAction.CallbackContext context)
     {

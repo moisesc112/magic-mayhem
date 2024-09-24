@@ -13,12 +13,20 @@ public class CastingComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _animator.SetBool("IsCastingSpell", _isCastingSpell);
-    }
+        if (_isCastingSpell && _abilitySlotsComponent.CanCast())
+        {
+            _animator.SetBool("IsCastingSpell", true);
+            _abilitySlotsComponent.CastSpell();
+        }
+        else
+        {
+			_animator.SetBool("IsCastingSpell", false);
+        }
+	}
 
-    public void UseAbility(int slotNumber)
+    public void SetSelectedAbility(int slotNumber)
     {
-        _abilitySlotsComponent.UseAbility(slotNumber);
+        _abilitySlotsComponent.SetSelectedAbility(slotNumber);
     }
 
     public void UpdateCasting(bool isCastingSpell) => _isCastingSpell = isCastingSpell;

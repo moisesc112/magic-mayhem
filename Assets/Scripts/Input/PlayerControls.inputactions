@@ -33,7 +33,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "UseAbility1",
+                    "name": "SelectAbility1",
                     "type": "Button",
                     "id": "80734064-011f-4214-80ab-862642e9122f",
                     "expectedControlType": "Button",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseAbility2",
+                    "name": "SelectAbility2",
                     "type": "Button",
                     "id": "b2d154be-b9ca-4b82-b854-819e68e2fa3c",
                     "expectedControlType": "Button",
@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseAbility3",
+                    "name": "SelectAbility3",
                     "type": "Button",
                     "id": "b2d5c85a-5ef2-4b32-8323-e7c669ddd5fa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectAbility4",
+                    "type": "Button",
+                    "id": "ce4b71f5-5d02-4d8b-87c8-d501cfa0566b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -63,6 +72,15 @@
                     "name": "OpenShop",
                     "type": "Button",
                     "id": "e374a66c-d30e-4fb5-9192-34eac7ff37e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Evade",
+                    "type": "Button",
+                    "id": "9dc945bc-4139-4647-af0d-5eaf3ad193b2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -139,7 +157,7 @@
                 {
                     "name": "",
                     "id": "73885d36-b400-4749-92be-8c47c2c022eb",
-                    "path": "<Keyboard>/space",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "MK",
@@ -186,8 +204,8 @@
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "UseAbility1",
+                    "groups": "MK",
+                    "action": "SelectAbility1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -198,7 +216,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseAbility1",
+                    "action": "SelectAbility1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -209,7 +227,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseAbility1",
+                    "action": "SelectAbility1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -219,8 +237,8 @@
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "UseAbility2",
+                    "groups": "MK",
+                    "action": "SelectAbility2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -231,7 +249,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseAbility2",
+                    "action": "SelectAbility2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -242,7 +260,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseAbility2",
+                    "action": "SelectAbility2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -252,8 +270,8 @@
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "UseAbility3",
+                    "groups": "MK",
+                    "action": "SelectAbility3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -264,7 +282,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseAbility3",
+                    "action": "SelectAbility3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -275,7 +293,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseAbility3",
+                    "action": "SelectAbility3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -298,6 +316,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenShop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a97bca74-b924-4fa8-8e20-3df32122eb20",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MK",
+                    "action": "Evade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e02c84fd-30fb-4507-9df4-0beaec542736",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MK",
+                    "action": "SelectAbility4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
