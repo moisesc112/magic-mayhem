@@ -8,8 +8,6 @@ public class RadialDamageSource : MonoBehaviour
     
     [SerializeField] RadialDamageInfo _damageInfo;
 
-    [Header("Tracking")]
-
     public HashSet<GameObject> objectsWithinRadius;
 
 	private void Awake()
@@ -44,6 +42,11 @@ public class RadialDamageSource : MonoBehaviour
 	{
 		if (LayerMaskUtility.GameObjectIsInLayer(other.gameObject, _damageInfo.objectsToTrack))
             _objectsWithinRadius.Add(other.gameObject);
+        if (!other.attachedRigidbody.isKinematic)
+        {
+            var dir = other.attachedRigidbody.gameObject.transform.position - transform.position;
+            other.attachedRigidbody.AddForce(dir * _damageInfo.forceStrength, ForceMode.Impulse);
+        }
 	}
 
 	public void OnTriggerExit(Collider other)

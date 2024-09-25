@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
-public class RootMotionNavAgent : MonoBehaviour
+public class AdvancedRootMotionNavAgent : MonoBehaviour
 {
 	Animator anim;
 	NavMeshAgent agent;
@@ -11,7 +11,7 @@ public class RootMotionNavAgent : MonoBehaviour
 	Vector2 smoothDeltaPosition = Vector2.zero;
 	Vector2 velocity = Vector2.zero;
 
-	void Start()
+	void Awake()
 	{
 		anim = GetComponent<Animator>();
 		agent = GetComponent<NavMeshAgent>();

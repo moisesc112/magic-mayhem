@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
     public float maxHealth;
     public float health;
+    [SerializeField] RagdollComponent _ragdollComponent;
 
     public virtual void Awake()
     {
@@ -28,15 +30,18 @@ public class HealthComponent : MonoBehaviour
         Debug.Log("Died");
         if (gameObject.CompareTag("TestEnemyPool"))
         {
-            TestEnemy testEnemy = GetComponent<TestEnemy>();
-            testEnemy.TestEnemyPoolRelease();
-            TestEnemy.CountDeadTestEnemies();
+            //TestEnemy testEnemy = GetComponent<TestEnemy>();
+            //testEnemy.TestEnemyPoolRelease();
+            //TestEnemy.CountDeadTestEnemies();
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
-    }
+
+		if (_ragdollComponent)
+			_ragdollComponent.SetRagdollState(shouldRagdoll: true);
+	}
 
     public virtual void Heal(float healAmount)
     {

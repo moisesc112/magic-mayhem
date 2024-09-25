@@ -17,6 +17,7 @@ MonoBehaviour:
   _expansionSpeed: 44.2
   _timeBeforeDestory: 0
   _damagePerSecond: 500
+  _forceStrength: 50
   _objectsToTrack:
     serializedVersion: 2
     m_Bits: 64
