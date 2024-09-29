@@ -28,7 +28,6 @@ public class ShopUIController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("ON SHOP UI");
         var playerController = PlayerManager.instance.PlayerControllers.FirstOrDefault(x => x.playerIndex == _player.GetPlayerIndex());
         if (playerController != null)
         {
