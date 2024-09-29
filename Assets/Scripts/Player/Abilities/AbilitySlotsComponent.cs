@@ -13,6 +13,7 @@ public class AbilitySlotsComponent : MonoBehaviour
     private void Awake()
     {
         _player = GetComponentInParent<Player>();
+        _selectedAbililtyNumber = 1;
     }
 
     private void Update()
@@ -21,6 +22,8 @@ public class AbilitySlotsComponent : MonoBehaviour
         if (ability2Cooldown > 0) SetAbilityCooldown(2, ability2Cooldown -= Time.deltaTime);
         if (ability3Cooldown > 0) SetAbilityCooldown(3, ability3Cooldown -= Time.deltaTime);
     }
+
+    public bool CanCast() => GetAbilityCooldown(_selectedAbililtyNumber) <= 0;
 
     public void UpdateAbilitySlot(AbilityInfo newAbility, int slotNumber)
     {
@@ -76,20 +79,29 @@ public class AbilitySlotsComponent : MonoBehaviour
         }
     }
 
-    public void UseAbility(int slotNumber)
+    public void CastSpell()
+    {
+        var ability = GetAbility(_selectedAbililtyNumber);
+
+		SetAbilityCooldown(_selectedAbililtyNumber, ability.cooldown);
+		var abilityPrefab = Instantiate(ability.abilityPrefab, _player.GetAvatarPosition(), Quaternion.identity);
+		var abilityComponent = abilityPrefab.GetComponent<Ability>();
+		if (abilityComponent != null)
+		{
+			abilityComponent.SetPlayer(_player);
+		}
+	}
+
+    public void SetSelectedAbility(int slotNumber)
     {
         var ability = GetAbility(slotNumber);
-        if (ability != null && GetAbilityCooldown(slotNumber) <= 0)
+        if (ability != null)
         {
-            SetAbilityCooldown(slotNumber, ability.cooldown);
-            var abilityPrefab = Instantiate(ability.abilityPrefab, _player.GetAvatarPosition(), Quaternion.identity);
-            var abilityComponent = abilityPrefab.GetComponent<Ability>();
-            if (abilityComponent != null)
-            {
-                abilityComponent.SetPlayer(_player);
-            }
+			_selectedAbililtyNumber = slotNumber;
+
         }
     }
 
     private Player _player;
+    int _selectedAbililtyNumber;
 }

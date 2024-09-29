@@ -158,7 +158,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnUseAbility
+        m_MethodName: OnSelectAbility
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnUseAbility
+        m_MethodName: OnSelectAbility
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -190,7 +190,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnUseAbility
+        m_MethodName: OnSelectAbility
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -234,6 +234,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 017f1ad2-6ea3-46e6-b76a-3ee7a2433b02
     m_ActionName: UI/CloseShopUI[/XInputControllerWindows/buttonWest,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 665746253984361426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRoll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9dc945bc-4139-4647-af0d-5eaf3ad193b2
+    m_ActionName: Gameplay/Evade[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 665746253984361426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSelectAbility
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce4b71f5-5d02-4d8b-87c8-d501cfa0566b
+    m_ActionName: Gameplay/SelectAbility4[/Keyboard/4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
