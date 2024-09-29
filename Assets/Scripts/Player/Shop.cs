@@ -3,24 +3,31 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Shop : MonoBehaviour
 {
     public List<AbilityInfo> abilityRegistry;
     public List<AbilityInfo> currentAbilitiesInShop;
 
+    [SerializeField] Player player;
+    [SerializeField] GameObject shopUI;
+    [SerializeField] GameObject abilitySlotConfirmation;
+
+    public void SetAbilityToAdd(AbilityInfo ability) => _abilityToAdd = ability;
+    private AbilityInfo _abilityToAdd;
 
     private void Awake()
     {
-        _shopUIController = GetComponent<ShopUIController>();
-        gameObject.SetActive(false);
+        shopUI.SetActive(false);
+        abilitySlotConfirmation.SetActive(false);
     }
 
     private void Start()
     {
         ShuffleShopAbilityOptions();
-        _shopUIController.UpdateShopDisplay(currentAbilitiesInShop);
     }
 
     public void ShuffleShopAbilityOptions()
@@ -47,13 +54,37 @@ public class Shop : MonoBehaviour
 
     public void PurchaseAbility(int abilityOption)
     {
-        Debug.LogWarning($"Ability Purchased! {currentAbilitiesInShop[abilityOption].name}");
+        // TODO disable button if not enough gold, dont subtract gold yet in case they close UI before selecting the slot
+
+        SetAbilityToAdd(currentAbilitiesInShop[abilityOption]);
+        Debug.Log($"Ability Purchased! {_abilityToAdd.name}");
+        shopUI.SetActive(false);
+        abilitySlotConfirmation.SetActive(true);
+        abilitySlotConfirmation.GetComponent<AbilitySlotConfirmationController>().UpdateAbilityOptionDisplay();
+    }
+
+    public void SetPurchasedAbilitySlot(int slotNumber)
+    {
+        if (_abilityToAdd != null)
+        {
+            var abilitySlotComponent = player.GetComponentInChildren<AbilitySlotsComponent>();
+            if (abilitySlotComponent != null)
+            {
+                // TODO subtract gold and stuff
+                abilitySlotComponent.UpdateAbilitySlot(_abilityToAdd, slotNumber);
+                Debug.Log($"Ability {_abilityToAdd.name} added to slot number {slotNumber}!");
+            }
+        }
+        _abilityToAdd = null;
+        abilitySlotConfirmation.SetActive(false);
+        shopUI.SetActive(true);
+        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop);
     }
 
     public void ToggleShopUI(bool isEnabled)
     {
-        gameObject.SetActive(isEnabled);
+        abilitySlotConfirmation.SetActive(false);
+        shopUI.SetActive(isEnabled);
+        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop);
     }
-
-    private ShopUIController _shopUIController;
 }
