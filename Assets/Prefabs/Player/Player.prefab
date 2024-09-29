@@ -3333,6 +3333,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1347332319351173610, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 5888444495030979594}
+    - target: {fileID: 1347332319351173610, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3289923790391730511, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: _player
       value: 

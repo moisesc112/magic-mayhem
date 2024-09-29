@@ -50,6 +50,7 @@ public class Shop : MonoBehaviour
         {
             currentAbilitiesInShop.Add(abilityRegistry[choice]);
         }
+        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop);
     }
 
     public void PurchaseAbility(int abilityOption)
