@@ -42,7 +42,7 @@ public class RadialDamageSource : MonoBehaviour
 	{
 		if (LayerMaskUtility.GameObjectIsInLayer(other.gameObject, _damageInfo.objectsToTrack))
             _objectsWithinRadius.Add(other.gameObject);
-        if (!other.attachedRigidbody.isKinematic)
+        if (!other.attachedRigidbody?.isKinematic ?? false)
         {
             var dir = other.attachedRigidbody.gameObject.transform.position - transform.position;
             other.attachedRigidbody.AddForce(dir * _damageInfo.forceStrength, ForceMode.Impulse);

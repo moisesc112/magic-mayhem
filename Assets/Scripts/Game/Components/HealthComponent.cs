@@ -5,6 +5,7 @@ public class HealthComponent : MonoBehaviour
 {
     public float maxHealth;
     public float health;
+    public bool IsAlive => health > 0;
     [SerializeField] RagdollComponent _ragdollComponent;
 
     public virtual void Awake()
@@ -40,7 +41,7 @@ public class HealthComponent : MonoBehaviour
         }
 
 		if (_ragdollComponent)
-			_ragdollComponent.SetRagdollState(shouldRagdoll: true);
+			_ragdollComponent.EnableRagdoll();
 	}
 
     public virtual void Heal(float healAmount)
