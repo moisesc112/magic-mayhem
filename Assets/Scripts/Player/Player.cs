@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
 		_mover = GetComponentInChildren<Mover>();
 		_mover.SetPlayer(this);
 		_castingComponent = GetComponentInChildren<CastingComponent>();
-        _abilitySlotsComponent = GetComponent<AbilitySlotsComponent>();
 		_shop = GetComponentInChildren<Shop>();
 		_healthComponent = GetComponentInChildren<HealthComponent>();
 	}
@@ -68,7 +67,6 @@ public class Player : MonoBehaviour
 	HealthComponent _healthComponent;
 	Mover _mover;
 	CastingComponent _castingComponent;
-	AbilitySlotsComponent _abilitySlotsComponent;
 	Shop _shop;
 	int _playerIndex = -1;
 }

@@ -20,6 +20,7 @@ public class ShopUIController : MonoBehaviour
     [SerializeField] TextMeshProUGUI abilityOption2;
     [SerializeField] TextMeshProUGUI abilityOption3;
 
+    [SerializeField] MultiplayerEventSystem multiplayerEventSystem;
     [SerializeField] GameObject firstSelectedGameObject;
     public InputSystemUIInputModule inputSystemUIInputModule => _inputModule;
     [SerializeField] InputSystemUIInputModule _inputModule;
@@ -42,5 +43,9 @@ public class ShopUIController : MonoBehaviour
             abilityOption2.text = currentAbilitiesInShop[1].name;
             abilityOption3.text = currentAbilitiesInShop[2].name;
         }
+        multiplayerEventSystem.SetSelectedGameObject(firstSelectedGameObject);
+
     }
+
+    public Player GetUIControllingPlayer() => _player;
 }
