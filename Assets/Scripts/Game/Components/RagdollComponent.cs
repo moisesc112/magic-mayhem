@@ -1,53 +1,84 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent (typeof(CharacterController))]
 public class RagdollComponent : MonoBehaviour
 {
+
+	[Header("Optional")]
+	[SerializeField] NavMeshAgent _agent;
+	[SerializeField] bool _trackRoot;
+	[SerializeField] Transform _boundMesh;
+	[SerializeField] Transform _centerOfMass;
+	[SerializeField] bool _disableOwnCollider = true;
+
 	void Awake()
 	{
 		_ragdollRigidBodies = GetComponentsInChildren<Rigidbody>();
-		_selfRigidBody = GetComponent<Rigidbody>();
+		_ragdollColliders = GetComponentsInChildren<Collider>();
 		_animator = GetComponent<Animator>();
-		_characterController = GetComponent<CharacterController>();
-		SetRagdollState(shouldRagdoll: false);
+		_agent = GetComponent<NavMeshAgent>();
+
+		_ownCollider = GetComponent<Collider>();
+		_ownRigidBody = GetComponent<Rigidbody>();
+		DisableRagdoll();
+		_isRagdolling = false;
 	}
 
 	void Update()
 	{
-		if (_shouldRagdoll)
+		if (_trackRoot && _isRagdolling)
 		{
-			transform.position = _position;
-			transform.rotation = _rotation;
+			_boundMesh.transform.position = _centerOfMass.position;
 		}
 	}
 
-	public void SetRagdollState(bool shouldRagdoll)
+	public void SetBoundMesh(Transform boundMesh)
 	{
-		_shouldRagdoll = shouldRagdoll;
-		if (shouldRagdoll)
-		{
-			_position = transform.position;
-			_rotation = transform.rotation;
-
-			if (_characterController.isGrounded)
-				transform.position = transform.position + (Vector3.up * 1.4f);
-		}
-
-		foreach(var rb in _ragdollRigidBodies)
-		{
-			rb.isKinematic = !shouldRagdoll;
-			_animator.enabled = !shouldRagdoll;
-			_characterController.enabled = !shouldRagdoll;
-			//_selfRigidBody.isKinematic = shouldRagdoll;
-		}
+		_boundMesh = boundMesh;
 	}
 
+	public void EnableRagdoll()
+	{
+		_isRagdolling = true;
+		foreach (var rb in _ragdollRigidBodies)
+			rb.isKinematic = false;
+
+		foreach (var collider in _ragdollColliders)
+			collider.enabled = true;
+
+		// This Rigidbody should always be kinematic. Ensure it stays that way after interating through children.
+		_ownRigidBody.isKinematic = true;
+
+		if (_agent)
+			_agent.enabled = false;
+		_animator.enabled = false;
+
+		if (_disableOwnCollider)
+			_ownCollider.enabled = false;
+	}
+
+	public void DisableRagdoll()
+	{
+		_isRagdolling = false;
+		foreach (var rb in _ragdollRigidBodies)
+			rb.isKinematic = true;
+
+		foreach (var collider in _ragdollColliders)
+			collider.enabled = false;
+
+		_ownCollider.enabled = true;
+
+		if (_agent)
+			_agent.enabled = true;
+		_animator.enabled = true;
+	}
+
+	bool _isRagdolling;
 	Rigidbody[] _ragdollRigidBodies;
-	Rigidbody _selfRigidBody;
+	Collider[] _ragdollColliders;
 	Animator _animator;
-	CharacterController _characterController;
-	Vector3 _position;
-	Quaternion _rotation;
-	bool _shouldRagdoll;
+	Collider _ownCollider;
+	Rigidbody _ownRigidBody;
 }

@@ -49,7 +49,7 @@ public class NavPollerComponent : MonoBehaviour
 		while (true)
 		{
 			// There is a chance that the coroutine could start before players are intialized. Wait a frame before processing.
-			if (_targetPlayer is null)
+			if (_targetPlayer is null || !_agent.enabled)
 			{
 				yield return new WaitForEndOfFrame();
 			}
