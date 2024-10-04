@@ -13,4 +13,6 @@ public class AbilityInfo : ScriptableObject
     public float despawnTime;
     public Vector3 projectileTargetDirection;
     public float projectileTargetSpeed;
+    public float projectileSpread = 0.0f;
+    public AudioClip castingSound;
 }

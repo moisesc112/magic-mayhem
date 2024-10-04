@@ -13,7 +13,9 @@ public class AbilitySlotsComponent : MonoBehaviour
     private void Awake()
     {
         _player = GetComponentInParent<Player>();
-        _selectedAbililtyNumber = 1;
+		_castingComponent = GetComponent<CastingComponent>();
+		_audioSource = GetComponent<AudioSource>();
+		_selectedAbililtyNumber = 1;
     }
 
     private void Update()
@@ -84,11 +86,22 @@ public class AbilitySlotsComponent : MonoBehaviour
         var ability = GetAbility(_selectedAbililtyNumber);
 
 		SetAbilityCooldown(_selectedAbililtyNumber, ability.cooldown);
-		var abilityPrefab = Instantiate(ability.abilityPrefab, _player.GetAvatarPosition(), Quaternion.identity);
+        var pos = _castingComponent.GetCastingPosition();
+        var spread = ability.projectileSpread;
+
+		var rot = _castingComponent.GetRandomCastingSpreadRotation(spread);
+		var abilityPrefab = Instantiate(ability.abilityPrefab, pos, rot);
 		var abilityComponent = abilityPrefab.GetComponent<Ability>();
 		if (abilityComponent != null)
 		{
 			abilityComponent.SetPlayer(_player);
+		}
+
+        if (ability.castingSound is object)
+        {
+            _audioSource.pitch = Random.Range(0.9f, 1.2f);
+            _audioSource.PlayOneShot(ability.castingSound);
+
 		}
 	}
 
@@ -102,6 +115,10 @@ public class AbilitySlotsComponent : MonoBehaviour
         }
     }
 
+    AbilityInfo GetCurrentSelectedAbility() => GetAbility(_selectedAbililtyNumber);
+
     private Player _player;
     int _selectedAbililtyNumber;
+    CastingComponent _castingComponent;
+    AudioSource _audioSource;
 }
