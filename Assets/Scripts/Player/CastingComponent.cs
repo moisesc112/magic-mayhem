@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(AbilitySlotsComponent))]
@@ -23,6 +24,14 @@ public class CastingComponent : MonoBehaviour
 			_animator.SetBool("IsCastingSpell", false);
         }
 	}
+
+    public Vector3 GetCastingPosition() => _castingLocation.position;
+    public Quaternion GetRandomCastingSpreadRotation(float angle)
+    {
+        var randomY = Random.Range(-angle, angle);
+
+        return Quaternion.LookRotation(_castingLocation.forward) * Quaternion.Euler(0, randomY, 0);
+    }
 
     public void SetSelectedAbility(int slotNumber)
     {
