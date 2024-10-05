@@ -12,13 +12,11 @@ using UnityEngine.UI;
 
 public class ShopUIController : MonoBehaviour
 {
-    [SerializeField] Button abilityOptionButton1;
-    [SerializeField] Button abilityOptionButton2;
-    [SerializeField] Button abilityOptionButton3;
+    [SerializeField] GameObject abilityOption1;
+    [SerializeField] GameObject abilityOption2;
+    [SerializeField] GameObject abilityOption3;
 
-    [SerializeField] TextMeshProUGUI abilityOption1;
-    [SerializeField] TextMeshProUGUI abilityOption2;
-    [SerializeField] TextMeshProUGUI abilityOption3;
+    [SerializeField] TextMeshProUGUI goldDisplay;
 
     [SerializeField] MultiplayerEventSystem multiplayerEventSystem;
     [SerializeField] GameObject firstSelectedGameObject;
@@ -35,16 +33,21 @@ public class ShopUIController : MonoBehaviour
         }
     }
 
-    public void UpdateShopDisplay(List<AbilityInfo> currentAbilitiesInShop)
+    public void UpdateShopDisplay(List<AbilityInfo> currentAbilitiesInShop, bool setFirstSelectedGameObject = true)
     {
         if (currentAbilitiesInShop != null && currentAbilitiesInShop.Count() >= 3)
         {
-            abilityOption1.text = currentAbilitiesInShop[0].name;
-            abilityOption2.text = currentAbilitiesInShop[1].name;
-            abilityOption3.text = currentAbilitiesInShop[2].name;
+            abilityOption1.GetComponentInChildren<ShopOptionCardController>().UpdateShopOptionCardWithAbility(currentAbilitiesInShop[0]);
+            abilityOption2.GetComponentInChildren<ShopOptionCardController>().UpdateShopOptionCardWithAbility(currentAbilitiesInShop[1]);
+            abilityOption3.GetComponentInChildren<ShopOptionCardController>().UpdateShopOptionCardWithAbility(currentAbilitiesInShop[2]);
         }
-        multiplayerEventSystem.SetSelectedGameObject(firstSelectedGameObject);
 
+        if (setFirstSelectedGameObject)
+        {
+            multiplayerEventSystem.SetSelectedGameObject(firstSelectedGameObject);
+        }
+
+        goldDisplay.text = $"Gold: {_player.PlayerStats.gold}";
     }
 
     public Player GetUIControllingPlayer() => _player;

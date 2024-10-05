@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(HealthComponent))]
+[RequireComponent(typeof(PlayerStats))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
@@ -14,12 +14,12 @@ public class Player : MonoBehaviour
 		_mover.SetPlayer(this);
 		_castingComponent = GetComponentInChildren<CastingComponent>();
 		_shop = GetComponentInChildren<Shop>();
-		_healthComponent = GetComponentInChildren<HealthComponent>();
+		_playerStats = GetComponent<PlayerStats>();
 	}
 
 	void Update()
 	{
-		UIDebugUtility.instance.UpdateTrackedHealth(_healthComponent.health);
+		UIDebugUtility.instance.UpdateTrackedHealth(_playerStats.health);
 	}
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
@@ -63,8 +63,9 @@ public class Player : MonoBehaviour
 	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
+	public PlayerStats PlayerStats => GetComponent<PlayerStats>();
 
-	HealthComponent _healthComponent;
+	PlayerStats _playerStats;
 	Mover _mover;
 	CastingComponent _castingComponent;
 	Shop _shop;

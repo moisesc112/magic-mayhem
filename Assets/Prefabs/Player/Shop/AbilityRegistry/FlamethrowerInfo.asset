@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Flamethrower
   description: Sends a volley of flames in a direction while casting
+  abiltyType: 0
   cooldown: 2
   damage: 1
+  cost: 5
   abilityPrefab: {fileID: 4835259540611281359, guid: a5e46febbf7210a4c8cb76a2f0989fc7, type: 3}
   projectileDestoryAfterCollision: 1
   despawnTime: 3
   projectileTargetDirection: {x: 1, y: 0, z: 0}
   projectileTargetSpeed: 2
+  projectileSpread: 0
+  castingSound: {fileID: 0}
