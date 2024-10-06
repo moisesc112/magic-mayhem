@@ -7,6 +7,7 @@ public class HealthComponent : MonoBehaviour
     public float health;
     public bool IsAlive => health > 0;
     [SerializeField] RagdollComponent _ragdollComponent;
+    [SerializeField] LootDropComponent lootDropComponent;
 
     public virtual void Awake()
     {
@@ -38,6 +39,11 @@ public class HealthComponent : MonoBehaviour
         else
         {
             //Destroy(gameObject);
+        }
+
+        if (lootDropComponent != null)
+        {
+            lootDropComponent.DropLoot();
         }
 
 		if (_ragdollComponent)

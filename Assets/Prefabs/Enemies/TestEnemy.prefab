@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -7181993239657775553}
   - component: {fileID: 5218303701976412108}
   - component: {fileID: 6680254653383103371}
+  - component: {fileID: 9077702978495938066}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -168,6 +169,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   health: 3
+  _ragdollComponent: {fileID: 0}
+  lootDropComponent: {fileID: 9077702978495938066}
   dodgeChance: 0
 --- !u!135 &5218303701976412108
 SphereCollider:
@@ -196,3 +199,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _distancePollInfos:
   - {fileID: 11400000, guid: 9cf8749a1f7bb3e4e85aa2b298537a49, type: 2}
+--- !u!114 &9077702978495938066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670978564886079381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391081dc3dd7d6444b0e1d83a683922b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootInfo: {fileID: 11400000, guid: 29c631c845f33b248b310370097f9b05, type: 2}
