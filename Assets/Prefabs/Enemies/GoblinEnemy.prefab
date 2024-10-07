@@ -3065,6 +3065,7 @@ GameObject:
   - component: {fileID: 1534788581507665480}
   - component: {fileID: 1534788581507665483}
   - component: {fileID: 1534788581507665489}
+  - component: {fileID: 5330381951948382734}
   m_Layer: 0
   m_Name: GoblinEnemy
   m_TagString: Untagged
@@ -3237,6 +3238,7 @@ MonoBehaviour:
   maxHealth: 1
   health: 0
   _ragdollComponent: {fileID: 1534788581507665486}
+  lootDropComponent: {fileID: 5330381951948382734}
 --- !u!136 &1534788581507665489
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3251,6 +3253,19 @@ CapsuleCollider:
   m_Height: 1.7759397
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &5330381951948382734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871664808294306838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391081dc3dd7d6444b0e1d83a683922b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootInfo: {fileID: 11400000, guid: 29c631c845f33b248b310370097f9b05, type: 2}
 --- !u!1 &5871664808294307820
 GameObject:
   m_ObjectHideFlags: 0

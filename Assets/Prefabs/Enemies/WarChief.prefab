@@ -1028,6 +1028,7 @@ GameObject:
   - component: {fileID: 8144076873232839305}
   - component: {fileID: 8144076873232839307}
   - component: {fileID: 8144076873232839308}
+  - component: {fileID: 4434433441234141619}
   m_Layer: 0
   m_Name: WarChief
   m_TagString: Untagged
@@ -1140,6 +1141,7 @@ MonoBehaviour:
   maxHealth: 5
   health: 0
   _ragdollComponent: {fileID: 8144076873232839305}
+  lootDropComponent: {fileID: 4434433441234141619}
 --- !u!114 &8144076873232839304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1205,6 +1207,19 @@ MonoBehaviour:
   _damage: 0
   _jumpSource: {fileID: 1934884543139250488, guid: 5d0abbbbffa781e4a97d576161806adf, type: 3}
   _hammerHitPoint: {fileID: 2004624189}
+--- !u!114 &4434433441234141619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524645707314563714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391081dc3dd7d6444b0e1d83a683922b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootInfo: {fileID: 11400000, guid: 29c631c845f33b248b310370097f9b05, type: 2}
 --- !u!1 &7524645707314564468
 GameObject:
   m_ObjectHideFlags: 0

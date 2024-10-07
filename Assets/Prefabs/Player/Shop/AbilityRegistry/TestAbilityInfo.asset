@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: test
   description: test
+  abiltyType: 0
   cooldown: 0.5
   damage: 1
+  cost: 1
   abilityPrefab: {fileID: 2600358840593189108, guid: 2784db48419428443b80b333a74bd155, type: 3}
   projectileDestoryAfterCollision: 1
   despawnTime: 5
   projectileTargetDirection: {x: 1, y: 0, z: 0}
   projectileTargetSpeed: 3
+  projectileSpread: 0
+  castingSound: {fileID: 0}

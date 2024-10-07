@@ -44,12 +44,16 @@ public class Shop : MonoBehaviour
         {
             currentAbilitiesInShop.Add(abilityRegistry[choice]);
         }
-        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop);
+        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop, false);
     }
 
     public void PurchaseAbility(int abilityOption)
     {
-        // TODO disable button if not enough gold, dont subtract gold yet in case they close UI before selecting the slot
+        if (currentAbilitiesInShop[abilityOption].cost > player.PlayerStats.gold)
+        {
+            // TODO show a message to player?
+            return;
+        }
 
         SetAbilityToAdd(currentAbilitiesInShop[abilityOption]);
         Debug.Log($"Ability Purchased! {_abilityToAdd.name}");
@@ -65,7 +69,7 @@ public class Shop : MonoBehaviour
             var abilitySlotComponent = player.GetComponentInChildren<AbilitySlotsComponent>();
             if (abilitySlotComponent != null)
             {
-                // TODO subtract gold and stuff
+                player.PlayerStats.gold -= _abilityToAdd.cost;
                 abilitySlotComponent.UpdateAbilitySlot(_abilityToAdd, slotNumber);
                 Debug.Log($"Ability {_abilityToAdd.name} added to slot number {slotNumber}!");
             }
