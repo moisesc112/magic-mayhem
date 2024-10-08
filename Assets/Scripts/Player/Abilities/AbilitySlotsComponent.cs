@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AbilitySlotsComponent : MonoBehaviour
@@ -10,15 +11,21 @@ public class AbilitySlotsComponent : MonoBehaviour
     public float ability2Cooldown = 0;
     public float ability3Cooldown = 0;
 
+    public event EventHandler<AbilityChangedEventArgs> AbilityChanged;
+
     private void Awake()
     {
         _player = GetComponentInParent<Player>();
 		_castingComponent = GetComponent<CastingComponent>();
 		_audioSource = GetComponent<AudioSource>();
-		_selectedAbililtyNumber = 1;
     }
 
-    private void Update()
+	void Start()
+	{
+        SetSelectedAbility(1);
+	}
+
+	private void Update()
     {
         if (ability1Cooldown > 0) SetAbilityCooldown(1, ability1Cooldown -= Time.deltaTime);
         if (ability2Cooldown > 0) SetAbilityCooldown(2, ability2Cooldown -= Time.deltaTime);
@@ -79,6 +86,7 @@ public class AbilitySlotsComponent : MonoBehaviour
                 ability3Cooldown = newValue;
                 break;
         }
+
     }
 
     public void CastSpell()
@@ -99,7 +107,7 @@ public class AbilitySlotsComponent : MonoBehaviour
 
         if (ability.castingSound is object)
         {
-            _audioSource.pitch = Random.Range(0.9f, 1.2f);
+            _audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.2f);
             _audioSource.PlayOneShot(ability.castingSound);
 
 		}
@@ -109,16 +117,29 @@ public class AbilitySlotsComponent : MonoBehaviour
     {
         var ability = GetAbility(slotNumber);
         if (ability != null)
-        {
 			_selectedAbililtyNumber = slotNumber;
 
-        }
+        RaiseAbilityChanged();
     }
 
     AbilityInfo GetCurrentSelectedAbility() => GetAbility(_selectedAbililtyNumber);
+
+    void RaiseAbilityChanged()
+    {
+		AbilityChanged?.Invoke(this, new AbilityChangedEventArgs(GetCurrentSelectedAbility()));
+	}
 
     private Player _player;
     int _selectedAbililtyNumber;
     CastingComponent _castingComponent;
     AudioSource _audioSource;
+
+    public sealed class AbilityChangedEventArgs : EventArgs
+    {
+        public AbilityChangedEventArgs(AbilityInfo info)
+        {
+            abilityInfo = info;
+        }
+        public AbilityInfo abilityInfo { get; }
+    }
 }
