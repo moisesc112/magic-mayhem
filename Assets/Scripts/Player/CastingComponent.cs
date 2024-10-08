@@ -1,7 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(AbilitySlotsComponent))]
+[RequireComponent(typeof(Animator), typeof(AbilitySlotsComponent), typeof(Mover))]
 public class CastingComponent : MonoBehaviour
 {
     [SerializeField] Transform _castingLocation;
@@ -9,19 +8,18 @@ public class CastingComponent : MonoBehaviour
 	{
 		_animator = GetComponent<Animator>();
         _abilitySlotsComponent = GetComponent<AbilitySlotsComponent>();
-    }
+        _mover = GetComponent<Mover>();
+	}
 
     // Update is called once per frame
     void Update()
     {
-        if (_isCastingSpell && _abilitySlotsComponent.CanCast())
+        if (!_mover.isRolling && _isCastingSpell && _abilitySlotsComponent.CanCast())
         {
-            _animator.SetBool("IsCastingSpell", true);
+            _castRight = !_castRight;
+            _animator.SetInteger("CastVariant", Random.Range(1, 4));
+			_animator.SetTrigger($"{(_castRight ? "R" : "L")}Cast");
             _abilitySlotsComponent.CastSpell();
-        }
-        else
-        {
-			_animator.SetBool("IsCastingSpell", false);
         }
 	}
 
@@ -41,6 +39,8 @@ public class CastingComponent : MonoBehaviour
     public void UpdateCasting(bool isCastingSpell) => _isCastingSpell = isCastingSpell;
 
     bool _isCastingSpell;
+    bool _castRight;
     Animator _animator;
     AbilitySlotsComponent _abilitySlotsComponent;
+    Mover _mover;
 }
