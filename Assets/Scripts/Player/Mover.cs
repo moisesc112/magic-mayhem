@@ -15,6 +15,8 @@ public class Mover : MonoBehaviour
 
 	public TextMeshProUGUI playerVelocityCounter;
 
+	public bool isRolling => !_canRoll;
+
 	void Awake()
 	{
 		_anim = GetComponent<Animator>();
@@ -168,7 +170,7 @@ public class Mover : MonoBehaviour
 
 			transform.rotation = Quaternion.LookRotation(_currentMovement);
 			
-			_anim.SetBool("IsRolling", true);
+			_anim.SetTrigger("Roll");
 
 			// Disable all rig builder layers while rolling
 			foreach (var layer in _rigBuilder.layers)
@@ -180,7 +182,6 @@ public class Mover : MonoBehaviour
 		else
 		{
 			_shouldRoll = false;
-			_anim.SetBool("IsRolling", false);
 		}
 	}
 
