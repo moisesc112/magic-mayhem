@@ -11,6 +11,9 @@ public class CharacterCardController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private GameObject readyIcon;
     [SerializeField] private Button readyButton;
+    [SerializeField] private Image characterImage; // The Image component that will display the sprites
+    [SerializeField] private Sprite defaultSprite; // The sprite shown before the player clicks "Ready"
+    [SerializeField] private Sprite readySprite; // The sprite shown when the player is ready
     [SerializeField] private InputSystemUIInputModule _inputModule;
 
     private TextMeshProUGUI readyButtonText;
@@ -39,6 +42,9 @@ public class CharacterCardController : MonoBehaviour
 
         readyButtonText.text = "Ready?";
         readyButtonText.alignment = TextAlignmentOptions.Center;
+
+        // Set the default sprite initially
+        characterImage.sprite = defaultSprite;
 
         // Remove any existing listeners and add the new listener
         readyButton.onClick.RemoveAllListeners();
@@ -73,6 +79,9 @@ public class CharacterCardController : MonoBehaviour
         // Toggle the ready state
         _isReady = !_isReady;
         readyIcon.SetActive(_isReady);
+
+        // Swap the sprite based on the ready state
+        characterImage.sprite = _isReady ? readySprite : defaultSprite;
 
         string newText = _isReady ? "Ready!" : "Ready?";
         readyButtonText.text = newText;

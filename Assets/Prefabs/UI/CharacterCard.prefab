@@ -616,6 +616,9 @@ MonoBehaviour:
   titleText: {fileID: 4817374669491373845}
   readyIcon: {fileID: 2071427720}
   readyButton: {fileID: 8741610690449287255}
+  characterImage: {fileID: 5981201532930987069}
+  defaultSprite: {fileID: 21300000, guid: 66ae780feda404ca2899559ae690d035, type: 3}
+  readySprite: {fileID: 21300000, guid: e2596b3b0d2114d4695e0e7f976f2c37, type: 3}
   _inputModule: {fileID: 1592403965372850436}
 --- !u!1 &7205141293213076468
 GameObject:
