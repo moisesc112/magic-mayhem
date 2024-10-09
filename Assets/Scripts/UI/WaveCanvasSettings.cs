@@ -16,12 +16,17 @@ public class WaveCanvasSettings : MonoBehaviour
     void Start()
     {
         waveManager = FindObjectOfType<WaveManager>();
-        gameStartCountdownTime = waveManager.timeBeforeGameStarts;
+        if (waveManager is object)
+            gameStartCountdownTime = waveManager.timeBeforeGameStarts;
+ 
     }
 
     void Update()
     {
-        if (!WaveManager.instance.isGameFinished)
+        if (waveManager is null)
+            return;
+
+        if (WaveManager.inTestingScene && WaveManager.gameStarted)
         {
             if (WaveManager.instance.inPlaceholderScene && WaveManager.instance.gameStarted)
             {
