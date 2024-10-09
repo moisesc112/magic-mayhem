@@ -4,98 +4,68 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-	[SerializeField] CharacterCardController playerSetupMenu;
-	[SerializeField] GameObject playerCardRoot;
-	[SerializeField] TextMeshProUGUI countDownText;
-	[SerializeField] string sceneToLoad;
+    [SerializeField] private CharacterCardController playerSetupMenu;
+    [SerializeField] private GameObject playerCardRoot;
+    [SerializeField] private TextMeshProUGUI countDownText;
+    [SerializeField] private Button startButton;
+    [SerializeField] private string sceneToLoad = "Game";
 
-	private void Awake()
-	{
-		_playerCardByIndex = new Dictionary<int, CharacterCardController> ();
-		_readyStatusByPlayerId = new Dictionary<int, bool>();
-	}
+    private Dictionary<int, bool> _readyStatusByPlayerId = new Dictionary<int, bool>();
 
-	void Start()
-	{
-		PlayerManager.instance.SetJoiningEnabled(true);
-		PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
-		PlayerManager.instance.PlayerControllerRemoved += PlayerManager_OnPlayerControllerRemoved;
-	}
+    private void Awake()
+    {
+        startButton.gameObject.SetActive(true);
+        startButton.interactable = false;
+        startButton.onClick.AddListener(OnStartButtonClicked);
+    }
 
-	void OnDestroy()
-	{
-		PlayerManager.instance.PlayerControllerJoined -= PlayerManager_OnPlayerControllerJoined;
-	}
+    private void Start()
+    {
+        PlayerManager.instance.SetJoiningEnabled(true);
+        PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
+        PlayerManager.instance.PlayerControllerRemoved += PlayerManager_OnPlayerControllerRemoved;
+    }
 
-	public void StartGame()
-	{
-		PlayerManager.instance.SetJoiningEnabled(false);
-		SceneManager.LoadScene(sceneToLoad);
-		WaveManager.OnSceneLoaded(sceneToLoad);
-	}
+    private void OnDestroy()
+    {
+        PlayerManager.instance.PlayerControllerJoined -= PlayerManager_OnPlayerControllerJoined;
+        PlayerManager.instance.PlayerControllerRemoved -= PlayerManager_OnPlayerControllerRemoved;
+    }
 
-	void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)
-	{
-		var playerController = e.playerController;
-		var newCard = Instantiate(playerSetupMenu, playerCardRoot.transform);
-		newCard.SetPlayerIndex(playerController.playerIndex);
-		newCard.PlayerReadyStatusChanged += CharacterCardController_OnPlayerReadyStatusChanged;
-		playerController.playerInput.uiInputModule = newCard.inputSystemUIInputModule;
-		_playerCardByIndex.Add(e.playerController.playerIndex, newCard);
-		_readyStatusByPlayerId[e.playerController.playerIndex] = false;
-		CheckIfShouldStartGame();
-	}
+    private void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)
+    {
+        var playerController = e.playerController;
+        var newCard = Instantiate(playerSetupMenu, playerCardRoot.transform);
+        newCard.SetPlayerIndex(playerController.playerIndex);
+        newCard.PlayerReadyStatusChanged += CharacterCardController_OnPlayerReadyStatusChanged;
+        _readyStatusByPlayerId[playerController.playerIndex] = false;
+        CheckIfShouldEnableStartButton();
+    }
 
-	void PlayerManager_OnPlayerControllerRemoved(object sender, PlayerManager.PlayerRemovedEventArgs e)
-	{
-		if (!_playerCardByIndex.TryGetValue(e.playerIndex, out var cardController)) return;
+    private void PlayerManager_OnPlayerControllerRemoved(object sender, PlayerManager.PlayerRemovedEventArgs e)
+    {
+        _readyStatusByPlayerId.Remove(e.playerIndex);
+        CheckIfShouldEnableStartButton();
+    }
 
-		cardController.PlayerReadyStatusChanged -= CharacterCardController_OnPlayerReadyStatusChanged;
+    private void CharacterCardController_OnPlayerReadyStatusChanged(object sender, CharacterCardController.PlayerReadyEventArgs e)
+    {
+        _readyStatusByPlayerId[e.playerId] = e.ready;
+        CheckIfShouldEnableStartButton();
+    }
 
-		Destroy(cardController.gameObject);
-		_playerCardByIndex.Remove(e.playerIndex);
-		_readyStatusByPlayerId.Remove(e.playerIndex);
-		CheckIfShouldStartGame();
-	}
+    private void CheckIfShouldEnableStartButton()
+    {
+        bool allPlayersReady = _readyStatusByPlayerId.Count > 0 && _readyStatusByPlayerId.Values.All(status => status);
+        startButton.interactable = allPlayersReady;
+    }
 
-	void CharacterCardController_OnPlayerReadyStatusChanged(object sender, CharacterCardController.PlayerReadyEventArgs e)
-	{
-		_readyStatusByPlayerId[e.playerId] = e.ready;
-		CheckIfShouldStartGame();
-	}
-
-	void CheckIfShouldStartGame()
-	{
-		var ready = _readyStatusByPlayerId.Keys.Count > 0 && _readyStatusByPlayerId.Values.All(ready => ready);
-		if (ready)
-		{
-			// Show countdown
-			countDownText.gameObject.transform.parent.gameObject.SetActive(true);
-			StartCoroutine(nameof(BeginCountdown));
-		}
-		else
-		{
-			// Hide countdown, stop timer
-			countDownText.gameObject.transform.parent.gameObject.SetActive(false);
-			StopCoroutine(nameof(BeginCountdown));
-		}
-	}
-
-	IEnumerator BeginCountdown()
-	{
-		var count = 3;
-		for(int i = count; i >= 0; i--)
-		{
-			countDownText.text = i.ToString();
-			yield return new WaitForSeconds(1.0f);
-		}
-
-		StartGame();
-	}
-
-	Dictionary<int, CharacterCardController> _playerCardByIndex;
-	Dictionary<int, bool> _readyStatusByPlayerId;
+    private void OnStartButtonClicked()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
 }
