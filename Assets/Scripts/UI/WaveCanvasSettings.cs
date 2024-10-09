@@ -16,13 +16,17 @@ public class WaveCanvasSettings : MonoBehaviour
     void Start()
     {
         waveManager = FindObjectOfType<WaveManager>();
-        gameStartCountdownTime = waveManager.timeBeforeGameStarts;
+        if (waveManager is object)
+            gameStartCountdownTime = waveManager.timeBeforeGameStarts;
  
     }
 
     // Allows to change wave countdown text during the game
     void Update()
     {
+        if (waveManager is null)
+            return;
+
         if (WaveManager.inTestingScene && WaveManager.gameStarted)
         {
             currentWaveText.text = "Wave: " + WaveManager.currentWave;
