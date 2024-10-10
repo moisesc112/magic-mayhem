@@ -105,7 +105,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.3
+    agentRadius: 0.4
     agentHeight: 2
     agentSlope: 45
     agentClimb: 1.22
@@ -113,7 +113,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.1
+    cellSize: 0.13333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -1274,6 +1274,10 @@ PrefabInstance:
     - target: {fileID: 116744, guid: e19bcaa8411e331408aee1af9f3a66d0, type: 3}
       propertyPath: m_Name
       value: SF_Prop_Flag_03 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 116744, guid: e19bcaa8411e331408aee1af9f3a66d0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 421898, guid: e19bcaa8411e331408aee1af9f3a66d0, type: 3}
       propertyPath: m_RootOrder
@@ -13984,6 +13988,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SF_Bld_Market_01
       objectReference: {fileID: 0}
+    - target: {fileID: 128320, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 481082, guid: b6efa241831641e45b35475a92c95b29, type: 3}
       propertyPath: m_RootOrder
       value: 30
@@ -14043,6 +14051,46 @@ PrefabInstance:
     - target: {fileID: 481082, guid: b6efa241831641e45b35475a92c95b29, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679813538412696307, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421789931015123087, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2699959393820204221, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100108913800714665, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425837897221438392, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567672684988779053, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4181515607006137902, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318361908426090931, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798605701698258869, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400136343845823026, guid: b6efa241831641e45b35475a92c95b29, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6efa241831641e45b35475a92c95b29, type: 3}
@@ -20240,6 +20288,10 @@ PrefabInstance:
     - target: {fileID: 199924, guid: 2d7d9c8d281fac4448105c84b5936304, type: 3}
       propertyPath: m_Name
       value: SF_Bld_House_Red_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 199924, guid: 2d7d9c8d281fac4448105c84b5936304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 463018, guid: 2d7d9c8d281fac4448105c84b5936304, type: 3}
       propertyPath: m_RootOrder
