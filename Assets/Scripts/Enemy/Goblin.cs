@@ -1,7 +1,6 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Pool;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavPollerComponent))]
