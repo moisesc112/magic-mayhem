@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2113990066099523738}
   - component: {fileID: 2113990066099523732}
   - component: {fileID: 2113990066099523739}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: circles_vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4902,7 +4902,7 @@ GameObject:
   - component: {fileID: 2113990066333195712}
   - component: {fileID: 2113990066333195714}
   - component: {fileID: 2113990066333195713}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'glow_vertical '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9784,7 +9784,7 @@ GameObject:
   - component: {fileID: 7412106615202093703}
   - component: {fileID: 7412106615202093705}
   - component: {fileID: 7412106615202093704}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14666,7 +14666,7 @@ GameObject:
   - component: {fileID: 7412106615940209053}
   - component: {fileID: 7412106615940209055}
   - component: {fileID: 7412106615940209054}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19568,7 +19568,7 @@ GameObject:
   - component: {fileID: 7412106616094066699}
   - component: {fileID: 8004582789307450801}
   - component: {fileID: -7795949259397648062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24566,7 +24566,7 @@ GameObject:
   - component: {fileID: 7412106616348467836}
   - component: {fileID: 7412106616348467838}
   - component: {fileID: 7412106616348467837}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: aura_vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}

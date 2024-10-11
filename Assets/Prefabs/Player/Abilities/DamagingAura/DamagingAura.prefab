@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2167446387808179998}
   - component: {fileID: 2167446387808179996}
   - component: {fileID: 2167446387808179999}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4902,7 +4902,7 @@ GameObject:
   - component: {fileID: 2167446388347710823}
   - component: {fileID: 2167446388347710821}
   - component: {fileID: 2167446388347710820}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9784,7 +9784,7 @@ GameObject:
   - component: {fileID: 2167446388960849893}
   - component: {fileID: 2167446388960849899}
   - component: {fileID: 2167446388960849898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14666,7 +14666,7 @@ GameObject:
   - component: {fileID: 399778011845047472}
   - component: {fileID: 6179898629547908603}
   - component: {fileID: 3055959027279946349}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19548,7 +19548,7 @@ GameObject:
   - component: {fileID: 7320661712846382289}
   - component: {fileID: 7320661712846382287}
   - component: {fileID: 7320661712846382288}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24443,7 +24443,7 @@ GameObject:
   - component: {fileID: 4846727385652300513}
   - component: {fileID: 9168595052705377340}
   - component: {fileID: -7452208198051213618}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DamagingAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}

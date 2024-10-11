@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DamagingAuraStatusEffect
   m_EditorClassIdentifier: 
   statusEffectName: Damaging Aura
-  statusEffectDescription: Healing per second while in Damaging Aura radius
+  statusEffectDescription: Gain additional damage while in Damaging Aura radius
   stat: 1
   valueType: 0
   value: 1

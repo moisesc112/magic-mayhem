@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -9066894078994080318}
   - component: {fileID: -913174754782752226}
   - component: {fileID: 7138499329036787085}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealingAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5042,7 +5042,7 @@ GameObject:
   - component: {fileID: 6331275908246812909}
   - component: {fileID: 6331275908246812899}
   - component: {fileID: 6331275908246812898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9924,7 +9924,7 @@ GameObject:
   - component: {fileID: 7399813553368514376}
   - component: {fileID: 7399813553368514391}
   - component: {fileID: 7399813553368514390}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: plus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14825,7 +14825,7 @@ GameObject:
   - component: {fileID: 7399813554394967921}
   - component: {fileID: 7399813554394967923}
   - component: {fileID: 7399813554394967922}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
