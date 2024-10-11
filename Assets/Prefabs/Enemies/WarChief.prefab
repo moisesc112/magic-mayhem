@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 4434433441234141619}
   m_Layer: 0
   m_Name: WarChief
-  m_TagString: Untagged
+  m_TagString: WarChiefEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

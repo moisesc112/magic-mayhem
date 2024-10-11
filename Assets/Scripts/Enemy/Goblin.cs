@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavPollerComponent))]
@@ -42,7 +43,7 @@ public class Goblin : MonoBehaviour
 		var distanceToPlayer = _navPoller.DistanceToPlayer;
 		if (distanceToPlayer <= _attackRange)
 		{
-			transform.LookAt(_navPoller.TargetPlayer.GetAvatarPosition());
+			transform.LookAt(_navPoller.TargetPlayer?.GetAvatarPosition() ?? Vector3.zero);
 			if (!_isSwinging)
 				StartSwing();
 		}

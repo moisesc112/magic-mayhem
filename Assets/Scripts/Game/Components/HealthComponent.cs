@@ -1,5 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class HealthComponent : MonoBehaviour
 {
@@ -25,29 +27,32 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
-    // To work with the different instances from the object pool, need to release test enemy in its own class
-
     public virtual void HandleDeath()
     {
         Debug.Log("Died");
-        if (gameObject.CompareTag("TestEnemyPool"))
+
+        if (!gameObject.CompareTag("Player"))
         {
-            //TestEnemy testEnemy = GetComponent<TestEnemy>();
-            //testEnemy.TestEnemyPoolRelease();
-            //TestEnemy.CountDeadTestEnemies();
+            if (_ragdollComponent)
+            {
+                StartCoroutine(DespawnTimer());
+                WaveManager.CountDeadEnemies();
+            }
+            else
+            {
+                HandleEnemyPoolDeath();
+                WaveManager.CountDeadEnemies();
+            }
         }
         else
         {
+            //Player Death Logic
             //Destroy(gameObject);
         }
-
         if (lootDropComponent != null)
         {
             lootDropComponent.DropLoot();
         }
-
-		if (_ragdollComponent)
-			_ragdollComponent.EnableRagdoll();
 	}
 
     public virtual void Heal(float healAmount)
@@ -57,5 +62,19 @@ public class HealthComponent : MonoBehaviour
         {
             health = maxHealth;
         }
+    }
+
+    public virtual IEnumerator DespawnTimer()
+    {
+       
+        _ragdollComponent.EnableRagdoll();
+        yield return new WaitForSeconds(1.3f);
+        HandleEnemyPoolDeath();
+        _ragdollComponent.DisableRagdoll();
+    }
+
+    public virtual void HandleEnemyPoolDeath()
+    {
+        ObjectPooler.EnemyPoolRelease(gameObject.tag, gameObject);
     }
 }
