@@ -9,8 +9,8 @@ public class Dissolver : MonoBehaviour
 
 	[SerializeField] Material _dissolveMaterial;
 
-    void Start()
-    {
+	void Start()
+	{
 		shaderProperty = Shader.PropertyToID("_cutoff");
 		ps = GetComponentInChildren<ParticleSystem>();
 
@@ -18,8 +18,8 @@ public class Dissolver : MonoBehaviour
 		main.duration = spawnEffectTime;
 	}
 
-    void Update()
-    {
+	void Update()
+	{
 		if (!_isDissolving) return;
 
 		timer += Time.deltaTime;
