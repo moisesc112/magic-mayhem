@@ -12,7 +12,8 @@ public class HealthComponent : MonoBehaviour
     public virtual void Awake()
     {
         health = maxHealth;
-    }
+		_dissolver = GetComponent<Dissolver>();
+	}
 
     public virtual void TakeDamage(float damage)
     {
@@ -48,6 +49,8 @@ public class HealthComponent : MonoBehaviour
 
 		if (_ragdollComponent)
 			_ragdollComponent.EnableRagdoll();
+        if (_dissolver)
+            _dissolver.StartDissolving();
 	}
 
     public virtual void Heal(float healAmount)
@@ -58,4 +61,6 @@ public class HealthComponent : MonoBehaviour
             health = maxHealth;
         }
     }
+
+    Dissolver _dissolver;
 }
