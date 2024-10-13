@@ -5,6 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(HealthComponent))]
+[RequireComponent(typeof(Dissolver))]
 public class WarChief : MonoBehaviour
 {
 	[Header("Attack")]
@@ -15,6 +16,9 @@ public class WarChief : MonoBehaviour
 	[SerializeField] RadialDamageSource _jumpSource;
 	[SerializeField] Transform _hammerHitPoint;
 
+	[Header("FX")] 
+	[SerializeField] Renderer _renderer;
+
 	void Start()
     {
 		_audioSource = GetComponent<AudioSource>();
@@ -22,6 +26,8 @@ public class WarChief : MonoBehaviour
 		_navPoller = GetComponent<NavPollerComponent>();
 		_agent = GetComponent<NavMeshAgent>();
 		_healthComp = GetComponent<HealthComponent>();
+		_dissolver = GetComponent<Dissolver>();
+		_dissolver.SetTargetRenderer(_renderer);
 
 		_swingLayerIndex = _animator.GetLayerIndex("Combat");
 		_canJump = true;
@@ -93,6 +99,7 @@ public class WarChief : MonoBehaviour
 	NavPollerComponent _navPoller;
 	NavMeshAgent _agent;
 	HealthComponent _healthComp;
+	Dissolver _dissolver;
 
 	bool _canJump;
 	bool _isJumping;

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(HealthComponent))]
+[RequireComponent(typeof(Dissolver))]
 public class Goblin : MonoBehaviour
 {
 	[Header("Appearance")]
@@ -26,6 +27,7 @@ public class Goblin : MonoBehaviour
 		_agent = GetComponent<NavMeshAgent>();
 		_healthComp = GetComponent<HealthComponent>();
 		_swingLayerIndex = _animator.GetLayerIndex("Combat");
+		_dissolver = GetComponent<Dissolver>();
 	}
 
 	void Start()
@@ -83,6 +85,9 @@ public class Goblin : MonoBehaviour
 		var selectedSkin = _skins[randomSkin];
 		foreach (var skin in _skins.Where(s => s != selectedSkin))
 			skin.SetActive(false);
+
+		_dissolver.SetTargetRenderer(selectedSkin.GetComponent<Renderer>());
+
 		GetComponent<RagdollComponent>().SetBoundMesh(selectedSkin.transform);
 
 		selectedSkin.SetActive(true);
@@ -98,6 +103,8 @@ public class Goblin : MonoBehaviour
 	NavPollerComponent _navPoller;
 	NavMeshAgent _agent;
 	HealthComponent _healthComp;
+	Dissolver _dissolver;
+	
 	bool _isSwinging;
 	int _swingLayerIndex;
 }
