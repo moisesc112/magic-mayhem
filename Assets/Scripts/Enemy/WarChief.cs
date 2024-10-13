@@ -20,7 +20,7 @@ public class WarChief : MonoBehaviour
 	[SerializeField] Renderer _renderer;
 
 	void Start()
-    {
+	{
 		_audioSource = GetComponent<AudioSource>();
 		_animator = GetComponent<Animator>();
 		_navPoller = GetComponent<NavPollerComponent>();
