@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8904973973435959970}
   - component: {fileID: -3416126643142204928}
   - component: {fileID: 1395241669339847006}
+  - component: {fileID: 1419381099380061463}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -66,10 +67,21 @@ MonoBehaviour:
   health: 500
   _ragdollComponent: {fileID: 0}
   lootDropComponent: {fileID: 0}
-  healthRegenPerSecond: 0
-  armor: 0
-  dodgeChance: 0
-  gold: 0
+  gold: 10
+  statusEffects: {fileID: 0}
+--- !u!114 &1419381099380061463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680389239630583605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28ac97efe3b45744a98e72924b543f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStatusEffects: []
 --- !u!1 &2327054110253905246
 GameObject:
   m_ObjectHideFlags: 0

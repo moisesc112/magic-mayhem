@@ -7,3 +7,6 @@ Project for CS6457
 * https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-free-pack-169179
 * Collect Coin Sound : https://pixabay.com/sound-effects/collectcoin-6075/
 * Synty : [Dungeon, Enemy, Hero assets](https://syntystore.com/)
+* Priest Healing Aura Loop by EminYILDIRIM -- https://freesound.org/s/560254/ -- License: Attribution 4.0
+* Fireball Explosion.wav by HighPixel -- https://freesound.org/s/431174/ -- License: Creative Commons 0
+* https://assetstore.unity.com/packages/vfx/particles/hyper-casual-fx-200333

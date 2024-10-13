@@ -24,4 +24,4 @@ MonoBehaviour:
   projectileTargetDirection: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 5
   projectileSpread: 0
-  castingSound: {fileID: 0}
+  castingSound: {fileID: 8300000, guid: ab7cd7c07fcaa054ab85c236b246ddc1, type: 3}
