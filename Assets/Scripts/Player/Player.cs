@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerStats))]
@@ -6,6 +5,8 @@ public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
 	public Camera playerCamera;
+	public Vector3 velocity => _velocity;
+
 	[SerializeField] GameObject _avatar;
 	
 	void Awake()
@@ -17,12 +18,26 @@ public class Player : MonoBehaviour
 		_playerStats = GetComponent<PlayerStats>();
 	}
 
+	void Start()
+	{
+		_previousPos = GetAvatarPosition();
+	}
+
 	void Update()
 	{
 		UIDebugUtility.instance.UpdateTrackedHealth(_playerStats.health);
+		
+	}
+
+	void LateUpdate()
+	{
+		var newPos = GetAvatarPosition();
+		_velocity = Vector3.MoveTowards(_velocity, (newPos - _previousPos) / Time.deltaTime, Time.deltaTime);
+		_previousPos = newPos;
 	}
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
+	public Vector3 GetAvatarVelocity() => _velocity;
 	public Vector2 GetAimDirection() => _mover.GetAimDirection();
 
 	public int GetPlayerIndex() => _playerIndex;
@@ -70,4 +85,6 @@ public class Player : MonoBehaviour
 	CastingComponent _castingComponent;
 	Shop _shop;
 	int _playerIndex = -1;
+	Vector3 _velocity;
+	Vector3 _previousPos;
 }
