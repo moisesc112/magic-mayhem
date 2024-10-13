@@ -2,60 +2,144 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(HealthComponent))]
 public class AdvancedRootMotionNavAgent : MonoBehaviour
 {
-	Animator anim;
-	NavMeshAgent agent;
-	[SerializeField] float _rootOverride = 1.0f;
-	Vector2 smoothDeltaPosition = Vector2.zero;
-	Vector2 velocity = Vector2.zero;
+	public float sweetSpotRatio;
+	public float targetMinDistance;
+	public float targetMaxDistance;
+	public bool inDistanceRange => _inRange;
+
+	[Header("Debug")]
+	[SerializeField] bool _showDebugLocations;
 
 	void Awake()
 	{
-		anim = GetComponent<Animator>();
-		agent = GetComponent<NavMeshAgent>();
+		_anim = GetComponent<Animator>();
+		_agent = GetComponent<NavMeshAgent>();
+		_navPoller = GetComponent<NavPollerComponent>();
+		_hc = GetComponent<HealthComponent>();
 
-		anim.applyRootMotion = true;
-		agent.updatePosition = false;
+		_anim.applyRootMotion = true;
+		_agent.updatePosition = false;
+		_agent.updateRotation = false;
 	}
 
 	void Update()
 	{
-		Vector3 worldDeltaPosition = (agent.nextPosition - transform.position);
-		worldDeltaPosition.y = 0;
+		if (!_hc.IsAlive) return;
 
-		// Map 'worldDeltaPosition' to local space
-		float dx = Vector3.Dot(transform.right, worldDeltaPosition);
-		float dy = Vector3.Dot(transform.forward, worldDeltaPosition);
-		Vector2 deltaPosition = new Vector2(dx, dy);
+		var distance = Mathf.Sqrt(_navPoller.DistanceToPlayer);
 
-		// Low-pass filter the deltaMove
-		float smooth = Mathf.Min(1.0f, Time.deltaTime / 0.2f);
-		smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
+		if (distance < targetMinDistance || distance > targetMaxDistance)
+		{
+			MoveToSweetSpot();
 
-		velocity = smoothDeltaPosition / Time.deltaTime;
-		if (agent.remainingDistance <= agent.stoppingDistance)
-			velocity = Vector2.Lerp(Vector2.zero, velocity, agent.remainingDistance / agent.stoppingDistance);
+			var dir = (_agent.steeringTarget - transform.position);
+			var animDir = transform.InverseTransformDirection(dir);
 
-		bool shouldMove = velocity.magnitude > 0.5f && agent.remainingDistance > agent.radius;
+			SetAnimParamsFromDir(animDir);
+		}
 
-		// Update animation parameters
-		anim.SetBool("IsMoving", shouldMove);
-		anim.SetFloat("VelX", velocity.x);
-		anim.SetFloat("VelY", velocity.y);
+		if (_agent.remainingDistance < _agent.radius)
+		{
+			_anim.SetBool("IsMoving", false);
+		}
 
-		if (worldDeltaPosition.magnitude > agent.radius)
-			transform.position = agent.nextPosition - 0.9f * worldDeltaPosition;
+		_inRange = distance > targetMinDistance && distance < targetMaxDistance;
+		FacePlayer();
 	}
 
+	void LateUpdate()
+	{
+		if (Vector3.Distance(transform.position, _agent.transform.position) > _agent.radius)
+			transform.position = _agent.transform.position;
+	}
 
-	// TODO: Use root override
 	void OnAnimatorMove()
 	{
-		Vector3 position = anim.rootPosition;
-		position.y = agent.nextPosition.y;
+		Vector3 position = _anim.rootPosition;
+		position.y = _agent.nextPosition.y;
 		transform.position = position;
-		agent.nextPosition = position;
+		_agent.nextPosition = position;
 	}
+
+	private void OnDrawGizmos()
+	{
+		if (!_showDebugLocations) return;
+
+		DrawColoredSphere(_sweetSpot, 1.0f, Color.green);
+		if (_agent)
+			DrawColoredSphere(_agent.destination, 0.5f, Color.yellow);
+
+		void DrawColoredSphere(Vector3 position, float radius, Color color)
+		{
+			Gizmos.color = color;
+			Gizmos.DrawWireSphere(position, radius);
+		}
+	}
+
+	/// <summary>
+	/// Agent is outside of range. Set nav target to sweet spot between range boundaries.
+	/// </summary>
+	private void MoveToSweetSpot()
+	{
+		if (_navPoller.TargetPlayer is null)
+		{
+			_anim.SetBool("IsMoving", false);
+			return;
+		}
+
+		var playerPos = _navPoller.TargetPlayer.GetAvatarPosition();
+		var dir = (transform.position - playerPos).normalized;
+		var distance = Mathf.Lerp(targetMinDistance, targetMaxDistance, sweetSpotRatio);
+		var location = playerPos + (dir * distance);
+		var validLocation = FindValidNavDestination(location);
+		_sweetSpot = validLocation;
+		_agent.destination = _sweetSpot;
+
+		_anim.SetBool("IsMoving", true);
+	}
+
+	private void FacePlayer()
+	{
+		if (_navPoller.TargetPlayer is null) return;
+
+		var lookDir = _navPoller.TargetPlayer.GetAvatarPosition() - transform.position;
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDir), 180f * Time.deltaTime);
+	}
+
+	private void SetAnimParamsFromDir(Vector3 animDir)
+	{
+		if (animDir.sqrMagnitude > 1)
+			animDir = animDir.normalized;
+
+		_anim.SetFloat("VelY", animDir.z);
+		_anim.SetFloat("VelX", animDir.x);
+		_anim.SetBool("IsMoving", true);
+		Debug.DrawLine(transform.position, transform.position + animDir);
+	}
+
+	private Vector3 FindValidNavDestination(Vector3 sampleSpot)
+	{
+		Vector3 result;
+		if (NavMesh.SamplePosition(sampleSpot, out var hit, 1.0f, NavMesh.AllAreas))
+			result = hit.position;
+		else if (NavMesh.SamplePosition(sampleSpot, out var farHit, 5.0f, NavMesh.AllAreas))
+			result = farHit.position;
+		else
+			result = transform.position; // Unable to nav!
+
+		return result;
+	}
+
+	Animator _anim;
+	NavMeshAgent _agent;
+	NavPollerComponent _navPoller;
+	HealthComponent _hc;
+
+	Vector3 _sweetSpot;
+	bool _inRange;
 }
