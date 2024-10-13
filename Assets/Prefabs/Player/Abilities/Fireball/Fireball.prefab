@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2339616375333194547}
   - component: {fileID: 2339616375333194545}
   - component: {fileID: 2339616375333194546}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4837,7 +4837,7 @@ GameObject:
   - component: {fileID: 2339616375373499157}
   - component: {fileID: -824195795734576284}
   - component: {fileID: 8581654295322330160}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9690,7 +9690,7 @@ GameObject:
   - component: {fileID: 2339616375523184701}
   - component: {fileID: 2339616375523184702}
   - component: {fileID: 2339616375523184703}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14514,7 +14514,7 @@ GameObject:
   - component: {fileID: 6225823033755868664}
   - component: {fileID: 6225823033755868666}
   - component: {fileID: 6225823033755868667}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

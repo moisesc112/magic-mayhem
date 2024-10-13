@@ -31,12 +31,21 @@ public class Ability : MonoBehaviour
         if (collision != null && collision.tag != "Player" && collision.GetComponent<HealthComponent>() != null)
         {
             Debug.Log("Hit Enemy");
-            collision.GetComponent<HealthComponent>().TakeDamage(abilityInfo.damage);
+            collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
             if (abilityInfo.projectileDestoryAfterCollision)
             {
                 Despawn();
             }
         }
+    }
+
+    public virtual float GetAbilityDamage()
+    {
+        if (_player != null)
+        {
+            return _player.GetComponent<PlayerStats>().GetAbilityDamage(abilityInfo.damage);
+        }
+        return abilityInfo.damage;
     }
 
     public virtual void Despawn()
@@ -61,7 +70,7 @@ public class Ability : MonoBehaviour
         transform.position += aimDirection * abilityInfo.projectileTargetSpeed * Time.deltaTime;
     }
 
-    public void SetPlayer(Player player) => _player = player;
+    public virtual void SetPlayer(Player player) => _player = player;
 
     protected Player _player;
 }

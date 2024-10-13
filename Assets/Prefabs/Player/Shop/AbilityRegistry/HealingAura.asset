@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
+  m_Name: HealingAura
+  m_EditorClassIdentifier: 
+  abilityName: Healing Aura
+  description: Gain a healing buff with inside the ring of the aura
+  abiltyType: 0
+  cooldown: 10
+  damage: 1
+  cost: 2
+  abilityPrefab: {fileID: 6331275906715107345, guid: 51e7a58f58dc5fd48aff6434084c857c, type: 3}
+  projectileDestoryAfterCollision: 0
+  despawnTime: 6
+  projectileTargetDirection: {x: 0, y: 0, z: 0}
+  projectileTargetSpeed: 0
+  projectileSpread: 0
+  castingSound: {fileID: 0}
