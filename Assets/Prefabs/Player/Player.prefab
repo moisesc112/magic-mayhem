@@ -565,7 +565,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 7449205739983744079}
-  offset: {x: 0, y: 14.53, z: -7.12}
+  offset: {x: 0, y: 14.53, z: -5.5}
+  xMinBoundary: 20
+  xMaxBoundary: 130
   followSpeed: 5
   lookAtTarget: 0
 --- !u!1 &5980282146829450849
@@ -70058,11 +70060,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Elbow_R'\n\tTransform 'Neck'\n\tTransform 'Elbow_L'\n\tTransform
-    'Head'\n\tTransform 'Hand_L'\n\tTransform 'Shoulder_L'\n\tTransform 'Shoulder_R'\n\tTransform
-    'Spine_01'\n\tTransform 'Spine_02'\n\tTransform 'Hand_R'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

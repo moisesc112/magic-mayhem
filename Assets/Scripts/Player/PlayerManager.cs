@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
 	[Header("Settings")]
 	public Player playerPrefab;
 	public bool spawnPlayerOnConnect = true;
+	public Vector3 spawnLocation;
 
 	public static PlayerManager instance { get; private set; }
 
@@ -67,7 +68,7 @@ public class PlayerManager : MonoBehaviour
 		EnsurePlayerIsRegistered(owningController);
 
 		// Update this to spawn players at designated places around the map.
-		var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+		var player = Instantiate(playerPrefab, spawnLocation, Quaternion.identity);
 		owningController.TakeControl(player);
 		_playersByOwningController[owningController] = player;
 		return player;
