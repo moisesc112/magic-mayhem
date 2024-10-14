@@ -1292,6 +1292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -3416126643142204928, guid: 336bfff29efae624b9c725f8ba8b2eb1, type: 3}
   spawnPlayerOnConnect: 1
+  spawnLocation: {x: 0, y: 0, z: 0}
 --- !u!114 &793889710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,6 +2675,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2722981027406570744, guid: e406d5ec5de076c48bc67f93c4a56d70, type: 3}
   m_PrefabInstance: {fileID: 2722981026845623896}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &1806178778 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6215533733248276182, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
+  m_PrefabInstance: {fileID: 1335037634174100224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1853996167
 GameObject:
   m_ObjectHideFlags: 0
@@ -3197,6 +3203,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4077698519552594797, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
+      propertyPath: _dissolveMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 8385f0e712bb65b428cf18e6ab1c29c6, type: 2}
+    - target: {fileID: 4077698519552594797, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
+      propertyPath: fadeIn.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4077698519552594797, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
+      propertyPath: fadeIn.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4077698519552594797, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
+      propertyPath: fadeIn.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955370643258611580, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
+      propertyPath: _targetRenderer
+      value: 
+      objectReference: {fileID: 1806178778}
     - target: {fileID: 6215533733243022662, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
       propertyPath: m_Name
       value: ArcherEnemy
