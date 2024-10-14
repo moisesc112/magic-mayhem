@@ -56,6 +56,11 @@ public class Archer : MonoBehaviour
 			_canShoot = false;
 			ShootArrow();
 		}
+		else if (_arrowNocked && Mathf.Sqrt(_poller.DistanceToPlayer) > _rmNavAgent.targetMaxDistance)
+		{
+			_arrowNocked = false;
+			StoreArrow();
+		}
 	}
 
 	// Called from draw animation
@@ -123,6 +128,11 @@ public class Archer : MonoBehaviour
 	private void DrawArrow()
 	{
 		_animator.SetTrigger("DrawArrow");
+	}
+
+	private void StoreArrow()
+	{
+		_animator.SetTrigger("StoreArrow");
 	}
 
 	IEnumerator WaitForTimeToDraw()
