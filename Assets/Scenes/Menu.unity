@@ -489,7 +489,7 @@ MonoBehaviour:
   playerSetupMenu: {fileID: 3918551314532414450, guid: 03b9ede174a32b248af7f1281d7c7674, type: 3}
   playerCardRoot: {fileID: 1095375832}
   countDownText: {fileID: 1627469684}
-  sceneToLoad: Game
+  sceneToLoad: Level Design
 --- !u!1 &1095375832
 GameObject:
   m_ObjectHideFlags: 0
