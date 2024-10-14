@@ -32,20 +32,24 @@ public class AdvancedRootMotionNavAgent : MonoBehaviour
 		if (!_hc.IsAlive) return;
 
 		var distance = Mathf.Sqrt(_navPoller.DistanceToPlayer);
-
-		if (distance < targetMinDistance || distance > targetMaxDistance)
+		
+		if (_movingToLocation)
+		{
+			UpdateAnimParamsFromSteering();
+		}
+		else if (distance < targetMinDistance || distance > targetMaxDistance)
 		{
 			MoveToSweetSpot();
-
-			var dir = (_agent.steeringTarget - transform.position);
-			var animDir = transform.InverseTransformDirection(dir);
-
-			SetAnimParamsFromDir(animDir);
+			UpdateAnimParamsFromSteering();
+		}
+		else
+		{
 		}
 
 		if (_agent.remainingDistance < _agent.radius)
 		{
 			_anim.SetBool("IsMoving", false);
+			_movingToLocation = false;
 		}
 
 		_inRange = distance > targetMinDistance && distance < targetMaxDistance;
@@ -81,6 +85,12 @@ public class AdvancedRootMotionNavAgent : MonoBehaviour
 		}
 	}
 
+	public void MoveToLocation(Vector3 location)
+	{
+		_agent.destination = location;
+		_movingToLocation = true;
+	}
+
 	/// <summary>
 	/// Agent is outside of range. Set nav target to sweet spot between range boundaries.
 	/// </summary>
@@ -111,23 +121,25 @@ public class AdvancedRootMotionNavAgent : MonoBehaviour
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDir), 180f * Time.deltaTime);
 	}
 
-	private void SetAnimParamsFromDir(Vector3 animDir)
+	private void UpdateAnimParamsFromSteering()
 	{
+		var dir = (_agent.steeringTarget - transform.position);
+		var animDir = transform.InverseTransformDirection(dir);
+
 		if (animDir.sqrMagnitude > 1)
 			animDir = animDir.normalized;
 
 		_anim.SetFloat("VelY", animDir.z);
 		_anim.SetFloat("VelX", animDir.x);
 		_anim.SetBool("IsMoving", true);
-		Debug.DrawLine(transform.position, transform.position + animDir);
 	}
 
 	private Vector3 FindValidNavDestination(Vector3 sampleSpot)
 	{
 		Vector3 result;
-		if (NavMesh.SamplePosition(sampleSpot, out var hit, 1.0f, NavMesh.AllAreas))
+		if (NavMesh.SamplePosition(sampleSpot, out var hit, 1.0f, _agent.areaMask))
 			result = hit.position;
-		else if (NavMesh.SamplePosition(sampleSpot, out var farHit, 5.0f, NavMesh.AllAreas))
+		else if (NavMesh.SamplePosition(sampleSpot, out var farHit, 5.0f, _agent.areaMask))
 			result = farHit.position;
 		else
 			result = transform.position; // Unable to nav!
@@ -142,4 +154,5 @@ public class AdvancedRootMotionNavAgent : MonoBehaviour
 
 	Vector3 _sweetSpot;
 	bool _inRange;
+	bool _movingToLocation;
 }
