@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 221830921239359235}
   - component: {fileID: 7708125928176445270}
   - component: {fileID: 3670533244723355740}
+  - component: {fileID: 4077698519552594797}
   m_Layer: 0
   m_Name: ArcherEnemy
   m_TagString: Untagged
@@ -812,6 +813,7 @@ MonoBehaviour:
   _minTimeToDraw: 0.75
   _shootLocation: {fileID: 4019346205203876789}
   _arrowPrefab: {fileID: 3252227199484788850, guid: e6b334c20d173764fb6a6317529bc63f, type: 3}
+  _targetRenderer: {fileID: 6215533733248276182}
 --- !u!114 &3579904605474853307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,6 +890,45 @@ CapsuleCollider:
   m_Height: 1.9874725
   m_Direction: 1
   m_Center: {x: 0.005063534, y: 0.84311676, z: -0.012658954}
+--- !u!114 &4077698519552594797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215533733243022662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84482a24644b17141922a3ac4f699d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnEffectTime: 5
+  pause: 0
+  fadeIn:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _dissolveMaterial: {fileID: 2100000, guid: 8385f0e712bb65b428cf18e6ab1c29c6, type: 2}
 --- !u!1 &6215533733243023492
 GameObject:
   m_ObjectHideFlags: 0
