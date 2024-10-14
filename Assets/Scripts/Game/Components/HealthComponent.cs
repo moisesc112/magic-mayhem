@@ -17,7 +17,6 @@ public class HealthComponent : MonoBehaviour
 		_dissolver = GetComponent<Dissolver>();
 	}
 
-<<<<<<< HEAD
 	public virtual void TakeDamage(float damage)
 	{
 		Debug.Log($"took {damage} damage");
@@ -28,18 +27,6 @@ public class HealthComponent : MonoBehaviour
 			HandleDeath();
 		}
 	}
-=======
-    public virtual void TakeDamage(float damage)
-    {
-        Debug.Log($"took {damage} damage");
-        health -= damage;
-        if (health <= 0)
-        {
-            health = 0;
-            HandleDeath();
-        }
-    }
->>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
 
     public virtual void HandleDeath()
     {
@@ -47,7 +34,6 @@ public class HealthComponent : MonoBehaviour
 
         if (!gameObject.CompareTag("Player"))
         {
-<<<<<<< HEAD
             if (_ragdollComponent && _dissolver)
             {
                 StartCoroutine(DespawnTimer());
@@ -57,18 +43,6 @@ public class HealthComponent : MonoBehaviour
                 HandleEnemyPoolDeath();
             }
             WaveManager.CountDeadEnemies();
-=======
-            if (_ragdollComponent)
-            {
-                StartCoroutine(DespawnTimer());
-                WaveManager.CountDeadEnemies();
-            }
-            else
-            {
-                HandleEnemyPoolDeath();
-                WaveManager.CountDeadEnemies();
-            }
->>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
         }
         else
         {
@@ -94,26 +68,17 @@ public class HealthComponent : MonoBehaviour
     {
        
         _ragdollComponent.EnableRagdoll();
-<<<<<<< HEAD
         _dissolver.StartDissolving();
         yield return new WaitForSeconds(2f);
         HandleEnemyPoolDeath();
         _ragdollComponent.DisableRagdoll();
         _dissolver.ResetEffect();
-=======
-        yield return new WaitForSeconds(1.3f);
-        HandleEnemyPoolDeath();
-        _ragdollComponent.DisableRagdoll();
->>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
     }
 
     public virtual void HandleEnemyPoolDeath()
     {
         ObjectPooler.EnemyPoolRelease(gameObject.tag, gameObject);
     }
-<<<<<<< HEAD
 
     Dissolver _dissolver;
-=======
->>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
 }
