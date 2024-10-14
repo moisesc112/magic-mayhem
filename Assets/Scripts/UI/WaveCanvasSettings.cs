@@ -21,23 +21,23 @@ public class WaveCanvasSettings : MonoBehaviour
 
     void Update()
     {
-        if (!WaveManager.isGameFinished)
+        if (!WaveManager.instance.isGameFinished)
         {
-            if (WaveManager.inPlaceholderScene && WaveManager.gameStarted)
+            if (WaveManager.instance.inPlaceholderScene && WaveManager.instance.gameStarted)
             {
                 currentWaveText.gameObject.SetActive(true);
-                currentWaveText.text = "Wave: " + WaveManager.currentWaves;
+                currentWaveText.text = "Wave: " + WaveManager.instance.currentWaves;
                 totalEnemiesPerWaveText.gameObject.SetActive(true);
-                totalEnemiesPerWaveText.text = "Enemies in Wave: " + WaveManager.enemiesAlive + "/" + WaveManager.totalEnemiesPerWave;
+                totalEnemiesPerWaveText.text = "Enemies in Wave: " + WaveManager.instance.enemiesAlive + "/" + WaveManager.instance.totalEnemiesPerWave;
             }
 
-            if (WaveManager.inGameStartCooldown)
+            if (WaveManager.instance.inGameStartCooldown)
             {
                 waveCountdownText.gameObject.SetActive(true);
                 gameStartCountdownTime -= 1 * Time.deltaTime;
                 waveCountdownText.text = "Time Until Wave Starts: " + gameStartCountdownTime.ToString("0") + " seconds";
             }
-            else if (WaveManager.inWaveCooldown)
+            else if (WaveManager.instance.inWaveCooldown)
             {
                 waveCountdownTime -= 1 * Time.deltaTime;
                 waveCountdownText.text = "Time Until Next Wave: " + waveCountdownTime.ToString("0") + " seconds";
@@ -45,7 +45,7 @@ public class WaveCanvasSettings : MonoBehaviour
             }
             else
             {
-                waveCountdownTime = WaveManager.timeBetweenWaves;
+                waveCountdownTime = WaveManager.instance.timeBetweenWaves;
                 waveCountdownText.gameObject.SetActive(false);
             }
         }

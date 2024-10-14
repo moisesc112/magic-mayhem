@@ -44,6 +44,7 @@ public class Dissolver : MonoBehaviour
 
 	public void ResetEffect()
 	{
+		_isDissolving = false;
 		gameObject.SetActive(false);
 		_targetRenderer.material.SetFloat(shaderProperty, 1.0f);
 		_targetRenderer.material = _originalMaterial;

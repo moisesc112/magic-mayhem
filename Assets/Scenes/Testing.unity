@@ -1073,6 +1073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -3416126643142204928, guid: 336bfff29efae624b9c725f8ba8b2eb1, type: 3}
   spawnPlayerOnConnect: 1
+  spawnLocation: {x: 0, y: 0, z: 0}
 --- !u!114 &793889710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,6 +1197,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeGameStarts: 2
+  inPlaceholderScene: 1
+  gameStarted: 0
+  inWaveCooldown: 0
+  inGameStartCooldown: 0
+  isGameFinished: 0
+  currentWaves: 0
+  groupKillCount: 0
+  enemiesAlive: 0
+  totalEnemiesPerWave: 0
+  timeBetweenWaves: 0
 --- !u!4 &878069110
 Transform:
   m_ObjectHideFlags: 0
@@ -1234,7 +1245,7 @@ MonoBehaviour:
     - enemySpawn:
       - enemyToSpawn: 3
         amountToSpawn: 1
-      timeToNextGroup: 10
+      timeToNextGroup: 20
     - enemySpawn:
       - enemyToSpawn: 0
         amountToSpawn: 5
@@ -1245,17 +1256,13 @@ MonoBehaviour:
     - enemySpawn:
       - enemyToSpawn: 0
         amountToSpawn: 2
-      timeToNextGroup: 5
+      timeToNextGroup: 20
     - enemySpawn:
       - enemyToSpawn: 3
-        amountToSpawn: 2
-      timeToNextGroup: 10
-    - enemySpawn:
-      - enemyToSpawn: 0
-        amountToSpawn: 2
+        amountToSpawn: 1
       timeToNextGroup: 0
     timeToNextWave: 0
-    timeBetweenEnemies: 2
+    timeBetweenEnemies: 1
 --- !u!1 &900435483
 GameObject:
   m_ObjectHideFlags: 0

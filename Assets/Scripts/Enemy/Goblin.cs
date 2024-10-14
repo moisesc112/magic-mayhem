@@ -104,7 +104,7 @@ public class Goblin : MonoBehaviour
 	NavMeshAgent _agent;
 	HealthComponent _healthComp;
 	Dissolver _dissolver;
-	
+
 	bool _isSwinging;
 	int _swingLayerIndex;
 }

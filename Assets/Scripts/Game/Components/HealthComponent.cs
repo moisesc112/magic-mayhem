@@ -34,16 +34,15 @@ public class HealthComponent : MonoBehaviour
 
         if (!gameObject.CompareTag("Player"))
         {
-            if (_ragdollComponent)
+            if (_ragdollComponent && _dissolver)
             {
                 StartCoroutine(DespawnTimer());
-                WaveManager.CountDeadEnemies();
             }
-            else
+            else // Test Enemy doesn't have a rag doll, so don't need to start a despawn timer for it
             {
                 HandleEnemyPoolDeath();
-                WaveManager.CountDeadEnemies();
             }
+            WaveManager.CountDeadEnemies();
         }
         else
         {
@@ -69,13 +68,17 @@ public class HealthComponent : MonoBehaviour
     {
        
         _ragdollComponent.EnableRagdoll();
-        yield return new WaitForSeconds(1.3f);
+        _dissolver.StartDissolving();
+        yield return new WaitForSeconds(2f);
         HandleEnemyPoolDeath();
         _ragdollComponent.DisableRagdoll();
+        _dissolver.ResetEffect();
     }
 
     public virtual void HandleEnemyPoolDeath()
     {
         ObjectPooler.EnemyPoolRelease(gameObject.tag, gameObject);
     }
+
+    Dissolver _dissolver;
 }
