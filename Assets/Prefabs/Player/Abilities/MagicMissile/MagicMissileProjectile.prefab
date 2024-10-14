@@ -289,10 +289,8 @@ MonoBehaviour:
   damage: 2
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 311
   _hitPrefab: {fileID: 7752193489803601379, guid: 27e5fc301ac751f4dac6d8e14da43d43, type: 3}
-  _castSound: {fileID: 8300000, guid: a0e819afbed7a1343bf41a083ea32cef, type: 3}
-  _hitSound: {fileID: 8300000, guid: 34bda4858f931d64a80dbb3254d56e3d, type: 3}
 --- !u!198 &16969304
 ParticleSystem:
   m_ObjectHideFlags: 0
