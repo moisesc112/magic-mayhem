@@ -1229,21 +1229,17 @@ MonoBehaviour:
   - groups:
     - enemySpawn:
       - enemyToSpawn: 0
-        amountToSpawn: 3
-      - enemyToSpawn: 0
-        amountToSpawn: 3
-      - enemyToSpawn: 3
-        amountToSpawn: 1
-      timeToNextGroup: 3
+        amountToSpawn: 5
+      timeToNextGroup: 20
     - enemySpawn:
-      - enemyToSpawn: 0
-        amountToSpawn: 1
-      - enemyToSpawn: 0
-        amountToSpawn: 1
       - enemyToSpawn: 3
         amountToSpawn: 1
       timeToNextGroup: 10
-    timeToNextWave: 60
+    - enemySpawn:
+      - enemyToSpawn: 0
+        amountToSpawn: 5
+      timeToNextGroup: 0
+    timeToNextWave: 10
     timeBetweenEnemies: 1
   - groups:
     - enemySpawn:
