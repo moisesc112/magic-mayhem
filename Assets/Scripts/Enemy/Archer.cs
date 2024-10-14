@@ -11,6 +11,8 @@ public class Archer : MonoBehaviour
 	[Header("Targeting")]
 	[SerializeField] Transform _eyesPos;
 	[SerializeField] LayerMask _targetMask;
+	[SerializeField] int _maxSightTries = 5;
+	[SerializeField] float _sightAdjustmentDeltaDeg = 15.0f;
 
 	[Header("NavSettings")]
 	[SerializeField] float _targetMinDistance;
@@ -40,7 +42,7 @@ public class Archer : MonoBehaviour
 		_dissolver = GetComponent<Dissolver>();
 		_dissolver.SetTargetRenderer(_targetRenderer);
 
-		_canShoot = true;
+		_readyToNock = true;
 	}
 
 	// Update is called once per frame
@@ -48,18 +50,24 @@ public class Archer : MonoBehaviour
 	{
 		if (!_hc.IsAlive) return;
 
-		if (!_arrowNocked && _rmNavAgent.inDistanceRange)
-			DrawArrow();
+		if (_rmNavAgent.inDistanceRange && targetInSight()) // We have line of sight and within range.
+		{
+			if (!_arrowNocked && _readyToNock) // Arrow cooldown has passed and we don't already have an arrow
+				DrawArrow();
 
-		if (_arrowNocked && _canShoot && _rmNavAgent.inDistanceRange && targetInSight())
-		{
-			_canShoot = false;
-			ShootArrow();
+			if (_arrowNocked && _canShoot) // Ready to fire
+			{
+				ShootArrow();
+			}
 		}
-		else if (_arrowNocked && Mathf.Sqrt(_poller.DistanceToPlayer) > _rmNavAgent.targetMaxDistance)
+		else if (_rmNavAgent.inDistanceRange) // In range, but no in line of sight.
 		{
-			_arrowNocked = false;
-			StoreArrow();
+			GetWithinSight();
+		}
+		else // Outside range, move toward player
+		{
+			if (_arrowNocked)
+				StoreArrow();
 		}
 	}
 
@@ -73,26 +81,29 @@ public class Archer : MonoBehaviour
 	// Called from recoil animation
 	public void Fire()
 	{
+		_canShoot = false;
 		Instantiate(_arrowPrefab, _shootLocation.position, Quaternion.LookRotation(_aimDir));
 		_arrowNocked = false;
 		StartCoroutine(nameof(WaitForCooldown));
 	}
 
-	private bool targetInSight()
+	private void SetPredictiveTarget()
 	{
 		var target = _poller.TargetPlayer;
-		if (target == null) return false;
+		if (target == null) return;
 
 		// Calculate perdictive aiming
 		var initialPos = target.GetAvatarPosition();
 		var arrowSpeed = 40.0f;
 		var targetVel = target.GetAvatarVelocity();
+
+		// Quadratic forumla derived from kinematic equations for projectile interception using dot products.
 		var a = Vector3.Dot(targetVel, targetVel) - (arrowSpeed * arrowSpeed);
 		var b = 2 * (Vector3.Dot(initialPos, targetVel));
 		var c = Vector3.Dot(initialPos, initialPos);
 
 		var sqrt = Mathf.Sqrt(b * b - (4 * a * c));
-		var t1 = (- b + sqrt) / (2 * a);
+		var t1 = (-b + sqrt) / (2 * a);
 		var t2 = (-b - sqrt) / (2 * a);
 
 		float t;
@@ -107,31 +118,62 @@ public class Archer : MonoBehaviour
 
 		var dir = (initialPos + (targetVel * Mathf.Min(t, _maxLookAheadTime))) - transform.position;
 		_aimDir = dir;
-		// If the raycast hits something, then we don't have line of sight.
-		Debug.DrawRay(_eyesPos.position, dir, Color.red);
+	}
+
+	private bool targetInSight()
+	{
+		var avatarPos = _poller.TargetPlayer.GetAvatarPosition();
+		// adjust avatar pos so we don't aim at the floor.
+		avatarPos.y = 0.5f;
+		var dir = avatarPos - _eyesPos.position;
 		if (Physics.Raycast(_eyesPos.position, dir, out var hit, _targetMaxDistance, _targetMask))
 		{
 			return hit.collider.gameObject.tag == "Player";
 		}
-		else
+		return false;
+	}
+
+	private void GetWithinSight()
+	{
+		var avatarPos = _poller.TargetPlayer.GetAvatarPosition();
+		var rot = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+		
+		for (int i = 0; i < _maxSightTries; i++)
 		{
-			return true;
+			var dir1 = rot * Quaternion.AngleAxis(i * _sightAdjustmentDeltaDeg, Vector3.up);
+			var dir2 = rot * Quaternion.AngleAxis(i * _sightAdjustmentDeltaDeg, Vector3.up);
+
+			// Check if line of sight is clear
+			if (!Physics.Raycast(avatarPos, dir1.eulerAngles, out _, _targetMinDistance))
+			{
+				_rmNavAgent.MoveToLocation(avatarPos + (dir1.eulerAngles * _targetMinDistance));
+				return;
+			}
+			else if (!Physics.Raycast(avatarPos, dir2.eulerAngles, out _, _targetMinDistance))
+			{
+				_rmNavAgent.MoveToLocation(avatarPos + (dir2.eulerAngles * _targetMinDistance));
+				return;
+			}
 		}
 
 	}
 
 	private void ShootArrow()
 	{
+		SetPredictiveTarget();
 		_animator.SetTrigger("ShootArrow");
 	}
 
 	private void DrawArrow()
 	{
+		_readyToNock = false;
 		_animator.SetTrigger("DrawArrow");
 	}
 
 	private void StoreArrow()
 	{
+		_arrowNocked = false;
+		_readyToNock = true;
 		_animator.SetTrigger("StoreArrow");
 	}
 
@@ -141,11 +183,12 @@ public class Archer : MonoBehaviour
 		_canShoot = true;
 	}
 
-	IEnumerable WaitForCooldown()
+	IEnumerator WaitForCooldown()
 	{
 		yield return new WaitForSeconds(_shootCooldown);
-		DrawArrow();
+		_readyToNock = true;
 	}
+
 
 	NavPollerComponent _poller;
 	Animator _animator;
@@ -155,5 +198,6 @@ public class Archer : MonoBehaviour
 
 	Vector3 _aimDir;
 	bool _canShoot;
+	bool _readyToNock;
 	bool _arrowNocked;
 }
