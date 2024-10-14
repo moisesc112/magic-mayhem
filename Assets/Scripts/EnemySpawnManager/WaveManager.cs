@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent (typeof(WaveInfo))]
 public class WaveManager : MonoBehaviour
 {
+<<<<<<< HEAD
     public static WaveManager instance { get; private set; }
 
     public float timeBeforeGameStarts;
@@ -19,6 +20,21 @@ public class WaveManager : MonoBehaviour
     public int totalEnemiesPerWave;
     public float timeBetweenWaves;
 
+=======
+    public float timeBeforeGameStarts;
+
+    public static bool inPlaceholderScene = true;
+    public static bool gameStarted;
+    public static bool inWaveCooldown;
+    public static bool inGameStartCooldown;
+    public static bool isGameFinished;
+    public static int currentWaves;
+    public static int groupKillCount;
+    public static int enemiesAlive;
+    public static int totalEnemiesPerWave;
+    public static float timeBetweenWaves;
+
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
     private bool inEnemyCooldown;
     private bool inGroupCooldown;
     private bool isSettingEnemy;
@@ -36,12 +52,19 @@ public class WaveManager : MonoBehaviour
         waveInfo = GetComponent<WaveInfo>();
         waves = waveInfo.GetWaveContents();
         isGameFinished = false;
+<<<<<<< HEAD
        
     }
 
     void Awake()
     {
         instance = this;
+=======
+    }
+
+    void Awake()
+    { 
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
         if (inPlaceholderScene)
         {
             StartCoroutine(GameStartCooldown(timeBeforeGameStarts));
@@ -65,7 +88,11 @@ public class WaveManager : MonoBehaviour
     {
         if (scene == "Testing")
         {
+<<<<<<< HEAD
             instance.inPlaceholderScene = true;
+=======
+            inPlaceholderScene = true;
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
         }
         else
         {
@@ -212,7 +239,12 @@ public class WaveManager : MonoBehaviour
 
     public static void CountDeadEnemies()
     {
+<<<<<<< HEAD
         instance.groupKillCount++;
         instance.enemiesAlive--;
+=======
+        groupKillCount++;
+        enemiesAlive--;
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
     }
 }

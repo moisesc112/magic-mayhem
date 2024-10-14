@@ -59,7 +59,10 @@ public class ObjectPooler : MonoBehaviour
     public static void SpawnEnemy(string enemyTag)
     {
         var enemy = enemyPools[enemyTag].Get();
+<<<<<<< HEAD
         enemy.SetActive(true);
+=======
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
         var navPoller = enemy.GetComponent<NavPollerComponent>();
         if (navPoller)
             navPoller.ResetPolling();

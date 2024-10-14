@@ -21,6 +21,7 @@ public class WaveCanvasSettings : MonoBehaviour
 
     void Update()
     {
+<<<<<<< HEAD
         if (!WaveManager.instance.isGameFinished)
         {
             if (WaveManager.instance.inPlaceholderScene && WaveManager.instance.gameStarted)
@@ -32,12 +33,29 @@ public class WaveCanvasSettings : MonoBehaviour
             }
 
             if (WaveManager.instance.inGameStartCooldown)
+=======
+        if (!WaveManager.isGameFinished)
+        {
+            if (WaveManager.inPlaceholderScene && WaveManager.gameStarted)
+            {
+                currentWaveText.gameObject.SetActive(true);
+                currentWaveText.text = "Wave: " + WaveManager.currentWaves;
+                totalEnemiesPerWaveText.gameObject.SetActive(true);
+                totalEnemiesPerWaveText.text = "Enemies in Wave: " + WaveManager.enemiesAlive + "/" + WaveManager.totalEnemiesPerWave;
+            }
+
+            if (WaveManager.inGameStartCooldown)
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
             {
                 waveCountdownText.gameObject.SetActive(true);
                 gameStartCountdownTime -= 1 * Time.deltaTime;
                 waveCountdownText.text = "Time Until Wave Starts: " + gameStartCountdownTime.ToString("0") + " seconds";
             }
+<<<<<<< HEAD
             else if (WaveManager.instance.inWaveCooldown)
+=======
+            else if (WaveManager.inWaveCooldown)
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
             {
                 waveCountdownTime -= 1 * Time.deltaTime;
                 waveCountdownText.text = "Time Until Next Wave: " + waveCountdownTime.ToString("0") + " seconds";
@@ -45,7 +63,11 @@ public class WaveCanvasSettings : MonoBehaviour
             }
             else
             {
+<<<<<<< HEAD
                 waveCountdownTime = WaveManager.instance.timeBetweenWaves;
+=======
+                waveCountdownTime = WaveManager.timeBetweenWaves;
+>>>>>>> b1a041f37349cc6856af0ad78da76a10ba364289
                 waveCountdownText.gameObject.SetActive(false);
             }
         }
