@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(AdvancedRootMotionNavAgent))]
 [RequireComponent(typeof(HealthComponent))]
-
+[RequireComponent(typeof(Dissolver))]
 public class Archer : MonoBehaviour
 {
 	[Header("Targeting")]
@@ -24,6 +24,9 @@ public class Archer : MonoBehaviour
 	[SerializeField] Transform _shootLocation;
 	[SerializeField] GameObject _arrowPrefab;
 
+	[Header("FX")]
+	[SerializeField] Renderer _targetRenderer;
+
 	void Awake()
 	{
 		_animator = GetComponent<Animator>();
@@ -34,6 +37,9 @@ public class Archer : MonoBehaviour
 		_rmNavAgent.sweetSpotRatio = _sweetSpotRatio;
 
 		_hc = GetComponent<HealthComponent>();
+		_dissolver = GetComponent<Dissolver>();
+		_dissolver.SetTargetRenderer(_targetRenderer);
+
 		_canShoot = true;
 	}
 
@@ -135,6 +141,7 @@ public class Archer : MonoBehaviour
 	Animator _animator;
 	AdvancedRootMotionNavAgent _rmNavAgent;
 	HealthComponent _hc;
+	Dissolver _dissolver;
 
 	Vector3 _aimDir;
 	bool _canShoot;
