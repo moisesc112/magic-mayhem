@@ -44,7 +44,7 @@ public class Goblin : MonoBehaviour
 		var distanceToPlayer = _navPoller.DistanceToPlayer;
 		if (distanceToPlayer <= _attackRange)
 		{
-			transform.LookAt(_navPoller.TargetPlayer.GetAvatarPosition());
+			transform.LookAt(_navPoller.TargetPlayer?.GetAvatarPosition() ?? Vector3.zero);
 			if (!_isSwinging)
 				StartSwing();
 		}
@@ -104,7 +104,7 @@ public class Goblin : MonoBehaviour
 	NavMeshAgent _agent;
 	HealthComponent _healthComp;
 	Dissolver _dissolver;
-	
+
 	bool _isSwinging;
 	int _swingLayerIndex;
 }

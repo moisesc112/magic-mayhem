@@ -1,52 +1,71 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+[RequireComponent (typeof(WaveInfo))]
 public class WaveManager : MonoBehaviour
 {
-    // Maybe add a WaveInfo file for all these variables?
-    public static bool inTestingScene = true;
-    public static bool gameStarted;
-    public static bool inWaveCooldown;
-    public static bool inGameStartCooldown;
-    public static int currentWave;
-    
-    public float timeBetweenSpawns;
-    public float timeBetweenWaves;
-    public float timeBeforeGameStarts;
-    public int enemiesPerWave;
-    public int enemyIncreasePerWave;
-    // public int waves; Would implement if we want to have a set number of waves instead of infinite 
-    
-    private float timeSinceLastSpawn;
-    private int killCount;
-    private int enemiesToSpawn;
+    public static WaveManager instance { get; private set; }
 
-    // Would refactor to instead spawn from a list of object pools and set amount of enemies per pool
+    public float timeBeforeGameStarts;
+
+    [System.NonSerialized] public bool inPlaceholderScene = true;
+    [System.NonSerialized] public bool gameStarted;
+    [System.NonSerialized] public bool inWaveCooldown;
+    [System.NonSerialized] public bool inGameStartCooldown;
+    [System.NonSerialized] public bool isGameFinished;
+    [System.NonSerialized] public int currentWaves;
+    [System.NonSerialized] public int groupKillCount;
+    [System.NonSerialized] public int enemiesAlive;
+    [System.NonSerialized] public int totalEnemiesPerWave;
+    [System.NonSerialized] public float timeBetweenWaves;
+
+    private bool inEnemyCooldown;
+    private bool inGroupCooldown;
+    private bool isSettingEnemy;
+    private int waveIterator;
+    private int groupIterator;
+    private int enemyIterator;
+    private int enemiesForCurrentGroup;
+    private int enemiesToSpawn;
+    private Coroutine groupCoroutine;
+    private WaveInfo waveInfo;
+    private WaveInfo.WaveContent[] waves;
+   
+    void Start()
+    {
+        waveInfo = GetComponent<WaveInfo>();
+        waves = waveInfo.GetWaveContents();
+        isGameFinished = false;
+       
+    }
 
     void Awake()
     {
-        if (inTestingScene)
+        instance = this;
+        if (inPlaceholderScene)
         {
-            StartCoroutine(GameStartCooldown());
-            enemiesToSpawn = enemiesPerWave;
+            StartCoroutine(GameStartCooldown(timeBeforeGameStarts));
         }
     }
 
     void Update()
     {
-        SpawnWave(enemiesPerWave);
-        killCount = TestEnemy.deadTestEnemies;
+        if (gameStarted && !isGameFinished)
+        {
+            SpawnWave();
+        }
+        else if (gameStarted && isGameFinished)
+        {
+            // Win Condition
+        }
     }
-
 
     // Might want to change this to be in a Game State Manager Class
     public static void OnSceneLoaded(string scene)
     {
         if (scene == "Testing")
         {
-            inTestingScene = true;
+            instance.inPlaceholderScene = true;
         }
         else
         {
@@ -54,55 +73,146 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    // Might want to change WaveCooldown count to be in a Game State Manager Class,
-    // then have the wave manager look at if it can spawn mobs or not
-    void SpawnWave(int enemiesPerWave)
+    void SpawnWave()
     {
-
-        if (inTestingScene && enemiesToSpawn != 0 && gameStarted)
+        if (waveIterator < waves.Length && !inEnemyCooldown && !inGroupCooldown && !inWaveCooldown)
         {
-            if (Time.time > timeSinceLastSpawn)
+            var currentWave = waves[waveIterator];
+            timeBetweenWaves = currentWave.GetTimeToNextWave();
+
+            if (groupIterator < currentWave.groups.Length)
             {
-                ObjectPooler.SpawnTestEnemy();
-                timeSinceLastSpawn = Time.time + timeBetweenSpawns;
-                enemiesToSpawn--;
+                var currentGroup = currentWave.groups[groupIterator];
+                var timeBetweenGroups = currentGroup.GetTimeToNextGroup();
+                if (enemyIterator < currentGroup.enemySpawn.Length)
+                {
+                    var currentEnemy = currentGroup.enemySpawn[enemyIterator];
+                    var enemyToSpawn = currentEnemy.enemyToSpawn.ToString();
+                    var amountToSpawn = currentEnemy.GetAmountToSpawn();
+                    var timeBetweenEnemies = currentWave.GetTimeBetweenEnemies();
+
+                    if (!isSettingEnemy)
+                    {
+                        enemiesToSpawn = amountToSpawn;
+                        isSettingEnemy = true;
+                    }
+                    if (enemiesToSpawn > 0)
+                    {
+                        ObjectPooler.SpawnEnemy(enemyToSpawn);
+                        enemiesToSpawn--;
+
+                        if(enemiesToSpawn != 0 || enemyIterator != currentGroup.enemySpawn.Length - 1)
+                        {
+                            StartCoroutine(EnemyCooldown(timeBetweenEnemies));
+                        }
+                    }
+                    else
+                    {
+                        enemyIterator++;
+                        isSettingEnemy = false;
+                    }
+                }
+                else if (enemiesToSpawn == 0 && !inEnemyCooldown && !inGroupCooldown)
+                {
+                    enemyIterator = 0;
+                    groupIterator++;
+                    groupCoroutine = StartCoroutine(GroupCooldown(timeBetweenGroups));
+                }
+            }
+            else
+            {
+                if (enemiesAlive == 0 && waveIterator != waves.Length - 1)
+                {
+                    enemyIterator = 0;
+                    groupIterator = 0;
+                    totalEnemiesPerWave = 0;
+                    groupKillCount = 0;
+                    waveIterator++;
+                    StartCoroutine(WaveCooldown(timeBetweenWaves));
+                }
+                else if (enemiesAlive == 0 && waveIterator == waves.Length - 1)
+                {
+                    isGameFinished = true;
+                }
+                
             }
         }
-        if (killCount == enemiesPerWave)
+        else if (inGroupCooldown && !inWaveCooldown && groupKillCount == enemiesForCurrentGroup)
         {
-            StartCoroutine(WaveCooldown());
-        }
+            inGroupCooldown = false;
+            StopCoroutine(groupCoroutine);
+            SumEnemiesForCurrentGroup();
+        }       
     }
 
-    // Increasing enemies per wave, and resetting kill count and dead test enemies
-    public virtual IEnumerator WaveCooldown()
+    public virtual IEnumerator EnemyCooldown(float time)
     {
-        enemiesPerWave += enemyIncreasePerWave;
+        inEnemyCooldown = true;
+        yield return new WaitForSeconds(time);
+        inEnemyCooldown = false;
+    }
+    public virtual IEnumerator GroupCooldown(float time)
+    {
+        inGroupCooldown = true;
+        yield return new WaitForSeconds(time);
+        inGroupCooldown = false;
+        SumEnemiesForCurrentGroup();
+    }
+
+    public virtual IEnumerator WaveCooldown(float time)
+    {
         inWaveCooldown = true;
-        yield return new WaitForSeconds(timeBetweenWaves);
-        ResetPerWave();
         IncrementWaveCount();
+        SumEnemiesPerWave();
+        yield return new WaitForSeconds(time);
+        enemiesForCurrentGroup = 0;
+        SumEnemiesForCurrentGroup();
         inWaveCooldown = false;
     }
-
     
-    public virtual IEnumerator GameStartCooldown()
+    public virtual IEnumerator GameStartCooldown(float time)
     {
         inGameStartCooldown = true;
-        yield return new WaitForSeconds(timeBeforeGameStarts);
+        yield return new WaitForSeconds(time);
         gameStarted = true;
         IncrementWaveCount();
+        SumEnemiesPerWave();
+        SumEnemiesForCurrentGroup();
         inGameStartCooldown = false;
     }
 
-    void ResetPerWave()
+    public void SumEnemiesPerWave()
     {
-        enemiesToSpawn = enemiesPerWave;
-        TestEnemy.ResetDeadTestEnemies();
+        
+        for (int i = 0; i < waves[waveIterator].groups.Length; i++)
+        {
+            for (int j = 0; j < waves[waveIterator].groups[i].enemySpawn.Length; j++)
+            {
+                totalEnemiesPerWave += waves[waveIterator].groups[i].enemySpawn[j].GetAmountToSpawn();
+                enemiesAlive = totalEnemiesPerWave;
+            }
+        } 
+    }
+
+    public void SumEnemiesForCurrentGroup()
+    {
+        if (groupIterator < waves[waveIterator].groups.Length)
+        {
+            for(int i = 0; i < waves[waveIterator].groups[groupIterator].enemySpawn.Length; i++)
+            {
+                enemiesForCurrentGroup += waves[waveIterator].groups[groupIterator].enemySpawn[i].GetAmountToSpawn();
+            }
+        }
     }
 
     void IncrementWaveCount()
     {
-        currentWave++;
+        currentWaves++;
+    }
+
+    public static void CountDeadEnemies()
+    {
+        instance.groupKillCount++;
+        instance.enemiesAlive--;
     }
 }

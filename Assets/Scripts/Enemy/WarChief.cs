@@ -45,7 +45,7 @@ public class WarChief : MonoBehaviour
 
 		if (distanceToPlayer <= _meleeRange && !_isJumping)
 		{
-			transform.LookAt(_navPoller.TargetPlayer.GetAvatarPosition());
+			transform.LookAt(_navPoller.TargetPlayer?.GetAvatarPosition() ?? Vector3.zero);
 			if (!_isSwinging)
 				MeleeAttack();
 		}
