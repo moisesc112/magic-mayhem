@@ -8,16 +8,16 @@ public class WaveManager : MonoBehaviour
 
     public float timeBeforeGameStarts;
 
-    public bool inPlaceholderScene = true;
-    public bool gameStarted;
-    public bool inWaveCooldown;
-    public bool inGameStartCooldown;
-    public bool isGameFinished;
-    public int currentWaves;
-    public int groupKillCount;
-    public int enemiesAlive;
-    public int totalEnemiesPerWave;
-    public float timeBetweenWaves;
+    [System.NonSerialized] public bool inPlaceholderScene = true;
+    [System.NonSerialized] public bool gameStarted;
+    [System.NonSerialized] public bool inWaveCooldown;
+    [System.NonSerialized] public bool inGameStartCooldown;
+    [System.NonSerialized] public bool isGameFinished;
+    [System.NonSerialized] public int currentWaves;
+    [System.NonSerialized] public int groupKillCount;
+    [System.NonSerialized] public int enemiesAlive;
+    [System.NonSerialized] public int totalEnemiesPerWave;
+    [System.NonSerialized] public float timeBetweenWaves;
 
     private bool inEnemyCooldown;
     private bool inGroupCooldown;
