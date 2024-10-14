@@ -3070,7 +3070,7 @@ GameObject:
   - component: {fileID: 60405777211636278}
   m_Layer: 0
   m_Name: GoblinEnemy
-  m_TagString: Untagged
+  m_TagString: GoblinEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
