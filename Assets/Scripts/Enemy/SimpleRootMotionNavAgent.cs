@@ -14,7 +14,7 @@ public class SimpleRootMotionNavAgent : MonoBehaviour
 		_agent = GetComponent<NavMeshAgent>();
 
 		_animator.applyRootMotion = true;
-		_agent.updatePosition = true;
+		_agent.updatePosition = false;
 		_agent.updateRotation = true;
 	}
 

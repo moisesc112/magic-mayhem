@@ -1,11 +1,16 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityRandom = UnityEngine.Random;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(Dissolver))]
+[RequireComponent(typeof(RagdollComponent))]
+[RequireComponent(typeof(LootDropComponent))]
 public class WarChief : MonoBehaviour
 {
 	[Header("Attack")]
@@ -19,18 +24,29 @@ public class WarChief : MonoBehaviour
 	[Header("FX")] 
 	[SerializeField] Renderer _renderer;
 
-	void Start()
+
+	void Awake()
 	{
 		_audioSource = GetComponent<AudioSource>();
 		_animator = GetComponent<Animator>();
 		_navPoller = GetComponent<NavPollerComponent>();
 		_agent = GetComponent<NavMeshAgent>();
 		_healthComp = GetComponent<HealthComponent>();
+		_healthComp.onDeath += HealthComp_OnDeath;
 		_dissolver = GetComponent<Dissolver>();
 		_dissolver.SetTargetRenderer(_renderer);
+		_ragdoll = GetComponent<RagdollComponent>();
+		_lootDrop = GetComponent<LootDropComponent>();
+	}
 
+	void Start()
+	{
 		_swingLayerIndex = _animator.GetLayerIndex("Combat");
-		_canJump = true;
+	}
+
+	private void OnDestroy()
+	{
+		_healthComp.onDeath -= HealthComp_OnDeath;
 	}
 
 	private void FixedUpdate()
@@ -49,6 +65,26 @@ public class WarChief : MonoBehaviour
 			if (!_isSwinging)
 				MeleeAttack();
 		}
+	}
+
+	public void InitFromPool(Vector3 location, Action<WarChief> releaseAction)
+	{
+		transform.position = location;
+		_agent.transform.position = transform.position;
+
+		enabled = true;
+		_navPoller.enabled = true;
+		_agent.enabled = true;
+		
+		_canJump = true;
+
+		_dissolver.ResetEffect();
+
+		_healthComp.health = _healthComp.maxHealth;
+		_ragdoll.DisableRagdoll();
+
+		if (_releaseToPoolAction is null)
+			_releaseToPoolAction = releaseAction;
 	}
 
 	public void JumpImpact()
@@ -74,7 +110,7 @@ public class WarChief : MonoBehaviour
 
 	void MeleeAttack()
 	{
-		_animator.SetInteger("SwingNum", Random.Range(1, 4));
+		_animator.SetInteger("SwingNum", UnityRandom.Range(1, 4));
 		_animator.SetBool("IsAttacking", true);
 		_animator.SetLayerWeight(_swingLayerIndex, 1.0f);
 		_isSwinging = true;
@@ -94,12 +130,34 @@ public class WarChief : MonoBehaviour
 		_animator.SetLayerWeight(_swingLayerIndex, 0.0f);
 	}
 
+	private void HealthComp_OnDeath(object sender, System.EventArgs e)
+	{
+		StartCoroutine(nameof(HandleDeath));
+	}
+
+	IEnumerator HandleDeath()
+	{
+		enabled = false;
+		_navPoller.enabled = false;
+		_agent.enabled = false;
+		WaveManager.instance.ReportEnemyKilled();
+
+		_lootDrop.DropLoot();
+		_ragdoll.EnableRagdoll();
+		_dissolver.StartDissolving();
+		yield return new WaitForSeconds(3.0f);
+		_releaseToPoolAction(this);
+	}
+
 	AudioSource _audioSource;
 	Animator _animator;
 	NavPollerComponent _navPoller;
 	NavMeshAgent _agent;
 	HealthComponent _healthComp;
 	Dissolver _dissolver;
+	RagdollComponent _ragdoll;
+	LootDropComponent _lootDrop;
+	Action<WarChief> _releaseToPoolAction;
 
 	bool _canJump;
 	bool _isJumping;

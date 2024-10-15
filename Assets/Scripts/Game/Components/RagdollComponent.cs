@@ -8,7 +8,7 @@ public class RagdollComponent : MonoBehaviour
 
 	[Header("Optional")]
 	[SerializeField] NavMeshAgent _agent;
-	[SerializeField] bool _trackRoot;
+	[SerializeField] bool _trackRoot = false;
 	[SerializeField] Transform _boundMesh;
 	[SerializeField] Transform _centerOfMass;
 	[SerializeField] bool _disableOwnCollider = true;

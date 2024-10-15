@@ -4,44 +4,9 @@ public class WaveInfo : MonoBehaviour
     [System.Serializable]
     public class WaveContent
     {
-        [System.Serializable]
-        public class GroupContent
-        {
-            [System.Serializable]
-            public class EnemyContent
-            {
-                public enum EnemyToSpawn
-                {
-                    GoblinEnemy,
-                    GolemEnemy,
-                    TestEnemy,
-                    WarChiefEnemy
-                };
-
-                [SerializeField] public EnemyToSpawn enemyToSpawn;
-                [SerializeField] public int amountToSpawn;
-
-                public int GetAmountToSpawn()
-                {
-                    return amountToSpawn;
-                }
-            }
-            [SerializeField] public EnemyContent[] enemySpawn;
-            [SerializeField] public float timeToNextGroup;
-
-            public EnemyContent[] GetEnemySpawn()
-            {
-                return enemySpawn;
-            }
-            public float GetTimeToNextGroup()
-            {
-                return timeToNextGroup;
-            }
-        }
         [SerializeField] public GroupContent[] groups;
-        [SerializeField] public float timeToNextWave;
-        [SerializeField] public float timeBetweenEnemies;
-
+        [SerializeField] public int timeToNextWave;
+        [SerializeField] public int timeBetweenEnemies;
 
         public GroupContent[] GetGroups()
         {
@@ -55,7 +20,15 @@ public class WaveInfo : MonoBehaviour
         {
             return timeBetweenEnemies;
         }
+        
+        public int GetEnemyCount()
+        {
+            var count = 0;
+            foreach (var group in groups)
+                count += group.GetEnemyCount();
 
+            return count;
+        }
     }
 
     [SerializeField] WaveContent[] waves;
@@ -65,4 +38,49 @@ public class WaveInfo : MonoBehaviour
         return waves;
     }
     
+}
+
+[System.Serializable]
+public class GroupContent
+{
+	[SerializeField] public EnemyContent[] enemySpawn;
+	[SerializeField] public float timeToNextGroup;
+
+	public EnemyContent[] GetEnemySpawn()
+	{
+		return enemySpawn;
+	}
+	public float GetTimeToNextGroup()
+	{
+		return timeToNextGroup;
+	}
+
+    public int GetEnemyCount()
+    {
+        var count = 0;
+        foreach(var enemy in enemySpawn)
+            count += enemy.amountToSpawn;
+        return count;
+    }
+}
+
+[System.Serializable]
+public class EnemyContent
+{
+	public enum EnemyToSpawn
+	{
+		Goblin,
+		Golem,
+		Test,
+		WarChief,
+        Archer
+	};
+
+	[SerializeField] public EnemyToSpawn enemyToSpawn;
+	[SerializeField] public int amountToSpawn;
+
+	public int GetAmountToSpawn()
+	{
+		return amountToSpawn;
+	}
 }

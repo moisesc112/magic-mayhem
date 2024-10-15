@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(AdvancedRootMotionNavAgent))]
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(Dissolver))]
+[RequireComponent(typeof(RagdollComponent))]
+[RequireComponent(typeof(LootDropComponent))]
+[RequireComponent (typeof(NavMeshAgent))]
 public class Archer : MonoBehaviour
 {
 	[Header("Targeting")]
@@ -38,9 +43,15 @@ public class Archer : MonoBehaviour
 		_rmNavAgent.targetMaxDistance = _targetMaxDistance;
 		_rmNavAgent.sweetSpotRatio = _sweetSpotRatio;
 
+		_agent = GetComponent<NavMeshAgent>();
+
 		_hc = GetComponent<HealthComponent>();
+		_hc.onDeath += HealthComp_OnDeath;
 		_dissolver = GetComponent<Dissolver>();
 		_dissolver.SetTargetRenderer(_targetRenderer);
+		
+		_ragdoll = GetComponent<RagdollComponent>();
+		_lootDrop = GetComponent<LootDropComponent>();
 
 		_readyToNock = true;
 	}
@@ -69,6 +80,24 @@ public class Archer : MonoBehaviour
 			if (_arrowNocked)
 				StoreArrow();
 		}
+	}
+
+	public void InitFromPool(Vector3 location, Action<Archer> releaseAction)
+	{
+		transform.position = location;
+		_agent.transform.position = transform.position;
+
+		enabled = true;
+		_poller.enabled = true;
+		_agent.enabled = true;
+
+		_dissolver.ResetEffect();
+
+		_hc.health = _hc.maxHealth;
+		_ragdoll.DisableRagdoll();
+
+		if (_releaseToPoolAction is null)
+			_releaseToPoolAction = releaseAction;
 	}
 
 	// Called from draw animation
@@ -189,12 +218,34 @@ public class Archer : MonoBehaviour
 		_readyToNock = true;
 	}
 
+	void HealthComp_OnDeath(object sender, EventArgs e)
+	{
+		StartCoroutine(nameof(HandleDeath));
+	}
+
+	IEnumerator HandleDeath()
+	{
+		enabled = false;
+		_poller.enabled = false;
+		_agent.enabled = false;
+		WaveManager.instance.ReportEnemyKilled();
+
+		_lootDrop.DropLoot();
+		_ragdoll.EnableRagdoll();
+		_dissolver.StartDissolving();
+		yield return new WaitForSeconds(3.0f);
+		_releaseToPoolAction(this);
+	}
 
 	NavPollerComponent _poller;
 	Animator _animator;
 	AdvancedRootMotionNavAgent _rmNavAgent;
 	HealthComponent _hc;
 	Dissolver _dissolver;
+	UnityEngine.AI.NavMeshAgent _agent;
+	RagdollComponent _ragdoll;
+	LootDropComponent _lootDrop;
+	Action<Archer> _releaseToPoolAction;
 
 	Vector3 _aimDir;
 	bool _canShoot;

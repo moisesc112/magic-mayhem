@@ -29,20 +29,25 @@ public class ObjectPooler : MonoBehaviour
 
     private ObjectPool<GameObject> CreateObjectPoolList(GameObject enemyPreFab)
     {
-        enemyPool = new ObjectPool<GameObject>(() => CreateObjectPool(enemyPreFab), OnGetObjectFromPool, OnReturnObjectToPool, OnDestroyObject, true, 1, maxPoolSize);
+        enemyPool = new ObjectPool<GameObject>(
+            createFunc: () => CreateObjectPool(enemyPreFab),
+            actionOnGet: OnGetObjectFromPool,
+            actionOnRelease: OnReturnObjectToPool, 
+            actionOnDestroy: OnDestroyObject, 
+            collectionCheck: true, 
+            defaultCapacity: 10, 
+            maxSize: maxPoolSize);
         return enemyPool;
     }
 
     private GameObject CreateObjectPool(GameObject enemyPreFab)
     {
-       GameObject enemyInstance = Instantiate(enemyPreFab, enemyParentObjectDictionary[enemyPreFab.tag]);
+       GameObject enemyInstance = Instantiate(enemyPreFab, Vector3.zero, Quaternion.identity, parent:null);
        return enemyInstance;
     }
 
     private void OnGetObjectFromPool(GameObject enemyPreFab)
     {
-        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        enemyPreFab.transform.position = randomSpawnPoint.position;
         enemyPreFab.SetActive(true);
     }
 
@@ -56,16 +61,14 @@ public class ObjectPooler : MonoBehaviour
         Destroy(enemyPreFab);
     }
 
-    public static void SpawnEnemy(string enemyTag)
+    public void SpawnEnemy(string enemyTag)
     {
         var enemy = enemyPools[enemyTag].Get();
-        enemy.SetActive(true);
-        var navPoller = enemy.GetComponent<NavPollerComponent>();
-        if (navPoller)
-            navPoller.ResetPolling();
+		Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+		enemy.transform.position = randomSpawnPoint.position;
     }
 
-    public static void EnemyPoolRelease(string enemyTag, GameObject enemyPreFab)
+    public void EnemyPoolRelease(string enemyTag, GameObject enemyPreFab)
     {
         enemyPools[enemyTag].Release(enemyPreFab);
     }
