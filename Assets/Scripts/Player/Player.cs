@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 [RequireComponent(typeof(PlayerStats))]
 public class Player : MonoBehaviour
@@ -8,6 +10,7 @@ public class Player : MonoBehaviour
 	public Vector3 velocity => _velocity;
 
 	[SerializeField] GameObject _avatar;
+
 	
 	void Awake()
 	{
@@ -16,6 +19,8 @@ public class Player : MonoBehaviour
 		_castingComponent = GetComponentInChildren<CastingComponent>();
 		_shop = GetComponentInChildren<Shop>();
 		_playerStats = GetComponent<PlayerStats>();
+		_ragdoll = _avatar.GetComponent<RagdollComponent>();
+		_playerStats.onDeath += HealthComp_OnDeath;
 	}
 
 	void Start()
@@ -77,6 +82,27 @@ public class Player : MonoBehaviour
 		_mover.OnRoll();
 	}
 
+	void HealthComp_OnDeath(object sender, EventArgs e)
+	{
+		StartCoroutine(nameof(HandleDeath));
+	}
+	
+	IEnumerator HandleDeath()
+	{
+		_ragdoll.EnableRagdoll();
+
+		gameObject.tag = "DeadPlayers";
+
+		yield return null;
+
+		var remainingPlayers = GameObject.FindGameObjectsWithTag("AlivePlayers");
+
+		if (remainingPlayers.Length == 0)
+        {
+			Debug.Log("GameOver");
+        }			
+	}
+
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
 	public PlayerStats PlayerStats => GetComponent<PlayerStats>();
 
@@ -87,4 +113,5 @@ public class Player : MonoBehaviour
 	int _playerIndex = -1;
 	Vector3 _velocity;
 	Vector3 _previousPos;
+	RagdollComponent _ragdoll;
 }

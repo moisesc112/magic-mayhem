@@ -9,6 +9,7 @@ TagManager:
   - WarChiefEnemy
   - GolemEnemy
   - TestEnemy
+  - DeadPlayers
   layers:
   - Default
   - TransparentFX
