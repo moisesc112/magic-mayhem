@@ -12,6 +12,10 @@ public class LobbyManager : MonoBehaviour
     public GameObject mainMenuCanvas;
     public GameObject gameCanvas;
 
+    [Header("Camera Settings")]
+    public Camera mainCamera;
+    // public float cameraMoveDuration = 1.0f; // No longer needed
+
     void Start()
     {
         // Enable player joining
@@ -19,6 +23,12 @@ public class LobbyManager : MonoBehaviour
 
         // Subscribe to the PlayerControllerJoined event
         PlayerManager.instance.PlayerControllerJoined += OnPlayerControllerJoined;
+
+        // Ensure the mainCamera is assigned
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
     }
 
     void OnDestroy()
@@ -52,6 +62,9 @@ public class LobbyManager : MonoBehaviour
 
             // Proceed to accept input only from the lobby leader
             SetupLobbyLeaderInput();
+
+            // Move the camera immediately after setting up the input
+            MoveCameraToGameCanvas();
         }
         else
         {
@@ -100,8 +113,8 @@ public class LobbyManager : MonoBehaviour
         // Handle the submit action
         Debug.Log("Lobby Leader pressed Submit.");
 
-        // Load the next screen
-        LoadGameCanvas();
+        // Move the camera to the GameCanvas location
+        MoveCameraToGameCanvas();
     }
 
     void OnCancel(InputAction.CallbackContext context)
@@ -119,31 +132,55 @@ public class LobbyManager : MonoBehaviour
         // Implement your logic here, such as navigating the menu
     }
 
-    void LoadGameCanvas()
+    void MoveCameraToGameCanvas()
     {
-        // Deactivate the Main Menu Canvas
-        if (mainMenuCanvas != null)
+        if (gameCanvas != null && mainCamera != null)
         {
-            mainMenuCanvas.SetActive(false);
+            // Optionally deactivate the Main Menu Canvas
+            if (mainMenuCanvas != null)
+            {
+                mainMenuCanvas.SetActive(false);
+            }
+
+            // Get the target position (assuming you want the camera to look at the canvas)
+            Vector3 targetPosition = gameCanvas.transform.position;
+
+            // Optionally adjust the camera's Z position or other offsets
+            // For example, if you want the camera to be a certain distance away from the canvas
+            targetPosition.z = mainCamera.transform.position.z;
+
+            // Move the camera instantly to the target position
+            mainCamera.transform.position = targetPosition;
+
+            // Optional: Re-enable player joining if you want other players to join
+            // PlayerManager.instance.SetJoiningEnabled(true);
         }
         else
         {
-            Debug.LogWarning("Main Menu Canvas is not assigned in the LobbyManager.");
+            if (gameCanvas == null)
+                Debug.LogWarning("Game Canvas is not assigned in the LobbyManager.");
+            if (mainCamera == null)
+                Debug.LogWarning("Main Camera is not assigned in the LobbyManager.");
         }
+    }
 
-        // Activate the Game Canvas
-        if (gameCanvas != null)
+    // Optional: Remove or comment out the coroutine if it's no longer needed
+    /*
+    IEnumerator MoveCameraCoroutine(Vector3 start, Vector3 end, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
         {
-            gameCanvas.SetActive(true);
+            mainCamera.transform.position = Vector3.Lerp(start, end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
-        else
-        {
-            Debug.LogWarning("Game Canvas is not assigned in the LobbyManager.");
-        }
+        mainCamera.transform.position = end;
 
-        // Optional: Re-enable player joining if you want other players to join on the next screen
+        // Optionally, enable player joining after the camera movement is complete
         // PlayerManager.instance.SetJoiningEnabled(true);
     }
+    */
 
     // Optional: Method to access the lobby leader's controller from other scripts
     public PlayerController GetLobbyLeaderController()
