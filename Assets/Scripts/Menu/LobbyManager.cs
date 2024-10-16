@@ -134,35 +134,30 @@ public class LobbyManager : MonoBehaviour
 
     void MoveCameraToGameCanvas()
     {
-        if (gameCanvas != null && mainCamera != null)
+        if (mainCamera != null)
         {
-            // Optionally deactivate the Main Menu Canvas
             if (mainMenuCanvas != null)
             {
                 mainMenuCanvas.SetActive(false);
             }
 
-            // Get the target position (assuming you want the camera to look at the canvas)
-            Vector3 targetPosition = gameCanvas.transform.position;
+            Vector3 cameraPosition = new Vector3(-970.83f, 302.02f, 391.857f);
+            Quaternion cameraRotation = Quaternion.Euler(1.179f, 10.548f, 2.118f);
+//
+            mainCamera.transform.position = cameraPosition;
+            mainCamera.transform.rotation = cameraRotation;
 
-            // Optionally adjust the camera's Z position or other offsets
-            // For example, if you want the camera to be a certain distance away from the canvas
-            targetPosition.z = mainCamera.transform.position.z;
-
-            // Move the camera instantly to the target position
-            mainCamera.transform.position = targetPosition;
-
-            // Optional: Re-enable player joining if you want other players to join
-            // PlayerManager.instance.SetJoiningEnabled(true);
+            if (gameCanvas != null)
+            {
+                gameCanvas.SetActive(true);
+            }
         }
         else
         {
-            if (gameCanvas == null)
-                Debug.LogWarning("Game Canvas is not assigned in the LobbyManager.");
-            if (mainCamera == null)
-                Debug.LogWarning("Main Camera is not assigned in the LobbyManager.");
+            Debug.LogWarning("Main Camera is not assigned in the LobbyManager.");
         }
     }
+
 
     // Optional: Remove or comment out the coroutine if it's no longer needed
     /*
