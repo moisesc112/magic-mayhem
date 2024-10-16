@@ -24,7 +24,9 @@ public class MainMenuManager : MonoBehaviour
 		PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
 		PlayerManager.instance.PlayerControllerRemoved += PlayerManager_OnPlayerControllerRemoved;
 	}
-
+/// <summary>
+/// 
+/// </summary>
 	void OnDestroy()
 	{
 		PlayerManager.instance.PlayerControllerJoined -= PlayerManager_OnPlayerControllerJoined;
