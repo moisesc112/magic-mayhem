@@ -23,6 +23,9 @@ public class MainMenuManager : MonoBehaviour
 		PlayerManager.instance.SetJoiningEnabled(true);
 		PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
 		PlayerManager.instance.PlayerControllerRemoved += PlayerManager_OnPlayerControllerRemoved;
+
+		LevelLoadManager.instance.LoadSceneAsync(sceneToLoad);
+		LevelLoadManager.instance.sceneLoaded += LevelManager_OnSceneLoaded;
 	}
 
 	void OnDestroy()
@@ -33,8 +36,14 @@ public class MainMenuManager : MonoBehaviour
 	public void StartGame()
 	{
 		PlayerManager.instance.SetJoiningEnabled(false);
-		SceneManager.LoadScene(sceneToLoad);
+		LevelLoadManager.instance.ActivateLoadedScene();
 		WaveManager.OnSceneLoaded(sceneToLoad);
+	}
+
+	void LevelManager_OnSceneLoaded(object sender, LevelLoadedArgs args)
+	{
+		LevelLoadManager.instance.sceneLoaded -= LevelManager_OnSceneLoaded;
+		_gameSceneLoaded = true;
 	}
 
 	void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)
@@ -92,10 +101,13 @@ public class MainMenuManager : MonoBehaviour
 			countDownText.text = i.ToString();
 			yield return new WaitForSeconds(1.0f);
 		}
-
+		if (!_gameSceneLoaded)
+			countDownText.text = "Loading...";
+		yield return new WaitUntil(() => _gameSceneLoaded);
 		StartGame();
 	}
 
 	Dictionary<int, CharacterCardController> _playerCardByIndex;
 	Dictionary<int, bool> _readyStatusByPlayerId;
+	bool _gameSceneLoaded;
 }
