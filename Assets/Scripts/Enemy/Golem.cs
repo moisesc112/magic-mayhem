@@ -1,10 +1,20 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavPollerComponent))]
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(HealthComponent))]
+[RequireComponent(typeof(Dissolver))]
+[RequireComponent(typeof(RagdollComponent))]
+[RequireComponent(typeof(LootDropComponent))]
 public class Golem : MonoBehaviour
 {
 	[Header("FX")]
 	[SerializeField] ParticleSystem _dustParticleSystem;
 	[SerializeField] AudioClip _stompAudio;
+	[SerializeField] Renderer _targetRenderer;
 
 	[Header("Attack")]
 	[SerializeField] float _attackRange;
@@ -12,9 +22,17 @@ public class Golem : MonoBehaviour
 
 	void Awake()
 	{
+		_agent = GetComponent<NavMeshAgent>();
 		_audioSource = GetComponent<AudioSource>();
 		_animator = GetComponent<Animator>();
 		_navPoller = GetComponent<NavPollerComponent>();
+		_dissolver = GetComponent<Dissolver>();
+		if (_targetRenderer)
+			_dissolver.SetTargetRenderer(_targetRenderer);
+		_ragdoll = GetComponent<RagdollComponent>();
+		_lootDrop = GetComponent<LootDropComponent>();
+		_healthComp = GetComponent<HealthComponent>();
+		_healthComp.onDeath += HealthComp_OnDeath;
 	}
 
 	void Update()
@@ -40,8 +58,53 @@ public class Golem : MonoBehaviour
 	{
 		_animator.SetBool("IsAttacking", true);
 	}
-	
+
+	public void InitFromPool(Vector3 location, Action<Golem> releaseAction)
+	{
+		transform.position = location;
+		_agent.transform.position = transform.position;
+
+		enabled = true;
+		_navPoller.enabled = true;
+		_agent.enabled = true;
+
+		_dissolver.ResetEffect();
+
+		_healthComp.health = _healthComp.maxHealth;
+		_ragdoll.DisableRagdoll();
+
+		_navPoller.StartPolling();
+
+		if (_releaseToPoolAction is null)
+			_releaseToPoolAction = releaseAction;
+	}
+
+	void HealthComp_OnDeath(object sender, EventArgs e)
+	{
+		StartCoroutine(nameof(HandleDeath));
+	}
+
+	IEnumerator HandleDeath()
+	{
+		enabled = false;
+		_navPoller.enabled = false;
+		_agent.enabled = false;
+		WaveManager.instance.ReportEnemyKilled();
+
+		_lootDrop.DropLoot();
+		_ragdoll.EnableRagdoll();
+		_dissolver.StartDissolving();
+		yield return new WaitForSeconds(3.0f);
+		_releaseToPoolAction(this);
+	}
+
 	AudioSource _audioSource;
 	Animator _animator;
 	NavPollerComponent _navPoller;
+	NavMeshAgent _agent;
+	Dissolver _dissolver;
+	HealthComponent _healthComp;
+	RagdollComponent _ragdoll;
+	LootDropComponent _lootDrop;
+	Action<Golem> _releaseToPoolAction;
 }

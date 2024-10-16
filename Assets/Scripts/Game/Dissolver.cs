@@ -44,11 +44,18 @@ public class Dissolver : MonoBehaviour
 
 	public void ResetEffect()
 	{
+		_isDissolving = false;
 		gameObject.SetActive(false);
-		_targetRenderer.material.SetFloat(shaderProperty, 1.0f);
-		_targetRenderer.material = _originalMaterial;
-		timer = 0;
-		ps.Stop();
+		if (_targetRenderer)
+		{
+			_targetRenderer.material.SetFloat(shaderProperty, 1.0f);
+			if (_originalMaterial)
+				_targetRenderer.material = _originalMaterial;
+			timer = 0;
+		}
+		
+		if (ps)
+			ps.Stop();
 	}
 
 	ParticleSystem ps;

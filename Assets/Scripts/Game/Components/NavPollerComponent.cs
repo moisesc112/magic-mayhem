@@ -8,6 +8,7 @@ public class NavPollerComponent : MonoBehaviour
 {
 	[SerializeField] DistancePollObject[] _distancePollInfos;
 
+	public bool assignNavDestination = true;
 	public Player TargetPlayer => _targetPlayer;
 	public float DistanceToPlayer => _distanceToPlayerSq;
 
@@ -15,11 +16,23 @@ public class NavPollerComponent : MonoBehaviour
 	{
 		_agent = GetComponent<NavMeshAgent>();
 		_distancePollInfos = _distancePollInfos.OrderBy(p => p.DistanceSqThreshold).ToArray();
+		StartPolling();
 	}
 
 	void Update()
 	{
+		if (_startPoll)
+		{
+			_startPoll = false;
+			ResetPolling();
+		}
 		UpdatePollInfo();
+	}
+
+	public void StartPolling()
+	{
+		_startPoll = true;
+		_distancePollInterval = 0;
 	}
 
 	public void ResetPolling()
@@ -55,7 +68,8 @@ public class NavPollerComponent : MonoBehaviour
 			}
 			else
 			{
-				_agent.SetDestination(_targetPlayer?.GetAvatarPosition() ?? Vector3.zero);
+				if (assignNavDestination)
+					_agent.SetDestination(_targetPlayer?.GetAvatarPosition() ?? Vector3.zero);
 				yield return new WaitForSeconds(_distancePollInterval);
 			}
 		}
@@ -110,4 +124,5 @@ public class NavPollerComponent : MonoBehaviour
 	NavMeshAgent _agent;
 	float _distanceToPlayerSq;
 	float _distancePollInterval = 0.0f;
+	bool _startPoll;
 }

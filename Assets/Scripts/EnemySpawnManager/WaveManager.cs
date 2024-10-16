@@ -1,108 +1,171 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityRandom = UnityEngine.Random;
 
+[RequireComponent (typeof(WaveInfo))]
 public class WaveManager : MonoBehaviour
 {
-    // Maybe add a WaveInfo file for all these variables?
-    public static bool inTestingScene = true;
-    public static bool gameStarted;
-    public static bool inWaveCooldown;
-    public static bool inGameStartCooldown;
-    public static int currentWave;
-    
-    public float timeBetweenSpawns;
-    public float timeBetweenWaves;
-    public float timeBeforeGameStarts;
-    public int enemiesPerWave;
-    public int enemyIncreasePerWave;
-    // public int waves; Would implement if we want to have a set number of waves instead of infinite 
-    
-    private float timeSinceLastSpawn;
-    private int killCount;
-    private int enemiesToSpawn;
+	public static WaveManager instance { get; private set; }
 
-    // Would refactor to instead spawn from a list of object pools and set amount of enemies per pool
+	public int timeBeforeGameStarts;
 
-    void Awake()
-    {
-        if (inTestingScene)
-        {
-            StartCoroutine(GameStartCooldown());
-            enemiesToSpawn = enemiesPerWave;
-        }
-    }
+	[SerializeField] EnemyFactory _enemyFactory;
+	[SerializeField] Transform[] _spawnLocations;
 
-    void Update()
-    {
-        SpawnWave(enemiesPerWave);
-        killCount = TestEnemy.deadTestEnemies;
-    }
+	[System.NonSerialized] public bool inPlaceholderScene = true;
+	[System.NonSerialized] public bool gameStarted;
+	[System.NonSerialized] public bool inWaveCooldown;
+	[System.NonSerialized] public bool inGameStartCooldown;
+	[System.NonSerialized] public bool isGameFinished;
+	[System.NonSerialized] public int currentWaves;
+	[System.NonSerialized] public int groupKillCount;
+	[System.NonSerialized] public int enemiesAlive;
+	[System.NonSerialized] public int totalEnemiesPerWave;
+	[System.NonSerialized] public float timeBetweenWaves;
 
+	public bool inTestingScene;
 
-    // Might want to change this to be in a Game State Manager Class
-    public static void OnSceneLoaded(string scene)
-    {
-        if (scene == "Testing")
-        {
-            inTestingScene = true;
-        }
-        else
-        {
-            Debug.LogWarning("Wrong Scene, current scene is: " + scene);
-        }
-    }
+	private int aliveEnemies;
+	private int enemiesToSpawn;
+	private WaveInfo waveInfo;
+	private WaveInfo.WaveContent[] waves;
 
-    // Might want to change WaveCooldown count to be in a Game State Manager Class,
-    // then have the wave manager look at if it can spawn mobs or not
-    void SpawnWave(int enemiesPerWave)
-    {
+	public event EventHandler<GameStartedEventArgs> gameStarting;
+	public event EventHandler<WaveStartedEventArgs> waveStarted;
+	public event EventHandler<WaveEndedEventArgs> waveFinished;
+	public event EventHandler<EnemyDiedEventArgs> enemyDied;
+   
+	void Start()
+	{
+		isGameFinished = false;
+	}
 
-        if (inTestingScene && enemiesToSpawn != 0 && gameStarted)
-        {
-            if (Time.time > timeSinceLastSpawn)
-            {
-                ObjectPooler.SpawnTestEnemy();
-                timeSinceLastSpawn = Time.time + timeBetweenSpawns;
-                enemiesToSpawn--;
-            }
-        }
-        if (killCount == enemiesPerWave)
-        {
-            StartCoroutine(WaveCooldown());
-        }
-    }
+	void Awake()
+	{
+		if (instance != null && instance != this)
+		{
+			Destroy(this);
+			return;
+		}
 
-    // Increasing enemies per wave, and resetting kill count and dead test enemies
-    public virtual IEnumerator WaveCooldown()
-    {
-        enemiesPerWave += enemyIncreasePerWave;
-        inWaveCooldown = true;
-        yield return new WaitForSeconds(timeBetweenWaves);
-        ResetPerWave();
-        IncrementWaveCount();
-        inWaveCooldown = false;
-    }
+		instance = this;
 
-    
-    public virtual IEnumerator GameStartCooldown()
-    {
-        inGameStartCooldown = true;
-        yield return new WaitForSeconds(timeBeforeGameStarts);
-        gameStarted = true;
-        IncrementWaveCount();
-        inGameStartCooldown = false;
-    }
+		waveInfo = GetComponent<WaveInfo>();
+		waves = waveInfo.GetWaveContents();
+	}
 
-    void ResetPerWave()
-    {
-        enemiesToSpawn = enemiesPerWave;
-        TestEnemy.ResetDeadTestEnemies();
-    }
+	void Update()
+	{
+	}
 
-    void IncrementWaveCount()
-    {
-        currentWave++;
-    }
+	// Might want to change this to be in a Game State Manager Class
+	public static void OnSceneLoaded(string scene)
+	{
+		if (scene == "Testing")
+		{
+			instance.inPlaceholderScene = true;
+		}
+		else
+		{
+			Debug.LogWarning("Wrong Scene, current scene is: " + scene);
+		}
+	}
+
+	public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
+
+	public void SpawnWaves()
+	{
+		StartCoroutine(DoSpawnWaves());
+	}
+
+	IEnumerator DoSpawnWaves()
+	{
+		var waveNum = 0;
+		var groupNum = 0;
+		foreach (var wave in waves)
+		{
+			groupNum = 0;
+			Debug.Log("Spawning wave");
+			var enemyCount = wave.GetEnemyCount();
+			enemiesAlive = enemyCount;
+			aliveEnemies = 0;
+			waveStarted?.Invoke(this, new WaveStartedEventArgs(waveNum + 1, enemyCount));
+			foreach (var group in wave.groups)
+			{
+				aliveEnemies += group.GetEnemyCount();
+				Debug.Log("Spawning group");
+				var location = _spawnLocations[UnityRandom.Range(0, _spawnLocations.Length)];
+				foreach (var enemy in group.enemySpawn)
+				{
+					for (int i = 0; i < enemy.amountToSpawn; i++)
+					{
+						var randomLoc = UnityRandom.insideUnitCircle * 3;
+						var finalLoc = location.position + new Vector3(randomLoc.x, 0, randomLoc.y);
+						_enemyFactory.SpawnEnemy(enemy.enemyToSpawn, finalLoc);
+						yield return new WaitForSeconds(wave.timeBetweenEnemies);
+					}
+				}
+				groupNum++;
+				yield return new WaitForSecondsOrCondition(
+					condition: () => groupNum == wave.groups.Length || aliveEnemies == 0,
+					seconds: group.timeToNextGroup);
+			}
+			Debug.Log("Waiting for all enemies to be dead.");
+			yield return new WaitUntil(() => enemiesAlive == 0);
+			Debug.Log("Enemies dead");
+			if (++waveNum != waves.Length)
+			{
+				waveFinished?.Invoke(this, new WaveEndedEventArgs(wave.timeToNextWave));
+				yield return new WaitForSeconds(wave.timeToNextWave);
+			}
+		}
+
+		Debug.Log("You win!");
+	}
+
+	public void ReportEnemyKilled()
+	{
+		enemiesAlive--;
+		aliveEnemies--;
+		enemyDied?.Invoke(this, new EnemyDiedEventArgs(enemiesAlive));
+	}
+}
+
+public sealed class WaveStartedEventArgs : EventArgs
+{
+	public WaveStartedEventArgs(int num, int count)
+	{
+		waveNum = num;
+		enemyCount = count;
+	}
+	public int waveNum { get; }
+	public int enemyCount { get; }
+}
+
+public sealed class WaveEndedEventArgs : EventArgs
+{
+	public WaveEndedEventArgs(int time)
+	{
+		timeTillNextWave = time;
+	}
+	public int timeTillNextWave { get; }
+}
+
+public sealed class GameStartedEventArgs : EventArgs
+{
+	public GameStartedEventArgs(int count)
+	{
+		countDown = count;
+	}
+	public int countDown { get; }
+}
+
+public sealed class EnemyDiedEventArgs : EventArgs
+{
+	public EnemyDiedEventArgs(int count)
+	{
+		remainingEnemies = count;
+	}
+	public int remainingEnemies { get; }
 }
