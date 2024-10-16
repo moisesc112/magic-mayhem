@@ -1,40 +1,37 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.EventSystems;
 
 public class LobbyManager : MonoBehaviour
 {
     private PlayerController lobbyLeaderController;
     private InputSystemUIInputModule lobbyLeaderInputModule;
 
+    [Header("UI Canvases")]
+    public GameObject mainMenuCanvas;
+    public GameObject gameCanvas;
+
     void Start()
     {
         // Enable player joining
-        if (PlayerManager.instance != null)
-        {
-            PlayerManager.instance.SetJoiningEnabled(true);
+        PlayerManager.instance.SetJoiningEnabled(true);
 
-            // Subscribe to the PlayerControllerJoined event
-            PlayerManager.instance.PlayerControllerJoined += OnPlayerControllerJoined;
-        }
-        else
-        {
-            Debug.LogError("PlayerManager instance not found. Ensure that PlayerManager is present in the scene.");
-        }
+        // Subscribe to the PlayerControllerJoined event
+        PlayerManager.instance.PlayerControllerJoined += OnPlayerControllerJoined;
     }
 
     void OnDestroy()
     {
-        // Unsubscribe from the PlayerControllerJoined event
+        // Unsubscribe from the event when the object is destroyed
         if (PlayerManager.instance != null)
         {
             PlayerManager.instance.PlayerControllerJoined -= OnPlayerControllerJoined;
         }
 
-        // Unsubscribe from input actions
         if (lobbyLeaderInputModule != null)
         {
+            // Unsubscribe from input actions
             lobbyLeaderInputModule.submit.action.performed -= OnSubmit;
             lobbyLeaderInputModule.cancel.action.performed -= OnCancel;
             lobbyLeaderInputModule.move.action.performed -= OnMove;
@@ -53,7 +50,7 @@ public class LobbyManager : MonoBehaviour
             // Disable further player joining until the next screen
             PlayerManager.instance.SetJoiningEnabled(false);
 
-            // Set up input handling for the lobby leader
+            // Proceed to accept input only from the lobby leader
             SetupLobbyLeaderInput();
         }
         else
@@ -70,21 +67,22 @@ public class LobbyManager : MonoBehaviour
 
         if (eventSystem != null)
         {
-            // Get the InputSystemUIInputModule component
-            lobbyLeaderInputModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+            InputSystemUIInputModule inputModule = eventSystem.GetComponent<InputSystemUIInputModule>();
 
-            if (lobbyLeaderInputModule != null)
+            if (inputModule != null)
             {
-                // Assign the lobby leader's actions to the InputSystemUIInputModule
-                lobbyLeaderInputModule.actionsAsset = lobbyLeaderController.playerInput.actions;
+                // Assign the PlayerInput to the UI Input Module
+                lobbyLeaderController.playerInput.uiInputModule = inputModule;
 
-                // Assign the InputSystemUIInputModule to the lobby leader's PlayerInput
-                lobbyLeaderController.playerInput.uiInputModule = lobbyLeaderInputModule;
+                // Assign the lobby leader's actions asset to the input module
+                inputModule.actionsAsset = lobbyLeaderController.playerInput.actions;
 
                 // Subscribe to actions
-                lobbyLeaderInputModule.submit.action.performed += OnSubmit;
-                lobbyLeaderInputModule.cancel.action.performed += OnCancel;
-                lobbyLeaderInputModule.move.action.performed += OnMove;
+                inputModule.submit.action.performed += OnSubmit;
+                inputModule.cancel.action.performed += OnCancel;
+                inputModule.move.action.performed += OnMove;
+
+                lobbyLeaderInputModule = inputModule;
             }
             else
             {
@@ -102,15 +100,15 @@ public class LobbyManager : MonoBehaviour
         // Handle the submit action
         Debug.Log("Lobby Leader pressed Submit.");
 
-        // Implement your logic here (e.g., proceed to the next screen)
+        // Load the next screen
+        LoadGameCanvas();
     }
 
     void OnCancel(InputAction.CallbackContext context)
     {
         // Handle the cancel action
         Debug.Log("Lobby Leader pressed Cancel.");
-
-        // Implement your logic here (e.g., go back or exit)
+        // Implement your logic here, such as going back to the previous menu
     }
 
     void OnMove(InputAction.CallbackContext context)
@@ -118,8 +116,33 @@ public class LobbyManager : MonoBehaviour
         // Handle the move action
         Vector2 movement = context.ReadValue<Vector2>();
         Debug.Log($"Lobby Leader moved: {movement}");
+        // Implement your logic here, such as navigating the menu
+    }
 
-        // Implement your logic here (e.g., navigate UI)
+    void LoadGameCanvas()
+    {
+        // Deactivate the Main Menu Canvas
+        if (mainMenuCanvas != null)
+        {
+            mainMenuCanvas.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("Main Menu Canvas is not assigned in the LobbyManager.");
+        }
+
+        // Activate the Game Canvas
+        if (gameCanvas != null)
+        {
+            gameCanvas.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Game Canvas is not assigned in the LobbyManager.");
+        }
+
+        // Optional: Re-enable player joining if you want other players to join on the next screen
+        // PlayerManager.instance.SetJoiningEnabled(true);
     }
 
     // Optional: Method to access the lobby leader's controller from other scripts
