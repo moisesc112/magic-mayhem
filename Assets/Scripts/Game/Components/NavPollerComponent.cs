@@ -16,11 +16,23 @@ public class NavPollerComponent : MonoBehaviour
 	{
 		_agent = GetComponent<NavMeshAgent>();
 		_distancePollInfos = _distancePollInfos.OrderBy(p => p.DistanceSqThreshold).ToArray();
+		StartPolling();
 	}
 
 	void Update()
 	{
+		if (_startPoll)
+		{
+			_startPoll = false;
+			ResetPolling();
+		}
 		UpdatePollInfo();
+	}
+
+	public void StartPolling()
+	{
+		_startPoll = true;
+		_distancePollInterval = 0;
 	}
 
 	public void ResetPolling()
@@ -112,4 +124,5 @@ public class NavPollerComponent : MonoBehaviour
 	NavMeshAgent _agent;
 	float _distanceToPlayerSq;
 	float _distancePollInterval = 0.0f;
+	bool _startPoll;
 }
