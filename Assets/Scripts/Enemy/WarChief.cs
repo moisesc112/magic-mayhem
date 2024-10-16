@@ -83,6 +83,8 @@ public class WarChief : MonoBehaviour
 		_healthComp.health = _healthComp.maxHealth;
 		_ragdoll.DisableRagdoll();
 
+		_navPoller.StartPolling();
+
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
 	}

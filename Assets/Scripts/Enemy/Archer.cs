@@ -96,6 +96,8 @@ public class Archer : MonoBehaviour
 		_hc.health = _hc.maxHealth;
 		_ragdoll.DisableRagdoll();
 
+		_poller.StartPolling();
+
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
 	}
