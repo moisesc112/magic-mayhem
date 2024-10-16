@@ -23,7 +23,22 @@ public class UIDebugUtility : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	public void UpdateFps(float value) => fps.text = $"FPS: {value}";
-	public void UpdateTrackedHealth(float value) => trackedHealth.text = $"Health: {value}";
-	public void UpdateTrackedVelocity(Vector2 vel) => trackedVelocity.text = $"Velocity x:{vel.x}, z:{vel.y}";
+	public void UpdateFps(float value)
+	{
+		if (fps is null) return;
+			fps.text = $"FPS: {value}";
+	}
+
+	public void UpdateTrackedHealth(float value)
+	{
+		if (trackedHealth is null) return;
+
+		trackedHealth.text = $"Health: {value}";
+	}
+	public void UpdateTrackedVelocity(Vector2 vel)
+	{
+		if (trackedVelocity is null) return;
+		trackedVelocity.text = $"Velocity x:{vel.x}, z:{vel.y}";
+	}
+
 }

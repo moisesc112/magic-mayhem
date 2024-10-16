@@ -323,6 +323,18 @@ PrefabInstance:
       propertyPath: m_MaintainAspectRatioInSplitScreen
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
+      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
+      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
+      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655743, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -489,7 +501,7 @@ MonoBehaviour:
   playerSetupMenu: {fileID: 3918551314532414450, guid: 03b9ede174a32b248af7f1281d7c7674, type: 3}
   playerCardRoot: {fileID: 1095375832}
   countDownText: {fileID: 1627469684}
-  sceneToLoad: Game
+  sceneToLoad: Level Design
 --- !u!1 &1095375832
 GameObject:
   m_ObjectHideFlags: 0

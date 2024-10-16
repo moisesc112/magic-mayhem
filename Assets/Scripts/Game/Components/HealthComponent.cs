@@ -1,7 +1,5 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class HealthComponent : MonoBehaviour
 {
@@ -11,10 +9,11 @@ public class HealthComponent : MonoBehaviour
 	[SerializeField] RagdollComponent _ragdollComponent;
 	[SerializeField] LootDropComponent lootDropComponent;
 
+    public event EventHandler onDeath;
+
 	public virtual void Awake()
 	{
 		health = maxHealth;
-		_dissolver = GetComponent<Dissolver>();
 	}
 
 	public virtual void TakeDamage(float damage)
@@ -32,30 +31,10 @@ public class HealthComponent : MonoBehaviour
     {
         Debug.Log("Died");
 
-        if (!gameObject.CompareTag("Player"))
-        {
-            if (_ragdollComponent && _dissolver)
-            {
-                StartCoroutine(DespawnTimer());
-            }
-            else // Test Enemy doesn't have a rag doll, so don't need to start a despawn timer for it
-            {
-                HandleEnemyPoolDeath();
-            }
-            WaveManager.CountDeadEnemies();
-        }
-        else
-        {
-            //Player Death Logic
-            //Destroy(gameObject);
-        }
-        if (lootDropComponent != null)
-        {
-            lootDropComponent.DropLoot();
-        }
+        onDeath?.Invoke(this, null);
 	}
 
-    public virtual void Heal(float healAmount)
+	public virtual void Heal(float healAmount)
     {
         health += healAmount;
         if (health > maxHealth)
@@ -63,22 +42,4 @@ public class HealthComponent : MonoBehaviour
             health = maxHealth;
         }
     }
-
-    public virtual IEnumerator DespawnTimer()
-    {
-       
-        _ragdollComponent.EnableRagdoll();
-        _dissolver.StartDissolving();
-        yield return new WaitForSeconds(2f);
-        HandleEnemyPoolDeath();
-        _ragdollComponent.DisableRagdoll();
-        _dissolver.ResetEffect();
-    }
-
-    public virtual void HandleEnemyPoolDeath()
-    {
-        ObjectPooler.EnemyPoolRelease(gameObject.tag, gameObject);
-    }
-
-    Dissolver _dissolver;
 }
