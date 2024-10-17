@@ -588,8 +588,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 7449205739983744079}
   offset: {x: 0, y: 14.53, z: -5.5}
-  xMinBoundary: 20
-  xMaxBoundary: 130
   followSpeed: 5
   lookAtTarget: 0
 --- !u!1 &5980282146829450849

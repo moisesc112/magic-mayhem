@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
 
 	[SerializeField] GameObject _avatar;
 
-	
 	void Awake()
 	{
 		_mover = GetComponentInChildren<Mover>();
@@ -21,6 +20,7 @@ public class Player : MonoBehaviour
 		_playerStats = GetComponent<PlayerStats>();
 		_ragdoll = _avatar.GetComponent<RagdollComponent>();
 		_playerStats.onDeath += HealthComp_OnDeath;
+		_inGameMenu = FindObjectOfType<InGameMenu>();
 	}
 
 	void Start()
@@ -90,7 +90,8 @@ public class Player : MonoBehaviour
 	IEnumerator HandleDeath()
 	{
 		_ragdoll.EnableRagdoll();
-
+		_mover.enabled = false;
+		_castingComponent.enabled = false;
 		gameObject.tag = "DeadPlayers";
 
 		yield return null;
@@ -99,8 +100,9 @@ public class Player : MonoBehaviour
 
 		if (remainingPlayers.Length == 0)
         {
-			Debug.Log("GameOver");
-        }			
+			yield return new WaitForSeconds(1.5f);
+			_inGameMenu.LoseGameMenu();
+		}			
 	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
@@ -114,4 +116,5 @@ public class Player : MonoBehaviour
 	Vector3 _velocity;
 	Vector3 _previousPos;
 	RagdollComponent _ragdoll;
+	InGameMenu _inGameMenu;
 }
