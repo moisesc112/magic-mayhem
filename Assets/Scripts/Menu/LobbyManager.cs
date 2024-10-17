@@ -231,8 +231,8 @@ public class LobbyManager : MonoBehaviour
             float t = elapsed / duration;
 
             // Optional: Apply easing for smoother transition
-            t = EaseInOutQuad(t);
-            // t = EaseInOutCubic(t);
+            //t = EaseInOutQuad(t);
+            t = EaseInOutCubic(t);
 
 
             // Smoothly interpolate position and rotation
@@ -253,15 +253,15 @@ public class LobbyManager : MonoBehaviour
     }
 
     // Optional: Easing function for smoother transitions
-    private float EaseInOutQuad(float t)
-    {
-        return t < 0.5f ? 2f * t * t : -1f + (4f - 2f * t) * t;
-    }
-
-    // private float EaseInOutCubic(float t)
+    // private float EaseInOutQuad(float t)
     // {
-    //     return t < 0.5f ? 4f * t * t * t : 1f - Mathf.Pow(-2f * t + 2f, 3) / 2f;
+    //     return t < 0.5f ? 2f * t * t : -1f + (4f - 2f * t) * t;
     // }
+
+    private float EaseInOutCubic(float t)
+    {
+        return t < 0.5f ? 4f * t * t * t : 1f - Mathf.Pow(-2f * t + 2f, 3) / 2f;
+    }
     // Optional: Method to access the lobby leader's controller from other scripts
     public PlayerController GetLobbyLeaderController()
     {
