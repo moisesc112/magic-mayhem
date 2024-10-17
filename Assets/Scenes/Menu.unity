@@ -10119,7 +10119,7 @@ GameObject:
   - component: {fileID: 963277960}
   - component: {fileID: 963277959}
   m_Layer: 5
-  m_Name: MenuCanvas (1)
+  m_Name: LobbyCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19659,7 +19659,7 @@ GameObject:
   - component: {fileID: 1951803537}
   - component: {fileID: 1951803536}
   m_Layer: 5
-  m_Name: Lobby
+  m_Name: StartGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

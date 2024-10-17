@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
 using System.Collections; // Added for Coroutines
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -49,6 +50,18 @@ public class LobbyManager : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
+        //////// check this to be removed if scene doesnt start
+        GameObject startButton = GameObject.Find("StartGame");
+        if (startButton != null)
+        {
+            Debug.Log("Start Game Button Found.");
+            startButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(OnStartGameButtonClicked);
+        }
+        else
+        {
+            Debug.LogError("Start Game Button not found! Ensure it is named correctly in the scene.");
+        }
+        ///////////
     }
 
     void OnDestroy()
@@ -292,4 +305,22 @@ public class LobbyManager : MonoBehaviour
     {
         return lobbyLeaderController;
     }
+    /// ////////////////////////
+    public void OnStartGameButtonClicked()
+    {
+        // Add log to check if this method is being called
+        Debug.Log("Start Game Button Clicked!");
+
+        // Check if the scene exists in the build settings
+        if (Application.CanStreamedLevelBeLoaded("Game"))
+        {
+            Debug.Log("Game scene exists, loading now.");
+            SceneManager.LoadScene("Game");
+        }
+        else
+        {
+            Debug.LogError("Game scene not found! Make sure it is added in the Build Settings.");
+        }
+    }
+/////////////////
 }
