@@ -12,6 +12,8 @@ public class LobbyManager : MonoBehaviour
     public GameObject mainMenuCanvas;
     public GameObject gameCanvas;
 
+    public GameObject menuCanvas; 
+
     [Header("Camera Settings")]
     public Camera mainCamera;
     // public float cameraMoveDuration = 1.0f; // No longer needed
@@ -110,12 +112,20 @@ public class LobbyManager : MonoBehaviour
 
     void OnSubmit(InputAction.CallbackContext context)
     {
+        // Check if the menu is active
+        if (menuCanvas != null && menuCanvas.activeInHierarchy)
+        {
+            // If the menu is active, do not process the Submit action here
+            return;
+        }
+
         // Handle the submit action
         Debug.Log("Lobby Leader pressed Submit.");
 
         // Move the camera to the GameCanvas location
         MoveCameraToGameCanvas();
     }
+
 
     void OnCancel(InputAction.CallbackContext context)
     {
@@ -126,10 +136,17 @@ public class LobbyManager : MonoBehaviour
 
     void OnMove(InputAction.CallbackContext context)
     {
+        // Check if the menu is active
+        if (menuCanvas != null && menuCanvas.activeInHierarchy)
+        {
+            // If the menu is active, do not process the Move action here
+            return;
+        }
+
         // Handle the move action
         Vector2 movement = context.ReadValue<Vector2>();
         Debug.Log($"Lobby Leader moved: {movement}");
-        // Implement your logic here, such as navigating the menu
+        // Implement your logic here
     }
 
     void MoveCameraToGameCanvas()
