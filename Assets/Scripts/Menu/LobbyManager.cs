@@ -315,7 +315,7 @@ public class LobbyManager : MonoBehaviour
         if (Application.CanStreamedLevelBeLoaded("Game"))
         {
             Debug.Log("Game scene exists, loading now.");
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("Level Design");
         }
         else
         {
