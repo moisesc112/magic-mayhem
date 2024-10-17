@@ -9,6 +9,7 @@ public class LobbyManager : MonoBehaviour
     private PlayerController lobbyLeaderController;
     private InputSystemUIInputModule lobbyLeaderInputModule;
     private bool isTransitioning = false; // Flag to prevent overlapping transitions
+    private bool inLobby = false; // Track if the camera is currently in the lobby position
 
     [Header("UI Canvases")]
     public GameObject mainMenuCanvas;
@@ -30,6 +31,10 @@ public class LobbyManager : MonoBehaviour
     // Duration for the smooth transition to Lobby (in seconds)
     [SerializeField]
     private float lobbyTransitionDuration = 2.0f;
+
+    // Variables to store the previous camera position and rotation
+    private Vector3 previousCameraPosition;
+    private Quaternion previousCameraRotation;
 
     void Start()
     {
@@ -143,7 +148,12 @@ public class LobbyManager : MonoBehaviour
     {
         // Handle the cancel action
         Debug.Log("Lobby Leader pressed Cancel.");
-        // Implement your logic here, such as going back to the previous menu
+
+        if (inLobby)
+        {
+            // If we are in the lobby, return back to the menu screen
+            MoveCameraToMenu();
+        }
     }
 
     void OnMove(InputAction.CallbackContext context)
@@ -169,6 +179,10 @@ public class LobbyManager : MonoBehaviour
             {
                 mainMenuCanvas.SetActive(false);
             }
+
+            // Store the current camera position and rotation as the previous position
+            previousCameraPosition = mainCamera.transform.position;
+            previousCameraRotation = mainCamera.transform.rotation;
 
             Vector3 cameraPosition = gameCanvasCameraPosition;
             Quaternion cameraRotation = Quaternion.Euler(gameCanvasCameraRotation);
@@ -201,6 +215,8 @@ public class LobbyManager : MonoBehaviour
             // Start the smooth transition Coroutine
             StartCoroutine(SmoothTransition(targetPosition, targetRotation, lobbyTransitionDuration));
 
+            inLobby = true; // Mark that we are in the lobby
+
             Debug.Log("Camera is moving to Lobby.");
         }
         else
@@ -230,10 +246,8 @@ public class LobbyManager : MonoBehaviour
             // Calculate the interpolation factor (0 to 1)
             float t = elapsed / duration;
 
-            // Optional: Apply easing for smoother transition
-            //t = EaseInOutQuad(t);
+            // Apply easing for smoother transition
             t = EaseInOutCubic(t);
-
 
             // Smoothly interpolate position and rotation
             mainCamera.transform.position = Vector3.Lerp(startPos, targetPosition, t);
@@ -252,16 +266,27 @@ public class LobbyManager : MonoBehaviour
         Debug.Log("Camera movement to Lobby completed.");
     }
 
-    // Optional: Easing function for smoother transitions
-    // private float EaseInOutQuad(float t)
-    // {
-    //     return t < 0.5f ? 2f * t * t : -1f + (4f - 2f * t) * t;
-    // }
+    // Method to move the camera back to its previous position
+    private void MoveCameraToMenu()
+    {
+        if (mainCamera != null && !isTransitioning)
+        {
+            StartCoroutine(SmoothTransition(gameCanvasCameraPosition, Quaternion.Euler(gameCanvasCameraRotation), lobbyTransitionDuration));
+            inLobby = false; // We are no longer in the lobby
+            Debug.Log("Camera is moving back to the menu screen.");
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera is not assigned or already transitioning.");
+        }
+    }
 
+    // Optional: Easing function for smoother transitions
     private float EaseInOutCubic(float t)
     {
         return t < 0.5f ? 4f * t * t * t : 1f - Mathf.Pow(-2f * t + 2f, 3) / 2f;
     }
+
     // Optional: Method to access the lobby leader's controller from other scripts
     public PlayerController GetLobbyLeaderController()
     {
