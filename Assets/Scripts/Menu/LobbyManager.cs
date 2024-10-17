@@ -2,11 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
+using System.Collections; // Added for Coroutines
 
 public class LobbyManager : MonoBehaviour
 {
     private PlayerController lobbyLeaderController;
     private InputSystemUIInputModule lobbyLeaderInputModule;
+    private bool isTransitioning = false; // Flag to prevent overlapping transitions
 
     [Header("UI Canvases")]
     public GameObject mainMenuCanvas;
@@ -24,6 +26,10 @@ public class LobbyManager : MonoBehaviour
     [Header("Lobby Camera Settings")]
     public Vector3 lobbyCameraPosition = new Vector3(-1055.654f, 300.97f, 348.8f); // Set your desired Lobby position
     public Vector3 lobbyCameraRotation = new Vector3(-11.409f, 1.694f, 360.609f);   // Set your desired Lobby rotation
+
+    // Duration for the smooth transition to Lobby (in seconds)
+    [SerializeField]
+    private float lobbyTransitionDuration = 2.0f;
 
     void Start()
     {
@@ -184,26 +190,78 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    // New method to snap camera to Lobby location
+    // Updated method to smoothly transition the camera to Lobby
     public void MoveCameraToLobby()
     {
-        if (mainCamera != null)
+        if (mainCamera != null && !isTransitioning)
         {
             Vector3 targetPosition = lobbyCameraPosition;
             Quaternion targetRotation = Quaternion.Euler(lobbyCameraRotation);
 
-            // Snap the camera to the new position and rotation
-            mainCamera.transform.position = targetPosition;
-            mainCamera.transform.rotation = targetRotation;
+            // Start the smooth transition Coroutine
+            StartCoroutine(SmoothTransition(targetPosition, targetRotation, lobbyTransitionDuration));
 
-            Debug.Log("Camera snapped to Lobby.");
+            Debug.Log("Camera is moving to Lobby.");
         }
         else
         {
-            Debug.LogWarning("Main Camera is not assigned in the LobbyManager.");
+            if (isTransitioning)
+            {
+                Debug.LogWarning("Camera transition is already in progress.");
+            }
+            else
+            {
+                Debug.LogWarning("Main Camera is not assigned in the LobbyManager.");
+            }
         }
     }
 
+    // Coroutine to handle the smooth camera transition
+    private IEnumerator SmoothTransition(Vector3 targetPosition, Quaternion targetRotation, float duration)
+    {
+        isTransitioning = true; // Set the flag to prevent overlapping transitions
+
+        Vector3 startPos = mainCamera.transform.position;
+        Quaternion startRot = mainCamera.transform.rotation;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            // Calculate the interpolation factor (0 to 1)
+            float t = elapsed / duration;
+
+            // Optional: Apply easing for smoother transition
+            t = EaseInOutQuad(t);
+            // t = EaseInOutCubic(t);
+
+
+            // Smoothly interpolate position and rotation
+            mainCamera.transform.position = Vector3.Lerp(startPos, targetPosition, t);
+            mainCamera.transform.rotation = Quaternion.Slerp(startRot, targetRotation, t);
+
+            elapsed += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure the camera reaches the exact target position and rotation
+        mainCamera.transform.position = targetPosition;
+        mainCamera.transform.rotation = targetRotation;
+
+        isTransitioning = false; // Reset the flag
+
+        Debug.Log("Camera movement to Lobby completed.");
+    }
+
+    // Optional: Easing function for smoother transitions
+    private float EaseInOutQuad(float t)
+    {
+        return t < 0.5f ? 2f * t * t : -1f + (4f - 2f * t) * t;
+    }
+
+    // private float EaseInOutCubic(float t)
+    // {
+    //     return t < 0.5f ? 4f * t * t * t : 1f - Mathf.Pow(-2f * t + 2f, 3) / 2f;
+    // }
     // Optional: Method to access the lobby leader's controller from other scripts
     public PlayerController GetLobbyLeaderController()
     {
