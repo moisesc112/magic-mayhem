@@ -11,12 +11,19 @@ public class LobbyManager : MonoBehaviour
     [Header("UI Canvases")]
     public GameObject mainMenuCanvas;
     public GameObject gameCanvas;
-
     public GameObject menuCanvas; 
 
     [Header("Camera Settings")]
     public Camera mainCamera;
-    // public float cameraMoveDuration = 1.0f; // No longer needed
+
+    // Existing Camera Position and Rotation for GameCanvas
+    public Vector3 gameCanvasCameraPosition = new Vector3(-970.83f, 302.02f, 391.857f);
+    public Vector3 gameCanvasCameraRotation = new Vector3(1.179f, 10.548f, 2.118f);
+
+    // New Camera Position and Rotation for Lobby
+    [Header("Lobby Camera Settings")]
+    public Vector3 lobbyCameraPosition = new Vector3(-1055.654f, 300.97f, 348.8f); // Set your desired Lobby position
+    public Vector3 lobbyCameraRotation = new Vector3(-11.409f, 1.694f, 360.609f);   // Set your desired Lobby rotation
 
     void Start()
     {
@@ -126,7 +133,6 @@ public class LobbyManager : MonoBehaviour
         MoveCameraToGameCanvas();
     }
 
-
     void OnCancel(InputAction.CallbackContext context)
     {
         // Handle the cancel action
@@ -158,9 +164,10 @@ public class LobbyManager : MonoBehaviour
                 mainMenuCanvas.SetActive(false);
             }
 
-            Vector3 cameraPosition = new Vector3(-970.83f, 302.02f, 391.857f);
-            Quaternion cameraRotation = Quaternion.Euler(1.179f, 10.548f, 2.118f);
-//
+            Vector3 cameraPosition = gameCanvasCameraPosition;
+            Quaternion cameraRotation = Quaternion.Euler(gameCanvasCameraRotation);
+
+            // Snap the camera to the new position and rotation
             mainCamera.transform.position = cameraPosition;
             mainCamera.transform.rotation = cameraRotation;
 
@@ -168,6 +175,8 @@ public class LobbyManager : MonoBehaviour
             {
                 gameCanvas.SetActive(true);
             }
+
+            Debug.Log("Camera snapped to GameCanvas.");
         }
         else
         {
@@ -175,24 +184,25 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-
-    // Optional: Remove or comment out the coroutine if it's no longer needed
-    /*
-    IEnumerator MoveCameraCoroutine(Vector3 start, Vector3 end, float duration)
+    // New method to snap camera to Lobby location
+    public void MoveCameraToLobby()
     {
-        float elapsed = 0f;
-        while (elapsed < duration)
+        if (mainCamera != null)
         {
-            mainCamera.transform.position = Vector3.Lerp(start, end, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        mainCamera.transform.position = end;
+            Vector3 targetPosition = lobbyCameraPosition;
+            Quaternion targetRotation = Quaternion.Euler(lobbyCameraRotation);
 
-        // Optionally, enable player joining after the camera movement is complete
-        // PlayerManager.instance.SetJoiningEnabled(true);
+            // Snap the camera to the new position and rotation
+            mainCamera.transform.position = targetPosition;
+            mainCamera.transform.rotation = targetRotation;
+
+            Debug.Log("Camera snapped to Lobby.");
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera is not assigned in the LobbyManager.");
+        }
     }
-    */
 
     // Optional: Method to access the lobby leader's controller from other scripts
     public PlayerController GetLobbyLeaderController()
