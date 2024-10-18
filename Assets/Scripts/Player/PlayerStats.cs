@@ -15,7 +15,7 @@ public class PlayerStats : HealthComponent
     public float Armor => GetStatWithStatusEffects(armor, StatusEffectStat.Armor);
     public float DodgeChance => GetStatWithStatusEffects(dodgeChance, StatusEffectStat.DodgeChance);
     public bool IsShielded => statusEffects.currentStatusEffects.Any(x => x.stat == StatusEffectStat.Shield);
-
+    public bool IsInvulnerable => statusEffects.currentStatusEffects.Any(x => x.stat == StatusEffectStat.Invulnerable);
     public override void Awake()
     {
         statusEffects = GetComponent<StatusEffects>();
@@ -45,6 +45,11 @@ public class PlayerStats : HealthComponent
             return;
         }
         var armorReducedDamage = damage * GetPercentDamageTakenWithArmor(Armor);
+        if (IsInvulnerable)
+        {
+            Debug.Log("Player is Invulnerable");
+            armorReducedDamage = 0;
+        }
         base.TakeDamage(armorReducedDamage);
     }
 
