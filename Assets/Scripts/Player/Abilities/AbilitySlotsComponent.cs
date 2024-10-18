@@ -6,12 +6,15 @@ public class AbilitySlotsComponent : MonoBehaviour
     public AbilityInfo abilitySlot1;
     public AbilityInfo abilitySlot2;
     public AbilityInfo abilitySlot3;
-    
+    public AbilityInfo abilitySlot4;
+
     public float ability1Cooldown = 0;
     public float ability2Cooldown = 0;
     public float ability3Cooldown = 0;
+    public float ability4Cooldown = 0;
 
     public event EventHandler<AbilityChangedEventArgs> AbilityChanged;
+    public event EventHandler<AbilityChangedEventArgs> AbilitySlotUpdated;
 
     private void Awake()
     {
@@ -23,13 +26,18 @@ public class AbilitySlotsComponent : MonoBehaviour
 	void Start()
 	{
         SetSelectedAbility(1);
-	}
+        RaiseAbilitySlotUpdated(abilitySlot1, 1);
+        RaiseAbilitySlotUpdated(abilitySlot2, 2);
+        RaiseAbilitySlotUpdated(abilitySlot3, 3);
+        RaiseAbilitySlotUpdated(abilitySlot4, 4);
+    }
 
 	private void Update()
     {
         if (ability1Cooldown > 0) SetAbilityCooldown(1, ability1Cooldown -= Time.deltaTime);
         if (ability2Cooldown > 0) SetAbilityCooldown(2, ability2Cooldown -= Time.deltaTime);
         if (ability3Cooldown > 0) SetAbilityCooldown(3, ability3Cooldown -= Time.deltaTime);
+        if (ability4Cooldown > 0) SetAbilityCooldown(4, ability4Cooldown -= Time.deltaTime);
     }
 
     public bool CanCast() => GetAbilityCooldown(_selectedAbililtyNumber) <= 0;
@@ -47,7 +55,11 @@ public class AbilitySlotsComponent : MonoBehaviour
             case 3:
                 abilitySlot3 = newAbility;
                 break;
+            case 4:
+                abilitySlot4 = newAbility;
+                break;
         }
+        RaiseAbilitySlotUpdated(newAbility, slotNumber);
     }
 
     public AbilityInfo GetAbility(int slotNumber)
@@ -57,6 +69,7 @@ public class AbilitySlotsComponent : MonoBehaviour
             1 => abilitySlot1,
             2 => abilitySlot2,
             3 => abilitySlot3,
+            4 => abilitySlot4,
             _ => throw new System.NotImplementedException(),
         };
     }
@@ -68,6 +81,7 @@ public class AbilitySlotsComponent : MonoBehaviour
             1 => ability1Cooldown,
             2 => ability2Cooldown,
             3 => ability3Cooldown,
+            4 => ability4Cooldown,
             _ => throw new System.NotImplementedException(),
         };
     }
@@ -84,6 +98,9 @@ public class AbilitySlotsComponent : MonoBehaviour
                 break;
             case 3:
                 ability3Cooldown = newValue;
+                break;
+            case 4:
+                ability4Cooldown = newValue;
                 break;
         }
 
@@ -119,15 +136,20 @@ public class AbilitySlotsComponent : MonoBehaviour
         if (ability != null)
 			_selectedAbililtyNumber = slotNumber;
 
-        RaiseAbilityChanged();
+        RaiseAbilityChanged(slotNumber);
     }
 
     AbilityInfo GetCurrentSelectedAbility() => GetAbility(_selectedAbililtyNumber);
 
-    void RaiseAbilityChanged()
+    void RaiseAbilityChanged(int slotNumber)
     {
-		AbilityChanged?.Invoke(this, new AbilityChangedEventArgs(GetCurrentSelectedAbility()));
+		AbilityChanged?.Invoke(this, new AbilityChangedEventArgs(GetCurrentSelectedAbility(), slotNumber));
 	}
+
+    private void RaiseAbilitySlotUpdated(AbilityInfo newAbility, int slotNumber)
+    {
+        AbilitySlotUpdated?.Invoke(this, new AbilityChangedEventArgs(newAbility, slotNumber));
+    }
 
     private Player _player;
     int _selectedAbililtyNumber;
@@ -136,10 +158,12 @@ public class AbilitySlotsComponent : MonoBehaviour
 
     public sealed class AbilityChangedEventArgs : EventArgs
     {
-        public AbilityChangedEventArgs(AbilityInfo info)
+        public AbilityChangedEventArgs(AbilityInfo info, int slotNumber)
         {
             abilityInfo = info;
+            SlotNumber = slotNumber;
         }
         public AbilityInfo abilityInfo { get; }
+        public int SlotNumber { get; }
     }
 }
