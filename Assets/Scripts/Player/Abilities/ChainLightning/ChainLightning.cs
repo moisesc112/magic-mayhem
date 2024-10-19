@@ -6,13 +6,19 @@ public class ChainLightning : Ability
 {
     [SerializeField] AudioSource audioSource;
     [SerializeField] LayerMask layerMask;
+
     public GameObject chainConnector;
+    public int chainConnectorDetectionRadius;
+    public int chainConnectorTargetCap;
+
     private bool hit;
-
+    private Vector3 midpoint;
+    private Vector3 direction;
+    private float distance;
     private List<Transform> targets;
-
     private int targetIndex;
-    Transform currentTarget;
+    private Transform currentTarget;
+
     public override void Awake()
     {
         StartCoroutine(AudioFadeOut.FadeOut(audioSource, abilityInfo.despawnTime));
@@ -28,42 +34,60 @@ public class ChainLightning : Ability
 
     public override void OnTriggerEnter(Collider collision)
     {
-        //Debug.Log("hit with chain lightning");
-        if (!hit && collision.tag == "GoblinEnemy")
+        if (!hit && collision != null && !collision.CompareTag("Player") && collision.GetComponent<HealthComponent>() != null)
         {
             hit = true;
-            currentTarget = collision.transform;
-            Collider[] tmp = Physics.OverlapSphere(collision.transform.position, 5, layerMask);
+            Collider[] chainConnectorRange = Physics.OverlapSphere(collision.transform.position, chainConnectorDetectionRadius, layerMask);
 
-            foreach (Collider enemy in tmp)
+            foreach (Collider enemy in chainConnectorRange)
             {
-                Debug.Log("enemy in range");
                 if(enemy.transform != collision.transform)
                 {
                     targets.Add(enemy.transform);
-                    enemy.transform.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
-                    Vector3 midpoint = (collision.transform.position + enemy.transform.position) / 2;
-                    // For tomorrow, try doing Vector3 midpoint = (currentTarget.position + enemy.transform.position) / 2;
-                    // then, have to set currentTarget = enemy.transform, then iterate through it so it makes chain go one by one instead of all rooting from the initial collider
-                    Vector3 direction = enemy.transform.position - collision.transform.position;
-
-
-                    Instantiate(chainConnector, midpoint, Quaternion.LookRotation(direction));
-
                 }
             }
-            //PickTarget(collision);
+            if (targets.Count > 0)
+            {
+                collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
+                PickTarget(collision);
+            }
+            else
+            {
+                OnlyOriginalTarget(collision);
+            }
         }
-        base.OnTriggerEnter(collision);
+    }
+
+    public void OnlyOriginalTarget(Collider collision)
+    {
+        collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
+        Despawn();
     }
 
     public void PickTarget(Collider collision)
     {
-        collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
-        //targets[targetIndex].GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
+        midpoint = (collision.transform.position + targets[targetIndex].position) / 2;
+        direction = collision.transform.position - targets[targetIndex].position;
+        distance = direction.magnitude;
+
+        var chainConnectorInstance = Instantiate(chainConnector, midpoint, Quaternion.LookRotation(direction));
+        chainConnectorInstance.transform.localScale = new Vector3(1, 1, distance);
+
+        targets[targetIndex].GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
         currentTarget = targets[targetIndex];
         targetIndex++;
-        //currentTarget = targets[targetIndex];
-      
+    }
+
+    public override void Update()
+    {
+        if (currentTarget != null && hit && targetIndex < chainConnectorTargetCap && targetIndex < targets.Count)
+        {
+            PickTarget(currentTarget.GetComponent<Collider>());
+        }
+        else if (hit && targets.Count > 0)
+        {
+            Despawn();
+        }
+        base.Update();
     }
 }
