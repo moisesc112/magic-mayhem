@@ -1,27 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ChainLightning : Ability
 {
-    [SerializeField] AudioSource audioSource;
     [SerializeField] LayerMask layerMask;
 
     public GameObject chainConnector;
     public int chainConnectorDetectionRadius;
     public int chainConnectorTargetCap;
+    public float chainConnectorDamageReduction;
 
     private bool hit;
-    private Vector3 midpoint;
-    private Vector3 direction;
-    private float distance;
     private List<Transform> targets;
     private int targetIndex;
     private Transform currentTarget;
 
     public override void Awake()
     {
-        StartCoroutine(AudioFadeOut.FadeOut(audioSource, abilityInfo.despawnTime));
         hit = false;
         targets = new List<Transform>();
         base.Awake();
@@ -66,14 +61,18 @@ public class ChainLightning : Ability
 
     public void PickTarget(Collider collision)
     {
-        midpoint = (collision.transform.position + targets[targetIndex].position) / 2;
-        direction = collision.transform.position - targets[targetIndex].position;
-        distance = direction.magnitude;
+        
+        var  midpoint = (collision.transform.position + targets[targetIndex].position) / 2;
+        var direction = collision.transform.position - targets[targetIndex].position;
+        var distance = direction.magnitude;
+        
+        var chainConnectorInstance = Instantiate(chainConnector, new Vector3(midpoint.x, 1.5f, midpoint.z), Quaternion.LookRotation(direction));
+        chainConnectorInstance.transform.localScale = new Vector3(5, 1, distance);
 
-        var chainConnectorInstance = Instantiate(chainConnector, midpoint, Quaternion.LookRotation(direction));
-        chainConnectorInstance.transform.localScale = new Vector3(1, 1, distance);
+        chainConnectorInstance.GetComponent<ChainConnector>().SetFirstTarget(collision.transform);
+        chainConnectorInstance.GetComponent<ChainConnector>().SetSecondTarget(targets[targetIndex]);
 
-        targets[targetIndex].GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
+        targets[targetIndex].GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage()*chainConnectorDamageReduction);
         currentTarget = targets[targetIndex];
         targetIndex++;
     }

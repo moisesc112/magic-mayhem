@@ -9,6 +9,7 @@ TagManager:
   - WarChiefEnemy
   - GolemEnemy
   - TestEnemy
+  - ArcherEnemy
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Enemy
   - Ragdoll
   - Coin
-  - 
+  - EnemyProjectile
   - 
   - 
   - 

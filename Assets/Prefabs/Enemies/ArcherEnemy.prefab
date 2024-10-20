@@ -608,7 +608,7 @@ GameObject:
   - component: {fileID: 4077698519552594797}
   m_Layer: 8
   m_Name: ArcherEnemy
-  m_TagString: Untagged
+  m_TagString: ArcherEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
