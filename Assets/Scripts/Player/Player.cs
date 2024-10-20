@@ -77,10 +77,20 @@ public class Player : MonoBehaviour
 		_shop.ToggleShopUI(isEnabled);
 	}
 
+	public void ToggleInGameMenuUI(bool isEnabled)
+	{
+		_inGameMenu.ToggleInGameMenuUI(isEnabled);
+	}
+
 	public void OnRoll()
 	{
 		_mover.OnRoll();
 	}
+
+	public bool GameOver()
+    {
+		return _inGameMenu.gameOver;
+    }
 
 	void HealthComp_OnDeath(object sender, EventArgs e)
 	{
