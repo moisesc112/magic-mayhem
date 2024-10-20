@@ -16,4 +16,5 @@ public class AbilityInfo : ScriptableObject
     public float projectileTargetSpeed;
     public float projectileSpread = 0.0f;
     public AudioClip castingSound;
+    public Sprite icon;
 }
