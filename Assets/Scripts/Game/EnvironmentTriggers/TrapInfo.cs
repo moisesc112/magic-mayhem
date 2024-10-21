@@ -8,4 +8,11 @@ public class TrapInfo : ScriptableObject
     public float activeDuration;
     public float damageCooldown;
     public float damage;
+    public int trapCost;
+
+    void Awake()
+    {
+        isActivated = false;
+        isSprung = false;
+    }
 }

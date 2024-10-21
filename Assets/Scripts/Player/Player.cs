@@ -85,8 +85,9 @@ public class Player : MonoBehaviour
 
 	public void ActivateTrap(bool isActivated)
     {
-		if (isActivated && detectedTrap != null)
+		if (isActivated && detectedTrap != null && _playerStats.gold >= detectedTrap.trapInfo.trapCost)
         {
+			_playerStats.gold -= detectedTrap.trapInfo.trapCost;
 			detectedTrap.ActivateTrap();
         }
     }
