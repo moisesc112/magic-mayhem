@@ -25,3 +25,4 @@ MonoBehaviour:
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 0}
+  icon: {fileID: 21300000, guid: ab08bdaa1ccab1b46b54729438a1e4fd, type: 3}
