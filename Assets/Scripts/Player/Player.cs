@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
 		return _inGameMenu.gameOver;
     }
 
+	// Same methodology as the enemy death
 	void HealthComp_OnDeath(object sender, EventArgs e)
 	{
 		StartCoroutine(nameof(HandleDeath));
@@ -99,6 +100,7 @@ public class Player : MonoBehaviour
 	
 	IEnumerator HandleDeath()
 	{
+		// Enable ragdoll and disable movement, casting and asign tag
 		_ragdoll.EnableRagdoll();
 		_mover.enabled = false;
 		_castingComponent.enabled = false;
@@ -106,8 +108,9 @@ public class Player : MonoBehaviour
 
 		yield return null;
 
+		// If there are no remaining player game objects that are tagged
+		// as alive then trigger endgame
 		var remainingPlayers = GameObject.FindGameObjectsWithTag("AlivePlayers");
-
 		if (remainingPlayers.Length == 0)
         {
 			yield return new WaitForSeconds(1.5f);

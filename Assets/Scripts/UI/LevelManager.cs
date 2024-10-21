@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-	[SerializeField] GameObject LoseCanvas;
 	public float xMinBoundary;
     public float xMaxBoundary;
     public float zMinBoundary;
@@ -21,9 +20,5 @@ public class LevelManager : MonoBehaviour
 		}
 
 		instance = this;
-	}
-	public void TriggerGameOver()
-	{
-		LoseCanvas.SetActive(true);
 	}
 }

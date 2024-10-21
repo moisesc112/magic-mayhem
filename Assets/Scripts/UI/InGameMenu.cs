@@ -21,6 +21,7 @@ public class InGameMenu : MonoBehaviour
 	public GameObject menuPanel;
 	public bool gameOver { get; private set; } = false;
 
+	// Use similar fields to the shop ui
 	[SerializeField] MultiplayerEventSystem multiplayerEventSystem;
 	[SerializeField] GameObject firstSelectedGameObject;
 	[SerializeField] InputSystemUIInputModule _inputModule;
@@ -28,6 +29,7 @@ public class InGameMenu : MonoBehaviour
 
 	void Awake()
 	{
+		// initialize with everything turned off
 		loseText.gameObject.SetActive(false);
 		winText.gameObject.SetActive(false);
 		menuPanel.SetActive(false);
@@ -49,7 +51,7 @@ public class InGameMenu : MonoBehaviour
 
 	public void RestartGame()
 	{
-		// Clean up persisting game objects
+		// Clean up persisting game objects before we reset to the main menu
 		GameObject debugUtil = GameObject.Find("UiDebugUtil");
 		if (debugUtil != null)
 		{
