@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d5527e80afd05b841b05e08f8f8350e3
+guid: 6e6700484d4145f479ce06006a8d501d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,22 +93,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fireball_0
+      name: HealingAura_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 7
+        x: 28
+        y: 10
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99b69f2df36ea064eb17f357c7b7ac32
-      internalID: -1495571360
+      spriteID: c01761ed846ecca49b4348db61108991
+      internalID: -1075079217
       vertices: []
       indices: 
       edges: []
@@ -116,7 +116,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 458621e0d19d5464bb1ba2e8a29c2e90
+    spriteID: db2d650a27ca0924f9692e301cf75937
     internalID: 0
     vertices: []
     indices: 
@@ -124,7 +124,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fireball_0: -1495571360
+      HealingAura_0: -1075079217
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

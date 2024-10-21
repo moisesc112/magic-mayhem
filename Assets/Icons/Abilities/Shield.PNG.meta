@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d5527e80afd05b841b05e08f8f8350e3
+guid: c922765abe4bbfe4ab6e8579f6ba102d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,11 +93,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fireball_0
+      name: Shield_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 7
+        x: 42
+        y: 45
         width: 256
         height: 256
       alignment: 0
@@ -107,8 +107,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99b69f2df36ea064eb17f357c7b7ac32
-      internalID: -1495571360
+      spriteID: b569f00f2b0917b41b51835a4ecd64fd
+      internalID: -889005444
       vertices: []
       indices: 
       edges: []
@@ -116,7 +116,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 458621e0d19d5464bb1ba2e8a29c2e90
+    spriteID: 75d1ee3a616623542a86b00120567cd3
     internalID: 0
     vertices: []
     indices: 
@@ -124,7 +124,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fireball_0: -1495571360
+      Shield_0: -889005444
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
