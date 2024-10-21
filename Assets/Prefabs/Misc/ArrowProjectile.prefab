@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6470126542071053972}
   - component: {fileID: 1453523398338619281}
   - component: {fileID: 5284567752458052612}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: ArrowProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4865309214770636011, guid: 45804eb2722b83845adbcf2d72da12dd, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5246372888971771473, guid: 45804eb2722b83845adbcf2d72da12dd, type: 3}
       propertyPath: m_RootOrder
