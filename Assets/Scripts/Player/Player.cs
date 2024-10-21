@@ -78,14 +78,14 @@ public class Player : MonoBehaviour
 		_mover.OnRoll();
 	}
 
-	public void setDetectedTrap(AbstractTrap trap)
+	public void SetDetectedTrap(AbstractTrap trap)
     {
 		detectedTrap = trap;
-    }
+	}
 
 	public void ActivateTrap(bool isActivated)
     {
-		if(isActivated && detectedTrap != null)
+		if (isActivated && detectedTrap != null)
         {
 			detectedTrap.ActivateTrap();
         }

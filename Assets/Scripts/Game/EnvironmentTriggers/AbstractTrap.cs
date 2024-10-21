@@ -12,6 +12,7 @@ public abstract class AbstractTrap : MonoBehaviour
     public void ActivateTrap()
     {
         trapInfo.isActivated = true;
+        Debug.Log("Trap has been activated");
         StartCoroutine(TrapActivationDuration());
     }
 
@@ -20,6 +21,7 @@ public abstract class AbstractTrap : MonoBehaviour
         yield return new WaitForSeconds(trapInfo.activeDuration);
         trapInfo.isActivated = false;
         myTrap.SetTrigger("ResetTrap");
+        Debug.Log("trap timed out");
     }
 
 
@@ -28,6 +30,7 @@ public abstract class AbstractTrap : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && trapInfo.isActivated)
         {
+            Debug.Log("We got one");
             trapInfo.isSprung = true;
             trackedEnemies.Add(collision);
             if (trackedEnemies.Count == 1)
@@ -37,7 +40,7 @@ public abstract class AbstractTrap : MonoBehaviour
         }
         else
         {
-            Debug.Log(collision);
+            //Debug.Log(collision);
         }
     }
 

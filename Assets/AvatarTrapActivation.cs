@@ -12,11 +12,11 @@ public class AvatarTrapActivation : MonoBehaviour
 	{
 		if (collision.tag == "Trap")
 		{
-			Debug.Log("Player Entered Trap");
+			//Debug.Log("Player Entered Trap");
 			_trap = collision.GetComponent<AbstractTrap>();
 			if(_player != null && _trap != null)
 			{
-				_player.setDetectedTrap(_trap);
+				_player.SetDetectedTrap(_trap);
             }
 		}
 	}
@@ -24,11 +24,11 @@ public class AvatarTrapActivation : MonoBehaviour
 	{
 		if (collision.tag == "Trap")
 		{
-			Debug.Log("Player Left Trap");
+			//Debug.Log("Player Left Trap");
 			_trap = null;
 			if (_player != null)
 			{
-				_player.setDetectedTrap(_trap);
+				_player.SetDetectedTrap(_trap);
 
 			}
 		}
