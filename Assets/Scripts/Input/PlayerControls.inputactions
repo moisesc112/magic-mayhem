@@ -78,6 +78,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ActivateTrap",
+                    "type": "Button",
+                    "id": "a1f237af-a356-409a-ae92-3be595041765",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Evade",
                     "type": "Button",
                     "id": "9dc945bc-4139-4647-af0d-5eaf3ad193b2",
@@ -338,6 +347,28 @@
                     "processors": "",
                     "groups": "MK",
                     "action": "SelectAbility4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9f7e2c2-6a63-423d-bc60-2e02bcd2a150",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateTrap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0dc35e2f-5398-4841-9616-7b57fbebaa66",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateTrap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
