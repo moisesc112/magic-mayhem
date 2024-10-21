@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 	public bool isControlled => _playerIndex >= 0;
 	public Camera playerCamera;
 	public Vector3 velocity => _velocity;
+	private AbstractTrap detectedTrap;
 
 	[SerializeField] GameObject _avatar;
 	
@@ -76,6 +77,19 @@ public class Player : MonoBehaviour
 	{
 		_mover.OnRoll();
 	}
+
+	public void setDetectedTrap(AbstractTrap trap)
+    {
+		detectedTrap = trap;
+    }
+
+	public void ActivateTrap(bool isActivated)
+    {
+		if(isActivated && detectedTrap != null)
+        {
+			detectedTrap.ActivateTrap();
+        }
+    }
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
 	public PlayerStats PlayerStats => GetComponent<PlayerStats>();

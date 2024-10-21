@@ -8,14 +8,27 @@ public abstract class AbstractTrap : MonoBehaviour
     private List<Collider> trackedEnemies = new List<Collider>();
     [SerializeField] private Animator myTrap = null;
 
-    //TODO Replace activating OnTriggerEnter with player activating trap through interact button
+
+    public void ActivateTrap()
+    {
+        trapInfo.isActivated = true;
+        StartCoroutine(TrapActivationDuration());
+    }
+
+    public virtual IEnumerator TrapActivationDuration()
+    {
+        yield return new WaitForSeconds(trapInfo.activeDuration);
+        trapInfo.isActivated = false;
+        myTrap.SetTrigger("ResetTrap");
+    }
+
 
     public virtual void OnTriggerEnter(Collider collision)
     {
 
-        if (collision.tag == "TestEnemyPool")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && trapInfo.isActivated)
         {
-            trapInfo.isActive = true;
+            trapInfo.isSprung = true;
             trackedEnemies.Add(collision);
             if (trackedEnemies.Count == 1)
             {
@@ -24,20 +37,19 @@ public abstract class AbstractTrap : MonoBehaviour
         }
         else
         {
-            //Debug.Log("Player Entered Trap");
+            Debug.Log(collision);
         }
     }
 
     public virtual void OnTriggerStay(Collider collision)
     {
 
-        if (collision.tag == "TestEnemyPool")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && trapInfo.isActivated)
         {
-            if (trapInfo.isActive)
+            if (trapInfo.isSprung)
             {
-                //Debug.Log("Enemy Taking Trap Damage");
                 collision.GetComponent<HealthComponent>().TakeDamage(trapInfo.damage);
-                trapInfo.isActive = false;
+                trapInfo.isSprung = false;
                 StartCoroutine(UseTrapCoroutine());
             }
         }
@@ -52,16 +64,16 @@ public abstract class AbstractTrap : MonoBehaviour
     //If a spike trap, this function would stay in Trap's class
     public virtual IEnumerator UseTrapCoroutine()
     {
-        yield return new WaitForSeconds(trapInfo.cooldown);
-        trapInfo.isActive = true;
+        yield return new WaitForSeconds(trapInfo.damageCooldown);
+        trapInfo.isSprung = true;
     }
 
     public virtual void OnTriggerExit(Collider collision)
     {
-        if (collision.tag == "TestEnemyPool")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             //Debug.Log("Enemy left trap");
-            trapInfo.isActive = true;
+            trapInfo.isSprung = true;
             trackedEnemies.Remove(collision);
             if (trackedEnemies.Count == 0)
             {
