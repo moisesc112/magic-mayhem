@@ -24,7 +24,6 @@ public class InGameMenu : MonoBehaviour
 	[SerializeField] MultiplayerEventSystem multiplayerEventSystem;
 	[SerializeField] GameObject firstSelectedGameObject;
 	[SerializeField] InputSystemUIInputModule _inputModule;
-	[SerializeField] Player _player;
 	public InputSystemUIInputModule inputSystemUIInputModule => _inputModule;
 
 	void Awake()
@@ -32,12 +31,6 @@ public class InGameMenu : MonoBehaviour
 		loseText.gameObject.SetActive(false);
 		winText.gameObject.SetActive(false);
 		menuPanel.SetActive(false);
-
-		var playerController = PlayerManager.instance.PlayerControllers.FirstOrDefault(x => x.playerIndex == _player.GetPlayerIndex());
-		if (playerController != null)
-		{
-			playerController.playerInput.uiInputModule = _inputModule;
-		}
 	}
 
 	public void UpdateMenuDisplay(bool setFirstSelectedGameObject = true)
@@ -56,7 +49,27 @@ public class InGameMenu : MonoBehaviour
 
 	public void RestartGame()
 	{
-		SceneManager.LoadScene("Menu");
+		// Clean up persisting game objects
+		GameObject debugUtil = GameObject.Find("UiDebugUtil");
+		if (debugUtil != null)
+		{
+			Destroy(debugUtil);
+		}
+
+		GameObject[] playerControllerClones = GameObject.FindGameObjectsWithTag("PlayerControllerClone");
+		foreach (GameObject clone in playerControllerClones)
+		{
+			Destroy(clone);
+		}
+
+		if (PlayerManager.instance != null)
+		{
+			Destroy(PlayerManager.instance.gameObject);
+		}
+
+		// reload the menu scene and reset time
+		SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+		Time.timeScale = 1f;
 	}
 
 	public void LoseGameMenu()
@@ -74,6 +87,4 @@ public class InGameMenu : MonoBehaviour
          Application.Quit();
 #endif
     }
-
-	public Player GetUIControllingPlayer() => _player;
 }

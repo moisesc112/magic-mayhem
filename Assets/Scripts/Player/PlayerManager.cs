@@ -70,6 +70,7 @@ public class PlayerManager : MonoBehaviour
 		// Update this to spawn players at designated places around the map.
 		var player = Instantiate(playerPrefab, spawnLocation, Quaternion.identity);
 		owningController.TakeControl(player);
+		owningController.gameObject.tag = "PlayerControllerClone";
 		_playersByOwningController[owningController] = player;
 		return player;
 	}
