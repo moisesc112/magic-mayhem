@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActivated: 0
   isSprung: 0
-  activeDuration: 15
+  activeDuration: 5
   damageCooldown: 0.5
   damage: 1
+  trapCost: 5

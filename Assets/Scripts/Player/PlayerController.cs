@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnActivateTrap(InputAction.CallbackContext context)
 	{
-		if (_player)
+		if(context.performed && _player)
 			_player.ActivateTrap(true);
 	}
 
