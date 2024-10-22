@@ -978,6 +978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -3416126643142204928, guid: 336bfff29efae624b9c725f8ba8b2eb1, type: 3}
   spawnPlayerOnConnect: 1
+  spawnLocation: {x: 0, y: 0, z: 0}
 --- !u!114 &793889710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,6 +1081,7 @@ GameObject:
   m_Component:
   - component: {fileID: 878069110}
   - component: {fileID: 878069109}
+  - component: {fileID: 878069111}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -1099,11 +1101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ddf6c208af67a4c9dfc08b453b50f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenSpawns: 1
-  timeBetweenWaves: 5
   timeBeforeGameStarts: 2
-  enemiesPerWave: 1
-  enemyIncreasePerWave: 1
+  _enemyFactory: {fileID: 0}
+  _spawnLocations: []
+  inTestingScene: 0
 --- !u!4 &878069110
 Transform:
   m_ObjectHideFlags: 0
@@ -1121,6 +1122,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &878069111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878069108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3162297796f98c4cbd33d19ff6974a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves: []
 --- !u!1 &900435483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1371,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWaveText: {fileID: 1863636948}
   waveCountdownText: {fileID: 181643166}
-  waveManager: {fileID: 0}
+  totalEnemiesPerWaveText: {fileID: 0}
+  winText: {fileID: 0}
 --- !u!4 &1112269403 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1670978564886079377, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
@@ -2085,12 +2100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f45a6741b358e548ba7d2e4938270cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPreFabs: []
   spawnPoints:
   - {fileID: 229505681}
   - {fileID: 900435484}
   - {fileID: 1456449388}
-  parent: {fileID: 1890727945}
-  testEnemyPreFab: {fileID: 7744972654298733127, guid: 63162aeeeeb87174f9330d0da831ca2a, type: 3}
+  enemyParentObjects: []
   maxPoolSize: 1000
 --- !u!1 &1906918101
 GameObject:

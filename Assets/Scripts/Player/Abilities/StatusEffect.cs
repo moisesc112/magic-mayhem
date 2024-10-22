@@ -16,6 +16,7 @@ public enum StatusEffectStat
     Armor,
     DodgeChance,
     Shield,
+    Invulnerable,
 }
 
 [CreateAssetMenu(fileName = "New Status Effect", menuName = "Status Effect")]

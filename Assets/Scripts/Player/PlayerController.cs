@@ -46,6 +46,12 @@ public class PlayerController : MonoBehaviour
 
 	}
 
+	public void OnActivateTrap(InputAction.CallbackContext context)
+	{
+		if(context.performed && _player)
+			_player.ActivateTrap(true);
+	}
+
 	public void OnToggleShopUI(InputAction.CallbackContext context)
 	{
 		if (_player && context.performed)

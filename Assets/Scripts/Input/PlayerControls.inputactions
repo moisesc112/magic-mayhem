@@ -78,6 +78,16 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ActivateTrap",
+                    "type": "Button",
+                    "id": "a1f237af-a356-409a-ae92-3be595041765",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+
                     "name": "OpenMenu",
                     "type": "Button",
                     "id": "1f21d069-9325-4c3b-a9c6-80b9f9517f1c",
@@ -347,6 +357,28 @@
                     "processors": "",
                     "groups": "MK",
                     "action": "SelectAbility4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9f7e2c2-6a63-423d-bc60-2e02bcd2a150",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateTrap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0dc35e2f-5398-4841-9616-7b57fbebaa66",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateTrap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _distancePollInfos:
   - {fileID: 11400000, guid: 9cf8749a1f7bb3e4e85aa2b298537a49, type: 2}
+  assignNavDestination: 1
 --- !u!114 &9077702978495938066
 MonoBehaviour:
   m_ObjectHideFlags: 0
