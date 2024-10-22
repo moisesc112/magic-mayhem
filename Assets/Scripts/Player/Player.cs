@@ -78,6 +78,8 @@ public class Player : MonoBehaviour
 		_mover.OnRoll();
 	}
 
+	// Set the reference trap from AvatarTrapActivation
+	// that the player is currently colliding with
 	public void SetDetectedTrap(AbstractTrap trap)
     {
 		detectedTrap = trap;
@@ -85,6 +87,8 @@ public class Player : MonoBehaviour
 
 	public void ActivateTrap(bool isActivated)
     {
+		// If player is on a trap and has chosen to activate it and has
+        // enough gold then minus the gold and then activate the trap 
 		if (isActivated && detectedTrap != null && _playerStats.gold >= detectedTrap.trapInfo.trapCost)
         {
 			_playerStats.gold -= detectedTrap.trapInfo.trapCost;
