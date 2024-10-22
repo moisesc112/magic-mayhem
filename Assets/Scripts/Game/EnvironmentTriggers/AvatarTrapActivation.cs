@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// When collision is detected and is a trap
+// pass this trap reference to the player
 public class AvatarTrapActivation : MonoBehaviour
 {
 	public void Awake()
     {
 		_player = GetComponentInParent<Player>();
     }
+
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.tag == "Trap")
 		{
-			//Debug.Log("Player Entered Trap");
+			// Assign collision to trap variable and
+			// pass trap reference to the player instance
 			_trap = collision.GetComponent<AbstractTrap>();
 			if(_player != null && _trap != null)
 			{
+				// Pass trap reference to the player instance
 				_player.SetDetectedTrap(_trap);
             }
 		}
@@ -24,7 +29,8 @@ public class AvatarTrapActivation : MonoBehaviour
 	{
 		if (collision.tag == "Trap")
 		{
-			//Debug.Log("Player Left Trap");
+			// Reset trap variable to null and pass it to
+			// player instance
 			_trap = null;
 			if (_player != null)
 			{
