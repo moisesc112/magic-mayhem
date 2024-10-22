@@ -947,6 +947,7 @@ GameObject:
   - component: {fileID: 8144076873232839308}
   - component: {fileID: 4434433441234141619}
   - component: {fileID: 7503636212727866832}
+  - component: {fileID: 1289205791190249860}
   m_Layer: 8
   m_Name: WarChief
   m_TagString: WarChiefEnemy
@@ -1115,7 +1116,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7524645707314563714}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86ebc8c0b8064a243b40b2f49490e7d4, type: 3}
   m_Name: 
@@ -1179,6 +1180,25 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _dissolveMaterial: {fileID: 2100000, guid: 8385f0e712bb65b428cf18e6ab1c29c6, type: 2}
+--- !u!114 &1289205791190249860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524645707314563714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23944f6059be844c692afa3ef861d262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meleeRange: 0
+  _jumpRangeStart: 6
+  _jumpRangeEnd: 12
+  _damage: 0
+  _jumpSource: {fileID: 0}
+  _hammerHitPoint: {fileID: 0}
+  _renderer: {fileID: 0}
 --- !u!1 &7524645707314564468
 GameObject:
   m_ObjectHideFlags: 0
