@@ -9,10 +9,12 @@ public class BreakableObject : MonoBehaviour
     [SerializeField] private GameObject unbrokenGameObject;
     [SerializeField] private GameObject brokenGameObject;
     [SerializeField] private float despawnTime;
-
+    [SerializeField] AudioClip breakAudio;
+    AudioSource audioSource;
     private void Awake()
     {
         healthComponent = GetComponent<HealthComponent>();
+        audioSource = GetComponent<AudioSource>();
         healthComponent.onDeath += HealthComponent_OnDeath;
     }
 
@@ -25,6 +27,7 @@ public class BreakableObject : MonoBehaviour
     {
         healthComponent.onDeath -= HealthComponent_OnDeath;
         GetComponent<Collider>().enabled = false;
+        audioSource.PlayOneShot(breakAudio);
         unbrokenGameObject.SetActive(false);
         brokenGameObject.SetActive(true);
         StartCoroutine(DespawnCoroutine());
