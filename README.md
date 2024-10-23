@@ -15,3 +15,4 @@ Project for CS6457
 * Elemental Magic Spell Cast A Short by RescopicSound: https://freesound.org/people/RescopicSound/sounds/749795/
 * https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565
 * https://assetstore.unity.com/packages/vfx/particles/fx-lightning-ii-free-25210#description
+* Clay Pot Break Sound : https://freesound.org/people/Kinoton/sounds/399080/
