@@ -9,15 +9,33 @@ public class IceBlock : Ability
     [SerializeField] StatusEffect secondBuffStatusEffect;
     [SerializeField] AudioSource audioSource;
     public float playerAnimPauseTime;
+    private bool isAudioPaused;
+    private Coroutine audioCoroutine;
 
     public override void Awake()
     {
-        StartCoroutine(AudioFadeOut.FadeOut(audioSource, abilityInfo.despawnTime));
+        audioCoroutine = StartCoroutine(AudioFadeOut.FadeOut(audioSource, abilityInfo.despawnTime));
         base.Awake();
     }
 
     public override void Update()
     {
+        if (Time.deltaTime == 0)
+        {
+            audioSource.Pause();
+            StopCoroutine(audioCoroutine);
+            isAudioPaused = true;
+        }
+        else
+        {
+            if (isAudioPaused == true)
+            {
+                audioSource.UnPause();
+                audioCoroutine = StartCoroutine(AudioFadeOut.FadeOut(audioSource, remainingDespawnTime));
+                isAudioPaused = false;
+            }
+        }
+        DisablePlayerInput();
         base.Update();
     }
 
@@ -29,8 +47,8 @@ public class IceBlock : Ability
             _player.PlayerStats.StatusEffects.AddStatusEffect(secondBuffStatusEffect);
             _playerController = PlayerManager.instance.PlayerControllers.FirstOrDefault(x => x.playerIndex == _player.GetPlayerIndex());
             _playerInput = _playerController.playerInput;
-            _playerAnim = _player.GetComponentInChildren<Animator>();
-            DisablePlayerInput();
+            _playerAnim = _player.transform.GetChild(0).GetComponent<Animator>();
+            StartCoroutine(DisablePlayerAnimator(_playerAnim, playerAnimPauseTime));
         }
     }
     
@@ -47,13 +65,22 @@ public class IceBlock : Ability
 
     public void DisablePlayerInput()
     {
-        _playerInput.currentActionMap.Disable();
-        StartCoroutine(DisablePlayerAnimator(_playerAnim, playerAnimPauseTime));
+        _playerInput.actions.FindAction("Move").Disable();
+        _playerInput.actions.FindAction("CastSpell").Disable();
+        _playerInput.actions.FindAction("Aim").Disable();
+        _playerInput.actions.FindAction("SelectAbility1").Disable();
+        _playerInput.actions.FindAction("SelectAbility2").Disable();
+        _playerInput.actions.FindAction("SelectAbility3").Disable();
+        _playerInput.actions.FindAction("SelectAbility4").Disable();
+        _playerInput.actions.FindAction("SelectAbility4").Disable();
+        _playerInput.actions.FindAction("OpenShop").Disable();
+        _playerInput.actions.FindAction("ActivateTrap").Disable();
+        _playerInput.actions.FindAction("Evade").Disable();
     }
 
     public void EnablePlayerInput()
     {
-        _playerInput.currentActionMap.Enable();
+        _playerInput.actions.Enable();
         _playerAnim.enabled = true;
     }
 
