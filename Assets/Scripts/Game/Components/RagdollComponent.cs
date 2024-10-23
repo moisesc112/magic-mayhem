@@ -55,7 +55,7 @@ public class RagdollComponent : MonoBehaviour
 			_agent.enabled = false;
 		_animator.enabled = false;
 
-		if (_disableOwnCollider)
+		if (_disableOwnCollider && _ownCollider != null)
 			_ownCollider.enabled = false;
 	}
 
@@ -68,7 +68,8 @@ public class RagdollComponent : MonoBehaviour
 		foreach (var collider in _ragdollColliders)
 			collider.enabled = false;
 
-		_ownCollider.enabled = true;
+		if (_ownCollider != null)
+			_ownCollider.enabled = true;
 
 		if (_agent)
 			_agent.enabled = true;

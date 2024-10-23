@@ -10,6 +10,9 @@ TagManager:
   - GolemEnemy
   - TestEnemy
   - ArcherEnemy
+  - DeadPlayers
+  - AlivePlayers
+  - PlayerControllerClone
   layers:
   - Default
   - TransparentFX

@@ -87,6 +87,16 @@
                     "initialStateCheck": false
                 },
                 {
+
+                    "name": "OpenMenu",
+                    "type": "Button",
+                    "id": "1f21d069-9325-4c3b-a9c6-80b9f9517f1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Evade",
                     "type": "Button",
                     "id": "9dc945bc-4139-4647-af0d-5eaf3ad193b2",
@@ -371,6 +381,28 @@
                     "action": "ActivateTrap",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52b760b8-7af5-4c75-8e31-5fa6951fb213",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f354655a-301c-4804-ab0a-6ad2fd95b510",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -409,6 +441,15 @@
                     "name": "CloseShopUI",
                     "type": "Button",
                     "id": "017f1ad2-6ea3-46e6-b76a-3ee7a2433b02",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CloseGameMenu",
+                    "type": "Button",
+                    "id": "eb7ed763-2b3e-426c-a6d5-ebf162a1686b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -567,6 +608,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseShopUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "970516cc-df2b-41d7-9f57-bef85debc663",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseGameMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9cdf24e-84e9-40b4-94d8-b890dea48a33",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseGameMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

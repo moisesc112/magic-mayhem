@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 [RequireComponent(typeof(PlayerStats))]
 public class Player : MonoBehaviour
@@ -9,7 +11,7 @@ public class Player : MonoBehaviour
 	private AbstractTrap detectedTrap;
 
 	[SerializeField] GameObject _avatar;
-	
+
 	void Awake()
 	{
 		_mover = GetComponentInChildren<Mover>();
@@ -17,6 +19,9 @@ public class Player : MonoBehaviour
 		_castingComponent = GetComponentInChildren<CastingComponent>();
 		_shop = GetComponentInChildren<Shop>();
 		_playerStats = GetComponent<PlayerStats>();
+		_ragdoll = _avatar.GetComponent<RagdollComponent>();
+		_playerStats.onDeath += HealthComp_OnDeath;
+		_inGameMenu = FindObjectOfType<InGameMenu>();
 	}
 
 	void Start()
@@ -73,6 +78,11 @@ public class Player : MonoBehaviour
 		_shop.ToggleShopUI(isEnabled);
 	}
 
+	public void ToggleInGameMenuUI(bool isEnabled)
+	{
+		_inGameMenu.ToggleInGameMenuUI(isEnabled);
+	}
+
 	public void OnRoll()
 	{
 		_mover.OnRoll();
@@ -96,6 +106,37 @@ public class Player : MonoBehaviour
         }
     }
 
+	public bool GameOver()
+    {
+		return _inGameMenu.gameOver;
+    }
+
+	// Same methodology as the enemy death
+	void HealthComp_OnDeath(object sender, EventArgs e)
+	{
+		StartCoroutine(nameof(HandleDeath));
+	}
+	
+	IEnumerator HandleDeath()
+	{
+		// Enable ragdoll and disable movement, casting and asign tag
+		_ragdoll.EnableRagdoll();
+		_mover.enabled = false;
+		_castingComponent.enabled = false;
+		gameObject.tag = "DeadPlayers";
+
+		yield return null;
+
+		// If there are no remaining player game objects that are tagged
+		// as alive then trigger endgame
+		var remainingPlayers = GameObject.FindGameObjectsWithTag("AlivePlayers");
+		if (remainingPlayers.Length == 0)
+        {
+			yield return new WaitForSeconds(1.5f);
+			_inGameMenu.LoseGameMenu();
+		}			
+	}
+
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
 	public PlayerStats PlayerStats => GetComponent<PlayerStats>();
 
@@ -106,4 +147,6 @@ public class Player : MonoBehaviour
 	int _playerIndex = -1;
 	Vector3 _velocity;
 	Vector3 _previousPos;
+	RagdollComponent _ragdoll;
+	InGameMenu _inGameMenu;
 }

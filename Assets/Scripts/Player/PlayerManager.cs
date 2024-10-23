@@ -68,8 +68,11 @@ public class PlayerManager : MonoBehaviour
 		EnsurePlayerIsRegistered(owningController);
 
 		// Update this to spawn players at designated places around the map.
+		// Use tag PlayerControllerClone to find the instantiations of player controller
+        // when we need to restart game
 		var player = Instantiate(playerPrefab, spawnLocation, Quaternion.identity);
 		owningController.TakeControl(player);
+		owningController.gameObject.tag = "PlayerControllerClone";
 		_playersByOwningController[owningController] = player;
 		return player;
 	}
