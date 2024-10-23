@@ -30,6 +30,7 @@ public class BreakableObject : MonoBehaviour
         audioSource.PlayOneShot(breakAudio);
         unbrokenGameObject.SetActive(false);
         brokenGameObject.SetActive(true);
+        GetComponent<LootDropComponent>().DropLoot();
         StartCoroutine(DespawnCoroutine());
     }
 
