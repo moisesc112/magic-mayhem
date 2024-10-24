@@ -81,7 +81,14 @@ public class InGameMenu : MonoBehaviour
 		loseText.gameObject.SetActive(true);
 	}
 
-    public void QuitGame()
+	public void WinGameMenu()
+	{
+		gameOver = true;
+		ToggleInGameMenuUI(true);
+		winText.gameObject.SetActive(true);
+	}
+
+	public void QuitGame()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

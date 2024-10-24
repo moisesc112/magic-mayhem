@@ -53,6 +53,7 @@ public class WaveManager : MonoBehaviour
 
 		waveInfo = GetComponent<WaveInfo>();
 		waves = waveInfo.GetWaveContents();
+		_inGameMenu = FindObjectOfType<InGameMenu>();
 	}
 
 	void Update()
@@ -122,6 +123,14 @@ public class WaveManager : MonoBehaviour
 		}
 
 		Debug.Log("You win!");
+		StartCoroutine(nameof(GameWin));
+	}
+
+	IEnumerator GameWin()
+	{
+		// Handle Win Menu
+		yield return new WaitForSeconds(1.5f);
+		_inGameMenu.WinGameMenu();
 	}
 
 	public void ReportEnemyKilled()
@@ -130,6 +139,8 @@ public class WaveManager : MonoBehaviour
 		aliveEnemies--;
 		enemyDied?.Invoke(this, new EnemyDiedEventArgs(enemiesAlive));
 	}
+
+	InGameMenu _inGameMenu;
 }
 
 public sealed class WaveStartedEventArgs : EventArgs
