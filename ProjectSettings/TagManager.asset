@@ -13,6 +13,7 @@ TagManager:
   - DeadPlayers
   - AlivePlayers
   - PlayerControllerClone
+  - MenuCharacter
   layers:
   - Default
   - TransparentFX
