@@ -96,6 +96,11 @@ public class PlayerController : MonoBehaviour
 			_player.OnRoll();
 	}
 
+	public void OnDebug()
+	{
+		Debug.Log("hit");
+	}
+
 	public void OnCloseShopUI(InputAction.CallbackContext context)
     {
         _playerInput.actions.FindActionMap("UI").Disable();

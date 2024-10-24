@@ -1,21 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-	[SerializeField] CharacterCardController playerSetupMenu;
 	[SerializeField] GameObject playerCardRoot;
 	[SerializeField] TextMeshProUGUI countDownText;
 	[SerializeField] string sceneToLoad;
+	[SerializeField] Animator _cameraAnim;
+
+	[Header("MenuSections")]
+	[SerializeField] GameObject _startSection;
+	[SerializeField] GameObject _lobbySection;
 
 	private void Awake()
 	{
-		_playerCardByIndex = new Dictionary<int, CharacterCardController> ();
-		_readyStatusByPlayerId = new Dictionary<int, bool>();
+		_playerControllerByIndex = new Dictionary<int, PlayerController>();
+		_lobbyEventSystem = _lobbySection.GetComponent<EventSystem>();
+		_lobbyInputSystem = _lobbySection.GetComponent<InputSystemUIInputModule>();
 	}
 
 	void Start()
@@ -26,6 +31,7 @@ public class MainMenuManager : MonoBehaviour
 
 		LevelLoadManager.instance.LoadSceneAsync(sceneToLoad);
 		LevelLoadManager.instance.sceneLoaded += LevelManager_OnSceneLoaded;
+		_menuCharacters = GameObject.FindGameObjectsWithTag("MenuCharacter").Select(c => c.GetComponent<MenuCharacter>()).ToArray();
 	}
 
 	void OnDestroy()
@@ -40,6 +46,15 @@ public class MainMenuManager : MonoBehaviour
 		WaveManager.OnSceneLoaded(sceneToLoad);
 	}
 
+	public void QuitGame()
+	{
+#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+#else
+		Application.Quit();
+#endif
+	}
+
 	void LevelManager_OnSceneLoaded(object sender, LevelLoadedArgs args)
 	{
 		LevelLoadManager.instance.sceneLoaded -= LevelManager_OnSceneLoaded;
@@ -49,65 +64,46 @@ public class MainMenuManager : MonoBehaviour
 	void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)
 	{
 		var playerController = e.playerController;
-		var newCard = Instantiate(playerSetupMenu, playerCardRoot.transform);
-		newCard.SetPlayerIndex(playerController.playerIndex);
-		newCard.PlayerReadyStatusChanged += CharacterCardController_OnPlayerReadyStatusChanged;
-		playerController.playerInput.uiInputModule = newCard.inputSystemUIInputModule;
-		_playerCardByIndex.Add(e.playerController.playerIndex, newCard);
-		_readyStatusByPlayerId[e.playerController.playerIndex] = false;
-		CheckIfShouldStartGame();
+
+		var matchingCharacter = _menuCharacters.First(c => c.playerIndex == e.playerController.playerIndex);
+		if (matchingCharacter is null)
+		{
+			Debug.LogError($"ERROR: Unable to find matching player character for player {e.playerController.playerIndex}.");
+			return;
+		}
+
+		_playerControllerByIndex[e.playerController.playerIndex] = e.playerController;
+		playerController.playerInput.uiInputModule = matchingCharacter.inputModule;
+		matchingCharacter.Join();
+
+		if (!_playerLoaded)
+		{
+			_playerLoaded = true;
+			_cameraAnim.SetTrigger("ToCharacters");
+			_startSection.SetActive(false);
+			_lobbySection.SetActive(true);
+		}
 	}
 
 	void PlayerManager_OnPlayerControllerRemoved(object sender, PlayerManager.PlayerRemovedEventArgs e)
 	{
-		if (!_playerCardByIndex.TryGetValue(e.playerIndex, out var cardController)) return;
+		_playerControllerByIndex.Remove(e.playerIndex);
+		_menuCharacters.First(c => c.playerIndex == e.playerIndex).BackOut();
 
-		cardController.PlayerReadyStatusChanged -= CharacterCardController_OnPlayerReadyStatusChanged;
-
-		Destroy(cardController.gameObject);
-		_playerCardByIndex.Remove(e.playerIndex);
-		_readyStatusByPlayerId.Remove(e.playerIndex);
-		CheckIfShouldStartGame();
-	}
-
-	void CharacterCardController_OnPlayerReadyStatusChanged(object sender, CharacterCardController.PlayerReadyEventArgs e)
-	{
-		_readyStatusByPlayerId[e.playerId] = e.ready;
-		CheckIfShouldStartGame();
-	}
-
-	void CheckIfShouldStartGame()
-	{
-		var ready = _readyStatusByPlayerId.Keys.Count > 0 && _readyStatusByPlayerId.Values.All(ready => ready);
-		if (ready)
+		if (_playerControllerByIndex.Count == 0)
 		{
-			// Show countdown
-			countDownText.gameObject.transform.parent.gameObject.SetActive(true);
-			StartCoroutine(nameof(BeginCountdown));
-		}
-		else
-		{
-			// Hide countdown, stop timer
-			countDownText.gameObject.transform.parent.gameObject.SetActive(false);
-			StopCoroutine(nameof(BeginCountdown));
+			_playerLoaded = false;
+			_cameraAnim.SetTrigger("ToBase");
+			_startSection.SetActive(true);
+			_lobbySection.SetActive(false);
 		}
 	}
 
-	IEnumerator BeginCountdown()
-	{
-		var count = 3;
-		for(int i = count; i >= 0; i--)
-		{
-			countDownText.text = i.ToString();
-			yield return new WaitForSeconds(1.0f);
-		}
-		if (!_gameSceneLoaded)
-			countDownText.text = "Loading...";
-		yield return new WaitUntil(() => _gameSceneLoaded);
-		StartGame();
-	}
+	Dictionary<int, PlayerController> _playerControllerByIndex;
+	EventSystem _lobbyEventSystem;
+	InputSystemUIInputModule _lobbyInputSystem;
+	MenuCharacter[] _menuCharacters;
 
-	Dictionary<int, CharacterCardController> _playerCardByIndex;
-	Dictionary<int, bool> _readyStatusByPlayerId;
 	bool _gameSceneLoaded;
+	bool _playerLoaded = false;
 }
