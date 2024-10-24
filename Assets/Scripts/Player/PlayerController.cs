@@ -16,6 +16,15 @@ public class PlayerController : MonoBehaviour
 	void Start()
 	{
 		PlayerManager.instance.RegisterPlayer(this);
+		WaveManager.instance.waveStarted += WaveManager_OnWaveStarted;
+		WaveManager.instance.waveFinished += WaveManager_OnWaveFinished;
+		if (GameObject.Find("WaveManager"))
+			_playerInput.actions.FindAction("OpenShop").Disable();
+	}
+	private void OnDestroy()
+	{
+		WaveManager.instance.waveStarted -= WaveManager_OnWaveStarted;
+		WaveManager.instance.waveFinished -= WaveManager_OnWaveFinished;
 	}
 
 	public void TakeControl(Player player)
@@ -107,6 +116,19 @@ public class PlayerController : MonoBehaviour
         _playerInput.actions.FindActionMap("Gameplay").Enable();
         _player.ToggleShopUI(false);
     }
+	
+	public void WaveManager_OnWaveStarted(object sender, WaveStartedEventArgs e)
+    {
+		_playerInput.actions.FindActionMap("UI").Disable();
+		_playerInput.actions.FindActionMap("Gameplay").Enable();
+		_player.ToggleShopUI(false);
+		_playerInput.actions.FindAction("OpenShop").Disable();
+	}
+
+	public void WaveManager_OnWaveFinished(object sender, WaveEndedEventArgs e)
+    {
+		_playerInput.actions.FindAction("OpenShop").Enable();
+	}
 
 	public void OnCloseInGameMenuUI(InputAction.CallbackContext context)
 	{	if (_player.GameOver())
