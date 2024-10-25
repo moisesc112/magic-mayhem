@@ -123,6 +123,10 @@ public class PlayerController : MonoBehaviour
 		_playerInput.actions.FindActionMap("UI").Disable();
 		_playerInput.actions.FindActionMap("Gameplay").Enable();
 		_player.ToggleInGameMenuUI(false);
+		if (!WaveManager.instance.inWaveCooldown)
+        {
+			_playerInput.actions.FindAction("OpenShop").Disable();
+        }
 	}
 
 	public void OnDeviceLost(PlayerInput lostPlayer)

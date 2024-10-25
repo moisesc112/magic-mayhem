@@ -59,7 +59,7 @@ public class WaveManager : MonoBehaviour
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 	}
 
-	public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
+    public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
 	
 	public void SpawnWaves()
 	{
@@ -133,6 +133,7 @@ public class WaveManager : MonoBehaviour
 	{
 		if (!inTestingScene)
 		{
+			inWaveCooldown = false;
 			foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
 			{
 				playerController.ForceCloseActiveShopUI(playerController);
@@ -142,6 +143,7 @@ public class WaveManager : MonoBehaviour
 
 	void EnableShopAfterWave()
 	{
+		inWaveCooldown = true;
 		foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
 		{
 			playerController.playerInput.actions.FindAction("OpenShop").Enable();
