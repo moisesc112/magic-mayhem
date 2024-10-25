@@ -635,7 +635,7 @@
             ]
         },
         {
-            "name": "Frozen",
+            "name": "PauseOnly",
             "id": "79fc18f2-e2d2-4def-84b8-69a18e5e0310",
             "actions": [
                 {
