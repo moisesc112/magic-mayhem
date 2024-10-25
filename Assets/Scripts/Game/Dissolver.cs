@@ -26,7 +26,7 @@ public class Dissolver : MonoBehaviour
 
 		_targetRenderer.material.SetFloat(shaderProperty, fadeIn.Evaluate(Mathf.InverseLerp(0, spawnEffectTime, timer)));
 		if (timer >= spawnEffectTime)
-			ResetEffect();
+			ResetEffect(false);
 	}
 
 	public void SetTargetRenderer(Renderer targetRenderer)
@@ -42,10 +42,11 @@ public class Dissolver : MonoBehaviour
 		ps.Play();
 	}
 
-	public void ResetEffect()
+	public void ResetEffect(bool deactivateGameObject = true)
 	{
 		_isDissolving = false;
-		gameObject.SetActive(false);
+		if (deactivateGameObject)
+			gameObject.SetActive(false);
 		if (_targetRenderer)
 		{
 			_targetRenderer.material.SetFloat(shaderProperty, 1.0f);

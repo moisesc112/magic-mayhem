@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class MainMenuManager : MonoBehaviour
 		PlayerManager.instance.SetJoiningEnabled(false);
 		LevelLoadManager.instance.ActivateLoadedScene();
 		WaveManager.OnSceneLoaded(sceneToLoad);
+	}
+
+	public void StartTutorial()
+	{
+		SceneManager.LoadScene("Tutorial Level");
 	}
 
 	public void QuitGame()

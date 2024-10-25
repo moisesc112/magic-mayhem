@@ -29,12 +29,6 @@ public class Player : MonoBehaviour
 		_previousPos = GetAvatarPosition();
 	}
 
-	void Update()
-	{
-		UIDebugUtility.instance.UpdateTrackedHealth(_playerStats.health);
-		
-	}
-
 	void LateUpdate()
 	{
 		var newPos = GetAvatarPosition();
