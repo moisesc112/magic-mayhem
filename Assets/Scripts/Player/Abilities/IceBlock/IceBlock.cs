@@ -75,6 +75,10 @@ public class IceBlock : Ability
     {
         _playerInput.actions.Enable();
         _playerAnim.enabled = true;
+        if (!WaveManager.instance.inWaveCooldown)
+        {
+            _playerInput.actions.FindAction("OpenShop").Disable();
+        }
     }
 
     public IEnumerator DisablePlayerAnimator(Animator playerAnim, float playerAnimPauseTime)
