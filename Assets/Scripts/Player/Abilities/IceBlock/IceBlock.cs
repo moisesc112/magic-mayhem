@@ -25,6 +25,8 @@ public class IceBlock : Ability
             audioSource.Pause();
             StopCoroutine(audioCoroutine);
             isAudioPaused = true;
+            DisablePlayerInput();
+            _playerInput.actions.FindActionMap("UI").Enable();
         }
         else
         {
@@ -33,9 +35,10 @@ public class IceBlock : Ability
                 audioSource.UnPause();
                 audioCoroutine = StartCoroutine(AudioFadeOut.FadeOut(audioSource, remainingDespawnTime));
                 isAudioPaused = false;
+                DisablePlayerInput();
+                _playerInput.actions.FindActionMap("Frozen").Enable();
             }
         }
-        DisablePlayerInput();
         base.Update();
     }
 
@@ -49,6 +52,8 @@ public class IceBlock : Ability
             _playerInput = _playerController.playerInput;
             _playerAnim = _player.transform.GetChild(0).GetComponent<Animator>();
             StartCoroutine(DisablePlayerAnimator(_playerAnim, playerAnimPauseTime));
+            DisablePlayerInput();
+            _playerInput.actions.FindActionMap("Frozen").Enable();
         }
     }
     
@@ -65,17 +70,7 @@ public class IceBlock : Ability
 
     public void DisablePlayerInput()
     {
-        _playerInput.actions.FindAction("Move").Disable();
-        _playerInput.actions.FindAction("CastSpell").Disable();
-        _playerInput.actions.FindAction("Aim").Disable();
-        _playerInput.actions.FindAction("SelectAbility1").Disable();
-        _playerInput.actions.FindAction("SelectAbility2").Disable();
-        _playerInput.actions.FindAction("SelectAbility3").Disable();
-        _playerInput.actions.FindAction("SelectAbility4").Disable();
-        _playerInput.actions.FindAction("SelectAbility4").Disable();
-        _playerInput.actions.FindAction("OpenShop").Disable();
-        _playerInput.actions.FindAction("ActivateTrap").Disable();
-        _playerInput.actions.FindAction("Evade").Disable();
+        _playerInput.actions.Disable();
     }
 
     public void EnablePlayerInput()

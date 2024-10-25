@@ -688,6 +688,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Frozen",
+            "id": "79fc18f2-e2d2-4def-84b8-69a18e5e0310",
+            "actions": [
+                {
+                    "name": "OpenMenu",
+                    "type": "Button",
+                    "id": "e3dcd002-d10b-4e85-a5f7-5cbd2222c518",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "71a95cf4-29f5-437c-89e3-2b7c79849261",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b173cc4-6b22-4d9e-b050-749f0a12d3cc",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -73,6 +73,18 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void OnFrozenAndToggleGameMenu(InputAction.CallbackContext context)
+	{
+		if (_player && context.performed)
+		{
+			_player.ToggleInGameMenuUI(true);
+			_playerInput.actions.FindActionMap("Frozen").Disable();
+			_playerInput.actions.FindActionMap("Gameplay").Disable();
+			_playerInput.actions.FindActionMap("UI").Enable();
+			
+		}
+	}
+
 	public void OnAim(InputAction.CallbackContext context)
 	{
 		if (_player)
