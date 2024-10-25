@@ -25,8 +25,7 @@ public class IceBlock : Ability
             audioSource.Pause();
             StopCoroutine(audioCoroutine);
             isAudioPaused = true;
-            DisablePlayerInput();
-            _playerInput.actions.FindActionMap("UI").Enable();
+            _playerInput.actions.FindActionMap("PauseOnly").Disable();
         }
         else
         {
@@ -35,8 +34,7 @@ public class IceBlock : Ability
                 audioSource.UnPause();
                 audioCoroutine = StartCoroutine(AudioFadeOut.FadeOut(audioSource, remainingDespawnTime));
                 isAudioPaused = false;
-                DisablePlayerInput();
-                _playerInput.actions.FindActionMap("Frozen").Enable();
+                DisableGamePlayandUIInput();
             }
         }
         base.Update();
@@ -52,8 +50,7 @@ public class IceBlock : Ability
             _playerInput = _playerController.playerInput;
             _playerAnim = _player.transform.GetChild(0).GetComponent<Animator>();
             StartCoroutine(DisablePlayerAnimator(_playerAnim, playerAnimPauseTime));
-            DisablePlayerInput();
-            _playerInput.actions.FindActionMap("Frozen").Enable();
+            DisableGamePlayandUIInput();
         }
     }
     
@@ -68,9 +65,10 @@ public class IceBlock : Ability
         base.Despawn();
     }
 
-    public void DisablePlayerInput()
+    public void DisableGamePlayandUIInput()
     {
         _playerInput.actions.Disable();
+        _playerInput.actions.FindActionMap("PauseOnly").Enable();
     }
 
     public void EnablePlayerInput()

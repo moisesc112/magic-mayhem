@@ -330,7 +330,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnFrozenAndToggleGameMenu
+        m_MethodName: OnToggleInGameMenuUI
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -342,22 +342,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e3dcd002-d10b-4e85-a5f7-5cbd2222c518
     m_ActionName: Pause/OpenMenu[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 665746253984361426}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnFrozenAndCloseGameMenu
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 599c3dd5-3103-4706-88aa-b8e7bc7a94e4
-    m_ActionName: Frozen/CloseMenu[/Keyboard/escape,/SwitchProControllerHID/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
