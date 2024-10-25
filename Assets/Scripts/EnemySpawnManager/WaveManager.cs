@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityRandom = UnityEngine.Random;
 
 [RequireComponent (typeof(WaveInfo))]
+[RequireComponent(typeof(AudioSource))]
 public class WaveManager : MonoBehaviour
 {
 	public static WaveManager instance { get; private set; }
@@ -29,6 +30,7 @@ public class WaveManager : MonoBehaviour
 	private int aliveEnemies;
 	private int enemiesToSpawn;
 	private WaveInfo waveInfo;
+	private AudioSource _audioSource;
 	private WaveInfo.WaveContent[] waves;
 
 	public event EventHandler<GameStartedEventArgs> gameStarting;
@@ -52,6 +54,7 @@ public class WaveManager : MonoBehaviour
 		instance = this;
 
 		waveInfo = GetComponent<WaveInfo>();
+		_audioSource = GetComponent<AudioSource>();
 		waves = waveInfo.GetWaveContents();
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 	}
@@ -91,6 +94,7 @@ public class WaveManager : MonoBehaviour
 			var enemyCount = wave.GetEnemyCount();
 			enemiesAlive = enemyCount;
 			aliveEnemies = 0;
+			_audioSource.Play();
 			waveStarted?.Invoke(this, new WaveStartedEventArgs(waveNum + 1, enemyCount));
 			foreach (var group in wave.groups)
 			{
