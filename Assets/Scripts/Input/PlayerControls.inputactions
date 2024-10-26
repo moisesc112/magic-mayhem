@@ -230,21 +230,10 @@
                 {
                     "name": "",
                     "id": "ad10833c-3b9f-47a8-892c-511faf805d13",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "SelectAbility1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0d28425c-3fe2-470a-bbf2-5ffcd41d652f",
-                    "path": "<HID::Core (Plus) Wired Controller>/button3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "SelectAbility1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -263,21 +252,10 @@
                 {
                     "name": "",
                     "id": "68efba1f-29c3-4a2c-92f2-93c95ef1ccfb",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "SelectAbility2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b4f920af-3c85-4748-803f-5c5191fef82e",
-                    "path": "<HID::Core (Plus) Wired Controller>/button4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "SelectAbility2",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -296,21 +274,10 @@
                 {
                     "name": "",
                     "id": "2fd0900f-9996-4411-b37b-7192289c1a16",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "SelectAbility3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "42895f93-7455-494f-a311-e3c52f497ed1",
-                    "path": "<HID::Core (Plus) Wired Controller>/button2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "SelectAbility3",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -321,7 +288,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "MK",
                     "action": "OpenShop",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -332,7 +299,7 @@
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "OpenShop",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -350,6 +317,17 @@
                 },
                 {
                     "name": "",
+                    "id": "024e9c84-c51e-40f9-8236-dfc0b4a460ea",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Evade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e02c84fd-30fb-4507-9df4-0beaec542736",
                     "path": "<Keyboard>/4",
                     "interactions": "",
@@ -361,11 +339,22 @@
                 },
                 {
                     "name": "",
+                    "id": "cd03ddc0-efab-4e36-88f8-850c99ca7697",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SelectAbility4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a9f7e2c2-6a63-423d-bc60-2e02bcd2a150",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "MK",
                     "action": "ActivateTrap",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -376,7 +365,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "ActivateTrap",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -387,7 +376,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "MK",
                     "action": "OpenMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -398,7 +387,7 @@
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "OpenMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
