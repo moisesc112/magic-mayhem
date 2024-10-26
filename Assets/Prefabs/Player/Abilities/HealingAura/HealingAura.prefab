@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -9066894078994080318}
   - component: {fileID: -913174754782752226}
   - component: {fileID: 7138499329036787085}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: HealingAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4918,6 +4918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41deb59e379e7f4bb6dc6dfc37af312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   abilityInfo: {fileID: 11400000, guid: db90e09ea4825224b9429ed33c01ec26, type: 2}
   buffStatusEffect: {fileID: 11400000, guid: 4c417c909f1b96d4cb53487262d900b9, type: 2}
   audioSource: {fileID: 7138499329036787085}

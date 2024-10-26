@@ -17,7 +17,7 @@ MonoBehaviour:
   abiltyType: 0
   cooldown: 10
   damage: 1
-  cost: 2
+  cost: 15
   abilityPrefab: {fileID: 7823327091382468809, guid: ff5d4b8ba00f23c409fbd5a84e44de22, type: 3}
   projectileDestoryAfterCollision: 0
   despawnTime: 6

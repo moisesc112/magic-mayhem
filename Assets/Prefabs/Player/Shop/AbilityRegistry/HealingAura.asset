@@ -15,12 +15,12 @@ MonoBehaviour:
   abilityName: Healing Aura
   description: Gain a healing buff with inside the ring of the aura
   abiltyType: 0
-  cooldown: 10
-  damage: 1
-  cost: 2
+  cooldown: 30
+  damage: 25
+  cost: 20
   abilityPrefab: {fileID: 6331275906715107345, guid: 51e7a58f58dc5fd48aff6434084c857c, type: 3}
   projectileDestoryAfterCollision: 0
-  despawnTime: 6
+  despawnTime: 5
   projectileTargetDirection: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0

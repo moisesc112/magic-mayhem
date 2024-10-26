@@ -17,10 +17,10 @@ MonoBehaviour:
   abiltyType: 0
   cooldown: 5
   damage: 10
-  cost: 5
+  cost: 15
   abilityPrefab: {fileID: 2339616375373499159, guid: f5b8b186ab33259498e21fe053699237, type: 3}
   projectileDestoryAfterCollision: 1
-  despawnTime: 10
+  despawnTime: 4
   projectileTargetDirection: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 10
   projectileSpread: 0

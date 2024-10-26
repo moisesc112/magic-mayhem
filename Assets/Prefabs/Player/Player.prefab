@@ -68,7 +68,7 @@ MonoBehaviour:
   health: 500
   _ragdollComponent: {fileID: 0}
   lootDropComponent: {fileID: 0}
-  gold: 10
+  gold: 0
   statusEffects: {fileID: 0}
 --- !u!114 &1419381099380061463
 MonoBehaviour:
