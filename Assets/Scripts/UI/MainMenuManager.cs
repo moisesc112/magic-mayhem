@@ -43,8 +43,7 @@ public class MainMenuManager : MonoBehaviour
 	public void StartGame()
 	{
 		PlayerManager.instance.SetJoiningEnabled(false);
-		LevelLoadManager.instance.ActivateLoadedScene();
-		WaveManager.OnSceneLoaded(sceneToLoad);
+		LevelLoadManager.instance.ActivateLoadedScene();	
 	}
 
 	public void StartTutorial()

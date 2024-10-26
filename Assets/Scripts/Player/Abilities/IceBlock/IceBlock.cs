@@ -67,14 +67,20 @@ public class IceBlock : Ability
 
     public void DisableGamePlayandUIInput()
     {
-        _playerInput.actions.Disable();
+        _playerInput.actions.FindActionMap("UI").Disable();
+        _playerInput.actions.FindActionMap("GamePlay").Disable();
         _playerInput.actions.FindActionMap("PauseOnly").Enable();
     }
 
     public void EnablePlayerInput()
     {
-        _playerInput.actions.Enable();
+        _playerInput.actions.FindActionMap("PauseOnly").Disable();
+        _playerInput.actions.FindActionMap("GamePlay").Enable();
         _playerAnim.enabled = true;
+        if (!WaveManager.instance.inWaveCooldown)
+        {
+            _playerInput.actions.FindAction("OpenShop").Disable();
+        }
     }
 
     public IEnumerator DisablePlayerAnimator(Animator playerAnim, float playerAnimPauseTime)

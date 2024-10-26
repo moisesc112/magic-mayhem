@@ -12,6 +12,7 @@ public class WaveManager : MonoBehaviour
 	public int timeBeforeGameStarts;
 
 	[SerializeField] EnemyFactory _enemyFactory;
+	[SerializeField] bool inTestingScene;
 	[SerializeField] Transform[] _spawnLocations;
 
 	[System.NonSerialized] public bool inPlaceholderScene = true;
@@ -25,8 +26,6 @@ public class WaveManager : MonoBehaviour
 	[System.NonSerialized] public int totalEnemiesPerWave;
 	[System.NonSerialized] public float timeBetweenWaves;
 
-	public bool inTestingScene;
-
 	private int aliveEnemies;
 	private int enemiesToSpawn;
 	private WaveInfo waveInfo;
@@ -37,10 +36,11 @@ public class WaveManager : MonoBehaviour
 	public event EventHandler<WaveStartedEventArgs> waveStarted;
 	public event EventHandler<WaveEndedEventArgs> waveFinished;
 	public event EventHandler<EnemyDiedEventArgs> enemyDied;
-   
+
 	void Start()
 	{
 		isGameFinished = false;
+		DisableShopDuringWave();
 	}
 
 	void Awake()
@@ -59,25 +59,8 @@ public class WaveManager : MonoBehaviour
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 	}
 
-	void Update()
-	{
-	}
-
-	// Might want to change this to be in a Game State Manager Class
-	public static void OnSceneLoaded(string scene)
-	{
-		if (scene == "Testing")
-		{
-			instance.inPlaceholderScene = true;
-		}
-		else
-		{
-			Debug.LogWarning("Wrong Scene, current scene is: " + scene);
-		}
-	}
-
-	public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
-
+    public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
+	
 	public void SpawnWaves()
 	{
 		StartCoroutine(DoSpawnWaves());
@@ -96,6 +79,7 @@ public class WaveManager : MonoBehaviour
 			aliveEnemies = 0;
 			_audioSource.Play();
 			waveStarted?.Invoke(this, new WaveStartedEventArgs(waveNum + 1, enemyCount));
+			DisableShopDuringWave();
 			foreach (var group in wave.groups)
 			{
 				aliveEnemies += group.GetEnemyCount();
@@ -122,6 +106,7 @@ public class WaveManager : MonoBehaviour
 			if (++waveNum != waves.Length)
 			{
 				waveFinished?.Invoke(this, new WaveEndedEventArgs(wave.timeToNextWave));
+				EnableShopAfterWave();
 				yield return new WaitForSeconds(wave.timeToNextWave);
 			}
 		}
@@ -142,6 +127,27 @@ public class WaveManager : MonoBehaviour
 		enemiesAlive--;
 		aliveEnemies--;
 		enemyDied?.Invoke(this, new EnemyDiedEventArgs(enemiesAlive));
+	}
+
+	public void DisableShopDuringWave()
+	{
+		if (!inTestingScene)
+		{
+			inWaveCooldown = false;
+			foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
+			{
+				playerController.ForceCloseActiveShopUI(playerController);
+			}
+		}
+	}
+
+	void EnableShopAfterWave()
+	{
+		inWaveCooldown = true;
+		foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
+		{
+			playerController.playerInput.actions.FindAction("OpenShop").Enable();
+		}
 	}
 
 	InGameMenu _inGameMenu;

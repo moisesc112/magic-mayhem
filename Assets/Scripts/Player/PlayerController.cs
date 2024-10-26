@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 	{
 		PlayerManager.instance.RegisterPlayer(this);
 	}
-
+	
 	public void TakeControl(Player player)
 	{
 		_player = player;
@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
 			_player.ToggleShopUI(true);
             _playerInput.actions.FindActionMap("Gameplay").Disable();
             _playerInput.actions.FindActionMap("UI").Enable();
-
         }
     }
 
@@ -107,7 +106,15 @@ public class PlayerController : MonoBehaviour
         _playerInput.actions.FindActionMap("Gameplay").Enable();
         _player.ToggleShopUI(false);
     }
-
+	
+	public void ForceCloseActiveShopUI(PlayerController controller)
+    {
+		controller.playerInput.actions.FindActionMap("UI").Disable();
+		controller.playerInput.actions.FindActionMap("Gameplay").Enable();
+		_player.ToggleShopUI(false);
+		controller.playerInput.actions.FindAction("OpenShop").Disable();
+	}
+	
 	public void OnCloseInGameMenuUI(InputAction.CallbackContext context)
 	{	if (_player.GameOver())
         {
@@ -116,6 +123,10 @@ public class PlayerController : MonoBehaviour
 		_playerInput.actions.FindActionMap("UI").Disable();
 		_playerInput.actions.FindActionMap("Gameplay").Enable();
 		_player.ToggleInGameMenuUI(false);
+		if (!WaveManager.instance.inWaveCooldown)
+        {
+			_playerInput.actions.FindAction("OpenShop").Disable();
+        }
 	}
 
 	public void OnDeviceLost(PlayerInput lostPlayer)
