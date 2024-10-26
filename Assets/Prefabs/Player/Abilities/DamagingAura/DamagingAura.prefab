@@ -24443,7 +24443,7 @@ GameObject:
   - component: {fileID: 4846727385652300513}
   - component: {fileID: 9168595052705377340}
   - component: {fileID: -7452208198051213618}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: DamagingAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29349,6 +29349,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93c706a03f13894da6ca4c261747a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   abilityInfo: {fileID: 11400000, guid: 1a6291ee8627ec44faee8b33623e243f, type: 2}
   buffStatusEffect: {fileID: 11400000, guid: dd4a06ba93a45a8439b8432e1f5fccb6, type: 2}
   audioSource: {fileID: -7452208198051213618}
