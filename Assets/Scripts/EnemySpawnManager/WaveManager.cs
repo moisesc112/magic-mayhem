@@ -119,6 +119,10 @@ public class WaveManager : MonoBehaviour
 	{
 		// Handle Win Menu
 		yield return new WaitForSeconds(1.5f);
+		foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
+		{
+			playerController.playerInput.actions.FindActionMap("UI").Enable();
+		}
 		_inGameMenu.WinGameMenu();
 	}
 

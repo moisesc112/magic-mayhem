@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.InputSystem;
+using System.Linq;
 
 [RequireComponent(typeof(PlayerStats))]
 public class Player : MonoBehaviour
@@ -127,6 +129,10 @@ public class Player : MonoBehaviour
 		if (remainingPlayers.Length == 0)
         {
 			yield return new WaitForSeconds(1.5f);
+			foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
+			{
+				playerController.playerInput.actions.FindActionMap("UI").Enable();
+			}
 			_inGameMenu.LoseGameMenu();
 		}			
 	}
