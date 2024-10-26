@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03ba3e2f8d6f344b970e8bf8c9a68c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   _collisionMask:
     serializedVersion: 2
     m_Bits: 311
