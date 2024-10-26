@@ -10,6 +10,7 @@ public class BreakableObject : MonoBehaviour
     [SerializeField] private GameObject brokenGameObject;
     [SerializeField] private float despawnTime;
     [SerializeField] AudioClip breakAudio;
+    [SerializeField] float explosionForce = 10.0f;
     AudioSource audioSource;
     private void Awake()
     {
@@ -30,6 +31,10 @@ public class BreakableObject : MonoBehaviour
         audioSource.PlayOneShot(breakAudio);
         unbrokenGameObject.SetActive(false);
         brokenGameObject.SetActive(true);
+        foreach (var rb in brokenGameObject.GetComponentsInChildren<Rigidbody>())
+        {
+            rb.AddExplosionForce(explosionForce, gameObject.transform.position + Vector3.up, 5);
+        }
         GetComponent<LootDropComponent>().DropLoot();
         StartCoroutine(DespawnCoroutine());
     }
