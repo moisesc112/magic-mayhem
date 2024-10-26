@@ -1477,11 +1477,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBeforeGameStarts: 3
   _enemyFactory: {fileID: 2126987244}
+  inTestingScene: 1
   _spawnLocations:
   - {fileID: 656658063}
   - {fileID: 1257096370}
   - {fileID: 208396461}
-  inTestingScene: 0
 --- !u!4 &1108745500
 Transform:
   m_ObjectHideFlags: 0
