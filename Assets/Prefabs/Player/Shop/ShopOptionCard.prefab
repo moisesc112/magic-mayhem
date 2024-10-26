@@ -639,10 +639,10 @@ RectTransform:
   m_Father: {fileID: 4207739807482542363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 300}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9055282791968066607
 MonoBehaviour:
@@ -724,6 +724,7 @@ MonoBehaviour:
   abilityCost: {fileID: 1627346204052205258}
   abilityDamage: {fileID: 4269129381041787766}
   abilityCooldown: {fileID: 2003833905515039627}
+  purchaseButton: {fileID: 0}
 --- !u!1 &7376056852721749066
 GameObject:
   m_ObjectHideFlags: 0
