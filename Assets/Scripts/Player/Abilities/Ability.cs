@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    public AbilityInfo abilityInfo;
+	[SerializeField] protected LayerMask layerMask;
+	public AbilityInfo abilityInfo;
     protected float remainingDespawnTime;
     protected Vector3 aimDirection;
 
@@ -37,7 +38,11 @@ public class Ability : MonoBehaviour
                 Despawn();
             }
         }
-    }
+		else if (LayerMaskUtility.GameObjectIsInLayer(collision.gameObject, layerMask))
+		{
+			Destroy(gameObject);
+		}
+	}
 
     public virtual float GetAbilityDamage()
     {
@@ -67,10 +72,10 @@ public class Ability : MonoBehaviour
 
     public virtual void UpdateProjectileVelocity()
     {
-        transform.position += aimDirection * abilityInfo.projectileTargetSpeed * Time.deltaTime;
-    }
+		transform.position += transform.forward * abilityInfo.projectileTargetSpeed * Time.deltaTime;
+	}
 
-    public virtual void SetPlayer(Player player) => _player = player;
+	public virtual void SetPlayer(Player player) => _player = player;
 
     protected Player _player;
 }

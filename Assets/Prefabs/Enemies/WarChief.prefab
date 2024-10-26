@@ -1125,7 +1125,7 @@ MonoBehaviour:
   _meleeRange: 3
   _jumpRangeStart: 6
   _jumpRangeEnd: 12
-  _damage: 0
+  _damage: 75
   _jumpSource: {fileID: 1934884543139250488, guid: 5d0abbbbffa781e4a97d576161806adf, type: 3}
   _hammerHitPoint: {fileID: 2004624189}
   _renderer: {fileID: 7524645707328030308}
