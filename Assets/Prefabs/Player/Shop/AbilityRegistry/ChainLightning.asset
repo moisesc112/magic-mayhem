@@ -15,8 +15,8 @@ MonoBehaviour:
   abilityName: Chain Lightning
   description: Throw a bolt of lightning, jumping to additional nearby enemies
   abiltyType: 0
-  cooldown: 2
-  damage: 1
+  cooldown: 4
+  damage: 3
   cost: 0
   abilityPrefab: {fileID: 3428529153172934146, guid: 4b573f9133bd23e4193734c432c36812, type: 3}
   projectileDestoryAfterCollision: 1

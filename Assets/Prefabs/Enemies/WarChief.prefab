@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e216d7fcddfef64e9d7848214cb861c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 15
   health: 0
   _ragdollComponent: {fileID: 8144076873232839305}
   lootDropComponent: {fileID: 4434433441234141619}
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ebc8c0b8064a243b40b2f49490e7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeRange: 3
+  _meleeRange: 5
   _jumpRangeStart: 6
   _jumpRangeEnd: 12
   _damage: 75
