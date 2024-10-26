@@ -14,6 +14,7 @@ TagManager:
   - AlivePlayers
   - PlayerControllerClone
   - MenuCharacter
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Ragdoll
   - Coin
   - EnemyProjectile
-  - 
+  - Trap
   - 
   - 
   - 
