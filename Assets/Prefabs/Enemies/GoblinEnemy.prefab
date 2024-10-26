@@ -3240,7 +3240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e216d7fcddfef64e9d7848214cb861c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 3
   health: 0
   _ragdollComponent: {fileID: 1534788581507665486}
   lootDropComponent: {fileID: 5330381951948382734}

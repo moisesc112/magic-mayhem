@@ -16,5 +16,5 @@ MonoBehaviour:
   isSprung: 0
   activeDuration: 5
   damageCooldown: 0.5
-  damage: 1
+  damage: 5
   trapCost: 5

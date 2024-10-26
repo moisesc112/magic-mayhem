@@ -15,8 +15,8 @@ MonoBehaviour:
   abilityName: Fireball
   description: Shoot a fireball in a direction
   abiltyType: 0
-  cooldown: 2
-  damage: 1
+  cooldown: 5
+  damage: 10
   cost: 5
   abilityPrefab: {fileID: 2339616375373499159, guid: f5b8b186ab33259498e21fe053699237, type: 3}
   projectileDestoryAfterCollision: 1
