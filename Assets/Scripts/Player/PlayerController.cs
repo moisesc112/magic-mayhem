@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 	public int playerIndex => _playerInput.playerIndex;
 	public PlayerInput playerInput => _playerInput;
+	public Player player => _player;
 
 	void Awake()
 	{
