@@ -252,7 +252,6 @@ MonoBehaviour:
   abilityRegistry:
   - {fileID: 11400000, guid: 1a6291ee8627ec44faee8b33623e243f, type: 2}
   - {fileID: 11400000, guid: db90e09ea4825224b9429ed33c01ec26, type: 2}
-  - {fileID: 11400000, guid: 4819498cb99624d449a8f42982db3643, type: 2}
   - {fileID: 11400000, guid: ecb2f5478ea09404fa94d55a35abc5a2, type: 2}
   - {fileID: 11400000, guid: 0ddd01905aa8dad4a9e74fdd1cee3f53, type: 2}
   - {fileID: 11400000, guid: aff1d9c26ff49f74a8be58e0d51753f3, type: 2}
