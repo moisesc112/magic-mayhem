@@ -6,4 +6,5 @@ using UnityEngine;
 public class LootInfo : ScriptableObject
 {
     public GameObject lootGameObject;
+    public int amount = 1;
 }

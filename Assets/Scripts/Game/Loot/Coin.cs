@@ -11,12 +11,18 @@ public class Coin : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
+    public void SetValue(int value)
+    {
+        _value = value;
+    }
+
+
     private void OnTriggerEnter(Collider collision)
     {
         if (collision != null && collision.gameObject.tag == "Player")
         {
             transform.localScale = Vector3.zero;
-            collision.gameObject.GetComponentInParent<PlayerStats>().gold += 1;
+            collision.gameObject.GetComponentInParent<PlayerStats>().gold += _value;
             _audioSource.PlayOneShot(collectAudio);
             StartCoroutine(DestroyAfterAudio());
         }
@@ -29,4 +35,5 @@ public class Coin : MonoBehaviour
     }
 
     AudioSource _audioSource;
+    int _value;
 }

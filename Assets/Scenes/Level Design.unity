@@ -751,6 +751,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (2)
@@ -1509,6 +1513,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (4)
@@ -1947,6 +1955,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (5)
@@ -6749,6 +6761,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (8)
@@ -11006,6 +11022,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (6)
@@ -17165,6 +17185,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (3)
@@ -17592,6 +17616,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (1)
@@ -18703,6 +18731,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
+      propertyPath: explosionForce
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (7)
@@ -18877,7 +18909,7 @@ MonoBehaviour:
       - enemyToSpawn: 0
         amountToSpawn: 5
       timeToNextGroup: 30
-    timeToNextWave: 5
+    timeToNextWave: 15
     timeBetweenEnemies: 1
   - groups:
     - enemySpawn:
@@ -18888,7 +18920,7 @@ MonoBehaviour:
       - enemyToSpawn: 3
         amountToSpawn: 1
       timeToNextGroup: 0
-    timeToNextWave: 5
+    timeToNextWave: 15
     timeBetweenEnemies: 1
   - groups:
     - enemySpawn:
@@ -18901,7 +18933,7 @@ MonoBehaviour:
       - enemyToSpawn: 3
         amountToSpawn: 3
       timeToNextGroup: 20
-    timeToNextWave: 5
+    timeToNextWave: 15
     timeBetweenEnemies: 1
   - groups:
     - enemySpawn:
@@ -18912,7 +18944,7 @@ MonoBehaviour:
       - enemyToSpawn: 1
         amountToSpawn: 1
       timeToNextGroup: 0
-    timeToNextWave: 5
+    timeToNextWave: 15
     timeBetweenEnemies: 1
   - groups:
     - enemySpawn:

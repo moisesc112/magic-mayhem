@@ -8,6 +8,7 @@ public class LootDropComponent : MonoBehaviour
 
     public void DropLoot()
     {
-        Instantiate(lootInfo.lootGameObject, transform.position, Quaternion.identity);
+        var loot = Instantiate(lootInfo.lootGameObject, transform.position, Quaternion.identity);
+        loot.GetComponent<Coin>().SetValue(lootInfo.amount);
     }
 }
