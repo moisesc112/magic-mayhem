@@ -37,7 +37,6 @@ public class LevelLoadManager : MonoBehaviour
 			{
 				break;
 			}
-			Debug.Log(_load.progress);
 			yield return null;
 		}
 		// Uncomment line below to simulate long load times.

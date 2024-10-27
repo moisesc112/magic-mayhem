@@ -63,7 +63,6 @@ public class MainMenuManager : MonoBehaviour
 	void LevelManager_OnSceneLoaded(object sender, LevelLoadedArgs args)
 	{
 		LevelLoadManager.instance.sceneLoaded -= LevelManager_OnSceneLoaded;
-		_gameSceneLoaded = true;
 	}
 
 	void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)
@@ -109,6 +108,5 @@ public class MainMenuManager : MonoBehaviour
 	InputSystemUIInputModule _lobbyInputSystem;
 	MenuCharacter[] _menuCharacters;
 
-	bool _gameSceneLoaded;
 	bool _playerLoaded = false;
 }
