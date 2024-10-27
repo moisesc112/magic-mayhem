@@ -5,9 +5,6 @@ using UnityEngine.AI;
 [RequireComponent (typeof(NavMeshAgent))]
 public class SimpleRootMotionNavAgent : MonoBehaviour
 {
-	[SerializeField] float _rotationSpeedDegrees = 180.0f;
-	[SerializeField] float _velocitySmoothing = 0.2f;
-
 	private void Awake()
 	{
 		_animator = GetComponent<Animator>();
