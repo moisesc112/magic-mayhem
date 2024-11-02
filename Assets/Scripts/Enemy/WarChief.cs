@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityRandom = UnityEngine.Random;
+using UnityExtensions;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavPollerComponent))]
@@ -11,15 +11,14 @@ using UnityRandom = UnityEngine.Random;
 [RequireComponent(typeof(Dissolver))]
 [RequireComponent(typeof(RagdollComponent))]
 [RequireComponent(typeof(LootDropComponent))]
+[RequireComponent(typeof(MeleeAttackComponent))]
 public class WarChief : MonoBehaviour
 {
 	[Header("Attack")]
-	[SerializeField] float _meleeRange;
-	[SerializeField] float _jumpRangeStart = 6.0f;
-	[SerializeField] float _jumpRangeEnd = 12.0f;
-	[SerializeField] float _damage;
+	[SerializeField] float _jumpRangeStartSq = 36.0f;
 	[SerializeField] RadialDamageSource _jumpSource;
 	[SerializeField] Transform _hammerHitPoint;
+	[SerializeField] float _jumpCooldown = 15.0f;
 
 	[Header("FX")] 
 	[SerializeField] Renderer _renderer;
@@ -37,34 +36,24 @@ public class WarChief : MonoBehaviour
 		_dissolver.SetTargetRenderer(_renderer);
 		_ragdoll = GetComponent<RagdollComponent>();
 		_lootDrop = GetComponent<LootDropComponent>();
+		_rootMotionNavAgent = GetComponent<SimpleRootMotionNavAgent>();
+		_meleeAttackComponent = GetComponent<MeleeAttackComponent>();
+		_refreshableComponents = gameObject.GetAllComponents<RefreshableComponent>();
 	}
 
-	void Start()
+	private void FixedUpdate()
 	{
-		_swingLayerIndex = _animator.GetLayerIndex("Combat");
+		if (_navPoller.DistanceToPlayer >= _jumpRangeStartSq)
+			_canJump = true;
+		else if (_canJump && !_isJumping && _navPoller.DistanceToPlayer < _jumpRangeStartSq)
+			JumpAttack();
+		else if (!_isJumping && _meleeAttackComponent.canAttack)
+			_meleeAttackComponent.MeleeAttack();
 	}
 
 	private void OnDestroy()
 	{
 		_healthComp.onDeath -= HealthComp_OnDeath;
-	}
-
-	private void FixedUpdate()
-	{
-		var distanceToPlayer = _navPoller.DistanceToPlayer;
-		// Check if in jumping sweet spot.
-		if (distanceToPlayer >= _jumpRangeStart && distanceToPlayer <= _jumpRangeEnd)
-		{
-			if (_canJump && !_isSwinging)
-				JumpAttack();
-		}
-
-		if (distanceToPlayer <= _meleeRange && !_isJumping)
-		{
-			transform.LookAt(_navPoller.TargetPlayer?.GetAvatarPosition() ?? Vector3.zero);
-			if (!_isSwinging)
-				MeleeAttack();
-		}
 	}
 
 	public void InitFromPool(Vector3 location, Action<WarChief> releaseAction)
@@ -85,6 +74,14 @@ public class WarChief : MonoBehaviour
 
 		_navPoller.StartPolling();
 
+		if (_refreshableComponents != null)
+		{
+			foreach (var component in _refreshableComponents)
+			{
+				component.OnInit();
+			}
+		}
+
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
 	}
@@ -96,39 +93,25 @@ public class WarChief : MonoBehaviour
 
 	public void JumpEnd()
 	{
-		_canJump = true;
-		_animator.SetBool("Jump", false);
-		_agent.updatePosition = true;
 		_isJumping = false;
 	}
 
 	void JumpAttack()
 	{
+		_animator.SetTrigger("Jump");
+		_animator.SetTrigger("Attack");
 		_canJump = false;
-		_animator.SetBool("Jump", true);
-		_agent.updatePosition = false;
 		_isJumping = true;
-	}
-
-	void MeleeAttack()
-	{
-		_animator.SetInteger("SwingNum", UnityRandom.Range(1, 4));
-		_animator.SetBool("IsAttacking", true);
-		_animator.SetLayerWeight(_swingLayerIndex, 1.0f);
-		_isSwinging = true;
+		StartCoroutine(nameof(JumpCooldown));
 	}
 
 	public void DoDamage()
 	{
 		_animator.SetBool("IsAttacking", false);
-		if (_navPoller.DistanceToPlayer <= _meleeRange)
-			_navPoller.TargetPlayer.GetComponent<HealthComponent>().TakeDamage(_damage);
 	}
 
 	public void EndSwing()
 	{
-		_isSwinging = false;
-		_agent.updatePosition = true;
 		_animator.SetLayerWeight(_swingLayerIndex, 0.0f);
 	}
 
@@ -147,8 +130,21 @@ public class WarChief : MonoBehaviour
 		_lootDrop.DropLoot();
 		_ragdoll.EnableRagdoll();
 		_dissolver.StartDissolving();
+		if (_refreshableComponents != null)
+		{
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnKilled();
+			}
+		}
 		yield return new WaitForSeconds(3.0f);
 		_releaseToPoolAction(this);
+	}
+
+	IEnumerator JumpCooldown()
+	{
+		yield return new WaitForSeconds(_jumpCooldown);
+		_canJump = true;
 	}
 
 	AudioSource _audioSource;
@@ -160,9 +156,12 @@ public class WarChief : MonoBehaviour
 	RagdollComponent _ragdoll;
 	LootDropComponent _lootDrop;
 	Action<WarChief> _releaseToPoolAction;
+	SimpleRootMotionNavAgent _rootMotionNavAgent;
+	MeleeAttackComponent _meleeAttackComponent;
+	RefreshableComponent[] _refreshableComponents;
 
 	bool _canJump;
 	bool _isJumping;
-	bool _isSwinging;
+	bool _canSwing = true;
 	int _swingLayerIndex;
 }

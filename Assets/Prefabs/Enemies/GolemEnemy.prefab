@@ -860,7 +860,7 @@ GameObject:
   - component: {fileID: 8805848950414565354}
   - component: {fileID: 3897827753757897628}
   - component: {fileID: 1438101417237951909}
-  - component: {fileID: 895382137}
+  - component: {fileID: 3994861550466732149}
   - component: {fileID: 895382133}
   - component: {fileID: 895382132}
   - component: {fileID: 895382131}
@@ -873,6 +873,7 @@ GameObject:
   - component: {fileID: 6217773192964082919}
   - component: {fileID: 3156057322095156981}
   - component: {fileID: 2485632315685039558}
+  - component: {fileID: 7853933183584370842}
   m_Layer: 8
   m_Name: GolemEnemy
   m_TagString: GolemEnemy
@@ -953,7 +954,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54f4d3eeaa68bdb439ac0ef2704fac83, type: 2}
   - {fileID: 11400000, guid: 9cf8749a1f7bb3e4e85aa2b298537a49, type: 2}
   assignNavDestination: 1
---- !u!114 &895382137
+--- !u!114 &3994861550466732149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -962,13 +963,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2855093662285127466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93aa3bf02247a2940883ddc12131d5fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 82a14086e294b9142b2b3df04bcac185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sweetSpotRatio: 0
-  targetMinDistance: 0
-  targetMaxDistance: 0
-  _showDebugLocations: 0
+  _lookSpeed: 180
+  _movementScale: 1
+  _canSprint: 0
+  _sprintThreshold: 0.35
+  _visionLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _stoppingDistance: 1
+  _cornerThreshold: 0.33
 --- !u!195 &895382133
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -979,13 +985,13 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 0.1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -1037,7 +1043,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1261,7 +1267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391081dc3dd7d6444b0e1d83a683922b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootInfo: {fileID: 11400000, guid: 29c631c845f33b248b310370097f9b05, type: 2}
+  lootInfo: {fileID: 11400000, guid: b5a5cc9b68d9b3741bcbdb1c77471513, type: 2}
 --- !u!114 &6217773192964082919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1335,6 +1341,22 @@ MonoBehaviour:
   - {fileID: 1405878209526217037}
   - {fileID: 110268416940872091}
   - {fileID: 2630355029249419514}
+--- !u!114 &7853933183584370842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2855093662285127466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1861b92f66bb684ca0c949b97723c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meleeRange: 8
+  _meleeCooldownTime: 2
+  _meleeAttackCount: 1
+  _weaponCollider: {fileID: 0}
 --- !u!1 &2899123956600748872
 GameObject:
   m_ObjectHideFlags: 0

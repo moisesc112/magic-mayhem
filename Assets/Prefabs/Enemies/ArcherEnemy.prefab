@@ -865,7 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391081dc3dd7d6444b0e1d83a683922b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootInfo: {fileID: 11400000, guid: 29c631c845f33b248b310370097f9b05, type: 2}
+  lootInfo: {fileID: 11400000, guid: ef7d8180866d01847b3c03245a47c022, type: 2}
 --- !u!54 &7708125928176445270
 Rigidbody:
   m_ObjectHideFlags: 0

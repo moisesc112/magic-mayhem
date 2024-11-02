@@ -36,7 +36,7 @@ ModelImporter:
       name: Giant@UnarmedAttack01
       takeName: Giant@Damage01
       internalID: -2462987048499481074
-      firstFrame: 0
+      firstFrame: 14
       lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
@@ -57,7 +57,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.4143126
+      - time: 0.23899955
         functionName: Stomp
         data: 
         objectReferenceParameter: {instanceID: 0}

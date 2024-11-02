@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityExtensions;
 using UnityRandom = UnityEngine.Random;
 
 [RequireComponent(typeof(Animator))]
@@ -22,10 +22,6 @@ public class Goblin : MonoBehaviour
 	[SerializeField] GameObject[] _skins;
 	[SerializeField] float _accessoryChance = 0.25f;
 
-	[Header("Attack")]
-	[SerializeField] float _attackRange;
-	[SerializeField] float _damage;
-
 	void Awake()
 	{
 		_audioSource = GetComponent<AudioSource>();
@@ -39,9 +35,8 @@ public class Goblin : MonoBehaviour
 		_dissolver = GetComponent<Dissolver>();
 		_ragdoll = GetComponent<RagdollComponent>();
 		_lootDrop = GetComponent<LootDropComponent>();
-		_refreshableComponents = new List<RefreshableComponent>();
-		_refreshableComponents.AddRange(GetComponents<RefreshableComponent>());
-		_refreshableComponents.AddRange(GetComponentsInChildren<RefreshableComponent>(includeInactive: true));
+		_refreshableComponents = gameObject.GetAllComponents<RefreshableComponent>();
+		_meleeAttackComponent = GetComponent<MeleeAttackComponent>();
 	}
 
 	void Start()
@@ -55,24 +50,13 @@ public class Goblin : MonoBehaviour
 		if (!_healthComp.IsAlive)
 			return;
 
-		var distanceToPlayer = _navPoller.DistanceToPlayer;
-		if (distanceToPlayer <= _attackRange)
-		{
-			transform.LookAt(_navPoller.TargetPlayer?.GetAvatarPosition() ?? Vector3.zero);
-			if (!_isSwinging)
-				StartSwing();
-		}
+		if (_meleeAttackComponent.canAttack)
+			_meleeAttackComponent.MeleeAttack();
 	}
 
 	private void OnDestroy()
 	{
 		_healthComp.onDeath -= HealthComp_OnDeath;
-	}
-
-	void OnDrawGizmos()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, _attackRange);
 	}
 
 	/// <summary>
@@ -95,36 +79,16 @@ public class Goblin : MonoBehaviour
 
 		_navPoller.StartPolling();
 
-		foreach (var comp in _refreshableComponents)
+		if (_refreshableComponents != null)
 		{
-			comp.OnInit();
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnInit();
+			}
 		}
 
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
-	}
-
-	public void StartSwing()
-	{
-		_animator.SetInteger("SwingNum", UnityRandom.Range(1, 4));
-		_animator.SetBool("IsAttacking", true);
-		_animator.SetLayerWeight(_swingLayerIndex, 1.0f);
-		_isSwinging = true;
-		//_agent.updatePosition = false;
-	}
-
-	public void DoDamage()
-	{
-		_animator.SetBool("IsAttacking", false);
-		if (_navPoller.DistanceToPlayer <= _attackRange)
-			_navPoller.TargetPlayer.GetComponent<HealthComponent>().TakeDamage(_damage);
-	}
-
-	public void EndSwing()
-	{
-		_isSwinging = false;
-		_agent.updatePosition = true;
-		_animator.SetLayerWeight(_swingLayerIndex, 0.0f);
 	}
 
 	void RandomizeLook()
@@ -156,17 +120,21 @@ public class Goblin : MonoBehaviour
 		enabled = false;
 		_navPoller.enabled = false;
 		_agent.enabled = false;
-		WaveManager.instance.ReportEnemyKilled();
+		if (WaveManager.instance != null)
+			WaveManager.instance.ReportEnemyKilled();
 
 		_lootDrop.DropLoot();
 		_ragdoll.EnableRagdoll();
 		_dissolver.StartDissolving();
-		foreach(var comp in _refreshableComponents)
+		if (_refreshableComponents != null)
 		{
-			comp.OnKilled();
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnKilled();
+			}
 		}
 		yield return new WaitForSeconds(3.0f);
-		_releaseToPoolAction(this);
+		_releaseToPoolAction?.Invoke(this);
 	}
 
 	AudioSource _audioSource;
@@ -178,8 +146,8 @@ public class Goblin : MonoBehaviour
 	RagdollComponent _ragdoll;
 	LootDropComponent _lootDrop;
 	Action<Goblin> _releaseToPoolAction;
-
-	List<RefreshableComponent> _refreshableComponents;
+	RefreshableComponent[] _refreshableComponents;
+	MeleeAttackComponent _meleeAttackComponent;
 
 	bool _isSwinging;
 	int _swingLayerIndex;

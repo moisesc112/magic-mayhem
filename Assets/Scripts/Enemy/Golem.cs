@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityExtensions;
 
 [RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -9,6 +10,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Dissolver))]
 [RequireComponent(typeof(RagdollComponent))]
 [RequireComponent(typeof(LootDropComponent))]
+[RequireComponent(typeof(MeleeAttackComponent))]
 public class Golem : MonoBehaviour
 {
 	[Header("FX")]
@@ -33,30 +35,24 @@ public class Golem : MonoBehaviour
 		_lootDrop = GetComponent<LootDropComponent>();
 		_healthComp = GetComponent<HealthComponent>();
 		_healthComp.onDeath += HealthComp_OnDeath;
+		_refreshableComponents = gameObject.GetAllComponents<RefreshableComponent>();
+		_meleeAttackComponent = GetComponent<MeleeAttackComponent>();
 	}
 
-	void Update()
+	private void FixedUpdate()
 	{
-		var distanceToPlayer = _navPoller.DistanceToPlayer;
-		if (distanceToPlayer <= _attackRange)
-			AttackPlayer();
-
+		if (_meleeAttackComponent.canAttack)
+			_meleeAttackComponent.MeleeAttack();
 	}
 
 	public void Stomp()
     {
-		_animator.SetBool("IsAttacking", false);
 		_dustParticleSystem.Play();
 		_audioSource.PlayOneShot(_stompAudio);
 
 		// Particle system is attacked to golem's foot
 		var hitPoint = _dustParticleSystem.transform.position;
 		Instantiate(_stompSource, hitPoint, Quaternion.identity);
-	}
-
-	public void AttackPlayer()
-	{
-		_animator.SetBool("IsAttacking", true);
 	}
 
 	public void InitFromPool(Vector3 location, Action<Golem> releaseAction)
@@ -75,6 +71,14 @@ public class Golem : MonoBehaviour
 
 		_navPoller.StartPolling();
 
+		if (_refreshableComponents != null)
+		{
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnInit();
+			}
+		}
+
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
 	}
@@ -89,11 +93,19 @@ public class Golem : MonoBehaviour
 		enabled = false;
 		_navPoller.enabled = false;
 		_agent.enabled = false;
-		WaveManager.instance.ReportEnemyKilled();
+		WaveManager.instance?.ReportEnemyKilled();
 
 		_lootDrop.DropLoot();
 		_ragdoll.EnableRagdoll();
 		_dissolver.StartDissolving();
+
+		if (_refreshableComponents != null)
+		{
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnKilled();
+			}
+		}
 		yield return new WaitForSeconds(3.0f);
 		_releaseToPoolAction(this);
 	}
@@ -107,4 +119,6 @@ public class Golem : MonoBehaviour
 	RagdollComponent _ragdoll;
 	LootDropComponent _lootDrop;
 	Action<Golem> _releaseToPoolAction;
+	RefreshableComponent[] _refreshableComponents;
+	MeleeAttackComponent _meleeAttackComponent;
 }
