@@ -950,6 +950,7 @@ GameObject:
   - component: {fileID: 1983720979557093859}
   - component: {fileID: 5701183898485283212}
   - component: {fileID: 5467089289432897700}
+  - component: {fileID: 2167346288318925339}
   m_Layer: 8
   m_Name: WarChief
   m_TagString: WarChiefEnemy
@@ -1006,13 +1007,13 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.3
-  m_Acceleration: 2
+  m_Speed: 0.1
+  m_Acceleration: 4
   avoidancePriority: 50
-  m_AngularSpeed: 250
-  m_StoppingDistance: 1.5
+  m_AngularSpeed: 600
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: -0.1
@@ -1110,6 +1111,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a14086e294b9142b2b3df04bcac185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lookSpeed: 90
+  _movementScale: 1.5
+  _canSprint: 1
+  _sprintThreshold: 0.35
+  _visionLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _stoppingDistance: 1.5
+  _cornerThreshold: 0.1
 --- !u!114 &8144076873232839308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,12 +1132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ebc8c0b8064a243b40b2f49490e7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeRange: 5
-  _jumpRangeStart: 6
-  _jumpRangeEnd: 12
-  _damage: 75
+  _jumpRangeStartSq: 100
   _jumpSource: {fileID: 1934884543139250488, guid: 5d0abbbbffa781e4a97d576161806adf, type: 3}
   _hammerHitPoint: {fileID: 2004624189}
+  _jumpCooldown: 15
   _renderer: {fileID: 7524645707328030308}
 --- !u!114 &4434433441234141619
 MonoBehaviour:
@@ -1141,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391081dc3dd7d6444b0e1d83a683922b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootInfo: {fileID: 11400000, guid: 29c631c845f33b248b310370097f9b05, type: 2}
+  lootInfo: {fileID: 11400000, guid: ef7d8180866d01847b3c03245a47c022, type: 2}
 --- !u!114 &7503636212727866832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1314,6 +1322,22 @@ MonoBehaviour:
   _hitColor: {r: 1, g: 0, b: 0, a: 1}
   _renderers:
   - {fileID: 7524645707328030308}
+--- !u!114 &2167346288318925339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524645707314563714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1861b92f66bb684ca0c949b97723c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meleeRange: 2
+  _meleeCooldownTime: 5
+  _meleeAttackCount: 1
+  _weaponCollider: {fileID: 1083817346}
 --- !u!1 &7524645707314564468
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,6 +3551,40 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 446128, guid: 7e1e6ebbdfd1d8344b7dbdd624bf2408, type: 3}
   m_PrefabInstance: {fileID: 1831130663691469474}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1831130663691299592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 190890, guid: 7e1e6ebbdfd1d8344b7dbdd624bf2408, type: 3}
+  m_PrefabInstance: {fileID: 1831130663691469474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1083817346
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831130663691299592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.49887717, y: 1.6889975, z: 0.6757946}
+  m_Center: {x: 0.00000017357462, y: 0.5479, z: 0.0000010042229}
+--- !u!114 &1083817347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831130663691299592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca612a35f4a9b545add31659edefc19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _damage: 75
 --- !u!1001 &3192071921602803332
 PrefabInstance:
   m_ObjectHideFlags: 0

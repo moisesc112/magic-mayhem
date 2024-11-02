@@ -19017,7 +19017,9 @@ MonoBehaviour:
   - groups:
     - enemySpawn:
       - enemyToSpawn: 0
-        amountToSpawn: 2
+        amountToSpawn: 1
+      - enemyToSpawn: 3
+        amountToSpawn: 1
       timeToNextGroup: 30
     - enemySpawn:
       - enemyToSpawn: 0
