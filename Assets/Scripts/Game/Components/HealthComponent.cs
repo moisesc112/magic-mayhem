@@ -10,6 +10,7 @@ public class HealthComponent : MonoBehaviour
 	[SerializeField] LootDropComponent lootDropComponent;
 
     public event EventHandler onDeath;
+	public event EventHandler<GenericEventArgs<float>> damageTaken;
 
 	public virtual void Awake()
 	{
@@ -20,6 +21,7 @@ public class HealthComponent : MonoBehaviour
 	{
 		Debug.Log($"took {damage} damage");
 		health -= damage;
+		damageTaken?.Invoke(this, new GenericEventArgs<float>(damage));
 		if (health <= 0)
 		{
 			health = 0;

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityRandom = UnityEngine.Random;
@@ -37,6 +39,9 @@ public class Goblin : MonoBehaviour
 		_dissolver = GetComponent<Dissolver>();
 		_ragdoll = GetComponent<RagdollComponent>();
 		_lootDrop = GetComponent<LootDropComponent>();
+		_refreshableComponents = new List<RefreshableComponent>();
+		_refreshableComponents.AddRange(GetComponents<RefreshableComponent>());
+		_refreshableComponents.AddRange(GetComponentsInChildren<RefreshableComponent>(includeInactive: true));
 	}
 
 	void Start()
@@ -89,6 +94,11 @@ public class Goblin : MonoBehaviour
 		_ragdoll.DisableRagdoll();
 
 		_navPoller.StartPolling();
+
+		foreach (var comp in _refreshableComponents)
+		{
+			comp.OnInit();
+		}
 
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
@@ -151,6 +161,10 @@ public class Goblin : MonoBehaviour
 		_lootDrop.DropLoot();
 		_ragdoll.EnableRagdoll();
 		_dissolver.StartDissolving();
+		foreach(var comp in _refreshableComponents)
+		{
+			comp.OnKilled();
+		}
 		yield return new WaitForSeconds(3.0f);
 		_releaseToPoolAction(this);
 	}
@@ -164,6 +178,8 @@ public class Goblin : MonoBehaviour
 	RagdollComponent _ragdoll;
 	LootDropComponent _lootDrop;
 	Action<Goblin> _releaseToPoolAction;
+
+	List<RefreshableComponent> _refreshableComponents;
 
 	bool _isSwinging;
 	int _swingLayerIndex;

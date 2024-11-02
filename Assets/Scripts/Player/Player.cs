@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using System.Linq;
 
 [RequireComponent(typeof(PlayerStats))]
+[RequireComponent(typeof(PlayerHitVisualizer))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
 		_ragdoll = _avatar.GetComponent<RagdollComponent>();
 		_playerStats.onDeath += HealthComp_OnDeath;
 		_inGameMenu = FindObjectOfType<InGameMenu>();
+		UpdateHitRenderers();
 	}
 
 	void Start()
@@ -111,6 +113,16 @@ public class Player : MonoBehaviour
 	void HealthComp_OnDeath(object sender, EventArgs e)
 	{
 		StartCoroutine(nameof(HandleDeath));
+	}
+
+	/// <summary>
+	/// If we decide to include a character creator, 
+	/// the renderer material values may change which requires calling this method.
+	/// </summary>
+	private void UpdateHitRenderers()
+	{
+		var activeRenderers = _avatar.GetComponentsInChildren<Renderer>(includeInactive: false);
+		GetComponent<PlayerHitVisualizer>().SetRenderers(activeRenderers);
 	}
 	
 	IEnumerator HandleDeath()
