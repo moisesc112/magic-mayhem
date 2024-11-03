@@ -12,6 +12,8 @@ public class Shop : MonoBehaviour
 
     public void SetAbilityToAdd(AbilityInfo ability) => _abilityToAdd = ability;
     private AbilityInfo _abilityToAdd;
+    private const int SHUFFLE_COST_START = 1;
+    private int _currentShuffleCost = SHUFFLE_COST_START;
 
     private void Awake()
     {
@@ -21,11 +23,24 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        ShuffleShopAbilityOptions();
+        ShuffleShopAbilityOptions(false);
     }
 
-    public void ShuffleShopAbilityOptions()
+    public void ResetShuffleCost() => _currentShuffleCost = SHUFFLE_COST_START;
+
+    public void ShuffleShopAbilityOptions(bool didPlayerUseShuffle = true)
     {
+
+        if (didPlayerUseShuffle)
+        {
+            if (player.PlayerStats.gold < _currentShuffleCost)
+            {
+                return;
+            }
+            player.PlayerStats.gold -= _currentShuffleCost;
+            _currentShuffleCost += 1;
+        }
+
         currentAbilitiesInShop = new List<AbilityInfo>();
 
         var abilityShopOptions = 3;
@@ -44,7 +59,7 @@ public class Shop : MonoBehaviour
         {
             currentAbilitiesInShop.Add(abilityRegistry[choice]);
         }
-        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop, false);
+        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop, _currentShuffleCost, false);
     }
 
     public void PurchaseAbility(int abilityOption)
@@ -57,9 +72,18 @@ public class Shop : MonoBehaviour
 
         SetAbilityToAdd(currentAbilitiesInShop[abilityOption]);
         Debug.Log($"Ability Purchased! {_abilityToAdd.name}");
-        shopUI.SetActive(false);
-        abilitySlotConfirmation.SetActive(true);
-        abilitySlotConfirmation.GetComponent<AbilitySlotConfirmationController>().UpdateAbilityOptionDisplay();
+
+        var abilitySlotComponent = player.GetComponentInChildren<AbilitySlotsComponent>();
+        if (abilitySlotComponent != null && !abilitySlotComponent.GetAreAllAbilitySlotsFull())
+        {
+            SetPurchasedAbilitySlot(abilitySlotComponent.GetNextUnusedAbilitySlotNumber());
+        }
+        else
+        {
+            shopUI.SetActive(false);
+            abilitySlotConfirmation.SetActive(true);
+            abilitySlotConfirmation.GetComponent<AbilitySlotConfirmationController>().UpdateAbilityOptionDisplay();
+        }
     }
 
     public void SetPurchasedAbilitySlot(int slotNumber)
@@ -77,13 +101,13 @@ public class Shop : MonoBehaviour
         _abilityToAdd = null;
         abilitySlotConfirmation.SetActive(false);
         shopUI.SetActive(true);
-        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop);
+        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop, _currentShuffleCost);
     }
 
     public void ToggleShopUI(bool isEnabled)
     {
         abilitySlotConfirmation.SetActive(false);
         shopUI.SetActive(isEnabled);
-        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop);
+        shopUI.GetComponent<ShopUIController>().UpdateShopDisplay(currentAbilitiesInShop, _currentShuffleCost);
     }
 }

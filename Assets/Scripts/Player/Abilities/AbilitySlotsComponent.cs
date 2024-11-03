@@ -106,6 +106,32 @@ public class AbilitySlotsComponent : MonoBehaviour
 
     }
 
+    public bool GetAreAllAbilitySlotsFull()
+    {
+        return abilitySlot1 != null && abilitySlot2 != null && abilitySlot3 != null && abilitySlot4 != null;
+    }
+
+    public int GetNextUnusedAbilitySlotNumber()
+    {
+        if (abilitySlot1 == null)
+        {
+            return 1;
+        }
+        if (abilitySlot2 == null)
+        {
+            return 2;
+        }
+        if (abilitySlot3 == null)
+        {
+            return 3;
+        }
+        if (abilitySlot4 == null)
+        {
+            return 4;
+        }
+        return -1;
+    }
+
     public void CastSpell()
     {
         var ability = GetAbility(_selectedAbililtyNumber);

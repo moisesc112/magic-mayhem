@@ -17,6 +17,7 @@ public class ShopUIController : MonoBehaviour
     [SerializeField] GameObject abilityOption3;
 
     [SerializeField] TextMeshProUGUI goldDisplay;
+    [SerializeField] TextMeshProUGUI shuffleGoldDisplay;
 
     [SerializeField] MultiplayerEventSystem multiplayerEventSystem;
     [SerializeField] GameObject firstSelectedGameObject;
@@ -33,7 +34,7 @@ public class ShopUIController : MonoBehaviour
         }
     }
 
-    public void UpdateShopDisplay(List<AbilityInfo> currentAbilitiesInShop, bool setFirstSelectedGameObject = true)
+    public void UpdateShopDisplay(List<AbilityInfo> currentAbilitiesInShop, int shuffleGoldAmount, bool setFirstSelectedGameObject = true)
     {
         if (currentAbilitiesInShop != null && currentAbilitiesInShop.Count() >= 3)
         {
@@ -48,6 +49,7 @@ public class ShopUIController : MonoBehaviour
         }
 
         goldDisplay.text = $"Gold: {_player.PlayerStats.gold}";
+        shuffleGoldDisplay.text = $"Shuffle - {shuffleGoldAmount} Gold";
     }
 
     public Player GetUIControllingPlayer() => _player;
