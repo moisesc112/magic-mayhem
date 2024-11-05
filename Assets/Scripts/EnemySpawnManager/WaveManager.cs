@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour
 	public static WaveManager instance { get; private set; }
 
 	public int timeBeforeGameStarts;
+	public GameObject shopkeeper;
 
 	[SerializeField] EnemyFactory _enemyFactory;
 	[SerializeField] bool inTestingScene;
@@ -146,6 +147,10 @@ public class WaveManager : MonoBehaviour
 			{
 				playerController.ForceCloseActiveShopUI(playerController);
 			}
+			if(shopkeeper != null)
+            {
+				shopkeeper.SetActive(false);
+            }
 		}
 	}
 
@@ -156,6 +161,10 @@ public class WaveManager : MonoBehaviour
 		{
 			playerController.playerInput.actions.FindAction("OpenShop").Enable();
 			playerController.player.GetComponentInChildren<Shop>().ResetShuffleCost();
+		}
+		if (shopkeeper != null)
+		{
+			shopkeeper.SetActive(true);
 		}
 	}
 
