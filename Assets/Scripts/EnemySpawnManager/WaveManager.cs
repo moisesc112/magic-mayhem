@@ -20,6 +20,7 @@ public class WaveManager : MonoBehaviour
 	[System.NonSerialized] public bool inWaveCooldown;
 	[System.NonSerialized] public bool inGameStartCooldown;
 	[System.NonSerialized] public bool isGameFinished;
+	[System.NonSerialized] public bool shouldSkipWaveCooldown;
 	[System.NonSerialized] public int currentWaves;
 	[System.NonSerialized] public int groupKillCount;
 	[System.NonSerialized] public int enemiesAlive;
@@ -107,7 +108,10 @@ public class WaveManager : MonoBehaviour
 			{
 				waveFinished?.Invoke(this, new WaveEndedEventArgs(wave.timeToNextWave));
 				EnableShopAfterWave();
-				yield return new WaitForSeconds(wave.timeToNextWave);
+				yield return new WaitForSecondsOrCondition(
+					condition: () => shouldSkipWaveCooldown,
+					seconds: wave.timeToNextWave);
+				shouldSkipWaveCooldown = false;
 			}
 		}
 
@@ -154,6 +158,12 @@ public class WaveManager : MonoBehaviour
 			playerController.player.GetComponentInChildren<Shop>().ResetShuffleCost();
 		}
 	}
+
+	public void SkipShopPhase()
+    {
+		Debug.Log("Skipping Shop Phase");
+		shouldSkipWaveCooldown = true;
+    }
 
 	InGameMenu _inGameMenu;
 }
