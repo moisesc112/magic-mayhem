@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnToggleShopUI(InputAction.CallbackContext context)
 	{
-		if (_player && context.performed)
+		if (_player && context.performed && _player.playerInShopRange)
 		{
 			_player.ToggleShopUI(true);
 			_playerInput.actions.FindActionMap("Gameplay").Disable();

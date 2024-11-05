@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 	public Camera playerCamera;
 	public Vector3 velocity => _velocity;
 	private AbstractTrap detectedTrap;
+	public bool playerInShopRange => _shopTrigger != null && _shopTrigger.playerInShop;
 
 	[SerializeField] GameObject _avatar;
 
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
 		_ragdoll = _avatar.GetComponent<RagdollComponent>();
 		_playerStats.onDeath += HealthComp_OnDeath;
 		_inGameMenu = FindObjectOfType<InGameMenu>();
+		_shopTrigger = FindObjectOfType<ShopTrigger>();
 		UpdateHitRenderers();
 	}
 
@@ -171,4 +173,5 @@ public class Player : MonoBehaviour
 	RagdollComponent _ragdoll;
 	InGameMenu _inGameMenu;
 	BellTower _bellTower;
+	ShopTrigger _shopTrigger;
 }
