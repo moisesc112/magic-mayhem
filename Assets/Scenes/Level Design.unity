@@ -18976,6 +18976,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
+--- !u!1 &1825824320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2187678375038580176, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
+  m_PrefabInstance: {fileID: 1825824319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1827245363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20069,6 +20074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeGameStarts: 15
+  shopkeeper: {fileID: 1825824320}
   _enemyFactory: {fileID: 1253232303}
   inTestingScene: 0
   _spawnLocations:
