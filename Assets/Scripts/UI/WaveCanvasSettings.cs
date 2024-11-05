@@ -5,21 +5,23 @@ using System.Collections;
 public class WaveCanvasSettings : MonoBehaviour
 {
 
-    public TextMeshProUGUI currentWaveText;
-    public TextMeshProUGUI waveCountdownText;
-    public TextMeshProUGUI totalEnemiesPerWaveText;
-    public TextMeshProUGUI winText;
+	public TextMeshProUGUI currentWaveText;
+	public TextMeshProUGUI waveCountdownText;
+	public TextMeshProUGUI totalEnemiesPerWaveText;
+	public TextMeshProUGUI winText;
 
-    void Start()
-    {
-        if (WaveManager.instance is null) return;
+	Coroutine countdownTextCoroutine;
+
+	void Start()
+	{
+		if (WaveManager.instance is null) return;
 
 		WaveManager.instance.gameStarting += WaveManager_GameStarted;
 		WaveManager.instance.waveStarted += WaveManager_WaveStarted;
 		WaveManager.instance.waveFinished += WaveManager_WaveFinished;
 		WaveManager.instance.enemyDied += WaveManager_EnemyDied;
 		WaveManager.instance.StartGame();
-    }
+	}
 
 	private void OnDestroy()
 	{
@@ -36,6 +38,13 @@ public class WaveCanvasSettings : MonoBehaviour
 
 	private void WaveManager_WaveStarted(object sender, WaveStartedEventArgs e)
 	{
+		//Cancels countdown early if player ends the shop phase early
+		if (countdownTextCoroutine != null)
+        {
+			StopCoroutine(countdownTextCoroutine);
+			countdownTextCoroutine = null;
+			waveCountdownText.gameObject.SetActive(false);
+		}
 		totalEnemiesPerWaveText.gameObject.SetActive(true);
 		currentWaveText.gameObject.SetActive(true);
 
@@ -46,7 +55,7 @@ public class WaveCanvasSettings : MonoBehaviour
 
 	private void WaveManager_WaveFinished(object sender, WaveEndedEventArgs e)
 	{
-		StartCoroutine(SetCountDownText(e.timeTillNextWave));
+		countdownTextCoroutine = StartCoroutine(SetCountDownText(e.timeTillNextWave));
 	}
 
 	private void WaveManager_EnemyDied(object sender, EnemyDiedEventArgs e)
@@ -78,6 +87,7 @@ public class WaveCanvasSettings : MonoBehaviour
 			count--;
 		}
 		waveCountdownText.gameObject.SetActive(false);
+		countdownTextCoroutine = null;
 	}
 
 	int currentMaxEnemyCount;

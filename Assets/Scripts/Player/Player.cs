@@ -93,14 +93,23 @@ public class Player : MonoBehaviour
 		detectedTrap = trap;
 	}
 
+	public void SetBellTower(BellTower bellTower)
+    {
+		_bellTower = bellTower;
+    }
+
 	public void ActivateTrap(bool isActivated)
     {
 		// If player is on a trap and has chosen to activate it and has
-        // enough gold then minus the gold and then activate the trap 
+		// enough gold then minus the gold and then activate the trap 
 		if (isActivated && detectedTrap != null && _playerStats.gold >= detectedTrap.trapInfo.trapCost)
         {
 			_playerStats.gold -= detectedTrap.trapInfo.trapCost;
 			detectedTrap.ActivateTrap();
+        }
+		else if(isActivated && _bellTower != null && _bellTower.isActivatable)
+        {
+			WaveManager.instance.SkipShopPhase();
         }
     }
 
@@ -161,4 +170,5 @@ public class Player : MonoBehaviour
 	Vector3 _previousPos;
 	RagdollComponent _ragdoll;
 	InGameMenu _inGameMenu;
+	BellTower _bellTower;
 }

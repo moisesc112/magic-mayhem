@@ -15,6 +15,7 @@ TagManager:
   - PlayerControllerClone
   - MenuCharacter
   - Trap
+  - BellTower
   layers:
   - Default
   - TransparentFX
