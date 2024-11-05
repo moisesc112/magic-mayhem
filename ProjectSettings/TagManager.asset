@@ -16,6 +16,7 @@ TagManager:
   - MenuCharacter
   - Trap
   - BellTower
+  - Shop
   layers:
   - Default
   - TransparentFX
