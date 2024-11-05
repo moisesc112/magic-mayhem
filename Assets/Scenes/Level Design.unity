@@ -21999,5 +21999,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PhysicalShop
       objectReference: {fileID: 0}
+    - target: {fileID: 8542777827721747839, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 31dd2fbddae19c9448c9c470e03381b2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
