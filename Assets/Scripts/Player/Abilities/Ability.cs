@@ -10,22 +10,29 @@ public class Ability : MonoBehaviour
     public virtual void Awake()
     {
         remainingDespawnTime = abilityInfo.despawnTime;
+        DoAwake();
     }
 
     public virtual void Start()
     {
         SetDirectionToPlayerAimDirection();
+        DoStart();
     }
 
     public virtual void Update()
     {
         UpdateProjectileVelocity();
+        DoUpdate();
         remainingDespawnTime -= Time.deltaTime;
         if (remainingDespawnTime <= 0)
         {
             Despawn();
         }
     }
+
+    protected virtual void DoAwake() { }
+    protected virtual void DoStart() { }
+    protected virtual void DoUpdate() { }
 
     public virtual void OnTriggerEnter(Collider collision)
     {
@@ -37,12 +44,16 @@ public class Ability : MonoBehaviour
             {
                 Despawn();
             }
+            OnHit(collision);
         }
 		else if (LayerMaskUtility.GameObjectIsInLayer(collision.gameObject, layerMask))
 		{
 			Destroy(gameObject);
+            OnHit(collision);
 		}
 	}
+
+    protected virtual void OnHit(Collider collision) { }
 
     public virtual float GetAbilityDamage()
     {

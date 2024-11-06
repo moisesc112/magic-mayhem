@@ -140,7 +140,7 @@ public class AbilitySlotsComponent : MonoBehaviour
         var pos = _castingComponent.GetCastingPosition();
         var spread = ability.projectileSpread;
 
-		var rot = _castingComponent.GetRandomCastingSpreadRotation(spread);
+        var rot = _castingComponent.GetRandomCastingSpreadRotation(spread);
 		var abilityPrefab = Instantiate(ability.abilityPrefab, pos, rot);
 		var abilityComponent = abilityPrefab.GetComponent<Ability>();
 		if (abilityComponent != null)
