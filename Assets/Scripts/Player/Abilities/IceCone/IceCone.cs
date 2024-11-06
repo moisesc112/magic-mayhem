@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeteorStrike : Ability
+public class IceCone : Ability
 {
     [SerializeField] AudioSource audioSource;
     private bool isAudioPaused;
@@ -11,18 +11,14 @@ public class MeteorStrike : Ability
     public override void Awake()
     {
         audioCoroutine = StartCoroutine(AudioFadeOut.FadeOut(audioSource, abilityInfo.despawnTime));
-        StartCoroutine(EnableHitBox());
+        StartCoroutine(DisableCollider());
         base.Awake();
     }
 
-    public override void UpdateProjectileVelocity() { }
-
-    IEnumerator EnableHitBox()
+    IEnumerator DisableCollider()
     {
-        yield return new WaitForSeconds(0.4f);
-        transform.GetComponent<SphereCollider>().enabled = true;
         yield return new WaitForSeconds(0.1f);
-        transform.GetComponentInChildren<SphereCollider>().enabled = false;
+        transform.GetComponentInChildren<MeshCollider>().enabled = false;
     }
 
     public override void Update()
@@ -52,4 +48,11 @@ public class MeteorStrike : Ability
             collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
         }
     }
+
+    public override void Despawn()
+    {
+        Destroy(transform.parent.gameObject);
+    }
+
+    public override void UpdateProjectileVelocity() { }
 }

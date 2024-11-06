@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
+  m_Name: IceCone
+  m_EditorClassIdentifier: 
+  abilityName: Ice Cone
+  description: Summons a frontal cone of ice that damages enemies
+  abiltyType: 0
+  cooldown: 10
+  damage: 2
+  cost: 10
+  abilityPrefab: {fileID: 4825519324041658740, guid: 1ba1e5e5f99506b4693acae7b16efd54, type: 3}
+  projectileDestoryAfterCollision: 1
+  despawnTime: 1.5
+  projectileTargetDirection: {x: 0, y: 0, z: 0}
+  projectileTargetSpeed: 0
+  projectileSpread: 0
+  castingSound: {fileID: 0}
+  icon: {fileID: 0}
