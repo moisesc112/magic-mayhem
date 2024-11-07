@@ -1,24 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class MagicMissileProjectile : MonoBehaviour
+public class MagicMissileProjectile : Ability
 {
-	public float damage;
-
-	[SerializeField] LayerMask _collisionMask;
 	[SerializeField] GameObject _hitPrefab;
 
-	void OnTriggerEnter(Collider collision)
+	protected override void OnHit(Collider collision)
 	{
-		if (LayerMaskUtility.GameObjectIsInLayer(collision.gameObject, _collisionMask))
-		{
-			var hc = collision.gameObject.GetComponent<HealthComponent>();
-			if (hc)
-				hc.TakeDamage(damage);
-			Instantiate(_hitPrefab, transform.position, Quaternion.identity);
-			Destroy(gameObject);
-		}
+		base.OnHit(collision);
+		Instantiate(_hitPrefab, transform.position, Quaternion.identity);
 	}
-
-	AudioSource _audioSource;
 }
