@@ -41,6 +41,10 @@ public class IceCone : Ability
         _playerInput.actions.FindActionMap("GamePlay").Disable();
         yield return new WaitForSeconds(playerInputDisableTime);
         _playerInput.actions.FindActionMap("GamePlay").Enable();
+        if (WaveManager.instance != null && !WaveManager.instance.inWaveCooldown)
+        {
+            _playerInput.actions.FindAction("OpenShop").Disable();
+        }
     }
 
     public override void Update()
