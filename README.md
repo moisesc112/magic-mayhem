@@ -16,3 +16,9 @@ Project for CS6457
 * https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565
 * https://assetstore.unity.com/packages/vfx/particles/fx-lightning-ii-free-25210#description
 * Clay Pot Break Sound : https://freesound.org/people/Kinoton/sounds/399080/
+* Health Potion: https://assetstore.unity.com/packages/3d/props/potions-coin-and-box-of-pandora-pack-71778
+* Health Potion Pickup Sound: https://freesound.org/people/IENBA/sounds/698768/
+* Breakable Barrel: https://assetstore.unity.com/packages/3d/props/3d-low-poly-tools-weapons-containers-274127
+* Breakable Barrel Sound: https://freesound.org/people/kevinkace/sounds/66772/
+* MeteorStrike and IceCone Spell: https://assetstore.unity.com/packages/vfx/particles/spells/aoe-magic-spells-vol-1-133012
+  
