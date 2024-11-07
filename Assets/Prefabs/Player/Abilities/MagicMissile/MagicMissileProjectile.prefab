@@ -201,7 +201,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3487376971440152190}
-  - component: {fileID: 3487376971440152189}
   - component: {fileID: 3487376971440152188}
   - component: {fileID: 3487376971440152187}
   - component: {fileID: 3487376971440152186}
@@ -231,20 +230,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3487376971440152189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3487376971440152185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4a7cf5119f36e4f8ce3febf3ad8e0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeTilDeath: 1
-  velocity: {x: 0, y: 0, z: 30}
 --- !u!135 &3487376971440152188
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -286,10 +271,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03ba3e2f8d6f344b970e8bf8c9a68c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  _collisionMask:
+  layerMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 257
+  abilityInfo: {fileID: 11400000, guid: 0ddd01905aa8dad4a9e74fdd1cee3f53, type: 2}
   _hitPrefab: {fileID: 7752193489803601379, guid: 27e5fc301ac751f4dac6d8e14da43d43, type: 3}
 --- !u!198 &16969304
 ParticleSystem:

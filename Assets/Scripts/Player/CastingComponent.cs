@@ -43,6 +43,9 @@ public class CastingComponent : MonoBehaviour
 	public Vector3 GetCastingPosition() => _castingLocation.position;
 	public Quaternion GetRandomCastingSpreadRotation(float angle)
 	{
+		if (angle <= 0)
+			return _castingLocation.rotation;
+
 		var randomY = Random.Range(-angle, angle);
 
 		return Quaternion.LookRotation(_castingLocation.forward) * Quaternion.Euler(0, randomY, 0);
