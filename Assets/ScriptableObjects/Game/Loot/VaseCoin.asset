@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: VaseCoin
   m_EditorClassIdentifier: 
   lootGameObject: {fileID: 3049428253405200621, guid: e5a0e41ce4cb4a140b6b2f523c515096, type: 3}
-  amount: 15
+  amount: 10
