@@ -7,6 +7,8 @@ public class MeteorStrike : Ability
     [SerializeField] AudioSource audioSource;
     private bool isAudioPaused;
     private Coroutine audioCoroutine;
+    private float timeToEnableSpellCollider = 0.4f;
+    private float timeToDisableSpellCollider = 0.1f;
 
     public override void Awake()
     {
@@ -19,9 +21,9 @@ public class MeteorStrike : Ability
 
     IEnumerator EnableHitBox()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(timeToEnableSpellCollider);
         transform.GetComponent<SphereCollider>().enabled = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(timeToDisableSpellCollider);
         transform.GetComponentInChildren<SphereCollider>().enabled = false;
     }
 
