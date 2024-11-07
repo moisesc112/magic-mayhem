@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
   m_Name: Napalm
   m_EditorClassIdentifier: 
-  abilityName: 
-  description: 
+  abilityName: Napalm
+  description: Leave a trail of fire behind you that deals damage to enemies standing
+    in the fire.
   abiltyType: 0
-  cooldown: 1
+  cooldown: 15
   damage: 1
-  cost: 0
+  cost: 15
   abilityPrefab: {fileID: 4814858020290734396, guid: 9aecef9e50a5f9b46a79605e6f37846b, type: 3}
   projectileDestoryAfterCollision: 0
   despawnTime: 5

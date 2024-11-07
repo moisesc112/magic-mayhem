@@ -15,9 +15,9 @@ MonoBehaviour:
   abilityName: Earth Shatter
   description: Sends a wave of collapsing earth dealing damage and blocking movement
   abiltyType: 0
-  cooldown: 1
-  damage: 1
-  cost: 0
+  cooldown: 10
+  damage: 3
+  cost: 20
   abilityPrefab: {fileID: 1314945738539566, guid: 6acb31409410348419b2ab69ab1e1b10, type: 3}
   projectileDestoryAfterCollision: 0
   despawnTime: 8
