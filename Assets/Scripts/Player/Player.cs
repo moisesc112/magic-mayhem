@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	public bool isControlled => _playerIndex >= 0;
 	public Camera playerCamera;
 	public Vector3 velocity => _velocity;
+	public bool isPlayerCasting;
 	private AbstractTrap detectedTrap;
 
 	[SerializeField] GameObject _avatar;
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
 	}
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
+	public Transform GetAvatarTransform() => _avatar.transform;
 	public Vector3 GetAvatarVelocity() => _velocity;
 	public Vector2 GetAimDirection() => _mover.GetAimDirection();
 
@@ -64,6 +66,7 @@ public class Player : MonoBehaviour
 	public void UpdateCasting(bool isCasting)
 	{
 		_castingComponent.UpdateCasting(isCasting);
+		isPlayerCasting = isCasting;
 	}
 
 	public void SetAiming(bool isAiming, Vector2 aimingDir, bool useMouse)

@@ -43,7 +43,14 @@ public class PlayerController : MonoBehaviour
 	public void OnCastSpell(InputAction.CallbackContext context)
 	{
 		if (_player)
-			_player.UpdateCasting(context.performed);
+			if (context.performed)
+			{
+				_player.UpdateCasting(true);
+			}
+			else if (context.canceled)
+			{
+				player.UpdateCasting(false);
+			}
 
 	}
 

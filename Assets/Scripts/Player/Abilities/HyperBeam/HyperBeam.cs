@@ -4,13 +4,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Beam : Ability
+public class HyperBeam : Ability
 {
-    [SerializeField] AudioSource audioSource;
     [SerializeField] private Transform beamTransform;
     private HashSet<Collider> hitEnemies = new HashSet<Collider>();
     private Vector3 beamDirection;
-    
+    private Transform avatarTransform;
+    public float damageCooldown = .5f;
+
     public override void Awake()
     {
         beamDirection = SetDirectionToPlayerAimDirection();
@@ -29,8 +30,15 @@ public class Beam : Ability
 
     public override void Update()
     {
-        beamDirection = SetDirectionToPlayerAimDirection();
+        if (!_player.isPlayerCasting)
+        {
+            Despawn();
+            return;
+        }
+        
+        avatarTransform = _player.GetAvatarTransform();
         UpdateProjectileVelocity();
+
         remainingDespawnTime -= Time.deltaTime;
         if (remainingDespawnTime <= 0)
         {
@@ -38,7 +46,7 @@ public class Beam : Ability
         }
         if (beamTransform != null)
         {
-            beamTransform.forward = beamDirection;
+            beamTransform.forward = avatarTransform.forward;
         }
     }
 
@@ -75,7 +83,7 @@ public class Beam : Ability
     {
         while (collision != null && collision.GetComponent<HealthComponent>() != null)
         {
-            yield return new WaitForSeconds(.75f);
+            yield return new WaitForSeconds(damageCooldown);
             Debug.Log("go");
             collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
         }
