@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
+  m_Name: Beam
+  m_EditorClassIdentifier: 
+  abilityName: Hyper Beam
+  description: Fire a continout beam of light that damages enemies who touch it.
+    Player cannot move while firing the beam
+  abiltyType: 1
+  cooldown: 10
+  damage: 5
+  cost: 30
+  abilityPrefab: {fileID: 2339616375373499159, guid: 6ea029b4d90d2e64a9c4d87d18e3675b, type: 3}
+  projectileDestoryAfterCollision: 0
+  despawnTime: 5
+  projectileTargetDirection: {x: 1, y: 0, z: 0}
+  projectileTargetSpeed: 0
+  projectileSpread: 0
+  castingSound: {fileID: 0}
+  icon: {fileID: 0}
