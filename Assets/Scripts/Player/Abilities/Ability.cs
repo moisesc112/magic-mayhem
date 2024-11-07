@@ -66,6 +66,7 @@ public class Ability : MonoBehaviour
 
     public virtual void Despawn()
     {
+        StopAllCoroutines();
         Destroy(gameObject);
     }
 
