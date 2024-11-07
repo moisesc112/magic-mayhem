@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5431722844754964547}
   - component: {fileID: 7483853557331772052}
   - component: {fileID: 1259755932012799176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: IceConeParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,6 +159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Conus
       objectReference: {fileID: 0}
+    - target: {fileID: 3636156280173285251, guid: a45c68b51d1da3b4f89b3b1dee362251, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3636156280173712291, guid: a45c68b51d1da3b4f89b3b1dee362251, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -250,9 +254,81 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5431722844754964547}
     m_Modifications:
+    - target: {fileID: 1042116916487722, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066832946088894, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099285370798294, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145629778938606, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148003193669182, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260248233523534, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1306467000599994, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319024026396974, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339549303642640, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357203694775272, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1481932562201786, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: m_Name
       value: IceCone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1481932562201786, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1515362898003240, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1518303499145562, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672450593333610, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794615624472682, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801562455325506, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1830742423209170, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842579615396968, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4693226928840970, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: m_RootOrder
