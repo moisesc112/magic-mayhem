@@ -9,10 +9,12 @@ public class ShopTrigger : MonoBehaviour
 	public GameObject ShopKeeper;
 
 	private void Start()
-    {
+    {	
 		ShopTriggerUI.SetActive(false);
 	}
 
+
+	// Trigger the ui based on if the player is inside the collider
 	public virtual void OnTriggerEnter(Collider collision)
 	{
 		if (collision.CompareTag("Player"))

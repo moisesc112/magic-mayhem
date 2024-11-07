@@ -147,7 +147,8 @@ public class WaveManager : MonoBehaviour
 			{
 				playerController.ForceCloseActiveShopUI(playerController);
 			}
-			if(shopkeeper != null)
+			// Deactivate Shopkeeper
+			if (shopkeeper != null)
             {
 				shopkeeper.SetActive(false);
             }
@@ -162,6 +163,7 @@ public class WaveManager : MonoBehaviour
 			playerController.playerInput.actions.FindAction("OpenShop").Enable();
 			playerController.player.GetComponentInChildren<Shop>().ResetShuffleCost();
 		}
+		// Activate Shopkeeper
 		if (shopkeeper != null)
 		{
 			shopkeeper.SetActive(true);
