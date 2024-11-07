@@ -77,7 +77,7 @@ public class IceBlock : Ability
         _playerInput.actions.FindActionMap("PauseOnly").Disable();
         _playerInput.actions.FindActionMap("GamePlay").Enable();
         _playerAnim.enabled = true;
-        if (!WaveManager.instance.inWaveCooldown)
+        if (WaveManager.instance != null && !WaveManager.instance.inWaveCooldown)
         {
             _playerInput.actions.FindAction("OpenShop").Disable();
         }
