@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 	public PlayerInput playerInput => _playerInput;
 	public Player player => _player;
 
+	private bool playerInShop;
+
 	void Awake()
 	{
 		_playerInput = GetComponent<PlayerInput>();
@@ -58,10 +60,13 @@ public class PlayerController : MonoBehaviour
 		if (_player && context.performed)
 		{
 			_player.ToggleShopUI(true);
-            _playerInput.actions.FindActionMap("Gameplay").Disable();
-            _playerInput.actions.FindActionMap("UI").Enable();
-        }
-    }
+			_playerInput.actions.FindActionMap("Gameplay").Disable();
+			_playerInput.actions.FindActionMap("UI").Enable();
+			_playerInput.actions.FindAction("CloseGameMenu").Disable();
+			_playerInput.actions.FindAction("OpenMenu").Enable();
+			playerInShop = true;
+		}
+	}
 
 	public void OnToggleInGameMenuUI(InputAction.CallbackContext context)
 	{
@@ -70,6 +75,11 @@ public class PlayerController : MonoBehaviour
 			_player.ToggleInGameMenuUI(true);
 			_playerInput.actions.FindActionMap("Gameplay").Disable();
 			_playerInput.actions.FindActionMap("UI").Enable();
+			_playerInput.actions.FindAction("CloseShopUI").Disable();
+			if (playerInShop)
+            {
+				_player.ToggleShopUI(false);
+			}
 		}
 	}
 
@@ -86,9 +96,9 @@ public class PlayerController : MonoBehaviour
 
 	public void OnSelectAbility(int slotNumber)
 	{
-        if (_player)
-            _player.SelectAbility(slotNumber);
-    }
+		if (_player)
+			_player.SelectAbility(slotNumber);
+	}
 
 	public void OnRoll()
 	{
@@ -102,32 +112,34 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void OnCloseShopUI(InputAction.CallbackContext context)
-    {
-        _playerInput.actions.FindActionMap("UI").Disable();
-        _playerInput.actions.FindActionMap("Gameplay").Enable();
-        _player.ToggleShopUI(false);
-    }
+	{
+		_playerInput.actions.FindActionMap("UI").Disable();
+		_playerInput.actions.FindActionMap("Gameplay").Enable();
+		_player.ToggleShopUI(false);
+		playerInShop = false;
+	}
 	
 	public void ForceCloseActiveShopUI(PlayerController controller)
-    {
+	{
 		controller.playerInput.actions.FindActionMap("UI").Disable();
 		controller.playerInput.actions.FindActionMap("Gameplay").Enable();
 		_player.ToggleShopUI(false);
 		controller.playerInput.actions.FindAction("OpenShop").Disable();
+		playerInShop = false;
 	}
 	
 	public void OnCloseInGameMenuUI(InputAction.CallbackContext context)
 	{	if (_player.GameOver())
-        {
+		{
 			return;
-        }
+		}
 		_playerInput.actions.FindActionMap("UI").Disable();
 		_playerInput.actions.FindActionMap("Gameplay").Enable();
 		_player.ToggleInGameMenuUI(false);
-		if (!WaveManager.instance.inWaveCooldown)
-        {
+		if (WaveManager.instance!= null && !WaveManager.instance.inWaveCooldown)
+		{
 			_playerInput.actions.FindAction("OpenShop").Disable();
-        }
+		}
 	}
 
 	public void OnDeviceLost(PlayerInput lostPlayer)
