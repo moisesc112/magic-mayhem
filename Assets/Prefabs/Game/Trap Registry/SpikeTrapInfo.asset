@@ -17,4 +17,4 @@ MonoBehaviour:
   activeDuration: 7
   damageCooldown: 0.5
   damage: 5
-  trapCost: 30
+  trapCost: 1

@@ -6,6 +6,7 @@ public abstract class AbstractTrap : MonoBehaviour
 {
     public TrapInfo trapInfo;
     public GameObject TrapTriggerUI;
+    public TrapCooldownIcon TrapCooldownUI;
     private List<Collider> trackedEnemies = new List<Collider>();
     [SerializeField] private Animator myTrap = null;
 
@@ -18,6 +19,7 @@ public abstract class AbstractTrap : MonoBehaviour
     {
         trapInfo.isActivated = true;
         Debug.Log("Trap has been activated");
+        TrapCooldownUI.ActivateCooldownUI();
         StartCoroutine(TrapActivationDuration());
     }
 
