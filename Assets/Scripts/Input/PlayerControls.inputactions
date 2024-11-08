@@ -103,6 +103,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectAbilityRight",
+                    "type": "Button",
+                    "id": "28c2f15a-6ca9-4585-94e7-656aab29e4db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectAbilityLeft",
+                    "type": "Button",
+                    "id": "482ab944-6fd5-49e7-86f7-064783f05edf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ScrollAbilityRight",
+                    "type": "Value",
+                    "id": "e0bfe63a-cb9c-48e3-88ee-e7c25f7d5b09",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ScrollAbilityLeft",
+                    "type": "Value",
+                    "id": "cc183ee2-9ad9-4d70-af99-e34328763051",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -362,7 +398,7 @@
                 {
                     "name": "",
                     "id": "0dc35e2f-5398-4841-9616-7b57fbebaa66",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -389,6 +425,50 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b9898f3-0091-4864-b32c-43fedd64280f",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SelectAbilityRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f72cbe1-1e0c-4aca-ab4c-323c3eda33a6",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SelectAbilityLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb967963-e98d-49c3-9a80-226b35f6aff1",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MK",
+                    "action": "ScrollAbilityRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7dda9cc2-f050-456a-a4be-d228cd6efdbb",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MK",
+                    "action": "ScrollAbilityLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

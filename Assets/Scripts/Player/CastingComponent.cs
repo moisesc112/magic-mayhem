@@ -56,6 +56,11 @@ public class CastingComponent : MonoBehaviour
 		_abilitySlotsComponent.SetSelectedAbility(slotNumber);
 	}
 
+	public void SetSelectedAbilityByDirection(SelectAbilityDirection direction)
+	{
+		_abilitySlotsComponent.SetSelectedAbilityByDirection(direction);
+	}
+
 	public void UpdateCasting(bool isCastingSpell) => _isCastingSpell = isCastingSpell;
 
 	void CastRapidFire()

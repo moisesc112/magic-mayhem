@@ -160,9 +160,56 @@ public class AbilitySlotsComponent : MonoBehaviour
     {
         var ability = GetAbility(slotNumber);
         if (ability != null)
+        {
 			_selectedAbililtyNumber = slotNumber;
+            RaiseAbilityChanged(slotNumber);
+        }
 
-        RaiseAbilityChanged(slotNumber);
+    }
+
+    public void SetSelectedAbilityByDirection(SelectAbilityDirection direction)
+    {
+        var newSelectedAbilityNumber = _selectedAbililtyNumber;
+        switch (direction)
+        {
+            case SelectAbilityDirection.Left:
+                newSelectedAbilityNumber -= 1;
+                if (newSelectedAbilityNumber <= 0)
+                {
+                    if (GetAreAllAbilitySlotsFull())
+                    {
+                        newSelectedAbilityNumber = 4;
+                    }
+                    else
+                    {
+                        newSelectedAbilityNumber = GetNextUnusedAbilitySlotNumber() - 1;
+                    }
+                }
+                break;
+            case SelectAbilityDirection.Right:
+                newSelectedAbilityNumber += 1;
+                if (GetAreAllAbilitySlotsFull())
+                {
+                    if (newSelectedAbilityNumber >= 5)
+                    {
+                        newSelectedAbilityNumber = 1;
+                    }
+                }
+                else
+                {
+                    if (newSelectedAbilityNumber > GetNextUnusedAbilitySlotNumber() - 1)
+                    {
+                        newSelectedAbilityNumber = 1;
+                    }
+                }
+                break;
+        }
+        var ability = GetAbility(newSelectedAbilityNumber);
+        if (ability != null)
+        {
+            _selectedAbililtyNumber = newSelectedAbilityNumber;
+            RaiseAbilityChanged(newSelectedAbilityNumber);
+        }
     }
 
     AbilityInfo GetCurrentSelectedAbility() => GetAbility(_selectedAbililtyNumber);
@@ -192,4 +239,10 @@ public class AbilitySlotsComponent : MonoBehaviour
         public AbilityInfo abilityInfo { get; }
         public int SlotNumber { get; }
     }
+}
+
+public enum SelectAbilityDirection
+{
+    Left = 1,
+    Right = 2,
 }
