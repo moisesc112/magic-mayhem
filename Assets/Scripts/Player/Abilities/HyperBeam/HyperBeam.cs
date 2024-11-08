@@ -84,7 +84,6 @@ public class HyperBeam : Ability
         while (collision != null && collision.GetComponent<HealthComponent>() != null)
         {
             yield return new WaitForSeconds(damageCooldown);
-            Debug.Log("go");
             collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
         }
         hitEnemies.Remove(collision);
