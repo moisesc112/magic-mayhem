@@ -5,8 +5,14 @@ using UnityEngine;
 public abstract class AbstractTrap : MonoBehaviour
 {
     public TrapInfo trapInfo;
+    public GameObject TrapTriggerUI;
     private List<Collider> trackedEnemies = new List<Collider>();
     [SerializeField] private Animator myTrap = null;
+
+    private void Start()
+    {
+        TrapTriggerUI.SetActive(false);
+    }
 
     public void ActivateTrap()
     {

@@ -18,7 +18,8 @@ public class AvatarTrapActivation : MonoBehaviour
 			// Assign collision to trap variable and
 			// pass trap reference to the player instance
 			_trap = collision.GetComponent<AbstractTrap>();
-			if(_player != null && _trap != null)
+			_trap.TrapTriggerUI.SetActive(true);
+			if (_player != null && _trap != null)
 			{
 				// Pass trap reference to the player instance
 				_player.SetDetectedTrap(_trap);
@@ -39,6 +40,7 @@ public class AvatarTrapActivation : MonoBehaviour
 		{
 			// Reset trap variable to null and pass it to
 			// player instance
+			_trap.TrapTriggerUI.SetActive(false);
 			_trap = null;
 			if (_player != null)
 			{
