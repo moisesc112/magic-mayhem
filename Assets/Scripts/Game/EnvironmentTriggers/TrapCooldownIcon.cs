@@ -22,7 +22,7 @@ public class TrapCooldownIcon : MonoBehaviour
         {
             cooldown -= Time.deltaTime;
             SetTrapIconCooldownText(cooldown);
-            cooldownFill.fillAmount = cooldown / trapInfo.activeDuration;
+            cooldownFill.fillAmount = 1 - (cooldown / trapInfo.activeDuration);
         }
         else
         {
@@ -48,7 +48,7 @@ public class TrapCooldownIcon : MonoBehaviour
         cooldown = trapInfo.activeDuration;
         ToggleCooldownUI(true);
         SetTrapIconCooldownText(cooldown);
-        cooldownFill.fillAmount = cooldown / trapInfo.activeDuration;
+        cooldownFill.fillAmount = 1 - (cooldown / trapInfo.activeDuration);
     }
 
     private void ToggleCooldownUI(bool toggleState)
