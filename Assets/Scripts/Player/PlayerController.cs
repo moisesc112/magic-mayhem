@@ -24,14 +24,14 @@ public class PlayerController : MonoBehaviour
 	public void TakeControl(Player player)
 	{
 		_player = player;
-		_player.SetPlayerIndex(_playerInput.playerIndex);
+		_player.Possess(this);
 		_playerInput.camera = _player.playerCamera;
 	}
 
 	public void ReleaseControl()
 	{
 		if (_player is object)
-			_player.SetPlayerIndex(-1);
+			_player.Release();
 		_player = null;
 	}
 

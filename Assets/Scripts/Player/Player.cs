@@ -1,8 +1,6 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using UnityEngine.InputSystem;
-using System.Linq;
 
 [RequireComponent(typeof(PlayerStats))]
 [RequireComponent(typeof(PlayerHitVisualizer))]
@@ -13,6 +11,8 @@ public class Player : MonoBehaviour
 	public Vector3 velocity => _velocity;
 	private AbstractTrap detectedTrap;
 	public bool playerInShopRange => _shopTrigger != null && _shopTrigger.playerInShop;
+	public PlayerController owningController => _owningController;
+	public AbilitySlotsComponent abilitySlotsComponent => _abilitySlotsComponent;
 
 	[SerializeField] GameObject _avatar;
 
@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 		_playerStats.onDeath += HealthComp_OnDeath;
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 		_shopTrigger = FindObjectOfType<ShopTrigger>();
+		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
 		UpdateHitRenderers();
 	}
 
@@ -47,7 +48,19 @@ public class Player : MonoBehaviour
 	public Vector2 GetAimDirection() => _mover.GetAimDirection();
 
 	public int GetPlayerIndex() => _playerIndex;
-    public void SetPlayerIndex(int index) => _playerIndex = index;
+
+	public void Possess(PlayerController playerController)
+	{
+		_owningController = playerController;
+		_playerIndex = playerController.playerIndex;
+		_owningController.playerInput.uiInputModule = _shop.inputModule;
+	}
+
+	public void Release()
+	{
+		_owningController = null;
+		_playerIndex = -1;
+	}
 
 	public void MovePlayer(Vector2 input)
 	{
@@ -179,4 +192,6 @@ public class Player : MonoBehaviour
 	InGameMenu _inGameMenu;
 	BellTower _bellTower;
 	ShopTrigger _shopTrigger;
+	PlayerController _owningController;
+	AbilitySlotsComponent _abilitySlotsComponent;
 }

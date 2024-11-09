@@ -161,7 +161,6 @@ public class WaveManager : MonoBehaviour
 		foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
 		{
 			playerController.playerInput.actions.FindAction("OpenShop").Enable();
-			playerController.player.GetComponentInChildren<Shop>().ResetShuffleCost();
 		}
 		// Activate Shopkeeper
 		if (shopkeeper != null)
