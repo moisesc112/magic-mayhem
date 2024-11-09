@@ -13,6 +13,7 @@ public class AbilityInfo : ScriptableObject
     public bool projectileDestoryAfterCollision = true;
     public float despawnTime;
     public Vector3 projectileTargetDirection;
+    public Vector3 castingOffset;
     public float projectileTargetSpeed;
     public float projectileSpread = 0.0f;
     public AudioClip castingSound;

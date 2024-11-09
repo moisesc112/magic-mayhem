@@ -138,6 +138,7 @@ public class AbilitySlotsComponent : MonoBehaviour
 
 		SetAbilityCooldown(_selectedAbililtyNumber, ability.cooldown);
         var pos = _castingComponent.GetCastingPosition();
+        pos += ability.castingOffset;
         var spread = ability.projectileSpread;
 
         var rot = _castingComponent.GetRandomCastingSpreadRotation(spread);

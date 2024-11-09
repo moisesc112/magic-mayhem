@@ -21,4 +21,8 @@ Project for CS6457
 * Breakable Barrel: https://assetstore.unity.com/packages/3d/props/3d-low-poly-tools-weapons-containers-274127
 * Breakable Barrel Sound: https://freesound.org/people/kevinkace/sounds/66772/
 * MeteorStrike and IceCone Spell: https://assetstore.unity.com/packages/vfx/particles/spells/aoe-magic-spells-vol-1-133012
-  
+* Earth Shatter : https://assetstore.unity.com/packages/vfx/particles/particle-pack-127325 
+* Earth Shatter Sound : https://freesound.org/people/uagadugu/sounds/222521/
+* Earth Shatter Sound : https://freesound.org/people/NeoSpica/sounds/512243/
+* Free Fire VFX + Sound: https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-fire-vfx-266227
+
