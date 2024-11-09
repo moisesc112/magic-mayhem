@@ -16,7 +16,7 @@ public abstract class AbstractTrap : MonoBehaviour
         TrapTriggerUI.SetActive(false);
         // Set the info text based on the trapInfo registry
         _trapInfoText = TrapTriggerUI.GetComponentsInChildren<TextMeshProUGUI>();
-        _trapInfoText[0].text = $"Press F to activate\nCost: {trapInfo.trapCost} Gold\nTrap Active Time: {trapInfo.activeDuration} Seconds";
+        _trapInfoText[0].text = $"Press F / Bottom Button to activate\nCost: {trapInfo.trapCost} Gold\nTrap Active Time: {trapInfo.activeDuration} Seconds";
     }
 
     public void ActivateTrap()
