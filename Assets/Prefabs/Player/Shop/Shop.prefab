@@ -264,6 +264,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d5e9fdf5f17fc04fa30afa723e7c215, type: 2}
   - {fileID: 11400000, guid: 108e67c18f91b5b4aaac58ea0ffd2763, type: 2}
   - {fileID: 11400000, guid: 910c1be50b72f4943a1a6cedc287ab54, type: 2}
+  - {fileID: 11400000, guid: fd813ec80c8054440979bc3db6169338, type: 2}
   currentAbilitiesInShop: []
   player: {fileID: 0}
   shopUI: {fileID: 4147207286957985018}

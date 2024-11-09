@@ -80,7 +80,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 257
-  abilityInfo: {fileID: 11400000, guid: 895aefcd428153146862b9db934856ad, type: 2}
+  abilityInfo: {fileID: 11400000, guid: fd813ec80c8054440979bc3db6169338, type: 2}
   beamTransform: {fileID: 2339616375373499158}
   damageCooldown: 0.5
 --- !u!1 &7979537570026014770
