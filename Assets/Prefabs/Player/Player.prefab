@@ -71510,15 +71510,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1405309258315709216, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.92
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1405309258315709216, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.92
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1405309258315709216, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.92
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1405309258315709216, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: m_LocalRotation.w
@@ -71538,11 +71538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1405309258315709216, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 984
+      value: 434
       objectReference: {fileID: 0}
     - target: {fileID: 1405309258315709216, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 387
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 1405309258315709216, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -72210,6 +72210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrow: {fileID: 1621715596111388947}
   playerCam: {fileID: 5888444495030979594}
+  arrowMargin: 50
 --- !u!4 &7512405443310586803 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7872494596031943040, guid: 61b6dbc4e15c3d2418d4427718fc1b10, type: 3}
