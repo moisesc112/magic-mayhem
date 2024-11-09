@@ -70,7 +70,7 @@ public class TutorialGoblin : MonoBehaviour
 
 		var target = wayPoints[_currentTargetWaypoint];
 		_agent.destination = target.position;
-		yield return new WaitUntil(() => (target.position - transform.position).magnitude < 0.5f);
+		yield return new WaitUntil(() => (target.position - transform.position).magnitude < 1.5f);
 		_currentTargetWaypoint = ++_currentTargetWaypoint % wayPoints.Length;
 		yield return GoToWayPoint();
 	}
@@ -101,6 +101,6 @@ public class TutorialGoblin : MonoBehaviour
 	HealthBarComponent _healthBar;
 	List<RefreshableComponent> _refreshableComponents;
 
-	int _currentTargetWaypoint = 0;
+	public int _currentTargetWaypoint = 0;
 	Vector3 _spawnPoint;
 }

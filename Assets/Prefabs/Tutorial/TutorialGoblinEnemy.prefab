@@ -3028,8 +3028,8 @@ GameObject:
   - component: {fileID: 684229469168781100}
   - component: {fileID: 684229469161892138}
   - component: {fileID: 4330101538583060880}
+  - component: {fileID: 5183933975197597793}
   - component: {fileID: 5570439328769968589}
-  - component: {fileID: 5570439328769968588}
   - component: {fileID: 5570439328769968579}
   - component: {fileID: 5570439328769968578}
   - component: {fileID: 5570439328769968583}
@@ -3037,7 +3037,6 @@ GameObject:
   - component: {fileID: 1295863788103099778}
   - component: {fileID: 6400773547344575930}
   - component: {fileID: 5398782893107336047}
-  - component: {fileID: 6417121798619951328}
   m_Layer: 8
   m_Name: TutorialGoblinEnemy
   m_TagString: GoblinEnemy
@@ -3101,6 +3100,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5183933975197597793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684229469169210266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01be84336ab1f794c839eec79fbab69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lookSpeed: 180
+  _movementScale: 1
+  _canSprint: 1
+  _sprintThreshold: 0.35
+  _visionLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _stoppingDistance: 1
+  _cornerThreshold: 0.33
 --- !u!114 &5570439328769968589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3115,19 +3135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPoints: []
   _targetRenderer: {fileID: 684229469165906600}
---- !u!114 &5570439328769968588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 684229469169210266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a14086e294b9142b2b3df04bcac185, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lookSpeed: 180
+  _currentTargetWaypoint: 0
 --- !u!195 &5570439328769968579
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3263,21 +3271,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitColor: {r: 1, g: 0, b: 0, a: 1}
   _renderers: []
---- !u!114 &6417121798619951328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 684229469169210266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d0c9bc55971be48ae5fcaafc8558bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _distancePollInfos:
-  - {fileID: 11400000, guid: 15dea98fc126db14caa9999e07dc9285, type: 2}
-  assignNavDestination: 1
 --- !u!1 &684229469169210524
 GameObject:
   m_ObjectHideFlags: 0
