@@ -13,7 +13,7 @@ public class PlayerHUD : MonoBehaviour
     private void Update()
     {
         UpdateHealthUI();
-        goldText.text = $"Gold: {playerStats.gold}";
+        goldText.text = playerStats.gold.ToString();
     }
 
     private void UpdateHealthUI()

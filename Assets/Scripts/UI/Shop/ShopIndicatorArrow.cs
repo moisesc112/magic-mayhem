@@ -9,7 +9,7 @@ public class ShopIndicatorArrow : MonoBehaviour
     private Transform shopkeeper;
     public RectTransform arrow;
     public Camera playerCam;
-    public float arrowMargin = 250;
+    public float arrowMargin = 50;
 
     private void Start()
     {
