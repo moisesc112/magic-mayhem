@@ -107,7 +107,7 @@ public class Golem : MonoBehaviour
 			}
 		}
 		yield return new WaitForSeconds(3.0f);
-		_releaseToPoolAction(this);
+		_releaseToPoolAction?.Invoke(this);
 	}
 
 	AudioSource _audioSource;
