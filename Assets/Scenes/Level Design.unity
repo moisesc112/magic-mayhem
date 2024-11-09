@@ -20216,7 +20216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ddf6c208af67a4c9dfc08b453b50f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeGameStarts: 1
+  timeBeforeGameStarts: 15
   shopkeeper: {fileID: 1825824320}
   _enemyFactory: {fileID: 1253232303}
   inTestingScene: 0

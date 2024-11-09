@@ -93,6 +93,8 @@ public class Archer : MonoBehaviour
 		_poller.enabled = true;
 		_agent.enabled = true;
 		_rmNavAgent.enabled = true;
+		_readyToNock = true;
+		_canShoot = true;
 
 		_dissolver.ResetEffect();
 
