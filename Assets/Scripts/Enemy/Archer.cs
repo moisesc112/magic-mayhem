@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityExtensions;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavPollerComponent))]
@@ -52,6 +53,7 @@ public class Archer : MonoBehaviour
 		
 		_ragdoll = GetComponent<RagdollComponent>();
 		_lootDrop = GetComponent<LootDropComponent>();
+		_refreshableComponents = gameObject.GetAllComponents<RefreshableComponent>();
 
 		_readyToNock = true;
 	}
@@ -90,6 +92,7 @@ public class Archer : MonoBehaviour
 		enabled = true;
 		_poller.enabled = true;
 		_agent.enabled = true;
+		_rmNavAgent.enabled = true;
 
 		_dissolver.ResetEffect();
 
@@ -97,6 +100,14 @@ public class Archer : MonoBehaviour
 		_ragdoll.DisableRagdoll();
 
 		_poller.StartPolling();
+
+		if (_refreshableComponents != null)
+		{
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnInit();
+			}
+		}
 
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
@@ -230,13 +241,22 @@ public class Archer : MonoBehaviour
 		enabled = false;
 		_poller.enabled = false;
 		_agent.enabled = false;
-		WaveManager.instance.ReportEnemyKilled();
+		_rmNavAgent.enabled = false;
+		if (WaveManager.instance != null)
+			WaveManager.instance.ReportEnemyKilled();
 
 		_lootDrop.DropLoot();
 		_ragdoll.EnableRagdoll();
 		_dissolver.StartDissolving();
+		if (_refreshableComponents != null)
+		{
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnKilled();
+			}
+		}
 		yield return new WaitForSeconds(3.0f);
-		_releaseToPoolAction(this);
+		_releaseToPoolAction?.Invoke(this);
 	}
 
 	NavPollerComponent _poller;
@@ -248,6 +268,8 @@ public class Archer : MonoBehaviour
 	RagdollComponent _ragdoll;
 	LootDropComponent _lootDrop;
 	Action<Archer> _releaseToPoolAction;
+	RefreshableComponent[] _refreshableComponents;
+
 
 	Vector3 _aimDir;
 	bool _canShoot;

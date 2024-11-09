@@ -64,7 +64,8 @@ public class WarChief : MonoBehaviour
 		enabled = true;
 		_navPoller.enabled = true;
 		_agent.enabled = true;
-		
+		_rootMotionNavAgent.enabled = true;
+
 		_canJump = true;
 
 		_dissolver.ResetEffect();
@@ -125,6 +126,9 @@ public class WarChief : MonoBehaviour
 		enabled = false;
 		_navPoller.enabled = false;
 		_agent.enabled = false;
+		_canJump = true;
+		_isJumping = false;
+		_rootMotionNavAgent.enabled = false;
 		WaveManager.instance.ReportEnemyKilled();
 
 		_lootDrop.DropLoot();
@@ -138,7 +142,7 @@ public class WarChief : MonoBehaviour
 			}
 		}
 		yield return new WaitForSeconds(3.0f);
-		_releaseToPoolAction(this);
+		_releaseToPoolAction?.Invoke(this);
 	}
 
 	IEnumerator JumpCooldown()
