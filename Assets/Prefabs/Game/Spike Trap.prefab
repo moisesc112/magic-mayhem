@@ -512,6 +512,8 @@ MonoBehaviour:
   TrapTriggerUI: {fileID: 7819001713440434803}
   TrapCooldownUI: {fileID: 402374170823203289}
   myTrap: {fileID: 3725612225542564576}
+  trapTriggerSound: {fileID: 8300000, guid: ac96b36463f20964098451ad05ca7aa4, type: 3}
+  trapActivateSound: {fileID: 8300000, guid: 22a44da9a3e0f954abf55952630cc9c2, type: 3}
 --- !u!82 &1193443964225717551
 AudioSource:
   m_ObjectHideFlags: 0
