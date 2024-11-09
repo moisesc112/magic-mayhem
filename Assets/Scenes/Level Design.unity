@@ -19694,6 +19694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spike Trap
       objectReference: {fileID: 0}
+    - target: {fileID: 2722981027406570691, guid: e406d5ec5de076c48bc67f93c4a56d70, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2722981027406570744, guid: e406d5ec5de076c48bc67f93c4a56d70, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -19736,6 +19740,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2722981027406570744, guid: e406d5ec5de076c48bc67f93c4a56d70, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904298418775337987, guid: e406d5ec5de076c48bc67f93c4a56d70, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904298418775337987, guid: e406d5ec5de076c48bc67f93c4a56d70, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 792e82df6b756934c9d7f875e519227b, type: 3}
+    - target: {fileID: 8904298418775337987, guid: e406d5ec5de076c48bc67f93c4a56d70, type: 3}
+      propertyPath: m_UseSpriteMesh
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
