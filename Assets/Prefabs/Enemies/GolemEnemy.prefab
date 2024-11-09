@@ -967,8 +967,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lookSpeed: 180
-  _movementScale: 1
-  _canSprint: 0
+  _movementScale: 1.5
+  _canSprint: 1
   _sprintThreshold: 0.35
   _visionLayerMask:
     serializedVersion: 2
