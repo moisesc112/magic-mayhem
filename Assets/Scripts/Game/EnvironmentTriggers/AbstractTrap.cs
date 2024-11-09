@@ -37,6 +37,8 @@ public abstract class AbstractTrap : MonoBehaviour
         // then disable trap and reset animation
         yield return new WaitForSeconds(trapInfo.activeDuration);
         trapInfo.isActivated = false;
+        myTrap.SetTrigger("ResetTrap");
+        _audioSource.PlayOneShot(trapTriggerSound);
         Debug.Log("Trap activation has expired");
     }
 
@@ -100,11 +102,6 @@ public abstract class AbstractTrap : MonoBehaviour
             {
                 trackedEnemies.RemoveAt(i);
                 Debug.Log("Enemy destroyed while in trigger");
-            }
-            if (trackedEnemies.Count==0)
-            {
-                myTrap.SetTrigger("ResetTrap");
-                _audioSource.PlayOneShot(trapTriggerSound);
             }
         }
     }
