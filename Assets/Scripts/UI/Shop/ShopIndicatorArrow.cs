@@ -43,7 +43,14 @@ public class ShopIndicatorArrow : MonoBehaviour
         arrow.gameObject.SetActive(isOffScreen);
 
         if (isOffScreen)
-        {   // Update position of arrow and clamp it so it has a certain margin from the edge of the screen 
+        {
+            // Invert if shopkeeper is behind player camera
+            if (shopkeeperScreenPoint.z < 0)
+            {
+                shopkeeperScreenPoint *= -1;
+            }
+
+            // Update position of arrow and clamp it so it has a certain margin from the edge of the screen 
             Vector3 playerScreenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
             Vector3 shopDirection = (shopkeeperScreenPoint - playerScreenCenter).normalized;
             
