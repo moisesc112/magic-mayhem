@@ -62,6 +62,11 @@ public class Player : MonoBehaviour
 		//TODO unify casting animations with abilities and direction
         _castingComponent.SetSelectedAbility(slotNumber);
     }
+
+	public void SelectAbilityByDirection(SelectAbilityDirection direction)
+	{
+		_castingComponent.SetSelectedAbilityByDirection(direction);
+	}
 	
 	public void UpdateCasting(bool isCasting)
 	{

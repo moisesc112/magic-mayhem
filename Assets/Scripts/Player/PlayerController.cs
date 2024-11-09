@@ -100,7 +100,31 @@ public class PlayerController : MonoBehaviour
 			_player.SelectAbility(slotNumber);
 	}
 
-	public void OnRoll()
+    public void OnSelectAbilityLeft(InputAction.CallbackContext context)
+    {
+        if (_player && context.performed)
+            _player.SelectAbilityByDirection(SelectAbilityDirection.Left);
+    }
+
+    public void OnSelectAbilityRight(InputAction.CallbackContext context)
+    {
+        if (_player && context.performed)
+            _player.SelectAbilityByDirection(SelectAbilityDirection.Right);
+    }
+
+	public void OnScrollAbilityLeft(InputAction.CallbackContext context)
+	{
+		if (_player && context.performed)
+			_player.SelectAbilityByDirection(SelectAbilityDirection.Left);
+	}
+
+    public void OnScrollAbilityRight(InputAction.CallbackContext context)
+    {
+        if (_player && context.performed)
+            _player.SelectAbilityByDirection(SelectAbilityDirection.Right);
+    }
+
+    public void OnRoll()
 	{
 		if (_player)
 			_player.OnRoll();
