@@ -20005,24 +20005,11 @@ MonoBehaviour:
   - groups:
     - enemySpawn:
       - enemyToSpawn: 0
-        amountToSpawn: 1
-      - enemyToSpawn: 3
-        amountToSpawn: 1
-      timeToNextGroup: 30
+        amountToSpawn: 2
+      timeToNextGroup: 10
     - enemySpawn:
       - enemyToSpawn: 0
-        amountToSpawn: 5
-      timeToNextGroup: 30
-    timeToNextWave: 60
-    timeBetweenEnemies: 1
-  - groups:
-    - enemySpawn:
-      - enemyToSpawn: 0
-        amountToSpawn: 5
-      timeToNextGroup: 3
-    - enemySpawn:
-      - enemyToSpawn: 3
-        amountToSpawn: 1
+        amountToSpawn: 3
       timeToNextGroup: 0
     timeToNextWave: 60
     timeBetweenEnemies: 1
@@ -20030,42 +20017,192 @@ MonoBehaviour:
     - enemySpawn:
       - enemyToSpawn: 0
         amountToSpawn: 5
-      - enemyToSpawn: 3
-        amountToSpawn: 1
-      timeToNextGroup: 20
+      timeToNextGroup: 15
     - enemySpawn:
       - enemyToSpawn: 3
-        amountToSpawn: 3
-      timeToNextGroup: 20
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 4
+      timeToNextGroup: 0
     timeToNextWave: 60
     timeBetweenEnemies: 1
   - groups:
     - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 4
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 4
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 4
+      timeToNextGroup: 0
+    timeToNextWave: 60
+    timeBetweenEnemies: 1
+  - groups:
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 5
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 8
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 3
+      - enemyToSpawn: 0
+        amountToSpawn: 7
+      timeToNextGroup: 0
+    timeToNextWave: 60
+    timeBetweenEnemies: 1
+  - groups:
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 4
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 6
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 4
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 6
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 2
+      - enemyToSpawn: 4
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 6
+      timeToNextGroup: 0
+    timeToNextWave: 60
+    timeBetweenEnemies: 1
+  - groups:
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 2
+      - enemyToSpawn: 0
+        amountToSpawn: 6
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 4
+        amountToSpawn: 2
+      - enemyToSpawn: 0
+        amountToSpawn: 6
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 1
+      - enemyToSpawn: 4
+        amountToSpawn: 3
+      - enemyToSpawn: 0
+        amountToSpawn: 8
+      timeToNextGroup: 0
+    timeToNextWave: 60
+    timeBetweenEnemies: 1
+  - groups:
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 3
+      - enemyToSpawn: 4
+        amountToSpawn: 1
+      - enemyToSpawn: 0
+        amountToSpawn: 10
+      timeToNextGroup: 15
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 2
+      - enemyToSpawn: 4
+        amountToSpawn: 4
       - enemyToSpawn: 0
         amountToSpawn: 15
-      timeToNextGroup: 5
+      timeToNextGroup: 0
+    timeToNextWave: 60
+    timeBetweenEnemies: 1
+  - groups:
+    - enemySpawn:
+      - enemyToSpawn: 3
+        amountToSpawn: 2
+      - enemyToSpawn: 4
+        amountToSpawn: 5
+      - enemyToSpawn: 0
+        amountToSpawn: 12
+      timeToNextGroup: 15
     - enemySpawn:
       - enemyToSpawn: 1
         amountToSpawn: 1
+      - enemyToSpawn: 3
+        amountToSpawn: 2
+      - enemyToSpawn: 4
+        amountToSpawn: 5
+      - enemyToSpawn: 0
+        amountToSpawn: 13
       timeToNextGroup: 0
     timeToNextWave: 60
     timeBetweenEnemies: 1
   - groups:
     - enemySpawn:
+      - enemyToSpawn: 1
+        amountToSpawn: 1
+      - enemyToSpawn: 3
+        amountToSpawn: 5
       - enemyToSpawn: 0
         amountToSpawn: 15
+      timeToNextGroup: 20
+    - enemySpawn:
+      - enemyToSpawn: 1
+        amountToSpawn: 1
       - enemyToSpawn: 3
         amountToSpawn: 3
-      timeToNextGroup: 5
+      - enemyToSpawn: 4
+        amountToSpawn: 5
+      - enemyToSpawn: 0
+        amountToSpawn: 15
+      timeToNextGroup: 0
+    timeToNextWave: 60
+    timeBetweenEnemies: 1
+  - groups:
     - enemySpawn:
+      - enemyToSpawn: 1
+        amountToSpawn: 1
+      - enemyToSpawn: 3
+        amountToSpawn: 6
+      - enemyToSpawn: 0
+        amountToSpawn: 5
+      - enemyToSpawn: 0
+        amountToSpawn: 15
+      timeToNextGroup: 30
+    - enemySpawn:
+      - enemyToSpawn: 1
+        amountToSpawn: 2
+      - enemyToSpawn: 3
+        amountToSpawn: 6
       - enemyToSpawn: 4
         amountToSpawn: 10
-      timeToNextGroup: 5
-    - enemySpawn:
-      - enemyToSpawn: 1
-        amountToSpawn: 3
-      timeToNextGroup: 5
-    timeToNextWave: 5
+      - enemyToSpawn: 0
+        amountToSpawn: 15
+      timeToNextGroup: 0
+    timeToNextWave: 60
     timeBetweenEnemies: 1
 --- !u!114 &1984729374
 MonoBehaviour:
@@ -20079,7 +20216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ddf6c208af67a4c9dfc08b453b50f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeGameStarts: 15
+  timeBeforeGameStarts: 1
   shopkeeper: {fileID: 1825824320}
   _enemyFactory: {fileID: 1253232303}
   inTestingScene: 0
