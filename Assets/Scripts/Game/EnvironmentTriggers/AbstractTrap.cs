@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public abstract class AbstractTrap : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public abstract class AbstractTrap : MonoBehaviour
     private void Start()
     {
         TrapTriggerUI.SetActive(false);
+        // Set the info text based on the trapInfo registry
+        _trapInfoText = TrapTriggerUI.GetComponentsInChildren<TextMeshProUGUI>();
+        _trapInfoText[0].text = $"Press F to activate\nCost: {trapInfo.trapCost} Gold\nTrap Active Time: {trapInfo.activeDuration} Seconds";
     }
 
     public void ActivateTrap()
@@ -103,4 +107,6 @@ public abstract class AbstractTrap : MonoBehaviour
             }
         }
     }
+
+    TextMeshProUGUI[] _trapInfoText;
 }
