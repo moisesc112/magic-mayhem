@@ -1,7 +1,9 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Animator))]
 public class WaveCanvasSettings : MonoBehaviour
 {
 
@@ -9,8 +11,14 @@ public class WaveCanvasSettings : MonoBehaviour
 	public TextMeshProUGUI waveCountdownText;
 	public TextMeshProUGUI totalEnemiesPerWaveText;
 	public TextMeshProUGUI winText;
+	[SerializeField] Slider _enemyCountSlider;
 
 	Coroutine countdownTextCoroutine;
+
+	private void Awake()
+	{
+		_anim = GetComponent<Animator>();
+	}
 
 	void Start()
 	{
@@ -51,10 +59,12 @@ public class WaveCanvasSettings : MonoBehaviour
 		currentMaxEnemyCount = e.enemyCount;
 		UpdateEnemyText(currentMaxEnemyCount);
 		currentWaveText.text = $"Wave {e.waveNum}";
+		_anim.SetTrigger("ShowCanvas");
 	}
 
 	private void WaveManager_WaveFinished(object sender, WaveEndedEventArgs e)
 	{
+		_anim.SetTrigger("HideCanvas");
 		countdownTextCoroutine = StartCoroutine(SetCountDownText(e.timeTillNextWave));
 	}
 
@@ -66,6 +76,7 @@ public class WaveCanvasSettings : MonoBehaviour
 	private void UpdateEnemyText(int count)
 	{
 		totalEnemiesPerWaveText.text = $"Enemies {count}/{currentMaxEnemyCount}";
+		_enemyCountSlider.value = (float)count / (float)currentMaxEnemyCount;
 	}
 
 	IEnumerator StartGameCountDown(int start)
@@ -91,4 +102,5 @@ public class WaveCanvasSettings : MonoBehaviour
 	}
 
 	int currentMaxEnemyCount;
+	Animator _anim;
 }
