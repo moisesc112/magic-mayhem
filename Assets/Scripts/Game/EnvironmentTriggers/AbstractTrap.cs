@@ -1,17 +1,33 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public abstract class AbstractTrap : MonoBehaviour
 {
     public TrapInfo trapInfo;
+    public GameObject TrapTriggerUI;
+    public TrapCooldownIcon TrapCooldownUI;
     private List<Collider> trackedEnemies = new List<Collider>();
     [SerializeField] private Animator myTrap = null;
+    [SerializeField] private AudioClip trapTriggerSound;
+    [SerializeField] private AudioClip trapActivateSound;
+
+    private void Start()
+    {
+        TrapTriggerUI.SetActive(false);
+        _audioSource = GetComponent<AudioSource>();
+        // Set the info text based on the trapInfo registry
+        _trapInfoText = TrapTriggerUI.GetComponentsInChildren<TextMeshProUGUI>();
+        _trapInfoText[0].text = $"Press F / Bottom Button to activate\nCost: {trapInfo.trapCost} Gold\nTrap Active Time: {trapInfo.activeDuration} Seconds";
+    }
 
     public void ActivateTrap()
     {
         trapInfo.isActivated = true;
         Debug.Log("Trap has been activated");
+        _audioSource.PlayOneShot(trapActivateSound);
+        TrapCooldownUI.ActivateCooldownUI();
         StartCoroutine(TrapActivationDuration());
     }
 
@@ -22,6 +38,7 @@ public abstract class AbstractTrap : MonoBehaviour
         yield return new WaitForSeconds(trapInfo.activeDuration);
         trapInfo.isActivated = false;
         myTrap.SetTrigger("ResetTrap");
+        _audioSource.PlayOneShot(trapTriggerSound);
         Debug.Log("Trap activation has expired");
     }
 
@@ -37,6 +54,7 @@ public abstract class AbstractTrap : MonoBehaviour
             if (trackedEnemies.Count == 1)
             {
                 myTrap.SetTrigger("TriggerTrap");
+                _audioSource.PlayOneShot(trapTriggerSound);
             }
         }
     }
@@ -74,10 +92,6 @@ public abstract class AbstractTrap : MonoBehaviour
         {
             trapInfo.isSprung = true;
             trackedEnemies.Remove(collision);
-            if (trackedEnemies.Count == 0)
-            {
-                myTrap.SetTrigger("ResetTrap");
-            }
         }
     }
     void Update()
@@ -89,10 +103,9 @@ public abstract class AbstractTrap : MonoBehaviour
                 trackedEnemies.RemoveAt(i);
                 Debug.Log("Enemy destroyed while in trigger");
             }
-            if (trackedEnemies.Count==0)
-            {
-                myTrap.SetTrigger("ResetTrap");
-            }
         }
     }
+
+    TextMeshProUGUI[] _trapInfoText;
+    AudioSource _audioSource;
 }

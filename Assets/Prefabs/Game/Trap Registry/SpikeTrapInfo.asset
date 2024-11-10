@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0c3632a1e849642a973dbb02bfaa47, type: 3}
   m_Name: SpikeTrapInfo
   m_EditorClassIdentifier: 
-  isActivated: 0
-  isSprung: 0
-  activeDuration: 5
+  isActivated: 1
+  isSprung: 1
+  activeDuration: 7
   damageCooldown: 0.5
   damage: 5
   trapCost: 30

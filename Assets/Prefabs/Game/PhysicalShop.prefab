@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 2186688284117759366}
   - component: {fileID: 2186688284117759367}
   - component: {fileID: 2186688284117759364}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ShopTrigger
   m_TagString: Shop
   m_Icon: {fileID: 0}
@@ -69843,7 +69843,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813765255276297261}
   m_LocalRotation: {x: -0.018649373, y: 0.98132586, z: -0.13884619, w: -0.1318084}
-  m_LocalPosition: {x: 0, y: 0, z: -0.74}
+  m_LocalPosition: {x: 0, y: 0, z: -0.05}
   m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -69854,7 +69854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 16.106, y: 195.3, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.149, y: 1.26}
+  m_AnchoredPosition: {x: 0.34, y: 1.47}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6346404213528182586
@@ -74757,7 +74757,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9025488402519719423}
   m_LocalRotation: {x: 0.097430415, y: 0.000000059604638, z: -0.000000009313225, w: 0.99524236}
-  m_LocalPosition: {x: 0, y: 0, z: -7.9}
+  m_LocalPosition: {x: 0, y: 0, z: -9.19}
   m_LocalScale: {x: 0.16, y: 0.44839683, z: 0.34766176}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -74766,7 +74766,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 11.182, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -7.91, y: -6.92}
+  m_AnchoredPosition: {x: -4.1, y: -6.8}
   m_SizeDelta: {x: 20, y: 2}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7184850618971675038
@@ -74797,7 +74797,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press E
+  m_text: Press E / Right Button
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
