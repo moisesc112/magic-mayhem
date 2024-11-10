@@ -84,9 +84,12 @@ public class TutorialGoblin : MonoBehaviour
 
 		_agent.enabled = false;
 		_lootDrop.DropLoot();
-		foreach (var comp in _refreshableComponents)
+		if (_refreshableComponents != null)
 		{
-			comp.OnInit();
+			foreach (var comp in _refreshableComponents)
+			{
+				comp.OnKilled();
+			}
 		}
 		yield return new WaitForSeconds(5.0f);
 		Init();
