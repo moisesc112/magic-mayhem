@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour
 	[Header("Settings")]
 	[SerializeField] InputSystemUIInputModule _inputModule;
 	[SerializeField] MultiplayerEventSystem multiplayerEventSystem;
+	[SerializeField] int _shuffleIncreaseAmount = 1;
 
 	public int numOfSpells = 3;
 	public InputSystemUIInputModule inputModule => _inputModule;
@@ -70,10 +71,10 @@ public class Shop : MonoBehaviour
 		else
 		{
 			_selectedSpell = spell;
-			for (int i = 1; i <= abilitySlotComponent.numberOfAbilities; i++)
+			for (int i = 0; i < abilitySlotComponent.numberOfAbilities; i++)
 			{
 				var ability = abilitySlotComponent.GetAbility(i + 1);
-				_confirmSpellButtons[i-1].UpdateAbilityInfo(ability, i + 1);
+				_confirmSpellButtons[i].UpdateAbilityInfo(ability, i + 1);
 			}
 			multiplayerEventSystem.SetSelectedGameObject(null);
 			multiplayerEventSystem.SetSelectedGameObject(_confirmSpellButtons[0].gameObject);
@@ -161,6 +162,8 @@ public class Shop : MonoBehaviour
 		shuffleNav.mode = Navigation.Mode.Explicit;
 		shuffleNav.selectOnUp = _spellOptions[numOfSpells - 1].purchaseButton;
 		_shuffleButton.navigation = shuffleNav;
+		_shuffleNormalColor = _shuffleButton.colors.normalColor;
+		_shuffleSelectedColor = _shuffleButton.colors.selectedColor;
 
 		void ConfigureButtonNav(Selectable button, int index)
 		{
@@ -201,7 +204,6 @@ public class Shop : MonoBehaviour
 			else
 				option.DisablePurchase();
 		}
-		_shuffleButton.enabled = _currentShuffleCost <= _player.PlayerStats.gold;
 	}
 
 	private void ShuffleShopAbilityOptions(bool didPlayerUseShuffle = true)
@@ -213,7 +215,19 @@ public class Shop : MonoBehaviour
 				return;
 			}
 			_player.PlayerStats.gold -= _currentShuffleCost;
-			_currentShuffleCost += 1;
+			_currentShuffleCost += _shuffleIncreaseAmount;
+
+			// Darken button to look disabled but don't actually disable to allow nav.
+			ColorBlock currentBlock = _shuffleButton.colors;
+			Color normalColor = currentBlock.normalColor;
+			Color selectedColor = currentBlock.selectedColor;
+			var canShuffle = _currentShuffleCost <= _player.PlayerStats.gold;
+			normalColor.a = canShuffle ? _shuffleNormalColor.a : 0.1f;
+			selectedColor.a = canShuffle ? _shuffleSelectedColor.a : 0.2f;
+			currentBlock.normalColor = normalColor;
+			currentBlock.selectedColor = selectedColor;
+			_shuffleButton.colors = currentBlock;
+
 			UpdateShuffleText();
 		}
 		else
@@ -256,6 +270,9 @@ public class Shop : MonoBehaviour
 	List<ConfirmSpellButton> _confirmSpellButtons;
 	Player _player;
 	SpellOption _selectedSpell;
+
+	Color _shuffleNormalColor;
+	Color _shuffleSelectedColor;
 
 	int _currentShuffleCost = SHUFFLE_COST_START;
 }
