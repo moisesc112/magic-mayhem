@@ -3164,7 +3164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 684229469169210266, guid: f04e008244295fc4ba853228f5afc341, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5570439328769968589, guid: f04e008244295fc4ba853228f5afc341, type: 3}
       propertyPath: wayPoints.Array.size
@@ -3180,11 +3180,11 @@ PrefabInstance:
       objectReference: {fileID: 1715314760}
     - target: {fileID: 8850355405163565864, guid: f04e008244295fc4ba853228f5afc341, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8850355405163565864, guid: f04e008244295fc4ba853228f5afc341, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f04e008244295fc4ba853228f5afc341, type: 3}

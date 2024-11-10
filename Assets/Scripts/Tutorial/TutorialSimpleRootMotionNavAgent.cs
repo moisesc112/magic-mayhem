@@ -33,7 +33,7 @@ public class TutorialSimpleRootMotionNavAgent : RefreshableComponent
 		UpdateAnimParamsFromSteering();
 
 
-		if (_agent.enabled && _agent.remainingDistance < _stoppingDistance)
+		if (_agent.remainingDistance < _stoppingDistance)
 		{
 			_anim.SetBool("IsMoving", false);
 			_anim.SetBool("IsRunning", false);
