@@ -1,14 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-using Unity.VisualScripting;
-using TMPro;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine.SceneManagement;
 
 
@@ -16,8 +8,8 @@ public class InGameMenu : MonoBehaviour
 {
 	public Button ResetGame;
 	public Button Quit;
-	public TextMeshProUGUI loseText;
-	public TextMeshProUGUI winText;
+	public GameObject loseText;
+	public GameObject winText;
 	public GameObject menuPanel;
 	public bool gameOver { get; private set; } = false;
 
@@ -30,8 +22,8 @@ public class InGameMenu : MonoBehaviour
 	void Awake()
 	{
 		// initialize with everything turned off
-		loseText.gameObject.SetActive(false);
-		winText.gameObject.SetActive(false);
+		loseText.SetActive(false);
+		winText.SetActive(false);
 		menuPanel.SetActive(false);
 	}
 
