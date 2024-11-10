@@ -171,8 +171,6 @@ public class AbilitySlotsComponent : MonoBehaviour
 			_selectedAbililtyNumber = slotNumber;
 			RaiseAbilityChanged(slotNumber);
 		}
-
-		RaiseAbilityChanged(slotNumber);
 	}
 
 	public void SetSelectedAbilityByDirection(SelectAbilityDirection direction)
