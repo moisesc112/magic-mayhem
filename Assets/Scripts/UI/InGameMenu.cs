@@ -41,6 +41,12 @@ public class InGameMenu : MonoBehaviour
 		Time.timeScale = isEnabled ? 0 : 1;
     }
 
+	public void RestartLevel()
+	{
+		Time.timeScale = 1;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
 	public void RestartGame()
 	{
 		// Clean up persisting game objects before we reset to the main menu
