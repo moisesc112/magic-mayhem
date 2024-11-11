@@ -77,6 +77,13 @@ public class PlayerManager : MonoBehaviour
 		return player;
 	}
 
+	public void OnPlayerLeft(PlayerInput input)
+	{
+		var controller = PlayerControllers.FirstOrDefault(c => c.playerInput == input);
+		if (controller)
+			OnPlayerLeft(controller);
+	}
+
 	public void OnPlayerLeft(PlayerController controller)
 	{
 		// If player isn't registered, nothing to do.

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 	{
 		PlayerManager.instance.RegisterPlayer(this);
 	}
-	
+
 	public void TakeControl(Player player)
 	{
 		_player = player;
