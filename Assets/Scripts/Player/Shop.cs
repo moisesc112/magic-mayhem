@@ -27,6 +27,7 @@ public class Shop : MonoBehaviour
 	[SerializeField] InputSystemUIInputModule _inputModule;
 	[SerializeField] MultiplayerEventSystem multiplayerEventSystem;
 	[SerializeField] int _shuffleIncreaseAmount = 1;
+	[SerializeField] int _shuffleCostCap = 30;
 
 	public int numOfSpells = 3;
 	public InputSystemUIInputModule inputModule => _inputModule;
@@ -216,6 +217,7 @@ public class Shop : MonoBehaviour
 			}
 			_player.PlayerStats.gold -= _currentShuffleCost;
 			_currentShuffleCost += _shuffleIncreaseAmount;
+			_currentShuffleCost = Mathf.Clamp(_currentShuffleCost, 0, _shuffleCostCap);
 
 			// Darken button to look disabled but don't actually disable to allow nav.
 			ColorBlock currentBlock = _shuffleButton.colors;
