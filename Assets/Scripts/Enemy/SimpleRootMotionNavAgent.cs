@@ -117,7 +117,8 @@ public class SimpleRootMotionNavAgent : RefreshableComponent
 		else
 		{
 			var dir = (_agent.steeringTarget - transform.position);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), _lookSpeed * Time.deltaTime);
+			if (dir.sqrMagnitude > 0.1f)
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), _lookSpeed * Time.deltaTime);
 		}
 	}
 

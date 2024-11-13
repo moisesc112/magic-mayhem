@@ -128,7 +128,8 @@ public class AdvancedRootMotionNavAgent : RefreshableComponent
 		if (_navPoller.TargetPlayer is null) return;
 
 		var lookDir = _navPoller.TargetPlayer.GetAvatarPosition() - transform.position;
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDir), 180f * Time.deltaTime);
+		if (lookDir.sqrMagnitude > 0.1f)
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lookDir), 180f * Time.deltaTime);
 	}
 
 	private void UpdateAnimParamsFromSteering()
