@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoadManager : MonoBehaviour
+public sealed class LevelLoadManager : MonoBehaviour
 {
 	public static LevelLoadManager instance => _instance;
 	public event EventHandler<LevelLoadedArgs> sceneLoaded;

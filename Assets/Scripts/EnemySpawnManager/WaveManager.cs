@@ -5,10 +5,8 @@ using UnityRandom = UnityEngine.Random;
 
 [RequireComponent (typeof(WaveInfo))]
 [RequireComponent(typeof(AudioSource))]
-public class WaveManager : MonoBehaviour
+public sealed class WaveManager : Singleton<WaveManager>
 {
-	public static WaveManager instance { get; private set; }
-
 	public int timeBeforeGameStarts;
 	public GameObject shopkeeper;
 
@@ -39,22 +37,14 @@ public class WaveManager : MonoBehaviour
 	public event EventHandler<WaveEndedEventArgs> waveFinished;
 	public event EventHandler<EnemyDiedEventArgs> enemyDied;
 
-	void Start()
+	protected override void DoStart()
 	{
 		isGameFinished = false;
 		DisableShopDuringWave();
 	}
 
-	void Awake()
+	protected override void DoAwake()
 	{
-		if (instance != null && instance != this)
-		{
-			Destroy(this);
-			return;
-		}
-
-		instance = this;
-
 		waveInfo = GetComponent<WaveInfo>();
 		_audioSource = GetComponent<AudioSource>();
 		waves = waveInfo.GetWaveContents();

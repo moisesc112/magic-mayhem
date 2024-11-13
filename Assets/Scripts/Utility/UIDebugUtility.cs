@@ -1,25 +1,14 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class UIDebugUtility : MonoBehaviour
+public sealed class UIDebugUtility : Singleton<UIDebugUtility>
 {
-	public static UIDebugUtility instance { get; private set; }
-
 	public TextMeshProUGUI trackedVelocity;
 	public TextMeshProUGUI trackedHealth;
 	public TextMeshProUGUI fps;
 
-	void Awake()
+	protected override void DoAwake()
 	{
-		if (instance != null && instance != this)
-		{
-			Destroy(this);
-			return;
-		}
-
-		instance = this;
-
 		DontDestroyOnLoad(gameObject);
 	}
 
