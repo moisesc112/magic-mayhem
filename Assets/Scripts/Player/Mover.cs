@@ -60,7 +60,7 @@ public class Mover : MonoBehaviour
 	
 	public void SetAiming(bool aiming, Vector2 aimDir, bool useMouse)
 	{
-		if (_isAiming != aiming && !aiming) // If we transtion from aiming to not aiming, rotate player to match input
+		if (_isAiming != aiming && !aiming && _currentMovement.sqrMagnitude > 0.1f) // If we transtion from aiming to not aiming, rotate player to match input
 		{
 			var targetRot = Quaternion.LookRotation(_currentMovement, Vector3.up);
 			var angleBetween = Vector3.Angle(transform.forward, _currentMovement);
