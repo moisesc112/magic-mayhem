@@ -5,7 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavPollerComponent))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(HealthComponent))]
-public class AdvancedRootMotionNavAgent : MonoBehaviour
+public class AdvancedRootMotionNavAgent : RefreshableComponent
 {
 	public float sweetSpotRatio;
 	public float targetMinDistance;
@@ -68,6 +68,16 @@ public class AdvancedRootMotionNavAgent : MonoBehaviour
 		position.y = _agent.nextPosition.y;
 		transform.position = position;
 		_agent.nextPosition = position;
+	}
+
+	public override void OnInit()
+	{
+		enabled = true;
+	}
+
+	public override void OnKilled()
+	{
+		enabled = false;
 	}
 
 	private void OnDrawGizmos()

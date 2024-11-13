@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // A majority of this code is taken from `SpawnEffect.cs` but tweaked to match our use case.
-public class Dissolver : MonoBehaviour
+public class Dissolver : RefreshableComponent
 {
 	public float spawnEffectTime = 5.0f;
 	public float pause = 0;
@@ -27,6 +27,16 @@ public class Dissolver : MonoBehaviour
 		_targetRenderer.material.SetFloat(shaderProperty, fadeIn.Evaluate(Mathf.InverseLerp(0, spawnEffectTime, timer)));
 		if (timer >= spawnEffectTime)
 			ResetEffect(false);
+	}
+
+	public override void OnInit()
+	{
+		ResetEffect();
+	}
+
+	public override void OnKilled()
+	{
+		StartDissolving();
 	}
 
 	public void SetTargetRenderer(Renderer targetRenderer)

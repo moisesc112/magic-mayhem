@@ -7641,6 +7641,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f27e31f6ca1f24b834fd597918c520, type: 3}
+--- !u!1 &792413282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 792413284}
+  - component: {fileID: 792413283}
+  m_Layer: 0
+  m_Name: ArcherPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &792413283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792413282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c89f803277fe94aafd044320b4baa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 4955370643258611580, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
+  _defaultCapacity: 0
+  _maxCapacity: 25
+  _collectionCheck: 1
+--- !u!4 &792413284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792413282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1253232304}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &793889708
 GameObject:
   m_ObjectHideFlags: 0
@@ -8447,6 +8495,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 466684, guid: e3dd5ae7fef5a16408f1f48b07898179, type: 3}
   m_PrefabInstance: {fileID: 1048298833}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &884683526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 884683528}
+  - component: {fileID: 884683527}
+  m_Layer: 0
+  m_Name: WarChiefPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &884683527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884683526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c89f803277fe94aafd044320b4baa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 8144076873232839308, guid: 79feb66568e34724696319f0c5ee1b00, type: 3}
+  _defaultCapacity: 0
+  _maxCapacity: 10
+  _collectionCheck: 1
+--- !u!4 &884683528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884683526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1253232304}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &893053813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11951,10 +12047,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1253232304}
   - component: {fileID: 1253232303}
-  - component: {fileID: 1253232302}
-  - component: {fileID: 1253232307}
-  - component: {fileID: 1253232306}
-  - component: {fileID: 1253232305}
   m_Layer: 0
   m_Name: EnemyFactory
   m_TagString: Untagged
@@ -11962,22 +12054,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1253232302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253232301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f33688b2227324a9e5be7f225f8504, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 1534788581507665488, guid: 5eb616d430fc5cb4c84354f6a45bc3da, type: 3}
-  _defaultCapacity: 10
-  _maxCapacity: 100
-  _collectionCheck: 1
 --- !u!114 &1253232303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11990,6 +12066,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cb3b517407b7041b268da9dec18d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goblinPool: {fileID: 1823502149}
+  _golemPool: {fileID: 2140127789}
+  _archerPool: {fileID: 792413283}
+  _warChiefPool: {fileID: 884683527}
 --- !u!4 &1253232304
 Transform:
   m_ObjectHideFlags: 0
@@ -12001,58 +12081,14 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1823502150}
+  - {fileID: 2140127790}
+  - {fileID: 792413284}
+  - {fileID: 884683528}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1253232305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253232301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c39e1c4ad9ecfe54aa3023d6b0af736d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 8144076873232839308, guid: 79feb66568e34724696319f0c5ee1b00, type: 3}
-  _defaultCapacity: 10
-  _maxCapacity: 25
-  _collectionCheck: 1
---- !u!114 &1253232306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253232301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21159e3442128ff4bbb654a5a607febe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 4955370643258611580, guid: b7ef86204ec900241af3811eaca768fa, type: 3}
-  _defaultCapacity: 10
-  _maxCapacity: 50
-  _collectionCheck: 1
---- !u!114 &1253232307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253232301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd65a75a2ba28fa45a695fbefbb8322d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 3897827753757897628, guid: 4eda255c4fc013747b17e62877cbc07a, type: 3}
-  _defaultCapacity: 5
-  _maxCapacity: 10
-  _collectionCheck: 1
 --- !u!4 &1261335148 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 406742, guid: 159b866c6d4c17246b5c6ba8b83e6069, type: 3}
@@ -18544,6 +18580,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 423322, guid: f123b0e86250dcb46ba02793ce806726, type: 3}
   m_PrefabInstance: {fileID: 1819437049}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1823502148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823502150}
+  - component: {fileID: 1823502149}
+  m_Layer: 0
+  m_Name: GoblinPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1823502149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823502148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c89f803277fe94aafd044320b4baa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 1534788581507665488, guid: 5eb616d430fc5cb4c84354f6a45bc3da, type: 3}
+  _defaultCapacity: 0
+  _maxCapacity: 100
+  _collectionCheck: 1
+--- !u!4 &1823502150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823502148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1253232304}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1825824319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21354,6 +21438,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db3d67dd27208cd4ca5cf3b47a7b9f8d, type: 3}
+--- !u!1 &2140127788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2140127790}
+  - component: {fileID: 2140127789}
+  m_Layer: 0
+  m_Name: GolemPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2140127789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140127788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c89f803277fe94aafd044320b4baa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 3897827753757897628, guid: 4eda255c4fc013747b17e62877cbc07a, type: 3}
+  _defaultCapacity: 0
+  _maxCapacity: 3
+  _collectionCheck: 1
+--- !u!4 &2140127790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140127788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1253232304}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2141056442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 497642, guid: 03ddac1d26e02d641832525a5c53c412, type: 3}

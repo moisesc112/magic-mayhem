@@ -1,9 +1,8 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
-public class RagdollComponent : MonoBehaviour
+public sealed class RagdollComponent : RefreshableComponent
 {
 
 	[Header("Optional")]
@@ -32,6 +31,16 @@ public class RagdollComponent : MonoBehaviour
 		{
 			_boundMesh.transform.position = _centerOfMass.position;
 		}
+	}
+
+	public override void OnInit()
+	{
+		DisableRagdoll();
+	}
+
+	public override void OnKilled()
+	{
+		EnableRagdoll();
 	}
 
 	public void SetBoundMesh(Transform boundMesh)

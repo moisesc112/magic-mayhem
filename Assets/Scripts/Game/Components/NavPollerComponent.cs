@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent (typeof(NavMeshAgent))]
-public class NavPollerComponent : MonoBehaviour
+public sealed class NavPollerComponent : RefreshableComponent
 {
 	[SerializeField] DistancePollObject[] _distancePollInfos;
 
@@ -27,6 +27,21 @@ public class NavPollerComponent : MonoBehaviour
 			ResetPolling();
 		}
 		UpdatePollInfo();
+	}
+
+	public override void OnInit()
+	{
+		enabled = true;
+		_agent.enabled = true;
+		StartPolling();
+	}
+
+	public override void OnKilled()
+	{
+		StopAllCoroutines();
+		enabled = false;
+		_agent.enabled = false;
+		_targetPlayer = null;
 	}
 
 	public void StartPolling()
