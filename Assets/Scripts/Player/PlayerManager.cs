@@ -5,29 +5,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerManager : MonoBehaviour
+public sealed class PlayerManager : Singleton<PlayerManager>
 {
 	[Header("Settings")]
 	public Player playerPrefab;
 	public bool spawnPlayerOnConnect = true;
 	public Vector3 spawnLocation;
 
-	public static PlayerManager instance { get; private set; }
-
 	public ReadOnlyCollection<PlayerController> PlayerControllers => _playersByOwningController.Keys.ToList().AsReadOnly();
 
 	public event EventHandler<PlayerJoinedEventArgs> PlayerControllerJoined;
 	public event EventHandler<PlayerRemovedEventArgs> PlayerControllerRemoved;
 
-	void Awake()
+	protected override void DoAwake()
 	{
-		if (instance != null && instance != this)
-		{
-			Destroy(this);
-			return;
-		}
-
-		instance = this;
 		_playersByOwningController = new Dictionary<PlayerController, Player>();
 		_inputManager = GetComponent<PlayerInputManager>();
 
