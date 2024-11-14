@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: IceCone
   m_EditorClassIdentifier: 
   abilityName: Ice Cone
-  description: Summons a frontal cone of ice that damages enemies
+  description: Summons a frontal cone of ice that damages enemies. Is it a little
+    cold over here or is it just you???
   abiltyType: 0
   cooldown: 10
   damage: 2
@@ -22,6 +23,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 1
   despawnTime: 1.5
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 0}

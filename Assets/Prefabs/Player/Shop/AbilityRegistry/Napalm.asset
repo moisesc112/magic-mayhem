@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Napalm
   m_EditorClassIdentifier: 
   abilityName: Napalm
-  description: Leave a trail of fire behind you that deals damage to enemies standing
-    in the fire.
+  description: Leave a trail of fire behind you that deals damage to enemies. I'm
+    on fire!! Oh wait never mind, you are on fire....
   abiltyType: 0
   cooldown: 15
   damage: 1
@@ -23,6 +23,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 0
   despawnTime: 5
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: 447e97f44e7d0fd4eb6ddec82c319992, type: 3}

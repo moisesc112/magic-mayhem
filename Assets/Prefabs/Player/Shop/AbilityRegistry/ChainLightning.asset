@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ChainLightning
   m_EditorClassIdentifier: 
   abilityName: Chain Lightning
-  description: Throw a bolt of lightning, jumping to additional nearby enemies
+  description: Throw a sphere of lightning at your foe. Upon contact it will spread
+    and damage nearby enemies. A shocking experience for everyone!
   abiltyType: 0
   cooldown: 2
   damage: 3
@@ -22,6 +23,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 1
   despawnTime: 1
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 10
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: e8e225b2a8e4c4248bf05695b48aadef, type: 3}

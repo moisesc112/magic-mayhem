@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: FireballInfo
   m_EditorClassIdentifier: 
   abilityName: Fireball
-  description: Shoot a fireball in a direction
+  description: Sends a fireball hurtling at an enemy. Nothing says hello like a fireball
+    to the face!
   abiltyType: 0
   cooldown: 5
   damage: 10
@@ -22,6 +23,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 1
   despawnTime: 4
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 10
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: ab7cd7c07fcaa054ab85c236b246ddc1, type: 3}

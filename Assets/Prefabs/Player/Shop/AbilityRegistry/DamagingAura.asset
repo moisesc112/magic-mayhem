@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DamagingAura
   m_EditorClassIdentifier: 
   abilityName: Damaging Aura
-  description: Gain a damage buff with inside the ring of the aura
+  description: Create a shimmering circle of power at the current location. Spells
+    cast within this circle will deal additional damage. Stand in the ring, hit like
+    a king!
   abiltyType: 0
   cooldown: 10
   damage: 1
@@ -22,6 +24,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 0
   despawnTime: 6
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 0}
