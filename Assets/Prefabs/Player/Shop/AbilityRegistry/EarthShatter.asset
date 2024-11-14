@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: EarthShatter
   m_EditorClassIdentifier: 
   abilityName: Earth Shatter
-  description: Sends a wave of collapsing earth dealing damage and blocking movement
+  description: Shatter the ground and create earth fissures to damage and block enemies!
+    The town's groundskeeper will not appreciate this....
   abiltyType: 0
   cooldown: 10
   damage: 3

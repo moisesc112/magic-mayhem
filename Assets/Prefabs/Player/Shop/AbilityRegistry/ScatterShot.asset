@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ScatterShot
   m_EditorClassIdentifier: 
   abilityName: Scatter Shot
-  description: Short range blast of crystals
+  description: Short range blast of sharp crystals. You get a shard! you get a shard!
+    EVERYONE gets a shard!
   abiltyType: 2
   cooldown: 1
   damage: 1
@@ -22,6 +23,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 1
   despawnTime: 0.5
   projectileTargetDirection: {x: 0, y: 0, z: 1}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 30
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: a0e819afbed7a1343bf41a083ea32cef, type: 3}

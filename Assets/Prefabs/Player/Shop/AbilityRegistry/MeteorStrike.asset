@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MeteorStrike
   m_EditorClassIdentifier: 
   abilityName: Meteor Strike
-  description: Summons a meteor that deals AOE damage
+  description: "Summons a meteor on top of you that deals AOE damage to nearby enemies.
+    Don\u2019t worry you will be fine..... probably...."
   abiltyType: 0
   cooldown: 10
   damage: 5
@@ -22,6 +23,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 1
   despawnTime: 1.2
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 0}

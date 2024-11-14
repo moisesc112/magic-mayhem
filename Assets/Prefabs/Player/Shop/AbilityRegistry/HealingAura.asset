@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: HealingAura
   m_EditorClassIdentifier: 
   abilityName: Healing Aura
-  description: Gain a healing buff with inside the ring of the aura
+  description: Create a gentle circle of healing at the current location. Players
+    within this circle gain hp while this spell is active. Someone call a medic but
+    not for me!
   abiltyType: 0
   cooldown: 30
   damage: 25
@@ -22,6 +24,7 @@ MonoBehaviour:
   projectileDestoryAfterCollision: 0
   despawnTime: 5
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 0}
