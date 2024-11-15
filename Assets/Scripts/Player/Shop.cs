@@ -77,8 +77,11 @@ public class Shop : MonoBehaviour
 				var ability = abilitySlotComponent.GetAbility(i + 1);
 				_confirmSpellButtons[i].UpdateAbilityInfo(ability, i + 1);
 			}
-			multiplayerEventSystem.SetSelectedGameObject(null);
-			multiplayerEventSystem.SetSelectedGameObject(_confirmSpellButtons[0].gameObject);
+			if (PlayerUsingMK() == false)
+			{
+				multiplayerEventSystem.SetSelectedGameObject(null);
+				multiplayerEventSystem.SetSelectedGameObject(_confirmSpellButtons[0].gameObject);
+			}
 			_abilitySlotConfirmation.SetActive(true);
 		}
 	}
@@ -135,7 +138,6 @@ public class Shop : MonoBehaviour
 			var spellOption = Instantiate(_spellOptionPrefab, _spellList.transform);
 			spellOption.SetShop(this);
 			_spellOptions.Add(spellOption);
-			ConfigureButtonNav(spellOption.purchaseButton, i);
 		}
 
 		_confirmSpellButtons = new List<ConfirmSpellButton>();
@@ -144,6 +146,24 @@ public class Shop : MonoBehaviour
 			var confirmSpell = Instantiate(_confirmSpellButtonPrefab, _confirmSpellList.transform);
 			confirmSpell.SetSelectAction((index) => PurchaseAbilityForSlot(index));
 			_confirmSpellButtons.Add(confirmSpell);
+		}
+
+		_shuffleDisabledColor = _shuffleButton.colors.disabledColor;
+
+		if (_player.owningController.usingMK == false)
+			ConfigureUINav();
+	}
+
+	private void ConfigureUINav()
+	{
+		for (int i = 0; i < _spellOptions.Count; i++)
+		{
+			ConfigureButtonNav(_spellOptions[i].purchaseButton, i);
+		}
+
+		for (int i = 0; i < _confirmSpellButtons.Count; i++)
+		{
+			var confirmSpell = _confirmSpellButtons[i];
 			if (i != 0)
 			{
 				var previousSpell = _confirmSpellButtons[i - 1].confirmButton;
@@ -163,8 +183,6 @@ public class Shop : MonoBehaviour
 		shuffleNav.mode = Navigation.Mode.Explicit;
 		shuffleNav.selectOnUp = _spellOptions[numOfSpells - 1].purchaseButton;
 		_shuffleButton.navigation = shuffleNav;
-		_shuffleNormalColor = _shuffleButton.colors.normalColor;
-		_shuffleSelectedColor = _shuffleButton.colors.selectedColor;
 
 		void ConfigureButtonNav(Selectable button, int index)
 		{
@@ -205,6 +223,7 @@ public class Shop : MonoBehaviour
 			else
 				option.DisablePurchase();
 		}
+		UpdateShuffleButtonStyle();
 	}
 
 	private void ShuffleShopAbilityOptions(bool didPlayerUseShuffle = true)
@@ -218,17 +237,6 @@ public class Shop : MonoBehaviour
 			_player.PlayerStats.gold -= _currentShuffleCost;
 			_currentShuffleCost += _shuffleIncreaseAmount;
 			_currentShuffleCost = Mathf.Clamp(_currentShuffleCost, 0, _shuffleCostCap);
-
-			// Darken button to look disabled but don't actually disable to allow nav.
-			ColorBlock currentBlock = _shuffleButton.colors;
-			Color normalColor = currentBlock.normalColor;
-			Color selectedColor = currentBlock.selectedColor;
-			var canShuffle = _currentShuffleCost <= _player.PlayerStats.gold;
-			normalColor.a = canShuffle ? _shuffleNormalColor.a : 0.1f;
-			selectedColor.a = canShuffle ? _shuffleSelectedColor.a : 0.2f;
-			currentBlock.normalColor = normalColor;
-			currentBlock.selectedColor = selectedColor;
-			_shuffleButton.colors = currentBlock;
 
 			UpdateShuffleText();
 		}
@@ -253,18 +261,29 @@ public class Shop : MonoBehaviour
 		UpdateGoldText();
 	}
 
+	private void UpdateShuffleButtonStyle()
+	{
+		// Darken button to look disabled but don't actually disable to allow nav.
+		var canShuffle = _currentShuffleCost <= _player.PlayerStats.gold;
+		_shuffleButton.GetComponent<Image>().color = canShuffle ? Color.white : _shuffleDisabledColor;
+	}
+
 	private void OpenShop()
 	{
 		RefreshAllSpellPurchasability();
-		multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].purchaseButton.gameObject);
+		if (PlayerUsingMK() == false)
+			multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].purchaseButton.gameObject);
 		UpdateGoldText();
 		UpdateShuffleText();
+		UpdateDescription(_spellOptions[0]);
 	}
 
 	private void CloseShop()
 	{
 		multiplayerEventSystem.SetSelectedGameObject(null);
 	}
+
+	private bool PlayerUsingMK() => _player.owningController.usingMK;
 
 	const int SHUFFLE_COST_START = 1;
 	
@@ -273,8 +292,7 @@ public class Shop : MonoBehaviour
 	Player _player;
 	SpellOption _selectedSpell;
 
-	Color _shuffleNormalColor;
-	Color _shuffleSelectedColor;
+	Color _shuffleDisabledColor;
 
 	int _currentShuffleCost = SHUFFLE_COST_START;
 }
