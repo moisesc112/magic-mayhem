@@ -47,6 +47,7 @@ public class WarChief : EnemyBase
 	{
 		_canJump = true;
 		_isJumping = false;
+		_animator.ResetTrigger("Jump");
 		yield return null;
 	}
 

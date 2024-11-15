@@ -3131,6 +3131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65d86b9c2979464ea3c084bebcf53e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _additionalRefreshableComponents: []
   _leftAccessories:
   - {fileID: 5871664808294286292}
   - {fileID: 5871664808294310072}
@@ -3173,12 +3174,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lookSpeed: 180
   _movementScale: 1.25
-  _shouldFacePlayer: 1
   _canSprint: 1
   _sprintThreshold: 0.35
   _visionLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
   _stoppingDistance: 1
   _cornerThreshold: 0.33
 --- !u!195 &1534788581507665487

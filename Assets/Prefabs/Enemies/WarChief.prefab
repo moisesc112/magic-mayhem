@@ -1117,9 +1117,9 @@ MonoBehaviour:
   _sprintThreshold: 0.35
   _visionLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
   _stoppingDistance: 1.5
-  _cornerThreshold: 0.1
+  _cornerThreshold: 2
 --- !u!114 &8144076873232839308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,6 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ebc8c0b8064a243b40b2f49490e7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _additionalRefreshableComponents: []
   _jumpRangeStartSq: 100
   _jumpSource: {fileID: 1934884543139250488, guid: 5d0abbbbffa781e4a97d576161806adf, type: 3}
   _hammerHitPoint: {fileID: 2004624189}
