@@ -65,18 +65,18 @@ public class MainMenuManager : MonoBehaviour
 		LevelLoadManager.instance.sceneLoaded -= LevelManager_OnSceneLoaded;
 	}
 
-	void PlayerManager_OnPlayerControllerJoined(object sender, PlayerManager.PlayerJoinedEventArgs e)
+	void PlayerManager_OnPlayerControllerJoined(object sender, GenericEventArgs<PlayerController> e)
 	{
-		var playerController = e.playerController;
+		var playerController = e.value;
 
-		var matchingCharacter = _menuCharacters.First(c => c.playerIndex == e.playerController.playerIndex);
+		var matchingCharacter = _menuCharacters.First(c => c.playerIndex == playerController.playerIndex);
 		if (matchingCharacter is null)
 		{
-			Debug.LogError($"ERROR: Unable to find matching player character for player {e.playerController.playerIndex}.");
+			Debug.LogError($"ERROR: Unable to find matching player character for player {playerController.playerIndex}.");
 			return;
 		}
 
-		_playerControllerByIndex[e.playerController.playerIndex] = e.playerController;
+		_playerControllerByIndex[playerController.playerIndex] = playerController;
 		playerController.playerInput.uiInputModule = matchingCharacter.inputModule;
 		matchingCharacter.Join();
 
@@ -89,10 +89,11 @@ public class MainMenuManager : MonoBehaviour
 		}
 	}
 
-	void PlayerManager_OnPlayerControllerRemoved(object sender, PlayerManager.PlayerRemovedEventArgs e)
+	void PlayerManager_OnPlayerControllerRemoved(object sender, GenericEventArgs<int> e)
 	{
-		_playerControllerByIndex.Remove(e.playerIndex);
-		_menuCharacters.First(c => c.playerIndex == e.playerIndex).BackOut();
+		var playerIndex = e.value;
+		_playerControllerByIndex.Remove(playerIndex);
+		_menuCharacters.First(c => c.playerIndex == playerIndex).BackOut();
 
 		if (_playerControllerByIndex.Count == 0)
 		{
