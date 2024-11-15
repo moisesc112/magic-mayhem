@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SpellOption : MonoBehaviour, ISelectHandler
+public class SpellOption : MonoBehaviour, ISelectHandler, IPointerEnterHandler
 {
 	[SerializeField] Shop _shop;
 	[SerializeField] TextMeshProUGUI _spellNameText;
@@ -20,11 +20,6 @@ public class SpellOption : MonoBehaviour, ISelectHandler
 	{
 		_purchaseButton = GetComponent<Button>();
 		_purchaseBackground = GetComponent<Image>();
-	}
-
-	private void Start()
-	{
-
 	}
 
 	public void SetShop(Shop shop) => _shop = shop;
@@ -61,6 +56,11 @@ public class SpellOption : MonoBehaviour, ISelectHandler
 	}
 
 	public void OnSelect(BaseEventData eventData)
+	{
+		_shop.SetSelectedSpell(this);
+	}
+
+	public void OnPointerEnter(PointerEventData eventData)
 	{
 		_shop.SetSelectedSpell(this);
 	}

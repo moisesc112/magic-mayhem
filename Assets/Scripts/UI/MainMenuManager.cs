@@ -4,12 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-	[SerializeField] GameObject playerCardRoot;
-	[SerializeField] TextMeshProUGUI countDownText;
 	[SerializeField] string sceneToLoad;
 	[SerializeField] Animator _cameraAnim;
 
@@ -17,11 +16,15 @@ public class MainMenuManager : MonoBehaviour
 	[SerializeField] GameObject _startSection;
 	[SerializeField] GameObject _lobbySection;
 
+	[Header("UIReferences")]
+	[SerializeField] GameObject _uiFirstSelected;
+
 	private void Awake()
 	{
 		_playerControllerByIndex = new Dictionary<int, PlayerController>();
 		_lobbyEventSystem = _lobbySection.GetComponent<EventSystem>();
 		_lobbyInputSystem = _lobbySection.GetComponent<InputSystemUIInputModule>();
+		_multiplayerEventSystem = _lobbySection.GetComponent<MultiplayerEventSystem>();
 	}
 
 	void Start()
@@ -80,12 +83,14 @@ public class MainMenuManager : MonoBehaviour
 		playerController.playerInput.uiInputModule = matchingCharacter.inputModule;
 		matchingCharacter.Join();
 
-		if (!_playerLoaded)
+		if (!_hostLoaded)
 		{
-			_playerLoaded = true;
+			_hostLoaded = true;
+			_lobbyHostIndex = playerController.playerIndex;
 			_cameraAnim.SetTrigger("ToCharacters");
 			_startSection.SetActive(false);
 			_lobbySection.SetActive(true);
+			SetUIControlSchemeFromController(playerController);
 		}
 	}
 
@@ -97,17 +102,28 @@ public class MainMenuManager : MonoBehaviour
 
 		if (_playerControllerByIndex.Count == 0)
 		{
-			_playerLoaded = false;
+			_hostLoaded = false;
 			_cameraAnim.SetTrigger("ToBase");
 			_startSection.SetActive(true);
 			_lobbySection.SetActive(false);
 		}
+		else if (playerIndex == _lobbyHostIndex)
+		{
+			SetUIControlSchemeFromController(_playerControllerByIndex.Values.First());
+		}
+	}
+
+	void SetUIControlSchemeFromController(PlayerController controller)
+	{
+		_multiplayerEventSystem.SetSelectedGameObject(controller.usingMK ? null : _uiFirstSelected);
 	}
 
 	Dictionary<int, PlayerController> _playerControllerByIndex;
 	EventSystem _lobbyEventSystem;
 	InputSystemUIInputModule _lobbyInputSystem;
 	MenuCharacter[] _menuCharacters;
+	MultiplayerEventSystem _multiplayerEventSystem;
+	int _lobbyHostIndex;
 
-	bool _playerLoaded = false;
+	bool _hostLoaded = false;
 }

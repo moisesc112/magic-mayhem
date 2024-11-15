@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
 
 	public void ToggleInGameMenuUI(bool isEnabled)
 	{
-		_inGameMenu.ToggleInGameMenuUI(isEnabled);
+		_inGameMenu.ToggleInGameMenuUI(isEnabled, owningController);
 	}
 
 	public void OnRoll()

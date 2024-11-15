@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 	public int playerIndex => _playerInput.playerIndex;
 	public PlayerInput playerInput => _playerInput;
 	public Player player => _player;
+	// Player is using mouse and keyboard as input.
+	public bool usingMK => _playerInput.currentControlScheme == "MK";
 
 	private bool playerInShop;
 

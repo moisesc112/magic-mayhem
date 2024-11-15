@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 
 public class InGameMenu : MonoBehaviour
@@ -14,8 +15,8 @@ public class InGameMenu : MonoBehaviour
 	public bool gameOver { get; private set; } = false;
 
 	// Use similar fields to the shop ui
-	[SerializeField] MultiplayerEventSystem multiplayerEventSystem;
-	[SerializeField] GameObject firstSelectedGameObject;
+	[SerializeField] MultiplayerEventSystem _multiplayerEventSystem;
+	[SerializeField] GameObject _firstSelectedGameObject;
 	[SerializeField] InputSystemUIInputModule _inputModule;
 	public InputSystemUIInputModule inputSystemUIInputModule => _inputModule;
 
@@ -27,16 +28,11 @@ public class InGameMenu : MonoBehaviour
 		menuPanel.SetActive(false);
 	}
 
-	public void UpdateMenuDisplay(bool setFirstSelectedGameObject = true)
+	public void ToggleInGameMenuUI(bool isEnabled, PlayerController callingPlayer)
     {
-		if (setFirstSelectedGameObject)
-		{
-			multiplayerEventSystem.SetSelectedGameObject(firstSelectedGameObject);
-		}
-	}
+		if (isEnabled)
+			_multiplayerEventSystem.SetSelectedGameObject(callingPlayer?.usingMK ?? false ? null : _firstSelectedGameObject);
 
-	public void ToggleInGameMenuUI(bool isEnabled)
-    {
 		menuPanel.SetActive(isEnabled);
 		Time.timeScale = isEnabled ? 0 : 1;
     }
@@ -75,14 +71,14 @@ public class InGameMenu : MonoBehaviour
 	public void LoseGameMenu()
     {
 		gameOver = true;
-		ToggleInGameMenuUI(true);
+		ToggleInGameMenuUI(true, PlayerManager.instance.PlayerControllers.First());
 		loseText.gameObject.SetActive(true);
 	}
 
 	public void WinGameMenu()
 	{
 		gameOver = true;
-		ToggleInGameMenuUI(true);
+		ToggleInGameMenuUI(true, PlayerManager.instance.PlayerControllers.First());
 		winText.gameObject.SetActive(true);
 	}
 

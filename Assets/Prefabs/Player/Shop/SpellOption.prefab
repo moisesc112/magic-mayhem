@@ -73,7 +73,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 711fb7a2b8e1ff54da609e52c3e729b8, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 3
 --- !u!114 &6663985798597784006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,11 +104,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.5465913, g: 0.6698113, b: 0.59059846, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.4056604, g: 0.3420274, b: 0, a: 1}
+    m_NormalColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.84313726, b: 0, a: 1}
+    m_PressedColor: {r: 0.5660378, g: 0.49106866, b: 0.088109665, a: 1}
     m_SelectedColor: {r: 1, g: 0.84313726, b: 0, a: 1}
-    m_DisabledColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0.14117648}
+    m_DisabledColor: {r: 0.5471698, g: 0, b: 0, a: 0.56078434}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -156,8 +156,8 @@ MonoBehaviour:
   _spellCostTest: {fileID: 6604971700516480672}
   _spellIcon: {fileID: 6762505685149627718}
   _purchaseButton: {fileID: 6663985798597784006}
-  _purchaseDisabledColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0.12941177}
-  _purchaseEnabledColor: {r: 0.5465913, g: 0.6698113, b: 0.59059846, a: 1}
+  _purchaseDisabledColor: {r: 0.5471698, g: 0, b: 0, a: 0.56078434}
+  _purchaseEnabledColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &574299494232416128
 GameObject:
   m_ObjectHideFlags: 0
