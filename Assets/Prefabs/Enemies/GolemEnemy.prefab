@@ -932,10 +932,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a46eaba13e562d44a760407bd2ea90b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _additionalRefreshableComponents: []
   _dustParticleSystem: {fileID: 5879878967034400847}
   _stompAudio: {fileID: 8300000, guid: 16c53cadc61c76442a8eb401c94cdc84, type: 3}
   _targetRenderer: {fileID: 1405878209526217037}
-  _attackRange: 3
   _stompSource: {fileID: 1934884543139250488, guid: 3356bb44eb338344185a040c415d8939, type: 3}
 --- !u!114 &1438101417237951909
 MonoBehaviour:
@@ -972,9 +972,9 @@ MonoBehaviour:
   _sprintThreshold: 0.35
   _visionLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
   _stoppingDistance: 1
-  _cornerThreshold: 0.33
+  _cornerThreshold: 2
 --- !u!195 &895382133
 NavMeshAgent:
   m_ObjectHideFlags: 0

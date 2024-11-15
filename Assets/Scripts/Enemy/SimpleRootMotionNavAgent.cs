@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +16,8 @@ public class SimpleRootMotionNavAgent : RefreshableComponent
 	[Header("Pathing")]
 	[SerializeField] float _stoppingDistance = 1.0f;
 	[SerializeField] float _cornerThreshold = 0.33f;
+	[SerializeField] float _avoidanceWeight = 1.0f;
+	[SerializeField] float _avoidanceRadius = 1.0f;
 
 
 	private void Awake()
@@ -66,6 +69,8 @@ public class SimpleRootMotionNavAgent : RefreshableComponent
 		{
 			Gizmos.DrawLine(pathCorners[i], pathCorners[i + 1]);
 		}
+		Gizmos.color = Color.cyan;
+		Gizmos.DrawWireSphere(transform.position, _avoidanceRadius);
 	}
 
 	/// <summary>
@@ -83,15 +88,16 @@ public class SimpleRootMotionNavAgent : RefreshableComponent
 		if (distanceToCorner <= _cornerThreshold && _agent.path.corners.Length >= 3)
 		{
 			// If we're close enough to the current corner, tell the agent to go straight to the next corner
-			transform.position = _agent.path.corners[1];
+			transform.position = Vector3.MoveTowards(transform.position, _agent.path.corners[1], 2 * Time.deltaTime);
 		}
 	}
 
 	private void UpdateAnimParamsFromSteering()
 	{
 		var dir = (_agent.steeringTarget - transform.position);
+		var avoidDir = GetAvoidanceDir();
+		dir += avoidDir;
 		var animDir = transform.InverseTransformDirection(dir);
-
 		if (animDir.sqrMagnitude > 1)
 			animDir = animDir.normalized;
 
@@ -102,12 +108,30 @@ public class SimpleRootMotionNavAgent : RefreshableComponent
 		_anim.SetBool("IsMoving", true);
 	}
 
+	private Vector3 GetAvoidanceDir()
+	{
+		var hits = Physics.SphereCastAll(transform.position, _avoidanceRadius, transform.forward);
+		var nearbyAgents = hits.Select(h => h.collider.GetComponent<EnemyBase>()).Where(x => x != null && x.gameObject != gameObject).ToList();
+		if (nearbyAgents.Count == 0)
+			return Vector3.zero;
+
+		var dir = Vector3.zero;
+		foreach(var agent in nearbyAgents)
+		{
+			var difference = transform.position - agent.transform.position;
+			// Use the inverse of the difference magnitude so that closer agents get more weight.
+			dir += difference.normalized * (1.0f / difference.sqrMagnitude);
+		}
+		var result = dir * _avoidanceWeight;
+		Debug.DrawLine(transform.position, result);
+		return result;
+	}
+
 	private void TryFacePlayer()
 	{
 		if (_navPoller.TargetPlayer is null) return;
 
 		var lookDir = _navPoller.TargetPlayer.GetAvatarPosition() - transform.position;
-		lookDir.y = transform.position.y;
 		Debug.DrawRay(transform.position + Vector3.up, lookDir, Color.yellow);
 		if (Physics.Raycast(transform.position + Vector3.up, lookDir, out var hit, _visionDistance, _visionLayerMask) 
 			&& hit.transform.tag == "Player")

@@ -36,8 +36,10 @@ public class MeleeAttackComponent : RefreshableComponent
 		_inCooldown = false;
 	}
 
-	// NOOP
-	public override void OnKilled() {}
+	public override void OnKilled()
+	{
+		_anim.ResetTrigger("Attack");
+	}
 
 	public void MeleeAttack()
 	{
