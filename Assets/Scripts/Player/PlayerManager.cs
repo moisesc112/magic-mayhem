@@ -14,8 +14,8 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 
 	public ReadOnlyCollection<PlayerController> PlayerControllers => _playersByOwningController.Keys.ToList().AsReadOnly();
 
-	public event EventHandler<PlayerJoinedEventArgs> PlayerControllerJoined;
-	public event EventHandler<PlayerRemovedEventArgs> PlayerControllerRemoved;
+	public event EventHandler<GenericEventArgs<PlayerController>> PlayerControllerJoined;
+	public event EventHandler<GenericEventArgs<int>> PlayerControllerRemoved;
 
 	protected override void DoAwake()
 	{
@@ -31,7 +31,7 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 		if (spawnPlayerOnConnect)
 			SpawnPlayer(controller);
 
-		PlayerControllerJoined?.Invoke(sender:this, new PlayerJoinedEventArgs(controller));
+		PlayerControllerJoined?.Invoke(sender:this, new GenericEventArgs<PlayerController>(controller));
 	}
 
 	public void RemovePlayer(int index)
@@ -44,7 +44,7 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 
 		Destroy(matchingController.gameObject);
 
-		PlayerControllerRemoved?.Invoke(sender: this, new PlayerRemovedEventArgs(index));
+		PlayerControllerRemoved?.Invoke(sender: this, new GenericEventArgs<int>(index));
 	}
 
 	public void EnableSplitScreen()
@@ -104,24 +104,6 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 	{
 		if (!_playersByOwningController.TryGetValue(controller, out var existingPlayer))
 			RegisterPlayer(controller);
-	}
-
-	public class PlayerJoinedEventArgs : EventArgs
-	{
-		public PlayerJoinedEventArgs(PlayerController controller)
-		{
-			playerController = controller;
-		}
-		public PlayerController playerController { get; private set; }
-	}
-
-	public class PlayerRemovedEventArgs : EventArgs
-	{
-		public PlayerRemovedEventArgs(int index)
-		{
-			playerIndex = index;
-		}
-		public int playerIndex { get; private set; }
 	}
 
 	Dictionary<PlayerController, Player> _playersByOwningController;
