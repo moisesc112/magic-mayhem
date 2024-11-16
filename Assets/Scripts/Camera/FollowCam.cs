@@ -3,7 +3,7 @@ using UnityEngine;
 public class FollowCam : MonoBehaviour
 {
 	public Transform target;
-	public Vector3 offset;
+	[SerializeField] public float _distance;
 
 	// set private variables for boundaries
 	private float xMinBoundary;
@@ -39,16 +39,18 @@ public class FollowCam : MonoBehaviour
 	{
 		if (target is null) return;
 
-		Vector3 camPosition = target.position + offset;
+		Vector3 camPosition = target.position;
+		//camPosition += -Quaternion.Euler(-transform.rotation.x, 0, 0).eulerAngles * _distance;
+		camPosition -= transform.forward * _distance;
 
 		// clamp the camera position according to the x,z bounds
 		float clampedX = Mathf.Clamp(camPosition.x, xMinBoundary, xMaxBoundary);
 		float clampedZ = Mathf.Clamp(camPosition.z, zMinBoundary, zMaxBoundary);
 
 		// Give a new camera position with the bounds
-		camPosition = new Vector3(clampedX, camPosition.y, clampedZ);
+		var targetPos = new Vector3(clampedX, camPosition.y, clampedZ);
 
-		transform.position = Vector3.Lerp(transform.position, camPosition, Time.deltaTime * followSpeed);
+		transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * followSpeed);
 		if (lookAtTarget)
 			transform.LookAt(target.position);
 	}
