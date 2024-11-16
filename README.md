@@ -25,4 +25,6 @@ Project for CS6457
 * Earth Shatter Sound : https://freesound.org/people/uagadugu/sounds/222521/
 * Earth Shatter Sound : https://freesound.org/people/NeoSpica/sounds/512243/
 * Free Fire VFX + Sound: https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-fire-vfx-266227
+* Trap Spike Activate Sound: https://pixabay.com/sound-effects/steel-blade-slice-2-188214/
+* Prime Trap Sound: https://pixabay.com/sound-effects/mechanical1-107614/
 
