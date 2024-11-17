@@ -805,6 +805,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9bc61d80378aa4c8e9b5cdd1c8c4f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _additionalRefreshableComponents: []
+  onHitSound: {fileID: 8300000, guid: 9068671ec04889a49969c45dc3592747, type: 3}
+  onDeathSound: {fileID: 8300000, guid: c7b1f8fa0d5d2614daf98311d0f2e848, type: 3}
   _eyesPos: {fileID: 1838695260}
   _targetMask:
     serializedVersion: 2

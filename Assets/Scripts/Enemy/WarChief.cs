@@ -18,7 +18,6 @@ public class WarChief : EnemyBase
 
 	protected override void DoAwake()
 	{
-		_audioSource = GetComponent<AudioSource>();
 		_animator = GetComponent<Animator>();
 
 		_dissolver = GetComponent<Dissolver>();
@@ -86,7 +85,6 @@ public class WarChief : EnemyBase
 		_canJump = true;
 	}
 
-	AudioSource _audioSource;
 	Animator _animator;
 	Dissolver _dissolver;
 	MeleeAttackComponent _meleeAttackComponent;
