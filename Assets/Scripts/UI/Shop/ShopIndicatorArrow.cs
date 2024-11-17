@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopIndicatorArrow : MonoBehaviour
@@ -8,6 +9,8 @@ public class ShopIndicatorArrow : MonoBehaviour
 
     private Transform shopkeeper;
     public RectTransform arrow;
+    public TextMeshProUGUI arrowText;
+    public TextMeshProUGUI arrowTextFlipped;
     public Camera playerCam;
     public float arrowMargin = 50;
 
@@ -62,6 +65,20 @@ public class ShopIndicatorArrow : MonoBehaviour
             clampedScreenPosition.x = Mathf.Clamp(clampedScreenPosition.x, arrowMargin, Screen.width - arrowMargin);
             clampedScreenPosition.y = Mathf.Clamp(clampedScreenPosition.y, arrowMargin, Screen.height - arrowMargin);
             arrow.position = clampedScreenPosition;
+
+            //Update arrow text rotation to match with the arrow
+            if (angle >= 90 || angle <= -90)
+            {
+                arrowText.gameObject.SetActive(false);
+                arrowTextFlipped.gameObject.SetActive(true);
+                arrowTextFlipped.transform.rotation = Quaternion.Euler(0, 0, angle + 180);
+            }
+            else
+            {
+                arrowText.gameObject.SetActive(true);
+                arrowTextFlipped.gameObject.SetActive(false);
+                arrowText.transform.rotation = Quaternion.Euler(0, 0, angle);
+            }
         }
     }
 }
