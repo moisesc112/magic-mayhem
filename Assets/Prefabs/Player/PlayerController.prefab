@@ -406,6 +406,30 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cc183ee2-9ad9-4d70-af99-e34328763051
     m_ActionName: Gameplay/ScrollAbilityLeft[/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0ce09eef-4c64-476a-b82b-bf4f4d279bb9
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7fb5259c-abca-472f-80c9-29255e2b7a01
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 665746253984361426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSwapStoreTab
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ab9436fd-2394-4b0a-8dbf-8181056fb217
+    m_ActionName: UI/SwapShopTab[/Keyboard/tab,/XInputControllerWindows/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

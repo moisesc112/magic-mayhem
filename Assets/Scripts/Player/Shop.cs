@@ -13,13 +13,15 @@ public class Shop : MonoBehaviour
 
 	[Header("Screens")]
 	[SerializeField] GameObject _shopUI;
+	[SerializeField] GameObject _spellListUI;
+	[SerializeField] GameObject _upgradesUI;
 	[SerializeField] SpellDescription _spellDescription;
 	[SerializeField] GameObject _abilitySlotConfirmation;
 
 	[Header("UIElements")]
 	[SerializeField] VerticalLayoutGroup _spellList;
+	[SerializeField] VerticalLayoutGroup _upgradeList;
 	[SerializeField] HorizontalLayoutGroup _confirmSpellList;
-	[SerializeField] TextMeshProUGUI _playerGoldText;
 	[SerializeField] TextMeshProUGUI _shufflePlayerGoldText;
 	[SerializeField] Button _shuffleButton;
 
@@ -96,6 +98,14 @@ public class Shop : MonoBehaviour
 		multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].gameObject);
 	}
 
+	public void PurchaseUpgradeForSlot(int index, AbilityInfo spell)
+	{
+		_player.PlayerStats.gold -= spell.cost;
+		_player.abilitySlotsComponent.UpdateAbilitySlot(spell, index);
+		RefreshAllSpellPurchasability();
+		RefreshUpgradeOptions();
+	}
+
 	public void ToggleShopUI(bool isEnabled)
 	{
 		_abilitySlotConfirmation.SetActive(false);
@@ -120,8 +130,28 @@ public class Shop : MonoBehaviour
 		ShuffleShopAbilityOptions(didPlayerUseShuffle: true);
 	}
 
+	public void GoToUpgradeScreen()
+	{
+		_spellListUI.SetActive(false);
+		_upgradesUI.SetActive(true);
+	}
+
+	public void GoToSpellListScreen()
+	{
+		_spellListUI.SetActive(true);
+		_upgradesUI.SetActive(false);
+	}
+
+	public void ToggleShopPage()
+	{
+		_showingSpellList = !_showingSpellList;
+		if (_showingSpellList)
+			GoToSpellListScreen();
+		else
+			GoToUpgradeScreen();
+	}
+
 	private void ResetShuffleCost() => _currentShuffleCost = SHUFFLE_COST_START;
-	private void UpdateGoldText() => _playerGoldText.text = _player.PlayerStats.gold.ToString();
 	private void UpdateShuffleText() => _shufflePlayerGoldText.text = _currentShuffleCost.ToString();
 
 	private void WaveManager_OnWaveFinished(object sender, WaveEndedEventArgs e)
@@ -141,11 +171,19 @@ public class Shop : MonoBehaviour
 		}
 
 		_confirmSpellButtons = new List<ConfirmSpellButton>();
+		_upgradeOptions = new List<SpellOption>();
 		for (int i = 0; i < _player.abilitySlotsComponent.numberOfAbilities; i++)
 		{
+			// Setup confirm buttons
 			var confirmSpell = Instantiate(_confirmSpellButtonPrefab, _confirmSpellList.transform);
 			confirmSpell.SetSelectAction((index) => PurchaseAbilityForSlot(index));
 			_confirmSpellButtons.Add(confirmSpell);
+
+			// Setup upgrades
+			var upgrade = Instantiate(_spellOptionPrefab, _upgradeList.transform);
+			upgrade.ConfigureAsUpgrade(i + 1);
+			upgrade.SetShop(this);
+			_upgradeOptions.Add(upgrade);
 		}
 
 		_shuffleDisabledColor = _shuffleButton.colors.disabledColor;
@@ -226,6 +264,27 @@ public class Shop : MonoBehaviour
 		UpdateShuffleButtonStyle();
 	}
 
+	private void RefreshUpgradeOptions()
+	{
+		for (int i = 0; i < _player.abilitySlotsComponent.numberOfAbilities; i++)
+		{
+			var matchingUpgradeSlot = _upgradeOptions[i];
+			var matchingOwnedSpell = _player.abilitySlotsComponent.GetAbility(i + 1);
+			if (matchingOwnedSpell != null && matchingOwnedSpell.nextLevel != null)
+			{
+				matchingUpgradeSlot.SetSpellInfo(matchingOwnedSpell.nextLevel);
+				if (matchingUpgradeSlot.abilityInfo.cost <= _player.PlayerStats.gold)
+					matchingUpgradeSlot.EnablePurchase();
+				else
+					matchingUpgradeSlot.DisablePurchase();
+			}
+			else
+			{
+				matchingUpgradeSlot.gameObject.SetActive(false);
+			}
+		}
+	}
+
 	private void ShuffleShopAbilityOptions(bool didPlayerUseShuffle = true)
 	{
 		if (didPlayerUseShuffle)
@@ -258,7 +317,6 @@ public class Shop : MonoBehaviour
 		}
 
 		RefreshAllSpellPurchasability();
-		UpdateGoldText();
 	}
 
 	private void UpdateShuffleButtonStyle()
@@ -271,11 +329,12 @@ public class Shop : MonoBehaviour
 	private void OpenShop()
 	{
 		RefreshAllSpellPurchasability();
+		RefreshUpgradeOptions();
 		if (PlayerUsingMK() == false)
 			multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].purchaseButton.gameObject);
-		UpdateGoldText();
 		UpdateShuffleText();
 		UpdateDescription(_spellOptions[0]);
+		GoToSpellListScreen();
 	}
 
 	private void CloseShop()
@@ -288,6 +347,7 @@ public class Shop : MonoBehaviour
 	const int SHUFFLE_COST_START = 1;
 	
 	List<SpellOption> _spellOptions;
+	List<SpellOption> _upgradeOptions;
 	List<ConfirmSpellButton> _confirmSpellButtons;
 	Player _player;
 	SpellOption _selectedSpell;
@@ -295,4 +355,5 @@ public class Shop : MonoBehaviour
 	Color _shuffleDisabledColor;
 
 	int _currentShuffleCost = SHUFFLE_COST_START;
+	bool _showingSpellList = true;
 }

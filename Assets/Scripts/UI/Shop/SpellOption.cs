@@ -10,6 +10,7 @@ public class SpellOption : MonoBehaviour, ISelectHandler, IPointerEnterHandler
 	[SerializeField] TextMeshProUGUI _spellCostTest;
 	[SerializeField] Image _spellIcon;
 	[SerializeField] Button _purchaseButton;
+	[SerializeField] Image _purchaseBackground;
 	[SerializeField] Color _purchaseDisabledColor = Color.white;
 	[SerializeField] Color _purchaseEnabledColor = Color.white;
 
@@ -19,7 +20,6 @@ public class SpellOption : MonoBehaviour, ISelectHandler, IPointerEnterHandler
 	private void Awake()
 	{
 		_purchaseButton = GetComponent<Button>();
-		_purchaseBackground = GetComponent<Image>();
 	}
 
 	public void SetShop(Shop shop) => _shop = shop;
@@ -34,7 +34,13 @@ public class SpellOption : MonoBehaviour, ISelectHandler, IPointerEnterHandler
 
 	public void BuySpell()
 	{
-		if (_canBuy)
+		if (_canBuy == false) return;
+
+		if (_isUpgrade)
+		{
+			_shop.PurchaseUpgradeForSlot(_spellIndex, _abilityInfo);
+		}
+		else
 		{
 			_shop.PurchaseAbility(this);
 			DisablePurchase();
@@ -65,7 +71,14 @@ public class SpellOption : MonoBehaviour, ISelectHandler, IPointerEnterHandler
 		_shop.SetSelectedSpell(this);
 	}
 
-	Image _purchaseBackground;
+	public void ConfigureAsUpgrade(int index)
+	{
+		_isUpgrade = true;
+		_spellIndex = index;
+	}
+
 	AbilityInfo _abilityInfo;
 	bool _canBuy;
+	bool _isUpgrade = false;
+	int _spellIndex;
 }
