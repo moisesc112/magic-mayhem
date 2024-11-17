@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 5888444495030979594}
   _avatar: {fileID: 7794382454369318645}
+  onDeathSound: {fileID: 8300000, guid: d66b07a4e0648134b88e693d04d500f1, type: 3}
 --- !u!114 &1395241669339847006
 MonoBehaviour:
   m_ObjectHideFlags: 0

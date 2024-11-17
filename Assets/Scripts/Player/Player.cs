@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 	public AbilitySlotsComponent abilitySlotsComponent => _abilitySlotsComponent;
 
 	[SerializeField] GameObject _avatar;
+	[SerializeField] AudioClip onDeathSound;
 
 	void Awake()
 	{
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 		_shopTrigger = FindObjectOfType<ShopTrigger>();
 		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
+		_audioSource = GetComponentInChildren<AudioSource>();
 		UpdateHitRenderers();
 	}
 
@@ -162,6 +164,7 @@ public class Player : MonoBehaviour
 		_mover.enabled = false;
 		_castingComponent.enabled = false;
 		gameObject.tag = "DeadPlayers";
+		_audioSource.PlayOneShot(onDeathSound);
 
 		yield return null;
 
@@ -195,4 +198,5 @@ public class Player : MonoBehaviour
 	ShopTrigger _shopTrigger;
 	PlayerController _owningController;
 	AbilitySlotsComponent _abilitySlotsComponent;
+	AudioSource _audioSource;
 }
