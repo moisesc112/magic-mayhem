@@ -69,6 +69,8 @@ MonoBehaviour:
   lootDropComponent: {fileID: 0}
   gold: 0
   statusEffects: {fileID: 0}
+  onHit: {fileID: 8300000, guid: 74066d700188dcc4bb9704d1fc027db7, type: 3}
+  onShieldHit: {fileID: 8300000, guid: 57f0170b3a0be19448bac1704676b36e, type: 3}
 --- !u!114 &1419381099380061463
 MonoBehaviour:
   m_ObjectHideFlags: 0

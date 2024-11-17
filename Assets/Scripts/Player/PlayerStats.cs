@@ -1,3 +1,5 @@
+//using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -8,6 +10,7 @@ public class PlayerStats : HealthComponent
     private float healthRegenPerSecond;
     private float armor;
     private float dodgeChance;
+    private bool canPlayHitSound;
     public int gold;
 
     public float GetAbilityDamage(float abilityDamage = 0) => GetStatWithStatusEffects(damage + abilityDamage, StatusEffectStat.Damage);
@@ -19,6 +22,8 @@ public class PlayerStats : HealthComponent
     public override void Awake()
     {
         statusEffects = GetComponent<StatusEffects>();
+        _audioSource = GetComponentInChildren<AudioSource>();
+        canPlayHitSound = true;
         base.Awake();
     }
 
@@ -36,6 +41,7 @@ public class PlayerStats : HealthComponent
         if (IsShielded)
         {
             Debug.Log("Attack Shielded");
+            OnHitSound();
             return;
         }
         var randomDodgeChance = Random.Range(0f, 100f);
@@ -51,6 +57,7 @@ public class PlayerStats : HealthComponent
             armorReducedDamage = 0;
         }
         base.TakeDamage(armorReducedDamage);
+        OnHitSound();
     }
 
     public float GetPercentDamageTakenWithArmor(float armor)
@@ -67,6 +74,32 @@ public class PlayerStats : HealthComponent
         return Mathf.Max(statValue, 0);
     }
 
+    private void OnHitSound()
+    {
+        if (canPlayHitSound)
+        {
+            if (IsShielded || IsInvulnerable)
+            {
+                _audioSource.PlayOneShot(onShieldHit);
+            }
+            else
+            {
+                _audioSource.PlayOneShot(onHit);
+            }
+            canPlayHitSound = false;
+            StartCoroutine(OnHitSoundCooldown());
+        }
+    }
+
+    IEnumerator OnHitSoundCooldown()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canPlayHitSound = true;
+    }
+
     public StatusEffects StatusEffects => statusEffects;
     [SerializeField] StatusEffects statusEffects;
+    [SerializeField] AudioClip onHit;
+    [SerializeField] AudioClip onShieldHit;
+    AudioSource _audioSource;
 }
