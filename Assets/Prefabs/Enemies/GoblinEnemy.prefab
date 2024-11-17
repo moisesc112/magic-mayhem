@@ -3132,6 +3132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _additionalRefreshableComponents: []
+  onHitSound: {fileID: 8300000, guid: 9b8489606873b2542bee1d09da4cdf96, type: 3}
+  onDeathSound: {fileID: 8300000, guid: 1f05499dacea5004c9f00ae9f576b71b, type: 3}
   _leftAccessories:
   - {fileID: 5871664808294286292}
   - {fileID: 5871664808294310072}
@@ -3181,6 +3183,8 @@ MonoBehaviour:
     m_Bits: 65
   _stoppingDistance: 1
   _cornerThreshold: 0.33
+  _avoidanceWeight: 1
+  _avoidanceRadius: 1
 --- !u!195 &1534788581507665487
 NavMeshAgent:
   m_ObjectHideFlags: 0

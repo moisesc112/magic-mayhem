@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 	public bool playerInShopRange => _shopTrigger != null && _shopTrigger.playerInShop;
 	public PlayerController owningController => _owningController;
 	public AbilitySlotsComponent abilitySlotsComponent => _abilitySlotsComponent;
+	private bool canPlayDeathSound;
 
 	[SerializeField] GameObject _avatar;
 	[SerializeField] AudioClip onDeathSound;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 	void Start()
 	{
 		_previousPos = GetAvatarPosition();
+		canPlayDeathSound = true;
 	}
 
 	void LateUpdate()
@@ -164,7 +166,7 @@ public class Player : MonoBehaviour
 		_mover.enabled = false;
 		_castingComponent.enabled = false;
 		gameObject.tag = "DeadPlayers";
-		_audioSource.PlayOneShot(onDeathSound);
+		OnDeathSound();
 
 		yield return null;
 
@@ -180,6 +182,22 @@ public class Player : MonoBehaviour
 			}
 			_inGameMenu.LoseGameMenu();
 		}			
+	}
+
+	private void OnDeathSound()
+    {
+		if (canPlayDeathSound)
+		{
+			_audioSource.PlayOneShot(onDeathSound);
+			canPlayDeathSound = false;
+			StartCoroutine(HandleDeathSound());
+		}
+	}
+
+	IEnumerator HandleDeathSound()
+    {
+		yield return new WaitForSeconds(1.0f);
+		canPlayDeathSound = true;
 	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();
