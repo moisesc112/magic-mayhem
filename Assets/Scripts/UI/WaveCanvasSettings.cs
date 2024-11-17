@@ -14,6 +14,7 @@ public class WaveCanvasSettings : MonoBehaviour
 	[SerializeField] Slider _enemyCountSlider;
 
 	Coroutine countdownTextCoroutine;
+	public Coroutine gameCountdownTextCoroutine;
 
 	private void Awake()
 	{
@@ -41,14 +42,14 @@ public class WaveCanvasSettings : MonoBehaviour
 
 	private void WaveManager_GameStarted(object sender, GameStartedEventArgs e)
 	{
-		StartCoroutine(StartGameCountDown(e.countDown));
+		gameCountdownTextCoroutine = StartCoroutine(StartGameCountDown(e.countDown));
 	}
 
 	private void WaveManager_WaveStarted(object sender, WaveStartedEventArgs e)
 	{
 		//Cancels countdown early if player ends the shop phase early
 		if (countdownTextCoroutine != null)
-        {
+		{
 			StopCoroutine(countdownTextCoroutine);
 			countdownTextCoroutine = null;
 			waveCountdownText.gameObject.SetActive(false);
@@ -83,6 +84,15 @@ public class WaveCanvasSettings : MonoBehaviour
 	{
 		yield return SetCountDownText(start);
 		WaveManager.instance.SpawnWaves();
+		gameCountdownTextCoroutine = null;
+	}
+
+	public void CancelGameCountDown()
+	{
+		StopCoroutine(gameCountdownTextCoroutine);
+		WaveManager.instance.SpawnWaves();
+		gameCountdownTextCoroutine = null;
+		waveCountdownText.gameObject.SetActive(false);
 	}
 
 	IEnumerator SetCountDownText(int start)
