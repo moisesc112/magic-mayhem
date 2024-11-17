@@ -18,7 +18,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 3c1ae4538ba73e34098e95e5a8da44ab, type: 3}
-    m_Threshold: 2.2857475
+    m_Threshold: 0.25
     m_Position: {x: 0, y: 0.3}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -26,7 +26,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 91e9f1c839549de4b811e03608466e2a, type: 3}
-    m_Threshold: 3.7738135
+    m_Threshold: 0.5
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -34,7 +34,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: e72ead4e4234114469a065b33add9b08, type: 3}
-    m_Threshold: 4.8210316
+    m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.75
     m_CycleOffset: 0
@@ -43,7 +43,7 @@ BlendTree:
   m_BlendParameter: Forward
   m_BlendParameterY: Forward
   m_MinThreshold: 0
-  m_MaxThreshold: 4.8210316
+  m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1154,7 +1154,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Aim Locomotion
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -889163408442974864}

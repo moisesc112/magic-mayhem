@@ -11,6 +11,7 @@ public class Mover : MonoBehaviour
 	[SerializeField] float _rotationSpeedDegrees = 180.0f;
 	[SerializeField] float _animSpeed = 1.0f;
 	[SerializeField] float _rootOverride = 1.0f;
+	[SerializeField] float _aimRootOverride = 1.0f;
 	[SerializeField] float _rollCooldown = 1.5f;
 
 	public TextMeshProUGUI playerVelocityCounter;
@@ -50,7 +51,15 @@ public class Mover : MonoBehaviour
 		if (!anim)
 			return;
 
-		var targetMovement = _anim.deltaPosition * _rootOverride;
+		var targetMovement = _anim.deltaPosition * (_isAiming ? _aimRootOverride : _rootOverride);
+		if (Time.deltaTime > 0)
+		{
+			float currentSpeed = targetMovement.magnitude / Time.deltaTime;
+			if (currentSpeed > _maxPlayerSpeed)
+				targetMovement *= _maxPlayerSpeed / currentSpeed;
+		}
+		Debug.Log(targetMovement.magnitude / Time.deltaTime);
+		
 		targetMovement.y = _gravitySpeed * Time.deltaTime;
 
 		_characterController.Move(targetMovement);
@@ -75,6 +84,13 @@ public class Mover : MonoBehaviour
 			_prevAimDirection = aimDir;
 	}
 
+	public void SetFollowCursor()
+	{
+		_anim.SetBool("IsAiming", true);
+		_isAiming = true;
+		_useMouse = true;
+	}
+		
 	public void SetPlayer(Player player) => _player = player;
 
 	public void OnRoll()
@@ -131,7 +147,7 @@ public class Mover : MonoBehaviour
 		}
 		else // Player rotates to face movement direction
 		{
-			targetForward = _maxPlayerSpeed * inputAmount;
+			targetForward = inputAmount;
 		}
 
 		_anim.SetFloat("Forward", targetForward);
