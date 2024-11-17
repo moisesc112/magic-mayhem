@@ -14,7 +14,6 @@ public class Golem : EnemyBase
 
 	protected override void DoAwake()
 	{
-		_audioSource = GetComponent<AudioSource>();
 		_dissolver = GetComponent<Dissolver>();
 		if (_targetRenderer)
 			_dissolver.SetTargetRenderer(_targetRenderer);
@@ -38,7 +37,6 @@ public class Golem : EnemyBase
 		Instantiate(_stompSource, hitPoint, Quaternion.identity);
 	}
 
-	AudioSource _audioSource;
 	Dissolver _dissolver;
 	MeleeAttackComponent _meleeAttackComponent;
 }

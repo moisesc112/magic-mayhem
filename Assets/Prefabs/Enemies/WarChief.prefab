@@ -1120,6 +1120,8 @@ MonoBehaviour:
     m_Bits: 65
   _stoppingDistance: 1.5
   _cornerThreshold: 2
+  _avoidanceWeight: 1
+  _avoidanceRadius: 1
 --- !u!114 &8144076873232839308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1133,6 +1135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _additionalRefreshableComponents: []
+  onHitSound: {fileID: 8300000, guid: ba3a76175d5f6c74bbda983bad014f77, type: 3}
+  onDeathSound: {fileID: 8300000, guid: 941f08b5762d3cd40a32255e666dcf05, type: 3}
   _jumpRangeStartSq: 100
   _jumpSource: {fileID: 1934884543139250488, guid: 5d0abbbbffa781e4a97d576161806adf, type: 3}
   _hammerHitPoint: {fileID: 2004624189}

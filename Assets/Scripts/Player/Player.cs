@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 [RequireComponent(typeof(PlayerStats))]
 [RequireComponent(typeof(PlayerHitVisualizer))]
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 	void Start()
 	{
 		_previousPos = GetAvatarPosition();
+		_canPlayDeathSound = true;
 	}
 
 	void LateUpdate()
@@ -191,6 +193,22 @@ public class Player : MonoBehaviour
 		GameStateManager.instance.HandlePlayerDied(this);
 	}
 
+	private void OnDeathSound()
+	{
+		if (_canPlayDeathSound)
+		{
+			_audioSource.PlayOneShot(onDeathSound);
+			_canPlayDeathSound = false;
+			StartCoroutine(HandleDeathSound());
+		}
+	}
+
+	IEnumerator HandleDeathSound()
+	{
+		yield return new WaitForSeconds(1.0f);
+		_canPlayDeathSound = true;
+	}
+
 	public PlayerStats PlayerStats => GetComponent<PlayerStats>();
 
 	PlayerStats _playerStats;
@@ -208,4 +226,5 @@ public class Player : MonoBehaviour
 	AbilitySlotsComponent _abilitySlotsComponent;
 	Color _playerColor;
 	AudioSource _audioSource;
+	bool _canPlayDeathSound;
 }

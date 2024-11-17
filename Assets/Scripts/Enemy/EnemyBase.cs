@@ -11,14 +11,19 @@ using UnityExtensions;
 public class EnemyBase : MonoBehaviour
 {
 	[SerializeField] RefreshableComponent[] _additionalRefreshableComponents;
+	[SerializeField] AudioClip onHitSound;
+	[SerializeField] AudioClip onDeathSound; 
 
 	void Awake()
 	{
 		_healthComponent = GetComponent<HealthComponent>();
 		_healthComponent.onDeath += HealthComp_OnDeath;
-		
+		_healthComponent.damageTaken += HealthComp_OnDamageTaken;
+
 		_agent = GetComponent<NavMeshAgent>();
 		_navPoller = GetComponent<NavPollerComponent>();
+
+		_audioSource = GetComponent<AudioSource>();
 
 		_refreshableComponents = gameObject.GetAllComponents<RefreshableComponent>();
 		if (_additionalRefreshableComponents?.Length > 0)
@@ -44,6 +49,7 @@ public class EnemyBase : MonoBehaviour
 	void OnDestroy()
 	{
 		_healthComponent.onDeath -= HealthComp_OnDeath;
+		_healthComponent.damageTaken -= HealthComp_OnDamageTaken;
 	}
 
 	protected virtual void DoAwake() { }
@@ -82,11 +88,25 @@ public class EnemyBase : MonoBehaviour
 		StartCoroutine(nameof(HandleDeath));
 	}
 
+	private void HealthComp_OnDamageTaken(object sender, EventArgs e)
+	{
+		var rand = UnityEngine.Random.Range(1, 100);
+		if (rand <= 25 && onHitSound != null && _healthComponent.health > 0)
+			_audioSource.PlayOneShot(onHitSound);
+	}
+
 	IEnumerator HandleDeath()
 	{
 		enabled = false;
 
 		WaveManager.instance?.ReportEnemyKilled();
+
+		var rand = UnityEngine.Random.Range(1, 100); ;
+		if (transform.gameObject.CompareTag("GolemEnemy"))
+			 rand = 19;
+		if (rand <= 20 && onDeathSound != null)
+			_audioSource.PlayOneShot(onDeathSound);
+		
 
 		foreach (var comp in _refreshableComponents)
 		{
@@ -103,5 +123,6 @@ public class EnemyBase : MonoBehaviour
 	protected NavMeshAgent _agent;
 	protected NavPollerComponent _navPoller;
 	protected RefreshableComponent[] _refreshableComponents;
+	protected AudioSource _audioSource;
 	Action<EnemyBase> _releaseToPoolAction;
 }
