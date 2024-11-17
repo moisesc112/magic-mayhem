@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
 	[SerializeField] GameObject _avatar;
 	[SerializeField] Renderer _indicatorRenderer;
+	[SerializeField] AudioClip onDeathSound;
 
 	void Awake()
 	{
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 		_shopTrigger = FindObjectOfType<ShopTrigger>();
 		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
+		_audioSource = GetComponentInChildren<AudioSource>();
 		UpdateHitRenderers();
 	}
 
@@ -102,7 +104,7 @@ public class Player : MonoBehaviour
 	{
 		_castingComponent.SetSelectedAbilityByDirection(direction);
 	}
-	
+
 	public void UpdateCasting(bool isCasting)
 	{
 		_castingComponent.UpdateCasting(isCasting);
@@ -149,7 +151,7 @@ public class Player : MonoBehaviour
 			_playerStats.gold -= detectedTrap.trapInfo.trapCost;
 			detectedTrap.ActivateTrap();
 		}
-		else if(isActivated && _bellTower != null && _bellTower.isActivatable)
+		else if (isActivated && _bellTower != null && _bellTower.isActivatable)
 		{
 			WaveManager.instance.SkipShopPhase();
 			SetBellTower(null);
@@ -176,7 +178,7 @@ public class Player : MonoBehaviour
 		var activeRenderers = _avatar.GetComponentsInChildren<Renderer>(includeInactive: false);
 		GetComponent<PlayerHitVisualizer>().SetRenderers(activeRenderers);
 	}
-	
+
 	void HandleDeath()
 	{
 		// Enable ragdoll and disable movement, casting and asign tag
@@ -184,8 +186,9 @@ public class Player : MonoBehaviour
 		_mover.enabled = false;
 		_castingComponent.enabled = false;
 		gameObject.tag = "DeadPlayers";
+		_audioSource.PlayOneShot(onDeathSound);
 
-		GameStateManager.instance.HandlePlayerDied(this);			
+		GameStateManager.instance.HandlePlayerDied(this);
 	}
 
 	public PlayerStats PlayerStats => GetComponent<PlayerStats>();
@@ -204,4 +207,5 @@ public class Player : MonoBehaviour
 	PlayerController _owningController;
 	AbilitySlotsComponent _abilitySlotsComponent;
 	Color _playerColor;
+	AudioSource _audioSource;
 }
