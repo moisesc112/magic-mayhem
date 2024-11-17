@@ -70,6 +70,7 @@ public class Shop : MonoBehaviour
 			_player.PlayerStats.gold -= spell.abilityInfo.cost;
 			abilitySlotComponent.UpdateAbilitySlot(spell.abilityInfo, abilitySlotComponent.GetNextUnusedAbilitySlotNumber());
 			RefreshAllSpellPurchasability();
+			RefreshUpgradeOptions();
 		}
 		else
 		{
@@ -272,6 +273,7 @@ public class Shop : MonoBehaviour
 			var matchingOwnedSpell = _player.abilitySlotsComponent.GetAbility(i + 1);
 			if (matchingOwnedSpell != null && matchingOwnedSpell.nextLevel != null)
 			{
+				matchingUpgradeSlot.gameObject.SetActive(true);
 				matchingUpgradeSlot.SetSpellInfo(matchingOwnedSpell.nextLevel);
 				if (matchingUpgradeSlot.abilityInfo.cost <= _player.PlayerStats.gold)
 					matchingUpgradeSlot.EnablePurchase();
