@@ -71072,10 +71072,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2910b45da5d42d14b90c9a088e0a7783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxPlayerSpeed: 4.8
+  _maxPlayerSpeed: 6
   _rotationSpeedDegrees: 600
   _animSpeed: 1
   _rootOverride: 1.5
+  _aimRootOverride: 2
   _rollCooldown: 1.5
   playerVelocityCounter: {fileID: 0}
 --- !u!82 &3187008071114293417
@@ -71608,6 +71609,38 @@ PrefabInstance:
       propertyPath: abilitySlotsComponent
       value: 
       objectReference: {fileID: 4708179505898091589}
+    - target: {fileID: 578968711678932867, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 578968711678932867, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 578968711678932867, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 578968711678932867, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368020127899100357, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368020127899100357, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368020127899100357, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368020127899100357, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2171788028164513490, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
       propertyPath: abilitySlotsComponent
       value: 
@@ -71672,6 +71705,38 @@ PrefabInstance:
       propertyPath: abilitySlotsComponent
       value: 
       objectReference: {fileID: 4708179505898091589}
+    - target: {fileID: 6612163882493688617, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612163882493688617, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612163882493688617, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612163882493688617, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8318950934474068349, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8318950934474068349, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8318950934474068349, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8318950934474068349, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8696839685525768891, guid: 2eeff278dced3684e89196cbdc08c1ab, type: 3}
       propertyPath: playerStats
       value: 

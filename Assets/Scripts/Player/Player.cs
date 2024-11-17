@@ -54,6 +54,9 @@ public class Player : MonoBehaviour
 		_owningController = playerController;
 		_playerIndex = playerController.playerIndex;
 		_owningController.playerInput.uiInputModule = _shop.inputModule;
+
+		if (playerController.usingMK)
+			_mover.SetFollowCursor();
 	}
 
 	public void Release()
@@ -73,8 +76,8 @@ public class Player : MonoBehaviour
 	public void SelectAbility(int slotNumber)
 	{
 		//TODO unify casting animations with abilities and direction
-        _castingComponent.SetSelectedAbility(slotNumber);
-    }
+		_castingComponent.SetSelectedAbility(slotNumber);
+	}
 
 	public void SelectAbilityByDirection(SelectAbilityDirection direction)
 	{
@@ -114,34 +117,34 @@ public class Player : MonoBehaviour
 	// Set the reference trap from AvatarTrapActivation
 	// that the player is currently colliding with
 	public void SetDetectedTrap(AbstractTrap trap)
-    {
+	{
 		detectedTrap = trap;
 	}
 
 	public void SetBellTower(BellTower bellTower)
-    {
+	{
 		_bellTower = bellTower;
-    }
+	}
 
 	public void ActivateTrap(bool isActivated)
-    {
+	{
 		// If player is on a trap and has chosen to activate it and has
 		// enough gold then minus the gold and then activate the trap 
 		if (isActivated && detectedTrap != null && _playerStats.gold >= detectedTrap.trapInfo.trapCost)
-        {
+		{
 			_playerStats.gold -= detectedTrap.trapInfo.trapCost;
 			detectedTrap.ActivateTrap();
-        }
+		}
 		else if(isActivated && _bellTower != null && _bellTower.isActivatable)
-        {
+		{
 			WaveManager.instance.SkipShopPhase();
-        }
-    }
+		}
+	}
 
 	public bool GameOver()
-    {
+	{
 		return _inGameMenu.gameOver;
-    }
+	}
 
 	// Same methodology as the enemy death
 	void HealthComp_OnDeath(object sender, EventArgs e)
@@ -173,7 +176,7 @@ public class Player : MonoBehaviour
 		// as alive then trigger endgame
 		var remainingPlayers = GameObject.FindGameObjectsWithTag("AlivePlayers");
 		if (remainingPlayers.Length == 0)
-        {
+		{
 			yield return new WaitForSeconds(1.5f);
 			foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
 			{
