@@ -152,6 +152,7 @@ public class Player : MonoBehaviour
 		else if(isActivated && _bellTower != null && _bellTower.isActivatable)
 		{
 			WaveManager.instance.SkipShopPhase();
+			SetBellTower(null);
 		}
 	}
 

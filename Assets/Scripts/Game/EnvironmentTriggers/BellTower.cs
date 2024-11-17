@@ -9,23 +9,17 @@ public class BellTower : MonoBehaviour
     void Start()
     {
         if (WaveManager.instance is null) return;
-        WaveManager.instance.gameStarting += WaveManager_GameStarted;
+        isActivatable = true;
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+        gameObject.transform.GetChild(1).gameObject.SetActive(true);
         WaveManager.instance.waveStarted += WaveManager_WaveStarted;
         WaveManager.instance.waveFinished += WaveManager_WaveFinished;
     }
 
     private void OnDestroy()
     {
-        WaveManager.instance.gameStarting -= WaveManager_GameStarted;
         WaveManager.instance.waveStarted -= WaveManager_WaveStarted;
         WaveManager.instance.waveFinished -= WaveManager_WaveFinished;
-    }
-
-    private void WaveManager_GameStarted(object sender, GameStartedEventArgs e)
-    {
-        isActivatable = false;
-        gameObject.GetComponent<BoxCollider>().enabled = false;
-        gameObject.transform.GetChild(1).gameObject.SetActive(false);
     }
 
     private void WaveManager_WaveStarted(object sender, WaveStartedEventArgs e)

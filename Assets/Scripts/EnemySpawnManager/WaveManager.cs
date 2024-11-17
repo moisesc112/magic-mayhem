@@ -54,6 +54,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 		_audioSource = GetComponent<AudioSource>();
 		waves = waveInfo.GetWaveContents();
 		_inGameMenu = FindObjectOfType<InGameMenu>();
+		_waveCanvasSettings = FindObjectOfType<WaveCanvasSettings>();
 	}
 
     public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
@@ -174,12 +175,21 @@ public sealed class WaveManager : Singleton<WaveManager>
 	}
 
 	public void SkipShopPhase()
-    {
+	{
 		Debug.Log("Skipping Shop Phase");
-		shouldSkipWaveCooldown = true;
+
+		if (_waveCanvasSettings.gameCountdownTextCoroutine != null)
+		{
+			_waveCanvasSettings.CancelGameCountDown();
+		}
+        else
+        {
+			shouldSkipWaveCooldown = true;
+		}
     }
 
 	InGameMenu _inGameMenu;
+	WaveCanvasSettings _waveCanvasSettings;
 }
 
 public sealed class WaveStartedEventArgs : EventArgs
