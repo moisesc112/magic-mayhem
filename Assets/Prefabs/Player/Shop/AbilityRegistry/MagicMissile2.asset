@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
-  m_Name: MagicMissile
+  m_Name: MagicMissile2
   m_EditorClassIdentifier: 
-  abilityName: Magic Missile
-  description: Fires a small magic projectile at your enemies. A wizard's go-to spell!
+  abilityName: Magic Missile II
+  description: Ol reliable with a new coat of paint and more damage to boot!
   abiltyType: 2
   cooldown: 0.33
-  damage: 1
-  cost: 5
-  abilityPrefab: {fileID: 3487376971440152185, guid: 41339c583dcb4704e937af594ca9cd54, type: 3}
+  damage: 2
+  cost: 60
+  abilityPrefab: {fileID: 3487376971440152185, guid: 20fc5f30a31e5854aa82da0ae057eab6, type: 3}
   projectileDestoryAfterCollision: 1
   despawnTime: 1
   projectileTargetDirection: {x: 0, y: 0, z: 1}
   castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 30
-  projectileSpread: 5
+  projectileSpread: 0
   castingSound: {fileID: 8300000, guid: a0e819afbed7a1343bf41a083ea32cef, type: 3}
-  icon: {fileID: 21300000, guid: b26ef880651a03a43adb453e5eb37700, type: 3}
-  nextLevel: {fileID: 11400000, guid: cd6e53eb6d317c34dbb63853b9e89ac6, type: 2}
+  icon: {fileID: 21300000, guid: 29070531f81476d49948ea63e1f9231a, type: 3}
+  nextLevel: {fileID: 11400000, guid: 99e1ae54b14aadb4492bb8e8341d62cc, type: 2}

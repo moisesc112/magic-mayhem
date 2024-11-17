@@ -18,6 +18,7 @@ public class AbilityInfo : ScriptableObject
     public float projectileSpread = 0.0f;
     public AudioClip castingSound;
     public Sprite icon;
+    public AbilityInfo nextLevel;
 
     // This should be an ID in the future
     public bool IsEqual(AbilityInfo other)
