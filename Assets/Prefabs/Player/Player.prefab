@@ -71073,7 +71073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxPlayerSpeed: 6
-  _rotationSpeedDegrees: 600
+  _rotationSpeedDegrees: 1200
   _animSpeed: 1
   _rootOverride: 1.5
   _aimRootOverride: 2
