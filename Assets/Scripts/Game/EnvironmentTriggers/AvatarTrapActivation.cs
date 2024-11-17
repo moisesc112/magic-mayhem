@@ -11,7 +11,7 @@ public class AvatarTrapActivation : MonoBehaviour
 		_player = GetComponentInParent<Player>();
     }
 
-	private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.tag == "Trap")
 		{
