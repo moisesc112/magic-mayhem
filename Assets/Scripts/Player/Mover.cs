@@ -10,9 +10,10 @@ public class Mover : MonoBehaviour
 	[SerializeField] float _maxPlayerSpeed = 4.8f;
 	[SerializeField] float _rotationSpeedDegrees = 180.0f;
 	[SerializeField] float _animSpeed = 1.0f;
+	[SerializeField] float _rollCooldown = 1.5f;
 	[SerializeField] float _rootOverride = 1.0f;
 	[SerializeField] float _aimRootOverride = 1.0f;
-	[SerializeField] float _rollCooldown = 1.5f;
+	[SerializeField] float _rollRootOverride = 1.0f;
 
 	public TextMeshProUGUI playerVelocityCounter;
 
@@ -51,14 +52,20 @@ public class Mover : MonoBehaviour
 		if (!anim)
 			return;
 
-		var targetMovement = _anim.deltaPosition * (_isAiming ? _aimRootOverride : _rootOverride);
+		var targetMovement = _anim.deltaPosition;
+		if (_isRolling)
+			targetMovement *= _rollRootOverride;
+		else if (_isAiming)
+			targetMovement *= _aimRootOverride;
+		else
+			targetMovement *= _rollRootOverride;
+
 		if (Time.deltaTime > 0)
 		{
 			float currentSpeed = targetMovement.magnitude / Time.deltaTime;
-			if (currentSpeed > _maxPlayerSpeed)
+			if (!_isRolling && currentSpeed > _maxPlayerSpeed)
 				targetMovement *= _maxPlayerSpeed / currentSpeed;
 		}
-		Debug.Log(targetMovement.magnitude / Time.deltaTime);
 		
 		targetMovement.y = _gravitySpeed * Time.deltaTime;
 
@@ -103,6 +110,7 @@ public class Mover : MonoBehaviour
 		foreach (var layer in _rigBuilder.layers)
 			layer.active = true;
 
+		_isRolling = false;
 		_anim.SetLayerWeight(_upperBodyIndex, 1);
 	}
 
@@ -161,7 +169,7 @@ public class Mover : MonoBehaviour
 
 	void UpdateRotation()
 	{
-		if (_isAiming)
+		if (_isAiming && !_isRolling)
 		{
 			var aimDir = _useMouse ? GetMouseDirection() : _aimDirection;
 			var targetDir = new Vector3(aimDir.x, 0, aimDir.y);
@@ -187,6 +195,7 @@ public class Mover : MonoBehaviour
 			transform.rotation = Quaternion.LookRotation(_currentMovement);
 			
 			_anim.SetTrigger("Roll");
+			_isRolling = true;
 
 			// Disable all rig builder layers while rolling
 			foreach (var layer in _rigBuilder.layers)
@@ -235,5 +244,6 @@ public class Mover : MonoBehaviour
 	bool _useMouse;
 	bool _shouldRoll;
 	bool _canRoll;
+	bool _isRolling;
 	float _gravitySpeed;
 }

@@ -71075,9 +71075,10 @@ MonoBehaviour:
   _maxPlayerSpeed: 6
   _rotationSpeedDegrees: 1200
   _animSpeed: 1
+  _rollCooldown: 1.25
   _rootOverride: 1.5
   _aimRootOverride: 2
-  _rollCooldown: 1.5
+  _rollRootOverride: 2
   playerVelocityCounter: {fileID: 0}
 --- !u!82 &3187008071114293417
 AudioSource:
