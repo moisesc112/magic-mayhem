@@ -1,10 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
-using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
@@ -36,6 +35,8 @@ public class MainMenuManager : MonoBehaviour
 		LevelLoadManager.instance.LoadSceneAsync(sceneToLoad);
 		LevelLoadManager.instance.sceneLoaded += LevelManager_OnSceneLoaded;
 		_menuCharacters = GameObject.FindGameObjectsWithTag("MenuCharacter").Select(c => c.GetComponent<MenuCharacter>()).ToArray();
+
+		StartCoroutine(nameof(IncreaseMusicIntensity));
 	}
 
 	void OnDestroy()
@@ -116,6 +117,16 @@ public class MainMenuManager : MonoBehaviour
 	void SetUIControlSchemeFromController(PlayerController controller)
 	{
 		_multiplayerEventSystem.SetSelectedGameObject(controller.usingMK ? null : _uiFirstSelected);
+	}
+
+	IEnumerator IncreaseMusicIntensity()
+	{
+		yield return new WaitForSeconds(0.5f);
+		SimpleAudioManager.Manager.instance.SetIntensity(0);
+		yield return new WaitForSeconds(15.0f);
+		SimpleAudioManager.Manager.instance.SetIntensity(1);
+		yield return new WaitForSeconds(15.0f);
+		SimpleAudioManager.Manager.instance.SetIntensity(2);
 	}
 
 	Dictionary<int, PlayerController> _playerControllerByIndex;

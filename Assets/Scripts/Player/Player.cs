@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
 	// Same methodology as the enemy death
 	void HealthComp_OnDeath(object sender, EventArgs e)
 	{
-		StartCoroutine(nameof(HandleDeath));
+		HandleDeath();
 	}
 
 	/// <summary>
@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
 		GetComponent<PlayerHitVisualizer>().SetRenderers(activeRenderers);
 	}
 	
-	IEnumerator HandleDeath()
+	void HandleDeath()
 	{
 		// Enable ragdoll and disable movement, casting and asign tag
 		_ragdoll.EnableRagdoll();
@@ -170,20 +170,7 @@ public class Player : MonoBehaviour
 		_castingComponent.enabled = false;
 		gameObject.tag = "DeadPlayers";
 
-		yield return null;
-
-		// If there are no remaining player game objects that are tagged
-		// as alive then trigger endgame
-		var remainingPlayers = GameObject.FindGameObjectsWithTag("AlivePlayers");
-		if (remainingPlayers.Length == 0)
-		{
-			yield return new WaitForSeconds(1.5f);
-			foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
-			{
-				playerController.playerInput.actions.FindActionMap("UI").Enable();
-			}
-			_inGameMenu.LoseGameMenu();
-		}			
+		GameStateManager.instance.HandlePlayerDied(this);			
 	}
 
 	public Camera PlayerCamera => GetComponentInChildren<Camera>();

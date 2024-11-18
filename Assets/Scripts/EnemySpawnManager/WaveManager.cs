@@ -36,6 +36,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 	public event EventHandler<WaveStartedEventArgs> waveStarted;
 	public event EventHandler<WaveEndedEventArgs> waveFinished;
 	public event EventHandler<EnemyDiedEventArgs> enemyDied;
+	public event EventHandler<GroupSpawnedEventArgs> groupSpawned;
 
 	protected override void DoStart()
 	{
@@ -88,6 +89,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 					}
 				}
 				groupNum++;
+				groupSpawned?.Invoke(this, new GroupSpawnedEventArgs(groupNum, wave.groups.Length, group.GetEnemyCount()));
 				yield return new WaitForSecondsOrCondition(
 					condition: () => groupNum == wave.groups.Length || aliveEnemies == 0,
 					seconds: group.timeToNextGroup);
@@ -114,11 +116,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 	{
 		// Handle Win Menu
 		yield return new WaitForSeconds(1.5f);
-		foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
-		{
-			playerController.playerInput.actions.FindActionMap("UI").Enable();
-		}
-		_inGameMenu.WinGameMenu();
+		GameStateManager.instance.RaiseGameWon();
 	}
 
 	public void ReportEnemyKilled()
@@ -195,6 +193,19 @@ public sealed class GameStartedEventArgs : EventArgs
 		countDown = count;
 	}
 	public int countDown { get; }
+}
+
+public sealed class GroupSpawnedEventArgs : EventArgs
+{
+	public GroupSpawnedEventArgs(int current, int total, int enemies)
+	{
+		currentGroup = current;
+		totalGroups = total;
+		enemiesInGroup = enemies;
+	}
+	public int currentGroup { get; }
+	public int totalGroups { get; }
+	public int enemiesInGroup { get; }
 }
 
 public sealed class EnemyDiedEventArgs : EventArgs
