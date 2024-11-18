@@ -11,7 +11,7 @@ public class SpellDescription : MonoBehaviour
 	public void SetSelectedSpell(AbilityInfo spell)
 	{
 		_abilityInfo = spell;
-		_spellNameText.text = _abilityInfo.name.ToUpper();
+		_spellNameText.text = _abilityInfo.abilityName.ToUpper();
 		_spellDescriptionText.text = _abilityInfo.description;
 		_spellIcon.sprite = _abilityInfo.icon;
 	}

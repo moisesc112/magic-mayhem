@@ -104,7 +104,12 @@ public class Player : MonoBehaviour
 	{
 		_inGameMenu.ToggleInGameMenuUI(isEnabled, owningController);
 	}
-
+  
+  public void SwapShopTab()
+	{
+		_shop.ToggleShopPage();
+	}
+  
 	public void OnRoll()
 	{
 		_mover.OnRoll();

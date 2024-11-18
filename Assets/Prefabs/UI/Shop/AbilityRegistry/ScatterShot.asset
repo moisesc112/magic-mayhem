@@ -27,4 +27,5 @@ MonoBehaviour:
   projectileTargetSpeed: 30
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: a0e819afbed7a1343bf41a083ea32cef, type: 3}
-  icon: {fileID: 21300000, guid: b26ef880651a03a43adb453e5eb37700, type: 3}
+  icon: {fileID: 21300000, guid: 29f2feddeca276b458510bad892040b6, type: 3}
+  nextLevel: {fileID: 11400000, guid: 8e58d1374bd00774a9f0404c5ab1eeb4, type: 2}

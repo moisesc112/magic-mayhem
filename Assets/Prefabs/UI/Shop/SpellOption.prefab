@@ -156,6 +156,7 @@ MonoBehaviour:
   _spellCostTest: {fileID: 6604971700516480672}
   _spellIcon: {fileID: 6762505685149627718}
   _purchaseButton: {fileID: 6663985798597784006}
+  _purchaseBackground: {fileID: 7585990022420995992}
   _purchaseDisabledColor: {r: 0.5471698, g: 0, b: 0, a: 0.56078434}
   _purchaseEnabledColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &574299494232416128

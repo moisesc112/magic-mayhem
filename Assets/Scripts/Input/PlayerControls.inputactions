@@ -540,6 +540,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SwapShopTab",
+                    "type": "Button",
+                    "id": "ab9436fd-2394-4b0a-8dbf-8181056fb217",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -705,6 +714,28 @@
                     "processors": "",
                     "groups": "MK",
                     "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3030b156-4664-4400-9806-2d73d9eb0357",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MK",
+                    "action": "SwapShopTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd899681-0cdb-4e82-8738-efafb159e9ad",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SwapShopTab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

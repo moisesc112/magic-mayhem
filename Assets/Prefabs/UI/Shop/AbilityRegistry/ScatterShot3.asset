@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
-  m_Name: MagicMissile
+  m_Name: ScatterShot3
   m_EditorClassIdentifier: 
-  abilityName: Magic Missile
-  description: Fires a small magic projectile at your enemies. A wizard's go-to spell!
+  abilityName: Scatter Shot
+  description: Short range blast of sharp crystals. You get a shard! you get a shard!
+    EVERYONE gets a shard!
   abiltyType: 2
-  cooldown: 0.33
+  cooldown: 0.75
   damage: 1
-  cost: 5
-  abilityPrefab: {fileID: 3487376971440152185, guid: 41339c583dcb4704e937af594ca9cd54, type: 3}
+  cost: 150
+  abilityPrefab: {fileID: 3487376971440152185, guid: 228d57a6f4f029f40b8d92f139c6ad78, type: 3}
   projectileDestoryAfterCollision: 1
-  despawnTime: 1
+  despawnTime: 0.5
   projectileTargetDirection: {x: 0, y: 0, z: 1}
   castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 30
-  projectileSpread: 5
+  projectileSpread: 0
   castingSound: {fileID: 8300000, guid: a0e819afbed7a1343bf41a083ea32cef, type: 3}
-  icon: {fileID: 21300000, guid: b26ef880651a03a43adb453e5eb37700, type: 3}
+  icon: {fileID: 21300000, guid: d20a211027f00ce47815f266b3b0638a, type: 3}
+  nextLevel: {fileID: 0}

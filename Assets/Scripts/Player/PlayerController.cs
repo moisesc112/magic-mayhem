@@ -85,6 +85,13 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void OnSwapStoreTab(InputAction.CallbackContext context)
+	{
+		if (_player == null) return;
+		if (context.performed)
+			_player.SwapShopTab();
+	}
+
 	public void OnAim(InputAction.CallbackContext context)
 	{
 		if (_player)
