@@ -28,14 +28,34 @@ public class InGameMenu : MonoBehaviour
 		menuPanel.SetActive(false);
 	}
 
+	private void Start()
+	{
+		GameStateManager.instance.gameEnded += GameStateManager_OnGameEnded;
+	}
+
+	private void OnDestroy()
+	{
+		GameStateManager.instance.gameEnded -= GameStateManager_OnGameEnded;
+	}
+
+	private void GameStateManager_OnGameEnded(object sender, GenericEventArgs<bool> won)
+	{
+		var hostController = PlayerManager.instance.PlayerControllers.First();
+		hostController.playerInput.SwitchCurrentActionMap("UI");
+		if (won.value)
+			WinGameMenu();
+		else
+			LoseGameMenu();
+	}
+
 	public void ToggleInGameMenuUI(bool isEnabled, PlayerController callingPlayer)
-    {
+	{
 		if (isEnabled)
 			_multiplayerEventSystem.SetSelectedGameObject(callingPlayer?.usingMK ?? false ? null : _firstSelectedGameObject);
 
 		menuPanel.SetActive(isEnabled);
 		Time.timeScale = isEnabled ? 0 : 1;
-    }
+	}
 
 	public void RestartLevel()
 	{
@@ -69,7 +89,7 @@ public class InGameMenu : MonoBehaviour
 	}
 
 	public void LoseGameMenu()
-    {
+	{
 		gameOver = true;
 		ToggleInGameMenuUI(true, PlayerManager.instance.PlayerControllers.First());
 		loseText.gameObject.SetActive(true);
@@ -83,11 +103,11 @@ public class InGameMenu : MonoBehaviour
 	}
 
 	public void QuitGame()
-    {
+	{
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+		UnityEditor.EditorApplication.isPlaying = false;
 #else
-         Application.Quit();
+		 Application.Quit();
 #endif
-    }
+	}
 }
