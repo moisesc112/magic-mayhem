@@ -22,10 +22,8 @@ public class FollowCam : Singleton<FollowCam>
 		// otherwise default to a large number for the bounds
 		if(LevelManager.instance != null)
         {
-			xMinBoundary = LevelManager.instance.xMinBoundary;
-			xMaxBoundary = LevelManager.instance.xMaxBoundary;
-			zMinBoundary = LevelManager.instance.zMinBoundary;
-			zMaxBoundary = LevelManager.instance.zMaxBoundary;
+			LevelManager.instance.UpdateBoundary += UpdateBounds;
+			UpdateBounds();
 		}
         else
         {
@@ -35,8 +33,19 @@ public class FollowCam : Singleton<FollowCam>
 			zMaxBoundary = 1000;
 		}
 	}
-	
-	
+
+	private void UpdateBounds()
+	{
+		if (LevelManager.instance != null)
+		{
+			xMinBoundary = LevelManager.instance.xMinBoundary;
+			xMaxBoundary = LevelManager.instance.xMaxBoundary;
+			zMinBoundary = LevelManager.instance.zMinBoundary;
+			zMaxBoundary = LevelManager.instance.zMaxBoundary;
+		}
+	}
+
+
 	private void LateUpdate()
 	{
 		if (targets is null || targets.Count == 0) return;
