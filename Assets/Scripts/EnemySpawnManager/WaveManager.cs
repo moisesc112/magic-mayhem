@@ -8,11 +8,15 @@ using UnityRandom = UnityEngine.Random;
 public sealed class WaveManager : Singleton<WaveManager>
 {
 	public int timeBeforeGameStarts;
+	public int startPlainsLevel;
+	public int startGoblinLevel;
 	public GameObject shopkeeper;
 
 	[SerializeField] EnemyFactory _enemyFactory;
 	[SerializeField] bool inTestingScene;
-	[SerializeField] Transform[] _spawnLocations;
+	[SerializeField] Transform[] _townSpawnLocations;
+	[SerializeField] Transform[] _plainsSpawnLocations;
+	[SerializeField] Transform[] _goblinSpawnLocations;
 
 	[System.NonSerialized] public bool inPlaceholderScene = true;
 	[System.NonSerialized] public bool gameStarted;
@@ -77,7 +81,19 @@ public sealed class WaveManager : Singleton<WaveManager>
 			{
 				aliveEnemies += group.GetEnemyCount();
 				Debug.Log("Spawning group");
-				var location = _spawnLocations[UnityRandom.Range(0, _spawnLocations.Length)];
+				Transform location;
+				if (waveNum < startPlainsLevel)
+				{
+					location = _townSpawnLocations[UnityRandom.Range(0, _townSpawnLocations.Length)];
+				}
+				else if(waveNum < startGoblinLevel)
+                {
+					location = _plainsSpawnLocations[UnityRandom.Range(0, _plainsSpawnLocations.Length)];
+				}
+                else
+                {
+					location = _goblinSpawnLocations[UnityRandom.Range(0, _goblinSpawnLocations.Length)];
+				}
 				foreach (var enemy in group.enemySpawn)
 				{
 					for (int i = 0; i < enemy.amountToSpawn; i++)
