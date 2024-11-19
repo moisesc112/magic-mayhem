@@ -3,9 +3,10 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 
-public class InGameMenu : MonoBehaviour
+public class InGameMenu : Singleton<InGameMenu>
 {
 	public Button ResetGame;
 	public Button Quit;
@@ -18,9 +19,15 @@ public class InGameMenu : MonoBehaviour
 	[SerializeField] MultiplayerEventSystem _multiplayerEventSystem;
 	[SerializeField] GameObject _firstSelectedGameObject;
 	[SerializeField] InputSystemUIInputModule _inputModule;
+
+	[Header("HUDs")]
+	[SerializeField] PlayerHUD []_playerHUDs;
+	[SerializeField] Shop[] _shopHUDs;
+	[SerializeField] PauseMenu[] _pauseMenus;
+
 	public InputSystemUIInputModule inputSystemUIInputModule => _inputModule;
 
-	void Awake()
+	protected override void DoAwake()
 	{
 		// initialize with everything turned off
 		loseText.SetActive(false);
@@ -28,7 +35,7 @@ public class InGameMenu : MonoBehaviour
 		menuPanel.SetActive(false);
 	}
 
-	private void Start()
+	protected override void DoStart()
 	{
 		GameStateManager.instance.gameEnded += GameStateManager_OnGameEnded;
 	}
@@ -40,6 +47,8 @@ public class InGameMenu : MonoBehaviour
 
 	private void GameStateManager_OnGameEnded(object sender, GenericEventArgs<bool> won)
 	{
+		PlayerManager.instance.DisableAllMovement();
+
 		var hostController = PlayerManager.instance.PlayerControllers.First();
 		hostController.playerInput.SwitchCurrentActionMap("UI");
 		if (won.value)
@@ -48,13 +57,29 @@ public class InGameMenu : MonoBehaviour
 			LoseGameMenu();
 	}
 
-	public void ToggleInGameMenuUI(bool isEnabled, PlayerController callingPlayer)
+	public bool RequestPause(PlayerController callingPlayer)
 	{
-		if (isEnabled)
-			_multiplayerEventSystem.SetSelectedGameObject(callingPlayer?.usingMK ?? false ? null : _firstSelectedGameObject);
+		bool succeeded = false;
+		if (_playerPausing is null)
+		{
+			PlayerManager.instance.DisableAllMovement();
+			var pauseMenu = _pauseMenus[callingPlayer.playerIndex];
+			pauseMenu.OpenPauseMenu();
+			_playerPausing = callingPlayer;
+			succeeded = true;
+		}
+		return succeeded;
+	}
 
-		menuPanel.SetActive(isEnabled);
-		Time.timeScale = isEnabled ? 0 : 1;
+	public void RequestUnpause(PlayerController callingPlayer)
+	{
+		if (_playerPausing?.playerIndex == callingPlayer.playerIndex)
+		{
+			var pauseMenu = _pauseMenus[callingPlayer.playerIndex];
+			pauseMenu.ClosePauseMenu();
+			PlayerManager.instance.EnableAllMovement();
+			_playerPausing = null;
+		}
 	}
 
 	public void RestartLevel()
@@ -91,15 +116,13 @@ public class InGameMenu : MonoBehaviour
 	public void LoseGameMenu()
 	{
 		gameOver = true;
-		ToggleInGameMenuUI(true, PlayerManager.instance.PlayerControllers.First());
-		loseText.gameObject.SetActive(true);
+		_pauseMenus[0].OpenLoseMenu();
 	}
 
 	public void WinGameMenu()
 	{
 		gameOver = true;
-		ToggleInGameMenuUI(true, PlayerManager.instance.PlayerControllers.First());
-		winText.gameObject.SetActive(true);
+		_pauseMenus[0].OpenWinMenu();
 	}
 
 	public void QuitGame()
@@ -110,4 +133,26 @@ public class InGameMenu : MonoBehaviour
 		 Application.Quit();
 #endif
 	}
+
+	public void ConfigureHud(Player player)
+	{
+		var index = player.GetPlayerIndex();
+
+		if (index >= _playerHUDs.Length || index >= _shopHUDs.Length) return;
+
+		var matchingHUD = _playerHUDs[index];
+		var matchingShop = _shopHUDs[index];
+		var matchingPauseMenu = _pauseMenus[index];
+		if (matchingHUD is null || matchingShop is null || matchingPauseMenu is null) return;
+
+		matchingHUD.TrackPlayer(player);
+		matchingHUD.gameObject.SetActive(true);
+		
+		matchingShop.ConfigurePlayer(player);
+		player.SetShop(matchingShop);
+
+		matchingPauseMenu.ConfigurePlayer(player);
+	}
+
+	PlayerController _playerPausing;
 }

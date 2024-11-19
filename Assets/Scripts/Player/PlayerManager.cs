@@ -10,9 +10,9 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 	[Header("Settings")]
 	public Player playerPrefab;
 	public bool spawnPlayerOnConnect = true;
-	public Vector3 spawnLocation;
 
 	public ReadOnlyCollection<PlayerController> PlayerControllers => _playersByOwningController.Keys.ToList().AsReadOnly();
+	public ReadOnlyCollection<Player> players => _playersByOwningController.Values.ToList().AsReadOnly();
 
 	public event EventHandler<GenericEventArgs<PlayerController>> PlayerControllerJoined;
 	public event EventHandler<GenericEventArgs<int>> PlayerControllerRemoved;
@@ -47,13 +47,6 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 		PlayerControllerRemoved?.Invoke(sender: this, new GenericEventArgs<int>(index));
 	}
 
-	public void EnableSplitScreen()
-	{
-		foreach (var controller in _playersByOwningController.Keys)
-			controller.SetUpInputCamera();
-		_inputManager.splitScreen = true;
-	}
-
 	public Player SpawnPlayer(PlayerController owningController)
 	{
 		EnsurePlayerIsRegistered(owningController);
@@ -61,7 +54,7 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 		// Update this to spawn players at designated places around the map.
 		// Use tag PlayerControllerClone to find the instantiations of player controller
         // when we need to restart game
-		var player = Instantiate(playerPrefab, spawnLocation, Quaternion.identity);
+		var player = Instantiate(playerPrefab);
 		owningController.TakeControl(player);
 		owningController.gameObject.tag = "PlayerControllerClone";
 		_playersByOwningController[owningController] = player;
@@ -98,6 +91,26 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 			_inputManager.EnableJoining();
 		else
 			_inputManager.DisableJoining();
+	}
+
+	public void DisableAllMovement()
+	{
+		foreach (var controller in PlayerControllers)
+			controller.DisableMovement();
+	}
+
+	public void EnableAllMovement()
+	{
+		foreach (var controller in PlayerControllers)
+			controller.EnableMovement();
+	}
+
+	public void AddGold(int amount)
+	{
+		foreach (var player in _playersByOwningController.Values)
+		{
+			player.PlayerStats.gold += amount;
+		}
 	}
 
 	void EnsurePlayerIsRegistered(PlayerController controller)

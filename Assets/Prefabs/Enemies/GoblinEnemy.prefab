@@ -3181,6 +3181,8 @@ MonoBehaviour:
     m_Bits: 65
   _stoppingDistance: 1
   _cornerThreshold: 0.33
+  _avoidanceWeight: 1
+  _avoidanceRadius: 1
 --- !u!195 &1534788581507665487
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3279,7 +3281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391081dc3dd7d6444b0e1d83a683922b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootInfo: {fileID: 11400000, guid: 29c631c845f33b248b310370097f9b05, type: 2}
+  lootInfo: {fileID: 11400000, guid: 7ac63b2f29eee9a47bbb1ee0fe4eaf00, type: 2}
 --- !u!114 &60405777211636278
 MonoBehaviour:
   m_ObjectHideFlags: 0

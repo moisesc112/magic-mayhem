@@ -6488,45 +6488,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: m_SplitScreen
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: m_MaxPlayerCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: m_MaintainAspectRatioInSplitScreen
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7701280730418655742, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
-      propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655743, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655743, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.48981
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655743, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.607347
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655743, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32.02506
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701280730418655743, guid: 50dbc804c930fd04ba04f3a7f98e7a7e, type: 3}
       propertyPath: m_LocalRotation.w

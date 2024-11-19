@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
@@ -12,7 +13,6 @@ public class Shop : MonoBehaviour
 	[SerializeField] ConfirmSpellButton _confirmSpellButtonPrefab;
 
 	[Header("Screens")]
-	[SerializeField] GameObject _shopUI;
 	[SerializeField] GameObject _spellListUI;
 	[SerializeField] GameObject _upgradesUI;
 	[SerializeField] SpellDescription _spellDescription;
@@ -24,6 +24,7 @@ public class Shop : MonoBehaviour
 	[SerializeField] HorizontalLayoutGroup _confirmSpellList;
 	[SerializeField] TextMeshProUGUI _shufflePlayerGoldText;
 	[SerializeField] Button _shuffleButton;
+	[SerializeField] Image[] _frames;
 
 	[Header("Settings")]
 	[SerializeField] InputSystemUIInputModule _inputModule;
@@ -33,27 +34,32 @@ public class Shop : MonoBehaviour
 
 	public int numOfSpells = 3;
 	public InputSystemUIInputModule inputModule => _inputModule;
+	public bool shopOpen => _shopOpen;
 
 	private void Awake()
 	{
-		_player = GetComponentInParent<Player>();
-		_shopUI.SetActive(false);
 		_abilitySlotConfirmation.SetActive(false);
 
 		if (WaveManager.instance != null)
+		{
 			WaveManager.instance.waveFinished += WaveManager_OnWaveFinished;
-	}
-
-	private void Start()
-	{
-		SetupSpellsUI();
-		ShuffleShopAbilityOptions(didPlayerUseShuffle: false);
+			WaveManager.instance.waveStarted += WaveManager_OnWaveStarted;
+		}
 	}
 
 	private void OnDestroy()
 	{
 		if (WaveManager.instance != null)
 			WaveManager.instance.waveFinished -= WaveManager_OnWaveFinished;
+	}
+
+	public void ConfigurePlayer(Player player)
+	{
+		_player = player;
+		SetupSpellsUI();
+		ShuffleShopAbilityOptions(didPlayerUseShuffle: false);
+		foreach (var frame in _frames)
+			frame.color = player.playerColor;
 	}
 
 	public void PurchaseAbility(SpellOption spell)
@@ -109,8 +115,9 @@ public class Shop : MonoBehaviour
 
 	public void ToggleShopUI(bool isEnabled)
 	{
-		_abilitySlotConfirmation.SetActive(false);
-		_shopUI.SetActive(isEnabled);
+		_player.owningController.playerInput.uiInputModule = _inputModule;
+		_abilitySlotConfirmation?.SetActive(false);
+		gameObject?.SetActive(isEnabled);
 		if (isEnabled)
 		{
 			OpenShop();
@@ -135,12 +142,20 @@ public class Shop : MonoBehaviour
 	{
 		_spellListUI.SetActive(false);
 		_upgradesUI.SetActive(true);
+		multiplayerEventSystem.SetSelectedGameObject(null);
+		var firstAvailUpgrade = _upgradeOptions.FirstOrDefault(o => o.gameObject.activeInHierarchy);
+		if (_player.owningController.usingMK == false)
+			multiplayerEventSystem.SetSelectedGameObject(firstAvailUpgrade?.gameObject ?? null);
 	}
 
 	public void GoToSpellListScreen()
 	{
 		_spellListUI.SetActive(true);
 		_upgradesUI.SetActive(false);
+
+		multiplayerEventSystem.SetSelectedGameObject(null);
+		if (_player.owningController.usingMK == false)
+			multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].gameObject);
 	}
 
 	public void ToggleShopPage()
@@ -157,8 +172,15 @@ public class Shop : MonoBehaviour
 
 	private void WaveManager_OnWaveFinished(object sender, WaveEndedEventArgs e)
 	{
+		_shopOpen = true;
 		ShuffleShopAbilityOptions(didPlayerUseShuffle: false);
 		ResetShuffleCost();
+	}
+
+
+	private void WaveManager_OnWaveStarted(object sender, WaveStartedEventArgs e)
+	{
+		_shopOpen = false;
 	}
 
 	private void SetupSpellsUI()
@@ -358,4 +380,5 @@ public class Shop : MonoBehaviour
 
 	int _currentShuffleCost = SHUFFLE_COST_START;
 	bool _showingSpellList = true;
+	bool _shopOpen = false;
 }

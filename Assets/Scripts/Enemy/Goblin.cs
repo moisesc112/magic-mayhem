@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityExtensions;
 using UnityRandom = UnityEngine.Random;
 
 [RequireComponent(typeof(Animator))]
@@ -16,7 +15,6 @@ public class Goblin : EnemyBase
 	protected override void DoAwake()
 	{
 		_animator = GetComponent<Animator>();
-		_refreshableComponents = gameObject.GetAllComponents<RefreshableComponent>();
 		_meleeAttackComponent = GetComponent<MeleeAttackComponent>();
 		_dissolver = GetComponent<Dissolver>();
 	}

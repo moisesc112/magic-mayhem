@@ -298,7 +298,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnCloseInGameMenuUI
+        m_MethodName: OnUnpauseGame
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -314,7 +314,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 665746253984361426}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnToggleInGameMenuUI
+        m_MethodName: OnPauseGame
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -447,3 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec2cc9ae01097b43b8f20f13e1124d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerColors:
+  - {r: 1, g: 0.13725491, b: 0.15294118, a: 1}
+  - {r: 0.35686275, g: 0.7607843, b: 0.15686275, a: 1}
+  - {r: 0.14509805, g: 0.59607846, b: 0.8117647, a: 1}
+  - {r: 1, g: 0.7921569, b: 0.14901961, a: 1}

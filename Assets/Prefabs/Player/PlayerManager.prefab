@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: -1
+  m_MaxPlayerCount: 4
   m_AllowJoining: 1
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
@@ -69,7 +69,7 @@ MonoBehaviour:
     m_Reference: {fileID: 0}
   m_PlayerPrefab: {fileID: 6792551205558935512, guid: 17b37b1670d7fa247a520c16ea916581, type: 3}
   m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 1
+  m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
   m_SplitScreenRect:
     serializedVersion: 2
@@ -91,4 +91,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -3416126643142204928, guid: 336bfff29efae624b9c725f8ba8b2eb1, type: 3}
   spawnPlayerOnConnect: 0
-  spawnLocation: {x: 40, y: 0, z: 40}

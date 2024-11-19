@@ -93,7 +93,7 @@ public sealed class NavPollerComponent : RefreshableComponent
 	DistancePollObject GetPollStateInfoFromDistance()
 	{
 		// Find nearest player avatar
-		var players = FindObjectsOfType<Player>();
+		var players = FindObjectsOfType<Player>().Where(p => p.PlayerStats.IsAlive);
 		var closestPlayer = players.FirstOrDefault();
 		float closestDistanceSq = float.MaxValue;
 		foreach (var player in players)

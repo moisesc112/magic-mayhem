@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+	[SerializeField] Color[] _playerColors;
 	public int playerIndex => _playerInput.playerIndex;
 	public PlayerInput playerInput => _playerInput;
 	public Player player => _player;
@@ -26,8 +27,7 @@ public class PlayerController : MonoBehaviour
 	public void TakeControl(Player player)
 	{
 		_player = player;
-		_player.Possess(this);
-		_playerInput.camera = _player.playerCamera;
+		_player.Possess(this, _playerColors[playerIndex]);
 	}
 
 	public void ReleaseControl()
@@ -61,28 +61,31 @@ public class PlayerController : MonoBehaviour
 	{
 		if (_player && context.performed && _player.playerInShopRange)
 		{
+			_playerInput.SwitchCurrentActionMap("UI");
 			_player.ToggleShopUI(true);
-			_playerInput.actions.FindActionMap("Gameplay").Disable();
-			_playerInput.actions.FindActionMap("UI").Enable();
-			_playerInput.actions.FindAction("CloseGameMenu").Disable();
-			_playerInput.actions.FindAction("OpenMenu").Enable();
 			playerInShop = true;
 		}
 	}
 
-	public void OnToggleInGameMenuUI(InputAction.CallbackContext context)
+	public void OnPauseGame(InputAction.CallbackContext context)
 	{
-		if (_player && context.performed)
+		if (_player && context.performed && InGameMenu.instance.RequestPause(this))
 		{
-			_player.ToggleInGameMenuUI(true);
-			_playerInput.actions.FindActionMap("Gameplay").Disable();
-			_playerInput.actions.FindActionMap("UI").Enable();
-			_playerInput.actions.FindAction("CloseShopUI").Disable();
 			if (playerInShop)
-            {
+			{
 				_player.ToggleShopUI(false);
 			}
 		}
+	}
+
+	public void OnUnpauseGame(InputAction.CallbackContext context)
+	{
+		if (_player.GameOver())
+		{
+			return;
+		}
+		if (_player && context.performed)
+			InGameMenu.instance.RequestUnpause(this);
 	}
 
 	public void OnSwapStoreTab(InputAction.CallbackContext context)
@@ -109,17 +112,17 @@ public class PlayerController : MonoBehaviour
 			_player.SelectAbility(slotNumber);
 	}
 
-    public void OnSelectAbilityLeft(InputAction.CallbackContext context)
-    {
-        if (_player && context.performed)
-            _player.SelectAbilityByDirection(SelectAbilityDirection.Left);
-    }
+	public void OnSelectAbilityLeft(InputAction.CallbackContext context)
+	{
+		if (_player && context.performed)
+			_player.SelectAbilityByDirection(SelectAbilityDirection.Left);
+	}
 
-    public void OnSelectAbilityRight(InputAction.CallbackContext context)
-    {
-        if (_player && context.performed)
-            _player.SelectAbilityByDirection(SelectAbilityDirection.Right);
-    }
+	public void OnSelectAbilityRight(InputAction.CallbackContext context)
+	{
+		if (_player && context.performed)
+			_player.SelectAbilityByDirection(SelectAbilityDirection.Right);
+	}
 
 	public void OnScrollAbilityLeft(InputAction.CallbackContext context)
 	{
@@ -127,13 +130,13 @@ public class PlayerController : MonoBehaviour
 			_player.SelectAbilityByDirection(SelectAbilityDirection.Left);
 	}
 
-    public void OnScrollAbilityRight(InputAction.CallbackContext context)
-    {
-        if (_player && context.performed)
-            _player.SelectAbilityByDirection(SelectAbilityDirection.Right);
-    }
+	public void OnScrollAbilityRight(InputAction.CallbackContext context)
+	{
+		if (_player && context.performed)
+			_player.SelectAbilityByDirection(SelectAbilityDirection.Right);
+	}
 
-    public void OnRoll()
+	public void OnRoll()
 	{
 		if (_player)
 			_player.OnRoll();
@@ -146,33 +149,18 @@ public class PlayerController : MonoBehaviour
 
 	public void OnCloseShopUI(InputAction.CallbackContext context)
 	{
-		_playerInput.actions.FindActionMap("UI").Disable();
-		_playerInput.actions.FindActionMap("Gameplay").Enable();
+		_playerInput.SwitchCurrentActionMap("Gameplay");
 		_player.ToggleShopUI(false);
 		playerInShop = false;
 	}
 	
-	public void ForceCloseActiveShopUI(PlayerController controller)
+	public void ForceCloseActiveShopUI()
 	{
-		controller.playerInput.actions.FindActionMap("UI").Disable();
-		controller.playerInput.actions.FindActionMap("Gameplay").Enable();
+		if (_player is null) return;
+
 		_player.ToggleShopUI(false);
-		controller.playerInput.actions.FindAction("OpenShop").Disable();
+		_playerInput.SwitchCurrentActionMap("Gameplay");
 		playerInShop = false;
-	}
-	
-	public void OnCloseInGameMenuUI(InputAction.CallbackContext context)
-	{	if (_player.GameOver())
-		{
-			return;
-		}
-		_playerInput.actions.FindActionMap("UI").Disable();
-		_playerInput.actions.FindActionMap("Gameplay").Enable();
-		_player.ToggleInGameMenuUI(false);
-		if (WaveManager.instance!= null && !WaveManager.instance.inWaveCooldown)
-		{
-			_playerInput.actions.FindAction("OpenShop").Disable();
-		}
 	}
 
 	public void OnDeviceLost(PlayerInput lostPlayer)
@@ -187,7 +175,15 @@ public class PlayerController : MonoBehaviour
 		PlayerManager.instance.OnPlayerRejoined(this);
 	}
 
-	public void SetUpInputCamera() => _playerInput.camera = _player.playerCamera;
+	public void DisableMovement()
+	{
+		_playerInput.SwitchCurrentActionMap("UI");
+	}
+
+	public void EnableMovement()
+	{
+		_playerInput.SwitchCurrentActionMap("Gameplay");
+	}
 
 	const string c_gamepadScheme = "Gamepad";
 	const string c_keyboardScheme = "MK";

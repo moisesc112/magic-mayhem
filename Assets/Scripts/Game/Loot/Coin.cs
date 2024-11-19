@@ -22,7 +22,7 @@ public class Coin : MonoBehaviour
         if (collision != null && collision.gameObject.tag == "Player")
         {
             transform.localScale = Vector3.zero;
-            collision.gameObject.GetComponentInParent<PlayerStats>().gold += _value;
+            PlayerManager.instance.AddGold(_value);
             _audioSource.PlayOneShot(collectAudio);
             StartCoroutine(DestroyAfterAudio());
         }
