@@ -11837,7 +11837,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202430757}
   m_Layer: 0
-  m_Name: BoundsParent
+  m_Name: BoundaryParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12030,7 +12030,7 @@ GameObject:
   - component: {fileID: 225560349}
   - component: {fileID: 225560348}
   m_Layer: 0
-  m_Name: WestBounds
+  m_Name: WestOutOfBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16040,7 +16040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_LocalScale.z
@@ -16088,7 +16088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
@@ -19826,7 +19826,7 @@ GameObject:
   - component: {fileID: 1014345982}
   - component: {fileID: 1014345981}
   m_Layer: 0
-  m_Name: NorthBounds
+  m_Name: NorthOutOfBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19913,7 +19913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_LocalScale.z
@@ -19961,7 +19961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
@@ -31955,7 +31955,7 @@ GameObject:
   - component: {fileID: 1610253908}
   - component: {fileID: 1610253907}
   m_Layer: 0
-  m_Name: WestBounds
+  m_Name: WestOutOfBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41108,7 +41108,7 @@ GameObject:
   - component: {fileID: 1925657117}
   - component: {fileID: 1925657116}
   m_Layer: 0
-  m_Name: SouthBounds
+  m_Name: SouthOutOfBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41195,7 +41195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_LocalScale.z
@@ -41243,7 +41243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477682, guid: 6751f2848af82a648a67c83d50989f47, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6751f2848af82a648a67c83d50989f47, type: 3}

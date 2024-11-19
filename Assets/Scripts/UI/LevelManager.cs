@@ -19,7 +19,6 @@ public sealed class LevelManager : Singleton<LevelManager>
     public GameObject eastFog;
     public GameObject northAndSouthFog;
     
-
     public Vector3 shopPlains;
     public Vector3 shopGoblins;
 
@@ -28,8 +27,9 @@ public sealed class LevelManager : Singleton<LevelManager>
     private Animator northAndSouthFogAnimator;
 
     private int waveCounter = 1;
-    public int plainsLevelWaveStart;
-    public int goblinsLevelWaveStart;
+    private float boundsIncrement = 75;
+    private int plainsLevelWaveStart;
+    private int goblinsLevelWaveStart;
 
     void Start()
     {
@@ -40,6 +40,9 @@ public sealed class LevelManager : Singleton<LevelManager>
         if (WaveManager.instance is null || plainsBoundary is null || goblinBoundary is null) return;
         WaveManager.instance.waveFinished += WaveManager_WaveFinished;
         WaveManager.instance.waveStarted += WaveManager_WaveStarted;
+        plainsLevelWaveStart = WaveManager.instance.startPlainsLevel;
+        goblinsLevelWaveStart = WaveManager.instance.startGoblinLevel;
+
     }
 
     private void OnDestroy()
@@ -64,7 +67,7 @@ public sealed class LevelManager : Singleton<LevelManager>
                 goblinBoundary.SetActive(true);
                 westFogAnimator.SetTrigger("TriggerThirdLevel");
             }
-            xMinBoundary += 75;
+            xMinBoundary += boundsIncrement;
             BoundsUpdated();
         }
     }
@@ -86,7 +89,7 @@ public sealed class LevelManager : Singleton<LevelManager>
                 shop.transform.position = shopGoblins;
                 eastFogAnimator.SetTrigger("TriggerThirdLevel");
             }
-            xMaxBoundary += 75;
+            xMaxBoundary += boundsIncrement;
             BoundsUpdated();
         }
     }
