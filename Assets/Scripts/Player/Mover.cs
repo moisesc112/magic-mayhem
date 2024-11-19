@@ -216,7 +216,7 @@ public class Mover : MonoBehaviour
 	Vector2 GetMouseDirection()
 	{
 		var cursorPos = Input.mousePosition;
-		var playerPos = _player.PlayerCamera.WorldToScreenPoint(gameObject.transform.position);
+		var playerPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 		return (cursorPos - playerPos).normalized;
 	}
 

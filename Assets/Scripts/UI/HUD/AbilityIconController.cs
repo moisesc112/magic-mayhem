@@ -4,33 +4,38 @@ using UnityEngine.UI;
 
 public class AbilityIconController : MonoBehaviour
 {
-    [SerializeField] AbilitySlotsComponent abilitySlotsComponent;
+    AbilitySlotsComponent _abilitySlotsComponent;
+    
     [SerializeField] Image selectedBorder;
     [SerializeField] Image icon;
     [SerializeField] Image cooldownFill;
     [SerializeField] TextMeshProUGUI cooldownText;
     [SerializeField] int abiltySlotIconNumber;
 
-    private void Awake()
-    {
-        abilitySlotsComponent.AbilityChanged += AbilitySlotsComponent_OnAbilitySlotChanged;
-        abilitySlotsComponent.AbilitySlotUpdated += AbilitySlotsComponent_OnAbilitySlotUpdated;
-    }
-
     private void FixedUpdate()
     {
-        if (abilitySlotsComponent.GetAbility(abiltySlotIconNumber) != null)
+        if (_abilitySlotsComponent.GetAbility(abiltySlotIconNumber) != null)
         {
-            SetAbilityIconCooldownText(abilitySlotsComponent.GetAbilityCooldown(abiltySlotIconNumber));
-            cooldownFill.fillAmount = abilitySlotsComponent.GetAbilityCooldown(abiltySlotIconNumber) / abilitySlotsComponent.GetAbility(abiltySlotIconNumber).cooldown;
+            SetAbilityIconCooldownText(_abilitySlotsComponent.GetAbilityCooldown(abiltySlotIconNumber));
+            cooldownFill.fillAmount = _abilitySlotsComponent.GetAbilityCooldown(abiltySlotIconNumber) / _abilitySlotsComponent.GetAbility(abiltySlotIconNumber).cooldown;
         }
     }
 
     private void OnDestroy()
     {
-        abilitySlotsComponent.AbilityChanged -= AbilitySlotsComponent_OnAbilitySlotChanged;
-        abilitySlotsComponent.AbilitySlotUpdated -= AbilitySlotsComponent_OnAbilitySlotUpdated;
+        if (_abilitySlotsComponent != null )
+        {
+		    _abilitySlotsComponent.AbilityChanged -= AbilitySlotsComponent_OnAbilitySlotChanged;
+		    _abilitySlotsComponent.AbilitySlotUpdated -= AbilitySlotsComponent_OnAbilitySlotUpdated;
+        }
     }
+
+    public void ConfigureIconController(AbilitySlotsComponent abilitySlotsComponent)
+    {
+        _abilitySlotsComponent = abilitySlotsComponent;
+		_abilitySlotsComponent.AbilityChanged += AbilitySlotsComponent_OnAbilitySlotChanged;
+		_abilitySlotsComponent.AbilitySlotUpdated += AbilitySlotsComponent_OnAbilitySlotUpdated;
+	}
 
     private void SetAbilityIconCooldownText(float cooldown)
     {

@@ -1,27 +1,27 @@
 using UnityEngine;
 using System;
-using System.Collections;
 
 [RequireComponent(typeof(PlayerStats))]
 [RequireComponent(typeof(PlayerHitVisualizer))]
 public class Player : MonoBehaviour
 {
 	public bool isControlled => _playerIndex >= 0;
-	public Camera playerCamera;
 	public Vector3 velocity => _velocity;
 	private AbstractTrap detectedTrap;
 	public bool playerInShopRange => _shopTrigger != null && _shopTrigger.playerInShop;
 	public PlayerController owningController => _owningController;
 	public AbilitySlotsComponent abilitySlotsComponent => _abilitySlotsComponent;
+	public Color playerColor => _playerColor;
+	public Shop shop => _shop;
 
 	[SerializeField] GameObject _avatar;
+	[SerializeField] Renderer _indicatorRenderer;
 
 	void Awake()
 	{
 		_mover = GetComponentInChildren<Mover>();
 		_mover.SetPlayer(this);
 		_castingComponent = GetComponentInChildren<CastingComponent>();
-		_shop = GetComponentInChildren<Shop>();
 		_playerStats = GetComponent<PlayerStats>();
 		_ragdoll = _avatar.GetComponent<RagdollComponent>();
 		_playerStats.onDeath += HealthComp_OnDeath;
@@ -44,19 +44,38 @@ public class Player : MonoBehaviour
 	}
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
+	public Transform GetAvatarTransform() => _avatar.transform;
 	public Vector3 GetAvatarVelocity() => _velocity;
 	public Vector2 GetAimDirection() => _mover.GetAimDirection();
 
 	public int GetPlayerIndex() => _playerIndex;
 
-	public void Possess(PlayerController playerController)
+	public void SetShop(Shop shop) => _shop = shop;
+
+	public void Possess(PlayerController playerController, Color color)
 	{
 		_owningController = playerController;
 		_playerIndex = playerController.playerIndex;
-		_owningController.playerInput.uiInputModule = _shop.inputModule;
 
 		if (playerController.usingMK)
 			_mover.SetFollowCursor();
+
+		_playerColor = color;
+		_indicatorRenderer.material.color = _playerColor;
+	}
+
+	public void ResetPlayer(Transform spawnPoint)
+	{
+		transform.position = spawnPoint.position;
+		transform.rotation = spawnPoint.rotation;
+		_avatar.transform.localPosition = Vector3.zero;
+		_avatar.transform.localRotation = Quaternion.identity;
+		_playerStats.health = _playerStats.maxHealth;
+		_ragdoll.DisableRagdoll();
+
+		_mover.enabled = true;
+		_castingComponent.enabled = true;
+		gameObject.tag = "AlivePlayers";
 	}
 
 	public void Release()
@@ -97,11 +116,6 @@ public class Player : MonoBehaviour
 	public void ToggleShopUI(bool isEnabled)
 	{
 		_shop.ToggleShopUI(isEnabled);
-	}
-
-	public void ToggleInGameMenuUI(bool isEnabled)
-	{
-		_inGameMenu.ToggleInGameMenuUI(isEnabled, owningController);
 	}
 
 	public void SwapShopTab()
@@ -173,7 +187,6 @@ public class Player : MonoBehaviour
 		GameStateManager.instance.HandlePlayerDied(this);			
 	}
 
-	public Camera PlayerCamera => GetComponentInChildren<Camera>();
 	public PlayerStats PlayerStats => GetComponent<PlayerStats>();
 
 	PlayerStats _playerStats;
@@ -189,4 +202,5 @@ public class Player : MonoBehaviour
 	ShopTrigger _shopTrigger;
 	PlayerController _owningController;
 	AbilitySlotsComponent _abilitySlotsComponent;
+	Color _playerColor;
 }

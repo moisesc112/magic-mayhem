@@ -133,7 +133,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 			inWaveCooldown = false;
 			foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
 			{
-				playerController.ForceCloseActiveShopUI(playerController);
+				playerController.ForceCloseActiveShopUI();
 			}
 			// Deactivate Shopkeeper
 			if (shopkeeper != null)

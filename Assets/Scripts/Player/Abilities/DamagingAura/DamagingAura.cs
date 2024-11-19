@@ -31,8 +31,11 @@ public class DamagingAura : Ability
 
     public override void Despawn()
     {
-        _player.PlayerStats.StatusEffects.RemoveStatusEffectsByName(buffStatusEffect.name);
-        base.Despawn();
+		foreach (var player in PlayerManager.instance.players)
+		{
+			player.PlayerStats.StatusEffects.RemoveStatusEffectsByName(buffStatusEffect.name);
+		}
+		base.Despawn();
     }
 
     public override void UpdateProjectileVelocity() { }

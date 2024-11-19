@@ -543,7 +543,6 @@ MonoBehaviour:
   playerInShop: 0
   ShopTriggerUI: {fileID: 6703646758400874290}
   ShopKeeper: {fileID: 2187678375038580176}
-  ShopKeeperIndicator: {fileID: 798254498216302481}
 --- !u!1 &2187342459100918020
 GameObject:
   m_ObjectHideFlags: 0

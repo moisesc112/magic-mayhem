@@ -1,7 +1,10 @@
 using System;
+using UnityEngine;
 
 public class GameStateManager : Singleton<GameStateManager>
 {
+	[SerializeField] Transform _spawnPoint;
+
 	/// <summary>
 	/// Value is bool representing if game was won.
 	/// </summary>
@@ -16,17 +19,25 @@ public class GameStateManager : Singleton<GameStateManager>
 		foreach (var controller in playerControllers)
 		{
 			// This could probably be refactored into a dedicated spawner class.
-			PlayerManager.instance.SpawnPlayer(controller);
+			var player = PlayerManager.instance.SpawnPlayer(controller);
+			FollowCam.instance.targets.Add(player.GetAvatarTransform());
+			player.ResetPlayer(_spawnPoint);
+			InGameMenu.instance.ConfigureHud(player);
 		}
 
-		if (playerControllers.Count > 1)
-			PlayerManager.instance.EnableSplitScreen();
-
 		_alivePlayers = playerControllers.Count;
-
+		SpawnDeadPlayers();
 		// Hack for starting from scene other than menu
 		if (_alivePlayers == 0)
 			PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
+
+		WaveManager.instance.waveFinished += WaveManager_OnWaveFinished;
+	}
+
+	private void WaveManager_OnWaveFinished(object sender, WaveEndedEventArgs e)
+	{
+		SpawnDeadPlayers();
+		_alivePlayers = PlayerManager.instance.PlayerControllers.Count;
 	}
 
 	private void PlayerManager_OnPlayerControllerJoined(object sender, GenericEventArgs<PlayerController> e)
@@ -37,6 +48,7 @@ public class GameStateManager : Singleton<GameStateManager>
 	private void OnDestroy()
 	{
 		PlayerManager.instance.PlayerControllerJoined -= PlayerManager_OnPlayerControllerJoined;
+		WaveManager.instance.waveFinished -= WaveManager_OnWaveFinished;
 	}
 
 	public void HandlePlayerDied(Player player)
@@ -44,6 +56,8 @@ public class GameStateManager : Singleton<GameStateManager>
 		_alivePlayers--;
 		if (_alivePlayers == 0)
 			RaiseGameLost();
+		else
+			FollowCam.instance.targets.Remove(player.GetAvatarTransform());
 	}
 
 	public void RaiseGameLost()
@@ -54,6 +68,19 @@ public class GameStateManager : Singleton<GameStateManager>
 	public void RaiseGameWon()
 	{
 		gameEnded?.Invoke(this, new GenericEventArgs<bool>(true));
+	}
+
+	private void SpawnDeadPlayers()
+	{
+		foreach (var player in PlayerManager.instance.players)
+		{
+			if (player.PlayerStats.IsAlive == false)
+			{
+				player.ResetPlayer(_spawnPoint);
+				FollowCam.instance.targets.Add(player.GetAvatarTransform());
+				player.PlayerStats.gold = Mathf.Min(player.PlayerStats.gold - 50, 0);
+			}
+		}
 	}
 
 	int _alivePlayers;
