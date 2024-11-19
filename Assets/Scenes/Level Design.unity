@@ -782,6 +782,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caa2124efa5304b9aec24a5dcd5fde, type: 3}
+--- !u!1 &100146465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 100146466}
+  m_Layer: 0
+  m_Name: GoblinShopSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &100146466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100146465}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 163, y: 0, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1860624335}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &105751753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 465936, guid: a6f16611a8f69374292b9e72bfe3d32f,
@@ -1274,6 +1305,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83a2f7020dfbb4645a56edf8c3df95fd, type: 3}
+--- !u!1 &125572387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 125572388}
+  m_Layer: 0
+  m_Name: PlainsShopSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &125572388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125572387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 127, y: 0, z: 37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1860624335}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &127186205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12791,7 +12853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 286747887}
   m_Layer: 0
-  m_Name: SpawnPoint4
+  m_Name: TownSpawnPoint4
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -17046,10 +17108,6 @@ MonoBehaviour:
   westFog: {fileID: 1005428517}
   eastFog: {fileID: 271633678}
   northAndSouthFog: {fileID: 1951382181}
-  shopPlains: {x: 127, y: 0, z: 37}
-  shopGoblins: {x: 163, y: 0, z: 6}
-  plainsLevelWaveStart: 4
-  goblinsLevelWaveStart: 8
 --- !u!4 &726473922
 Transform:
   m_ObjectHideFlags: 0
@@ -17258,7 +17316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 768272589}
   m_Layer: 0
-  m_Name: SpawnPoint11
+  m_Name: GoblinSpawnPoint11
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -17514,7 +17572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 787442026}
   m_Layer: 0
-  m_Name: SpawnPoint3
+  m_Name: TownSpawnPoint3
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -18171,7 +18229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 824815686}
   m_Layer: 0
-  m_Name: SpawnPoint12
+  m_Name: GoblinSpawnPoint12
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -18940,6 +18998,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1825824319}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &910910181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910910180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7637ed7c1af849a4bb70131852889ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shopSpawnLocations:
+  - {fileID: 125572388}
+  - {fileID: 100146466}
 --- !u!4 &912918884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 467592, guid: 00f27e31f6ca1f24b834fd597918c520,
@@ -19035,7 +19108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 942247505}
   m_Layer: 0
-  m_Name: SpawnPoint8
+  m_Name: PlainsSpawnPoint8
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -21125,7 +21198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1113558290}
   m_Layer: 0
-  m_Name: SpawnPoint7
+  m_Name: PlainsSpawnPoint7
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -21725,7 +21798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1153215404}
   m_Layer: 0
-  m_Name: SpawnPoint1
+  m_Name: TownSpawnPoint1
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -21756,7 +21829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1157543187}
   m_Layer: 0
-  m_Name: SpawnPoint9
+  m_Name: GoblinSpawnPoint9
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -22179,7 +22252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196817376}
   m_Layer: 0
-  m_Name: SpawnPoint5
+  m_Name: PlainsSpawnPoint5
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -29805,7 +29878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1435249343}
   m_Layer: 0
-  m_Name: SpawnPoint10
+  m_Name: GoblinSpawnPoint10
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -30165,7 +30238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1458181148}
   m_Layer: 0
-  m_Name: SpawnPoint2
+  m_Name: TownSpawnPoint2
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -40284,6 +40357,8 @@ Transform:
   - {fileID: 1435249343}
   - {fileID: 768272589}
   - {fileID: 824815686}
+  - {fileID: 100146466}
+  - {fileID: 125572388}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41522,7 +41597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1991415359}
   m_Layer: 0
-  m_Name: SpawnPoint6
+  m_Name: PlainsSpawnPoint6
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
