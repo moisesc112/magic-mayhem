@@ -17,14 +17,16 @@ public sealed class LevelManager : Singleton<LevelManager>
     public GameObject goblinBoundary;
     public GameObject westFog;
     public GameObject eastFog;
-    public GameObject northFog;
-    public GameObject southFog;
+    public GameObject northAndSouthFog;
     
 
     public Vector3 shopPlains;
     public Vector3 shopGoblins;
 
+    private Animator eastFogAnimator;
     private Animator westFogAnimator;
+    private Animator northAndSouthFogAnimator;
+
     private int waveCounter = 1;
     public int plainsLevelWaveStart;
     public int goblinsLevelWaveStart;
@@ -32,6 +34,9 @@ public sealed class LevelManager : Singleton<LevelManager>
     void Start()
     {
         westFogAnimator = westFog.GetComponent<Animator>();
+        eastFogAnimator = eastFog.GetComponent<Animator>();
+        northAndSouthFogAnimator = northAndSouthFog.GetComponent<Animator>();
+
         if (WaveManager.instance is null || plainsBoundary is null || goblinBoundary is null) return;
         WaveManager.instance.waveFinished += WaveManager_WaveFinished;
         WaveManager.instance.waveStarted += WaveManager_WaveStarted;
@@ -51,14 +56,15 @@ public sealed class LevelManager : Singleton<LevelManager>
             if (waveCounter == plainsLevelWaveStart)
             {
                 plainsBoundary.SetActive(true);
-                eastFog.transform.position = new Vector3(eastFog.transform.position.x + 74.07f, eastFog.transform.position.y, eastFog.transform.position.z);
+                northAndSouthFogAnimator.SetTrigger("TriggerSecondLevel");
+                westFogAnimator.SetTrigger("TriggerSecondLevel");
             }
             else
             {
                 goblinBoundary.SetActive(true);
-                eastFog.transform.position = new Vector3(eastFog.transform.position.x + 74.07f, eastFog.transform.position.y, eastFog.transform.position.z);
+                westFogAnimator.SetTrigger("TriggerThirdLevel");
             }
-             xMinBoundary += 75;
+            xMinBoundary += 75;
             BoundsUpdated();
         }
     }
@@ -72,15 +78,13 @@ public sealed class LevelManager : Singleton<LevelManager>
             {
                 plainsBoundary.SetActive(false);
                 shop.transform.position = shopPlains;
-                westFogAnimator.SetTrigger("TriggerSecondLevel");
+                eastFogAnimator.SetTrigger("TriggerSecondLevel");
             }
             else
             {
                 goblinBoundary.SetActive(false);
                 shop.transform.position = shopGoblins;
-                northFog.transform.position = new Vector3(northFog.transform.position.x + 50, northFog.transform.position.y, northFog.transform.position.z);
-                southFog.transform.position = new Vector3(southFog.transform.position.x + 50, southFog.transform.position.y, southFog.transform.position.z);
-                westFogAnimator.SetTrigger("TriggerThirdLevel");
+                eastFogAnimator.SetTrigger("TriggerThirdLevel");
             }
             xMaxBoundary += 75;
             BoundsUpdated();
