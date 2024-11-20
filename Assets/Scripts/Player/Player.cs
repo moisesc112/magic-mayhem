@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
 	[SerializeField] GameObject _avatar;
 	[SerializeField] Renderer _indicatorRenderer;
+	[SerializeField] Renderer _positionalRenderer;
 	[SerializeField] AudioClip onDeathSound;
 
 	void Awake()
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour
 
 		_playerColor = color;
 		_indicatorRenderer.material.color = _playerColor;
+		_positionalRenderer.material.color = _playerColor;
 	}
 
 	public void ResetPlayer(Transform spawnPoint)

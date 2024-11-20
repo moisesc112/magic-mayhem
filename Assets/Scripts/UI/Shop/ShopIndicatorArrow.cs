@@ -8,17 +8,18 @@ public class ShopIndicatorArrow : MonoBehaviour
     // Used https://www.youtube.com/watch?v=dHzeHh-3bp4 as a reference
 
     private Transform shopkeeper;
+    private Camera followCam;
     public RectTransform arrow;
     public TextMeshProUGUI arrowText;
     public TextMeshProUGUI arrowTextFlipped;
-    public Camera playerCam;
     public float arrowMargin = 50;
 
     private void Start()
     {
-        if (ShopKeeper.instance != null)
+        if (ShopKeeper.instance != null && FollowCam.instance != null)
         {
             shopkeeper = ShopKeeper.instance.shopkeeperPosition;
+            followCam = FollowCam.instance.GetComponentInParent<Camera>();
         }
     }
 
@@ -37,7 +38,7 @@ public class ShopIndicatorArrow : MonoBehaviour
         }
 
         // Get the shopkeeper point based on the position
-        Vector3 shopkeeperScreenPoint = playerCam.WorldToScreenPoint(shopkeeper.position);
+        Vector3 shopkeeperScreenPoint = followCam.WorldToScreenPoint(shopkeeper.position);
         
         // To check if the shopkeeper is offscreen  
         bool isOffScreen = shopkeeperScreenPoint.x < 0 || shopkeeperScreenPoint.x > Screen.width || shopkeeperScreenPoint.y < 0 || shopkeeperScreenPoint.y > Screen.height;
