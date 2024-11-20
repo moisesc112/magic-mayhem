@@ -47,10 +47,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeGameStarts: 15
+  startPlainsLevel: 4
+  startGoblinLevel: 8
   shopkeeper: {fileID: 0}
   _enemyFactory: {fileID: 0}
   inTestingScene: 0
-  _spawnLocations:
+  _townSpawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _plainsSpawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _goblinSpawnLocations:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
