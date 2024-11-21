@@ -205,6 +205,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 			shouldSkipWaveCooldown = true;
 		}
 		_npcTrigger.playerTalkingToNPC = false;
+		_npcTrigger.ring.SetActive(false);
 		foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
 		{
 			playerController.ForceCloseNPC();

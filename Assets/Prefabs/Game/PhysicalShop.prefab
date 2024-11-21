@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6128258149821158963}
+  - component: {fileID: 5196410284082552975}
   m_Layer: 0
   m_Name: PhysicalShop
   m_TagString: Untagged
@@ -34,6 +35,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5196410284082552975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375459022882928145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7637ed7c1af849a4bb70131852889ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shopSpawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &798254498216302481
 GameObject:
   m_ObjectHideFlags: 0

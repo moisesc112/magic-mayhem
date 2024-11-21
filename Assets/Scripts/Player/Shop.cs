@@ -115,8 +115,7 @@ public class Shop : MonoBehaviour
 
 	public void ToggleShopUI(bool isEnabled)
 	{
-		if (_abilitySlotConfirmation is object)
-			_abilitySlotConfirmation.SetActive(false);
+		_abilitySlotConfirmation?.SetActive(false);
 		gameObject?.SetActive(isEnabled);
 		if (isEnabled)
 		{

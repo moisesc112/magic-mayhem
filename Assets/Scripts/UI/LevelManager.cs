@@ -13,6 +13,7 @@ public sealed class LevelManager : Singleton<LevelManager>
 
 
     public GameObject shop;
+    public GameObject npc;
     public GameObject plainsBoundary;
     public GameObject goblinBoundary;
     public GameObject westFog;
@@ -24,6 +25,7 @@ public sealed class LevelManager : Singleton<LevelManager>
     private Animator northAndSouthFogAnimator;
 
     private Transform[] shopLocations;
+    private Transform[] npcLocations;
     private int waveCounter = 1;
     private float boundsIncrement = 75;
     private int plainsLevelWaveStart;
@@ -45,6 +47,12 @@ public sealed class LevelManager : Singleton<LevelManager>
         if (physicalShop != null)
         {
             shopLocations = physicalShop.ShopSpawnLocations;
+        }
+
+        NPC _npc = npc.GetComponent<NPC>();
+        if (_npc != null)
+        {
+            npcLocations = _npc.NPCSpawnLocations;
         }
 
     }
@@ -88,6 +96,10 @@ public sealed class LevelManager : Singleton<LevelManager>
                 {
                     shop.transform.position = shopLocations[0].position;
                 }
+                if (npcLocations.Length > 0)
+                {
+                    npc.transform.position = npcLocations[0].position;
+                }
                 eastFogAnimator.SetTrigger("TriggerSecondLevel");
             }
             else
@@ -96,6 +108,10 @@ public sealed class LevelManager : Singleton<LevelManager>
                 if (shopLocations.Length > 1)
                 {
                     shop.transform.position = shopLocations[1].position;
+                }
+                if (npcLocations.Length > 1)
+                {
+                    npc.transform.position = npcLocations[1].position;
                 }
                 eastFogAnimator.SetTrigger("TriggerThirdLevel");
             }
