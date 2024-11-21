@@ -27,4 +27,13 @@ Project for CS6457
 * Free Fire VFX + Sound: https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-fire-vfx-266227
 * Trap Spike Activate Sound: https://pixabay.com/sound-effects/steel-blade-slice-2-188214/
 * Prime Trap Sound: https://pixabay.com/sound-effects/mechanical1-107614/
-
+* Player Shield Hit Sound: https://freesound.org/people/CTCollab/sounds/223630/
+* Player Hard Hit Sound: https://freesound.org/people/crunchymaniac/sounds/678424/
+* Player Death Sound: https://freesound.org/people/SoundBiterSFX/sounds/731506/
+* Goblin Hit Sound: https://freesound.org/people/HydraSound/sounds/736274/
+* Goblin Death Sound: https://freesound.org/people/Fenodyrie/sounds/565928/
+* War Chief Hit/Death Sound: https://freesound.org/people/efectirijillo/sounds/241979/
+* Golem Hit Sound: https://freesound.org/people/lolamadeus/sounds/179365/
+* Golem Death Sound: https://freesound.org/people/Artninja/sounds/750822/
+* Skeleton Hit Sound: https://freesound.org/people/cribbler/sounds/381859/
+* Skeleton Death Sound: https://freesound.org/people/spookymodem/sounds/202091/
