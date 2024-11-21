@@ -41980,6 +41980,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4404108028383301893, guid: 6e346359ebc21ed44aff47e417142e43, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404108028383301893, guid: 6e346359ebc21ed44aff47e417142e43, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4603399742821400676, guid: 6e346359ebc21ed44aff47e417142e43, type: 3}
       propertyPath: m_IsActive
       value: 1

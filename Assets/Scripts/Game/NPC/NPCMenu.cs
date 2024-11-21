@@ -14,9 +14,6 @@ public class NPCMenu : MonoBehaviour
     [Header("UIElements")]
     [SerializeField] Button _nextWaveButton;
 
-    public bool secondLevel= false;
-    public bool thirdLevel = false;
-
     public InputSystemUIInputModule inputModule => _inputModule;
     void Start()
     {
