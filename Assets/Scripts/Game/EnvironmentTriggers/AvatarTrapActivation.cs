@@ -25,14 +25,6 @@ public class AvatarTrapActivation : MonoBehaviour
 				_player.SetDetectedTrap(_trap);
             }
 		}
-		else if (collision.tag == "BellTower")
-        {
-			_bellTower = collision.GetComponent<BellTower>();
-			if (_player != null && _bellTower != null)
-			{
-				_player.SetBellTower(_bellTower);
-			}
-        }
 	}
 	private void OnTriggerExit(Collider collision)
 	{
@@ -48,18 +40,8 @@ public class AvatarTrapActivation : MonoBehaviour
 
 			}
 		}
-		else if (collision.tag == "BellTower")
-		{
-			_bellTower = null;
-			if (_player != null)
-			{
-				_player.SetBellTower(_bellTower);
-
-			}
-		}
 	}
 
 	Player _player;
 	AbstractTrap _trap;
-	BellTower _bellTower;
 }

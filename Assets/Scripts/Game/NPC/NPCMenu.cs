@@ -62,7 +62,6 @@ public class NPCMenu : MonoBehaviour
 
     public void ToggleNPCUI(bool isEnabled)
     {
-        _player.owningController.playerInput.uiInputModule = _inputModule;
         gameObject?.SetActive(isEnabled);
         if (isEnabled)
         {

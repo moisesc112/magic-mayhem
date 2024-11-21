@@ -19,7 +19,7 @@ public class InGameMenu : Singleton<InGameMenu>
 	[SerializeField] PlayerHUD []_playerHUDs;
 	[SerializeField] Shop[] _shopHUDs;
 	[SerializeField] PauseMenu[] _pauseMenus;
-	[SerializeField] NPCMenu _npcMenu;
+	[SerializeField] NPCMenu[] _npcMenus;
 
 	public InputSystemUIInputModule inputSystemUIInputModule => _inputModule;
 
@@ -121,16 +121,17 @@ public class InGameMenu : Singleton<InGameMenu>
 		var matchingHUD = _playerHUDs[index];
 		var matchingShop = _shopHUDs[index];
 		var matchingPauseMenu = _pauseMenus[index];
-		if (matchingHUD is null || matchingShop is null || matchingPauseMenu is null) return;
+		var matchingNPCMenu = _npcMenus[index];
+		if (matchingHUD is null || matchingShop is null || matchingPauseMenu is null || matchingNPCMenu is null) return;
 
 		matchingHUD.TrackPlayer(player);
 		matchingHUD.gameObject.SetActive(true);
 		
 		matchingShop.ConfigurePlayer(player);
 		player.SetShop(matchingShop);
-		player.SetNPCMenu(_npcMenu);
+		player.SetNPCMenu(matchingNPCMenu);
 
-		_npcMenu.ConfigurePlayer(player);
+		matchingNPCMenu.ConfigurePlayer(player);
 		matchingPauseMenu.ConfigurePlayer(player);
 	}
 

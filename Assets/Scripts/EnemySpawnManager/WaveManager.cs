@@ -11,6 +11,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 	public int startPlainsLevel;
 	public int startGoblinLevel;
 	public GameObject shopkeeper;
+	public GameObject npc;
 
 	[SerializeField] EnemyFactory _enemyFactory;
 	[SerializeField] bool inTestingScene;
@@ -46,6 +47,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 	{
 		isGameFinished = false;
 		DisableShopDuringWave();
+		EnableNPCAfterWave();
 	}
 
 	protected override void DoAwake()
@@ -55,6 +57,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 		waves = waveInfo.GetWaveContents();
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 		_waveCanvasSettings = FindObjectOfType<WaveCanvasSettings>();
+		_npcTrigger = FindObjectOfType<NPCTrigger>();
 	}
 
     public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
@@ -118,6 +121,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 			{
 				waveFinished?.Invoke(this, new WaveEndedEventArgs(wave.timeToNextWave));
 				EnableShopAfterWave();
+				EnableNPCAfterWave();
 				yield return new WaitForSecondsOrCondition(
 					condition: () => shouldSkipWaveCooldown,
 					seconds: wave.timeToNextWave);
@@ -151,12 +155,18 @@ public sealed class WaveManager : Singleton<WaveManager>
 			foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
 			{
 				playerController.ForceCloseActiveShopUI();
+				playerController.ForceCloseNPC();
 			}
 			// Deactivate Shopkeeper
 			if (shopkeeper != null)
             {
 				shopkeeper.SetActive(false);
             }
+			// Deactivate npc
+			if (npc != null)
+			{
+				npc.SetActive(false);
+			}
 		}
 	}
 
@@ -174,6 +184,14 @@ public sealed class WaveManager : Singleton<WaveManager>
 		}
 	}
 
+	void EnableNPCAfterWave()
+	{
+		if (npc != null)
+		{
+			npc.SetActive(true);
+		}
+    }
+
 	public void SkipShopPhase()
 	{
 		Debug.Log("Skipping Shop Phase");
@@ -186,10 +204,16 @@ public sealed class WaveManager : Singleton<WaveManager>
         {
 			shouldSkipWaveCooldown = true;
 		}
-    }
+		_npcTrigger.playerTalkingToNPC = false;
+		foreach (PlayerController playerController in PlayerManager.instance.PlayerControllers)
+		{
+			playerController.ForceCloseNPC();
+		}
+	}
 
 	InGameMenu _inGameMenu;
 	WaveCanvasSettings _waveCanvasSettings;
+	NPCTrigger _npcTrigger;
 }
 
 public sealed class WaveStartedEventArgs : EventArgs
