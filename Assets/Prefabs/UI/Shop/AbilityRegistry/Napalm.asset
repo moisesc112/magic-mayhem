@@ -21,10 +21,11 @@ MonoBehaviour:
   cost: 15
   abilityPrefab: {fileID: 4814858020290734396, guid: 9aecef9e50a5f9b46a79605e6f37846b, type: 3}
   projectileDestoryAfterCollision: 0
-  despawnTime: 5
+  despawnTime: 3
   projectileTargetDirection: {x: 0, y: 0, z: 0}
   castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: 447e97f44e7d0fd4eb6ddec82c319992, type: 3}
   icon: {fileID: 1812218779, guid: 11406c529d3b3c940b226b38c52dcffc, type: 3}
+  nextLevel: {fileID: 11400000, guid: 77c30eab9dce3e549b379688ea0dd3c1, type: 2}

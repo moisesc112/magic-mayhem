@@ -19662,7 +19662,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.5, g: 0.5, b: 1, a: 0.03137255}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.2982626, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -29304,7 +29304,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.5, g: 0.5, b: 1, a: 0.03137255}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.22078526, g: 1, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -33917,7 +33917,7 @@ GameObject:
   - component: {fileID: 8735454398257609202}
   - component: {fileID: 729109262391880363}
   m_Layer: 7
-  m_Name: NapalmInstance
+  m_Name: NapalmInstance2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33932,7 +33932,7 @@ Transform:
   m_GameObject: {fileID: 8833894154497052493}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.834, z: 40}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7721349915940698417}

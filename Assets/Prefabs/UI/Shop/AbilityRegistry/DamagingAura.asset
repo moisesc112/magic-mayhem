@@ -29,3 +29,4 @@ MonoBehaviour:
   projectileSpread: 0
   castingSound: {fileID: 0}
   icon: {fileID: 2084796411, guid: 339a20dd9f7c61343ab07dd7ded21676, type: 3}
+  nextLevel: {fileID: 11400000, guid: 15c6dc5de215cdf459401a2c41fda94e, type: 2}
