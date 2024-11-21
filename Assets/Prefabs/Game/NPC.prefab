@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTalkingToNPC: 0
+  ring: {fileID: 1779978109979405450}
 --- !u!1 &1007399863234724389
 GameObject:
   m_ObjectHideFlags: 0
@@ -10480,6 +10481,7 @@ GameObject:
   - component: {fileID: 913018500816202203}
   - component: {fileID: 3614586408547027660}
   - component: {fileID: 2464789047143588663}
+  - component: {fileID: 694074766011372117}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -10552,6 +10554,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdc5054089c8294692827103eb80f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _npcSpawnLocations: []
+--- !u!114 &694074766011372117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007690800734867147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2289279e1ba03da4ab679496bc970b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcPosition: {fileID: 0}
 --- !u!1 &1007691105170083185
 GameObject:
   m_ObjectHideFlags: 0
@@ -69358,7 +69374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8742846925727682170
 Transform:
   m_ObjectHideFlags: 0

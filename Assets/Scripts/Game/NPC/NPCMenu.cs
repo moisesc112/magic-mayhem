@@ -49,6 +49,8 @@ public class NPCMenu : MonoBehaviour
 
     private void EnterNPC()
     {
+        // I commented this out because it wasn't working
+        //_player.owningController.playerInput.uiInputModule = _inputModule;
         if (_usingMK == false)
             multiplayerEventSystem.SetSelectedGameObject(_nextWaveButton.gameObject);
         Time.timeScale = 0;

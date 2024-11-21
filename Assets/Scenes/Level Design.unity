@@ -1245,7 +1245,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125572387}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 127, y: 0, z: 37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14882,6 +14882,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 694074766011372117, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
+      propertyPath: npcPosition
+      value: 
+      objectReference: {fileID: 1826043103}
     - target: {fileID: 1006354456143817453, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -14942,6 +14946,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 2464789047143588663, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
+      propertyPath: _npcSpawnLocations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464789047143588663, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
+      propertyPath: _npcSpawnLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 1648557048}
+    - target: {fileID: 2464789047143588663, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
+      propertyPath: _npcSpawnLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 623232773}
     - target: {fileID: 3392977963599075651, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
       propertyPath: m_Layer
       value: 16
@@ -15593,6 +15609,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 403206, guid: a82eef8200c2790419bf0f96c3981887, type: 3}
   m_PrefabInstance: {fileID: 174725805}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &623232772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623232773}
+  m_Layer: 0
+  m_Name: GoblinNPCSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &623232773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623232772}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 171, y: 0, z: 59.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1860624335}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &628102292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 143466, guid: 6582244b6dfcbf145a51067874f7f876, type: 3}
@@ -16709,6 +16756,7 @@ MonoBehaviour:
   zMinBoundary: -5
   zMaxBoundary: 60
   shop: {fileID: 910910180}
+  npc: {fileID: 1826043099}
   plainsBoundary: {fileID: 1921532400}
   goblinBoundary: {fileID: 1859793889}
   westFog: {fileID: 1005428517}
@@ -18536,21 +18584,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 375459022882928145, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
   m_PrefabInstance: {fileID: 1825824319}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &910910181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910910180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7637ed7c1af849a4bb70131852889ae6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shopSpawnLocations:
-  - {fileID: 125572388}
-  - {fileID: 100146466}
 --- !u!4 &912918884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 467592, guid: 00f27e31f6ca1f24b834fd597918c520, type: 3}
@@ -31736,6 +31769,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 466684, guid: e3dd5ae7fef5a16408f1f48b07898179, type: 3}
   m_PrefabInstance: {fileID: 1797883121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1648557047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648557048}
+  m_Layer: 0
+  m_Name: PlainsNPCSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648557048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648557047}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 112.47, y: 0, z: 55.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1860624335}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1654410852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 479324, guid: b33243cded6c66c4ab41347fc933752c, type: 3}
@@ -34041,6 +34105,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.0031280369
       objectReference: {fileID: 0}
+    - target: {fileID: 5196410284082552975, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
+      propertyPath: _shopSpawnLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 125572388}
+    - target: {fileID: 5196410284082552975, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
+      propertyPath: _shopSpawnLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 100146466}
     - target: {fileID: 6128258149821158963, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -34095,6 +34167,11 @@ GameObject:
 --- !u!1 &1826043099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1007690800734867147, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
+  m_PrefabInstance: {fileID: 539646885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1826043103 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1006354456143817453, guid: 547e5139c058a564dacb7b57a05f730e, type: 3}
   m_PrefabInstance: {fileID: 539646885}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1827245363
@@ -39307,6 +39384,8 @@ Transform:
   - {fileID: 824815686}
   - {fileID: 100146466}
   - {fileID: 125572388}
+  - {fileID: 623232773}
+  - {fileID: 1648557048}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -42203,6 +42282,14 @@ PrefabInstance:
       propertyPath: _enemyFactory
       value: 
       objectReference: {fileID: 1253232303}
+    - target: {fileID: 6487062124217935295, guid: eafa2cf6c65124a488259015e2d07ac4, type: 3}
+      propertyPath: startGoblinLevel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6487062124217935295, guid: eafa2cf6c65124a488259015e2d07ac4, type: 3}
+      propertyPath: startPlainsLevel
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6487062124217935295, guid: eafa2cf6c65124a488259015e2d07ac4, type: 3}
       propertyPath: _townSpawnLocations.Array.data[0]
       value: 
