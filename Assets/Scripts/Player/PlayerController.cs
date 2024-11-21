@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (_player && context.performed && _player.playerInNPCRange)
 		{
-			_playerInput.SwitchCurrentActionMap("NPCInteract");
+		//	_playerInput.SwitchCurrentActionMap("NPCInteract");
 			_player.ToggleNPCUI(true);
 			playerTalkingToNPC = true;
 		}
@@ -172,6 +172,15 @@ public class PlayerController : MonoBehaviour
 		if (_player is null) return;
 
 		_player.ToggleShopUI(false);
+		_playerInput.SwitchCurrentActionMap("Gameplay");
+		playerInShop = false;
+	}
+
+	public void ForceCloseNPC()
+	{
+		if (_player is null) return;
+
+		_player.ToggleNPCUI(false);
 		_playerInput.SwitchCurrentActionMap("Gameplay");
 		playerInShop = false;
 	}

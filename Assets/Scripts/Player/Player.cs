@@ -145,11 +145,6 @@ public class Player : MonoBehaviour
 		detectedTrap = trap;
 	}
 
-	public void SetBellTower(BellTower bellTower)
-	{
-		_bellTower = bellTower;
-	}
-
 	public void ToggleNPCUI(bool isEnabled)
 	{
 		_npcMenu.ToggleNPCUI(isEnabled);
@@ -163,11 +158,6 @@ public class Player : MonoBehaviour
 		{
 			_playerStats.gold -= detectedTrap.trapInfo.trapCost;
 			detectedTrap.ActivateTrap();
-		}
-		else if (isActivated && _bellTower != null && _bellTower.isActivatable)
-		{
-			WaveManager.instance.SkipShopPhase();
-			SetBellTower(null);
 		}
 	}
 
@@ -234,7 +224,6 @@ public class Player : MonoBehaviour
 	Vector3 _previousPos;
 	RagdollComponent _ragdoll;
 	InGameMenu _inGameMenu;
-	BellTower _bellTower;
 	ShopTrigger _shopTrigger;
 	NPCTrigger _npcTrigger;
 	PlayerController _owningController;

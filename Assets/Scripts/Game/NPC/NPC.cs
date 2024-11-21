@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    [SerializeField] Transform[] _npcSpawnLocations;
+    public Transform[] NPCSpawnLocations => _npcSpawnLocations;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (WaveManager.instance is null) return;
@@ -25,6 +26,11 @@ public class NPC : MonoBehaviour
     private void WaveManager_WaveStarted(object sender, WaveStartedEventArgs e)
     {
         gameObject.SetActive(false);
+    }
+
+    private void WaveManager_WaveEnded(object sender, WaveEndedEventArgs e)
+    {
+        gameObject.SetActive(true);
     }
 
 }
