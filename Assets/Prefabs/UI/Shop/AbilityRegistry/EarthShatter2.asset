@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
   m_Name: EarthShatter2
   m_EditorClassIdentifier: 
-  abilityName: Earth Shatter
+  abilityName: Earth Shatter II
   description: It is almost as if you were bending the vary earth itself.
   abiltyType: 0
   cooldown: 8
@@ -27,4 +27,4 @@ MonoBehaviour:
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: 20f0407c248488a44af63dd5ed03de46, type: 3}
   icon: {fileID: -642281900, guid: f63a45932bba90b4bac33958f45d021c, type: 3}
-  nextLevel: {fileID: 0}
+  nextLevel: {fileID: 11400000, guid: 3542f5d1397191a40803d40c79f4a356, type: 2}

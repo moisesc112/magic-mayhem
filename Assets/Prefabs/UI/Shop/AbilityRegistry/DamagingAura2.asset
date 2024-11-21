@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
   m_Name: DamagingAura2
   m_EditorClassIdentifier: 
-  abilityName: Damaging Aura
+  abilityName: Damaging Aura II
   description: Increase your power even more for longer. Trusted by at least 1 out
     of 10 magicians.
   abiltyType: 0

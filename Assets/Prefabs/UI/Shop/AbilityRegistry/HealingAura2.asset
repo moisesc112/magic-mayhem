@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
   m_Name: HealingAura2
   m_EditorClassIdentifier: 
-  abilityName: Healing Aura
+  abilityName: Healing Aura II
   description: Increased healing rate and decreased cooldown mean you can let goblins
     slap you around a bit more!
   abiltyType: 0

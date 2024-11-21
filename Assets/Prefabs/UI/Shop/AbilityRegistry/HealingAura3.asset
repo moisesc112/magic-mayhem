@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
   m_Name: HealingAura3
   m_EditorClassIdentifier: 
-  abilityName: Healing Aura
+  abilityName: Healing Aura III
   description: Bigger, longer, and greener than before!
   abiltyType: 0
   cooldown: 25

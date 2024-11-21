@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
   m_Name: EarthShatter3
   m_EditorClassIdentifier: 
-  abilityName: Earth Shatter
+  abilityName: Earth Shatter III
   description: Much lower cooldown. Make the landscape your canvas!
   abiltyType: 0
   cooldown: 4
@@ -20,7 +20,7 @@ MonoBehaviour:
   cost: 100
   abilityPrefab: {fileID: 1314945738539566, guid: 47c08d36d3b5b4d4b9ba5ffebfe2a4fd, type: 3}
   projectileDestoryAfterCollision: 0
-  despawnTime: 12
+  despawnTime: 8
   projectileTargetDirection: {x: 0, y: 0, z: 0}
   castingOffset: {x: 0, y: -1, z: 0}
   projectileTargetSpeed: 0
