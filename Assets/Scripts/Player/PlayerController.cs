@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 	public bool usingMK => _playerInput.currentControlScheme == "MK";
 
 	private bool playerInShop;
+	private bool playerTalkingToNPC;
 
 	void Awake()
 	{
@@ -65,6 +66,23 @@ public class PlayerController : MonoBehaviour
 			_player.ToggleShopUI(true);
 			playerInShop = true;
 		}
+	}
+
+	public void OnToggleNPC(InputAction.CallbackContext context)
+	{
+		if (_player && context.performed && _player.playerInNPCRange)
+		{
+			_playerInput.SwitchCurrentActionMap("NPCInteract");
+			_player.ToggleNPCUI(true);
+			playerTalkingToNPC = true;
+		}
+	}
+
+	public void OnCloseNPC(InputAction.CallbackContext context)
+	{
+		_playerInput.SwitchCurrentActionMap("Gameplay");
+		_player.ToggleNPCUI(false);
+		playerTalkingToNPC = false;
 	}
 
 	public void OnPauseGame(InputAction.CallbackContext context)
