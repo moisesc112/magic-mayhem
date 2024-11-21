@@ -42024,10 +42024,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8916791026235863344, guid: 6e346359ebc21ed44aff47e417142e43, type: 3}
-      propertyPath: _nextWaveButton
-      value: 
-      objectReference: {fileID: 690642193220546890}
     - target: {fileID: 9212655462618141509, guid: 6e346359ebc21ed44aff47e417142e43, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -42046,17 +42042,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e346359ebc21ed44aff47e417142e43, type: 3}
---- !u!114 &690642193220546890 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5629135169065302435, guid: 6e346359ebc21ed44aff47e417142e43, type: 3}
-  m_PrefabInstance: {fileID: 690642193220546889}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4414497002136932831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42292,11 +42277,11 @@ PrefabInstance:
       objectReference: {fileID: 1253232303}
     - target: {fileID: 6487062124217935295, guid: eafa2cf6c65124a488259015e2d07ac4, type: 3}
       propertyPath: startGoblinLevel
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6487062124217935295, guid: eafa2cf6c65124a488259015e2d07ac4, type: 3}
       propertyPath: startPlainsLevel
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6487062124217935295, guid: eafa2cf6c65124a488259015e2d07ac4, type: 3}
       propertyPath: _townSpawnLocations.Array.data[0]
