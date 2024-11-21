@@ -10,12 +10,14 @@ public class NPCMenu : MonoBehaviour
     [Header("Settings")]
     [SerializeField] InputSystemUIInputModule _inputModule;
     [SerializeField] MultiplayerEventSystem multiplayerEventSystem;
+
+    [Header("UIElements")]
+    [SerializeField] Button _nextWaveButton;
+
     public bool secondLevel= false;
     public bool thirdLevel = false;
 
     public InputSystemUIInputModule inputModule => _inputModule;
-
-    // Start is called before the first frame update
     void Start()
     {
         if (WaveManager.instance is null) return;
@@ -39,26 +41,36 @@ public class NPCMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void CloseNPC()
+    private void ExitNPC()
     {
         multiplayerEventSystem.SetSelectedGameObject(null);
+        Time.timeScale = 1;
     }
 
-    private void OpenShop()
+    private void EnterNPC()
     {
+        if (PlayerUsingMK() == false)
+            multiplayerEventSystem.SetSelectedGameObject(_nextWaveButton.gameObject);
+        Time.timeScale = 0;
     }
 
-    public void ToggleNPC(bool isEnabled)
+    public void ConfigurePlayer(Player player)
+    {
+        _player = player;
+        _usingMK = player.owningController.usingMK;
+    }
+
+    public void ToggleNPCUI(bool isEnabled)
     {
         _player.owningController.playerInput.uiInputModule = _inputModule;
         gameObject?.SetActive(isEnabled);
         if (isEnabled)
         {
-            OpenShop();
+            EnterNPC();
         }
         else
         {
-            CloseNPC();
+            ExitNPC();
         }
     }
 
@@ -68,5 +80,8 @@ public class NPCMenu : MonoBehaviour
         WaveManager.instance.SkipShopPhase();
     }
 
+    private bool PlayerUsingMK() => _player.owningController.usingMK;
+
     Player _player;
+    bool _usingMK;
 }

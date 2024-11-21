@@ -18,6 +18,7 @@ TagManager:
   - BellTower
   - Shop
   - TownCrier
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -35,7 +36,7 @@ TagManager:
   - Aura
   - ShopTrigger
   - Boundary
-  - 
+  - NPCTrigger
   - 
   - 
   - 

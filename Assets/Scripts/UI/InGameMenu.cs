@@ -19,6 +19,7 @@ public class InGameMenu : Singleton<InGameMenu>
 	[SerializeField] PlayerHUD []_playerHUDs;
 	[SerializeField] Shop[] _shopHUDs;
 	[SerializeField] PauseMenu[] _pauseMenus;
+	[SerializeField] NPCMenu _npcMenu;
 
 	public InputSystemUIInputModule inputSystemUIInputModule => _inputModule;
 
@@ -127,7 +128,9 @@ public class InGameMenu : Singleton<InGameMenu>
 		
 		matchingShop.ConfigurePlayer(player);
 		player.SetShop(matchingShop);
+		player.SetNPCMenu(_npcMenu);
 
+		_npcMenu.ConfigurePlayer(player);
 		matchingPauseMenu.ConfigurePlayer(player);
 	}
 

@@ -10,10 +10,12 @@ public class Player : MonoBehaviour
 	public Vector3 velocity => _velocity;
 	private AbstractTrap detectedTrap;
 	public bool playerInShopRange => _shopTrigger != null && _shopTrigger.playerInShop;
+	public bool playerInNPCRange => _npcTrigger != null && _npcTrigger.playerTalkingToNPC;
 	public PlayerController owningController => _owningController;
 	public AbilitySlotsComponent abilitySlotsComponent => _abilitySlotsComponent;
 	public Color playerColor => _playerColor;
 	public Shop shop => _shop;
+	public NPCMenu NPCMenu => _npcMenu;
 
 	[SerializeField] GameObject _avatar;
 	[SerializeField] Renderer _indicatorRenderer;
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
 		_playerStats.onDeath += HealthComp_OnDeath;
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 		_shopTrigger = FindObjectOfType<ShopTrigger>();
+		_npcTrigger = FindObjectOfType<NPCTrigger>();
 		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
 		_audioSource = GetComponentInChildren<AudioSource>();
 		_characterController = _avatar.GetComponent<CharacterController>();
@@ -55,6 +58,8 @@ public class Player : MonoBehaviour
 	public int GetPlayerIndex() => _playerIndex;
 
 	public void SetShop(Shop shop) => _shop = shop;
+
+	public void SetNPCMenu(NPCMenu NPCMenu) => _npcMenu = NPCMenu;
 
 	public void Possess(PlayerController playerController, Color color)
 	{
@@ -145,6 +150,11 @@ public class Player : MonoBehaviour
 		_bellTower = bellTower;
 	}
 
+	public void ToggleNPCUI(bool isEnabled)
+	{
+		_npcMenu.ToggleNPCUI(isEnabled);
+	}
+
 	public void ActivateTrap(bool isActivated)
 	{
 		// If player is on a trap and has chosen to activate it and has
@@ -218,6 +228,7 @@ public class Player : MonoBehaviour
 	Mover _mover;
 	CastingComponent _castingComponent;
 	Shop _shop;
+	NPCMenu _npcMenu;
 	int _playerIndex = -1;
 	Vector3 _velocity;
 	Vector3 _previousPos;
@@ -225,6 +236,7 @@ public class Player : MonoBehaviour
 	InGameMenu _inGameMenu;
 	BellTower _bellTower;
 	ShopTrigger _shopTrigger;
+	NPCTrigger _npcTrigger;
 	PlayerController _owningController;
 	AbilitySlotsComponent _abilitySlotsComponent;
 	CharacterController _characterController;
