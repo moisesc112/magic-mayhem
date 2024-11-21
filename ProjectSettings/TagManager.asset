@@ -17,6 +17,7 @@ TagManager:
   - Trap
   - BellTower
   - Shop
+  - TownCrier
   layers:
   - Default
   - TransparentFX
