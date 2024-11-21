@@ -901,7 +901,7 @@
                 {
                     "name": "",
                     "id": "643b5395-0e11-474d-820e-822258f9a12d",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -912,7 +912,7 @@
                 {
                     "name": "",
                     "id": "e0849a20-8ac0-47d2-893e-2b28019873f5",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "MK",

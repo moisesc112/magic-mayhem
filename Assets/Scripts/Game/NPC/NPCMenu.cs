@@ -49,7 +49,7 @@ public class NPCMenu : MonoBehaviour
 
     private void EnterNPC()
     {
-        if (PlayerUsingMK() == false)
+        if (_usingMK == false)
             multiplayerEventSystem.SetSelectedGameObject(_nextWaveButton.gameObject);
         Time.timeScale = 0;
     }
@@ -77,10 +77,9 @@ public class NPCMenu : MonoBehaviour
     public void skipShopPhase()
     {
         if (WaveManager.instance is null) return;
+        ExitNPC();
         WaveManager.instance.SkipShopPhase();
     }
-
-    private bool PlayerUsingMK() => _player.owningController.usingMK;
 
     Player _player;
     bool _usingMK;
