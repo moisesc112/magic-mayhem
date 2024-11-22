@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
 		_shopTrigger = FindObjectOfType<ShopTrigger>();
 		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
 		_audioSource = GetComponentInChildren<AudioSource>();
+		_characterController = _avatar.GetComponent<CharacterController>();
 		UpdateHitRenderers();
 	}
 
@@ -43,9 +44,7 @@ public class Player : MonoBehaviour
 
 	void LateUpdate()
 	{
-		var newPos = GetAvatarPosition();
-		_velocity = Vector3.MoveTowards(_velocity, (newPos - _previousPos) / Time.deltaTime, Time.deltaTime);
-		_previousPos = newPos;
+		_velocity = _characterController.velocity;
 	}
 
 	public Vector3 GetAvatarPosition() => _avatar.transform.position;
@@ -226,6 +225,7 @@ public class Player : MonoBehaviour
 	ShopTrigger _shopTrigger;
 	PlayerController _owningController;
 	AbilitySlotsComponent _abilitySlotsComponent;
+	CharacterController _characterController;
 	Color _playerColor;
 	AudioSource _audioSource;
 	bool _canPlayDeathSound;
