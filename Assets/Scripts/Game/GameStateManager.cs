@@ -32,6 +32,7 @@ public class GameStateManager : Singleton<GameStateManager>
 			PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
 
 		WaveManager.instance.waveFinished += WaveManager_OnWaveFinished;
+		PlayerManager.instance.EnableAllMovement();
 	}
 
 	private void WaveManager_OnWaveFinished(object sender, WaveEndedEventArgs e)

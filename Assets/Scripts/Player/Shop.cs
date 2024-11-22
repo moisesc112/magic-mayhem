@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
@@ -27,13 +26,10 @@ public class Shop : MonoBehaviour
 	[SerializeField] Image[] _frames;
 
 	[Header("Settings")]
-	[SerializeField] InputSystemUIInputModule _inputModule;
-	[SerializeField] MultiplayerEventSystem multiplayerEventSystem;
 	[SerializeField] int _shuffleIncreaseAmount = 1;
 	[SerializeField] int _shuffleCostCap = 30;
 
 	public int numOfSpells = 3;
-	public InputSystemUIInputModule inputModule => _inputModule;
 	public bool shopOpen => _shopOpen;
 
 	private void Awake()
@@ -88,8 +84,8 @@ public class Shop : MonoBehaviour
 			}
 			if (PlayerUsingMK() == false)
 			{
-				multiplayerEventSystem.SetSelectedGameObject(null);
-				multiplayerEventSystem.SetSelectedGameObject(_confirmSpellButtons[0].gameObject);
+				var eventSystem = PlayerManager.instance.GetEventSystemForController(_player.owningController);
+				eventSystem.SetSelectedGameObject(_confirmSpellButtons[0].confirmButton.gameObject);
 			}
 			_abilitySlotConfirmation.SetActive(true);
 		}
@@ -101,8 +97,12 @@ public class Shop : MonoBehaviour
 		_player.abilitySlotsComponent.UpdateAbilitySlot(_selectedSpell.abilityInfo, index);
 		_selectedSpell = null;
 		_abilitySlotConfirmation.SetActive(false);
-		multiplayerEventSystem.SetSelectedGameObject(null);
-		multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].gameObject);
+
+		if (PlayerUsingMK() == false)
+		{
+			var eventSystem = PlayerManager.instance.GetEventSystemForController(_player.owningController);
+			eventSystem.SetSelectedGameObject(_spellOptions[0].purchaseButton.gameObject);
+		}
 	}
 
 	public void PurchaseUpgradeForSlot(int index, AbilityInfo spell)
@@ -115,16 +115,12 @@ public class Shop : MonoBehaviour
 
 	public void ToggleShopUI(bool isEnabled)
 	{
-		_player.owningController.playerInput.uiInputModule = _inputModule;
-		_abilitySlotConfirmation?.SetActive(false);
+		if (_abilitySlotConfirmation is object)
+			_abilitySlotConfirmation.SetActive(false);
 		gameObject?.SetActive(isEnabled);
 		if (isEnabled)
 		{
 			OpenShop();
-		}
-		else
-		{
-			CloseShop();
 		}
 	}
 
@@ -142,10 +138,12 @@ public class Shop : MonoBehaviour
 	{
 		_spellListUI.SetActive(false);
 		_upgradesUI.SetActive(true);
-		multiplayerEventSystem.SetSelectedGameObject(null);
 		var firstAvailUpgrade = _upgradeOptions.FirstOrDefault(o => o.gameObject.activeInHierarchy);
-		if (_player.owningController.usingMK == false)
-			multiplayerEventSystem.SetSelectedGameObject(firstAvailUpgrade?.gameObject ?? null);
+		if (PlayerUsingMK() == false)
+		{
+			var eventSystem = PlayerManager.instance.GetEventSystemForController(_player.owningController);
+			eventSystem.SetSelectedGameObject(firstAvailUpgrade?.gameObject ?? null);
+		}
 	}
 
 	public void GoToSpellListScreen()
@@ -153,9 +151,11 @@ public class Shop : MonoBehaviour
 		_spellListUI.SetActive(true);
 		_upgradesUI.SetActive(false);
 
-		multiplayerEventSystem.SetSelectedGameObject(null);
-		if (_player.owningController.usingMK == false)
-			multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].gameObject);
+		if (PlayerUsingMK() == false)
+		{
+			var eventSystem = PlayerManager.instance.GetEventSystemForController(_player.owningController);
+			eventSystem.SetSelectedGameObject(_spellOptions[0].purchaseButton.gameObject);
+		}
 	}
 
 	public void ToggleShopPage()
@@ -354,16 +354,12 @@ public class Shop : MonoBehaviour
 	{
 		RefreshAllSpellPurchasability();
 		RefreshUpgradeOptions();
-		if (PlayerUsingMK() == false)
-			multiplayerEventSystem.SetSelectedGameObject(_spellOptions[0].purchaseButton.gameObject);
+		var eventSystem = PlayerManager.instance.GetEventSystemForController(_player.owningController);
+		eventSystem.playerRoot = gameObject;
+		eventSystem.SetSelectedGameObject(PlayerUsingMK() ? null : _spellOptions[0].purchaseButton.gameObject);
 		UpdateShuffleText();
 		UpdateDescription(_spellOptions[0]);
 		GoToSpellListScreen();
-	}
-
-	private void CloseShop()
-	{
-		multiplayerEventSystem.SetSelectedGameObject(null);
 	}
 
 	private bool PlayerUsingMK() => _player.owningController.usingMK;

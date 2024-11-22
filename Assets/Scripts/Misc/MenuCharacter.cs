@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 [RequireComponent(typeof(Animator))]
 public class MenuCharacter : MonoBehaviour
@@ -13,9 +11,6 @@ public class MenuCharacter : MonoBehaviour
 	[Header("Config")]
 	[SerializeField] int _playerIndex;
 	[SerializeField] int _idlePose = 1;
-	[SerializeField] InputSystemUIInputModule _inputModule;
-	public InputSystemUIInputModule inputModule => _inputModule;
-
 
 	public int playerIndex => _playerIndex;
 
@@ -31,29 +26,44 @@ public class MenuCharacter : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		_inputModule.cancel.action.performed -= OnCancel;
+		var cancelAction = _playerController?.playerInput?.currentActionMap?.FindAction("Cancel");
+		if (cancelAction is object)
+			cancelAction.performed -= PlayerController_OnCancelPerformed; _playerController = null;
 	}
 
-	public void Join()
+	private void PlayerController_OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+	{
+		var cancelAction = _playerController?.playerInput?.currentActionMap?.FindAction("Cancel");
+		if (cancelAction is object)
+			cancelAction.performed -= PlayerController_OnCancelPerformed;
+		PlayerManager.instance.RemovePlayer(_playerController.playerIndex);
+		BackOut();
+	}
+
+	public void Join(PlayerController controller)
 	{
 		_playerText.gameObject.SetActive(true);
 		_playerText.text = $"Player {playerIndex + 1}";
 		_joinText.gameObject.SetActive(false);
-		_inputModule.cancel.action.performed += OnCancel;
+		
+		if (_playerController != controller)
+		{
+			_playerController = controller;
+			_playerController.playerInput.currentActionMap.FindAction("Cancel").performed += PlayerController_OnCancelPerformed;
+		}
 	}
 
 	public void BackOut()
 	{
 		_playerText.gameObject.SetActive(false);
 		_joinText.gameObject.SetActive(true);
-		_inputModule.cancel.action.performed -= OnCancel;
-	}
 
-	void OnCancel(InputAction.CallbackContext context)
-	{
-		BackOut();
-		PlayerManager.instance.RemovePlayer(_playerIndex);
+		var cancelAction = _playerController?.playerInput?.currentActionMap?.FindAction("Cancel");
+		if (cancelAction is object)
+			cancelAction.performed -= PlayerController_OnCancelPerformed; _playerController = null;
+		_playerController = null;
 	}
 
 	Animator _anim;
+	PlayerController _playerController;
 }
