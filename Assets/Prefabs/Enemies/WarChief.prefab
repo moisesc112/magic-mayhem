@@ -948,7 +948,6 @@ GameObject:
   - component: {fileID: 4434433441234141619}
   - component: {fileID: 7503636212727866832}
   - component: {fileID: 1983720979557093859}
-  - component: {fileID: 5701183898485283212}
   - component: {fileID: 5467089289432897700}
   - component: {fileID: 2167346288318925339}
   m_Layer: 8
@@ -1290,28 +1289,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5701183898485283212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7524645707314563714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638f994d2e5b3434695322c65cd0eed6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _footSteps:
-  - {fileID: 8300000, guid: 6afe6651b7856fb40a80179ccb01d4f5, type: 3}
-  - {fileID: 8300000, guid: f9db22e440a04404d97ec30fd7ca2159, type: 3}
-  - {fileID: 8300000, guid: c75851309c81a6d4ea7a9c4193fcc5dd, type: 3}
-  - {fileID: 8300000, guid: cc047f9e3b009d9419c8d3e50f8b4273, type: 3}
-  - {fileID: 8300000, guid: 30ce4d6302c1ee3419ea887ba55cc35a, type: 3}
-  _leftBone: {fileID: 7524645707314288988}
-  _rightBone: {fileID: 7524645707314300624}
-  _groundThreshold: 0.2
-  _minDistanceSq: 500
 --- !u!114 &5467089289432897700
 MonoBehaviour:
   m_ObjectHideFlags: 0

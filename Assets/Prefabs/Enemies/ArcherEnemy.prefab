@@ -607,7 +607,6 @@ GameObject:
   - component: {fileID: 3670533244723355740}
   - component: {fileID: 4077698519552594797}
   - component: {fileID: 2991446959766029076}
-  - component: {fileID: 2148890218101746507}
   - component: {fileID: 338785717127854761}
   m_Layer: 8
   m_Name: ArcherEnemy
@@ -1034,28 +1033,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2148890218101746507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6215533733243022662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638f994d2e5b3434695322c65cd0eed6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _footSteps:
-  - {fileID: 8300000, guid: a6887255a0920894c85bf2d3d8166489, type: 3}
-  - {fileID: 8300000, guid: 4ad4456d036610a4ea88f905b92fab8c, type: 3}
-  - {fileID: 8300000, guid: 852725a205d30b049be1a104bf3154e4, type: 3}
-  - {fileID: 8300000, guid: 9eee4b9d2a82b0e45a3e2f191b540380, type: 3}
-  - {fileID: 8300000, guid: 6b68a56d469543e4f8d9ea9d63b66923, type: 3}
-  _leftBone: {fileID: 6215533733243312946}
-  _rightBone: {fileID: 6215533733243285714}
-  _groundThreshold: 0.2
-  _minDistanceSq: 200
 --- !u!114 &338785717127854761
 MonoBehaviour:
   m_ObjectHideFlags: 0
