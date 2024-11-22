@@ -773,17 +773,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1712,17 +1708,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (4)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12193,17 +12185,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (5)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15672,7 +15660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15712,10 +15700,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2158108253161700951, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -16946,17 +16930,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (8)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 26
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22113,17 +22093,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (6)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33186,17 +33162,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (3)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33466,17 +33438,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40629,17 +40597,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 110619882}
     m_Modifications:
-    - target: {fileID: 2158108253161700945, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
-      propertyPath: explosionForce
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700946, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_Name
       value: BreakableVase (7)
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2158108253161700948, guid: 2acc47167990e2d40a9ab9dae8f57787, type: 3}
       propertyPath: m_LocalPosition.x
