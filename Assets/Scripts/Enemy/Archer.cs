@@ -50,6 +50,8 @@ public class Archer : EnemyBase
 	// Update is called once per frame
 	protected override void DoUpdate()
 	{
+		if (_navPoller.TargetPlayer is null) return;
+
 		if (_rmNavAgent.inDistanceRange && targetInSight()) // We have line of sight and within range.
 		{
 			if (!_arrowNocked && _readyToNock) // Arrow cooldown has passed and we don't already have an arrow
