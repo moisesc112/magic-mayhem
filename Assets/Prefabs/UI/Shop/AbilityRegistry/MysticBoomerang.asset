@@ -16,14 +16,16 @@ MonoBehaviour:
   description: Throw a large projectile that makes a round trip in style. After,
     maybe put some shrimp on the barbi.
   abiltyType: 0
-  cooldown: 3
-  damage: 5
+  cooldown: 5
+  damage: 2
   cost: 35
   abilityPrefab: {fileID: 2615064576587829390, guid: 6ce0948fe5009f6478db9326c2da66a5, type: 3}
   projectileDestoryAfterCollision: 0
   despawnTime: 1.5
   projectileTargetDirection: {x: 0, y: 0, z: 0}
+  castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: a6f7aecc26862a84e9f852c8aa63afbc, type: 3}
   icon: {fileID: 21300000, guid: 833667b8c9518774792451423ce196b1, type: 3}
+  nextLevel: {fileID: 0}
