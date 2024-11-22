@@ -37,6 +37,7 @@ public class MenuCharacter : MonoBehaviour
 	public void Join()
 	{
 		_playerText.gameObject.SetActive(true);
+		_playerText.text = $"Player {playerIndex + 1}";
 		_joinText.gameObject.SetActive(false);
 		_inputModule.cancel.action.performed += OnCancel;
 	}
