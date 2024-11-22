@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Despite a increase in size, these flames somehow continu to not burn
     you. Cool! Well no, warm actually.
   abiltyType: 0
-  cooldown: 12
+  cooldown: 120
   damage: 1
   cost: 90
   abilityPrefab: {fileID: 4814858020290734396, guid: c6887b2c7f74767468de5ee81c90f796, type: 3}

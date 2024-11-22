@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Ol reliable with a new coat of paint and more damage to boot!
   abiltyType: 2
   cooldown: 0.33
-  damage: 2
+  damage: 15
   cost: 60
   abilityPrefab: {fileID: 3487376971440152185, guid: 20fc5f30a31e5854aa82da0ae057eab6, type: 3}
   projectileDestoryAfterCollision: 1

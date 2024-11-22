@@ -17,7 +17,7 @@ MonoBehaviour:
     maybe put some shrimp on the barbi.
   abiltyType: 0
   cooldown: 5
-  damage: 2
+  damage: 20
   cost: 35
   abilityPrefab: {fileID: 2615064576587829390, guid: 6ce0948fe5009f6478db9326c2da66a5, type: 3}
   projectileDestoryAfterCollision: 0

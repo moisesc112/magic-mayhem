@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Crystals go brrrrrrrrrrrr
   abiltyType: 2
   cooldown: 0.25
-  damage: 2
+  damage: 20
   cost: 100
   abilityPrefab: {fileID: 3487376971440152185, guid: bdd8f90868e25034b829f043c07f9426, type: 3}
   projectileDestoryAfterCollision: 1

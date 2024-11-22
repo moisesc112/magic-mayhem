@@ -16,7 +16,7 @@ MonoBehaviour:
   description: It is almost as if you were bending the vary earth itself.
   abiltyType: 0
   cooldown: 8
-  damage: 4
+  damage: 40
   cost: 60
   abilityPrefab: {fileID: 1314945738539566, guid: 22b9dd216aa562845873e05ebb55fb82, type: 3}
   projectileDestoryAfterCollision: 0
