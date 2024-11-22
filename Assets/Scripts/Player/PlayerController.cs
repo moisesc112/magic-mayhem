@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] Color[] _playerColors;
-	public int playerIndex => _playerInput.playerIndex;
+	public int playerIndex => _playerInput.user.index;
 	public PlayerInput playerInput => _playerInput;
 	public Player player => _player;
 	// Player is using mouse and keyboard as input.
@@ -140,11 +140,6 @@ public class PlayerController : MonoBehaviour
 	{
 		if (_player)
 			_player.OnRoll();
-	}
-
-	public void OnDebug()
-	{
-		Debug.Log("hit");
 	}
 
 	public void OnCloseShopUI(InputAction.CallbackContext context)

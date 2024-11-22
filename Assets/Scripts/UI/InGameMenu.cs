@@ -1,15 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
-using UnityEngine.InputSystem;
-
 
 public class InGameMenu : Singleton<InGameMenu>
 {
-	public Button ResetGame;
-	public Button Quit;
 	public GameObject loseText;
 	public GameObject winText;
 	public GameObject menuPanel;
@@ -90,24 +85,6 @@ public class InGameMenu : Singleton<InGameMenu>
 
 	public void RestartGame()
 	{
-		// Clean up persisting game objects before we reset to the main menu
-		GameObject debugUtil = GameObject.Find("UiDebugUtil");
-		if (debugUtil != null)
-		{
-			Destroy(debugUtil);
-		}
-
-		GameObject[] playerControllerClones = GameObject.FindGameObjectsWithTag("PlayerControllerClone");
-		foreach (GameObject clone in playerControllerClones)
-		{
-			Destroy(clone);
-		}
-
-		if (PlayerManager.instance != null)
-		{
-			Destroy(PlayerManager.instance.gameObject);
-		}
-
 		// reload the menu scene and reset time
 		SceneManager.LoadScene("Menu", LoadSceneMode.Single);
 		Time.timeScale = 1f;

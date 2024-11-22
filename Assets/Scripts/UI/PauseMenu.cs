@@ -1,12 +1,9 @@
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
 	[Header("Settings")]
-	[SerializeField] InputSystemUIInputModule _inputModule;
-	[SerializeField] MultiplayerEventSystem _multiplayerEventSystem;
 	[SerializeField] GameObject _firstSelectedGameObject;
 
 	[Header("UI References")]
@@ -18,7 +15,6 @@ public class PauseMenu : MonoBehaviour
 	public void ConfigurePlayer(Player player)
 	{
 		_player = player;
-		_usingMK = player.owningController.usingMK;
 		_frame.color = player.playerColor;
 	}
 
@@ -38,11 +34,10 @@ public class PauseMenu : MonoBehaviour
 
 	public void OpenPauseMenu()
 	{
-		_player.owningController.playerInput.uiInputModule = _inputModule;
 		_player.owningController.DisableMovement();
-		_multiplayerEventSystem.SetSelectedGameObject(null);
-		if (_usingMK == false)
-			_multiplayerEventSystem.SetSelectedGameObject(_firstSelectedGameObject);
+		var eventSystem = PlayerManager.instance.GetEventSystemForController(_player.owningController);
+		eventSystem.SetSelectedGameObject(_player.owningController.usingMK ? null : _firstSelectedGameObject);
+		eventSystem.playerRoot = gameObject;
 		_pausePanel.SetActive(true);
 		Time.timeScale = 0;
 	}
@@ -54,5 +49,4 @@ public class PauseMenu : MonoBehaviour
 	}
 
 	Player _player;
-	bool _usingMK;
 }

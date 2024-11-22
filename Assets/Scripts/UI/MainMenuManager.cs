@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
@@ -18,14 +16,6 @@ public class MainMenuManager : MonoBehaviour
 	[Header("UIReferences")]
 	[SerializeField] GameObject _uiFirstSelected;
 
-	private void Awake()
-	{
-		_playerControllerByIndex = new Dictionary<int, PlayerController>();
-		_lobbyEventSystem = _lobbySection.GetComponent<EventSystem>();
-		_lobbyInputSystem = _lobbySection.GetComponent<InputSystemUIInputModule>();
-		_multiplayerEventSystem = _lobbySection.GetComponent<MultiplayerEventSystem>();
-	}
-
 	void Start()
 	{
 		PlayerManager.instance.SetJoiningEnabled(true);
@@ -36,12 +26,24 @@ public class MainMenuManager : MonoBehaviour
 		LevelLoadManager.instance.sceneLoaded += LevelManager_OnSceneLoaded;
 		_menuCharacters = GameObject.FindGameObjectsWithTag("MenuCharacter").Select(c => c.GetComponent<MenuCharacter>()).ToArray();
 
+		// If we already have player controllers connected, this means that players are returning from the game.
+		if (PlayerManager.instance.PlayerControllers.Count != 0)
+		{
+			// Rejoin all returning players.
+			foreach(var controller in PlayerManager.instance.PlayerControllers)
+			{
+				PlayerManager_OnPlayerControllerJoined(this, new GenericEventArgs<PlayerController>(controller));
+			}
+			_lobbyHostIndex = PlayerManager.instance.PlayerControllers.First().playerIndex;
+		}
+
 		StartCoroutine(nameof(IncreaseMusicIntensity));
 	}
 
 	void OnDestroy()
-	{
+	{		
 		PlayerManager.instance.PlayerControllerJoined -= PlayerManager_OnPlayerControllerJoined;
+		PlayerManager.instance.PlayerControllerRemoved -= PlayerManager_OnPlayerControllerRemoved;
 	}
 
 	public void StartGame()
@@ -80,15 +82,14 @@ public class MainMenuManager : MonoBehaviour
 			return;
 		}
 
-		_playerControllerByIndex[playerController.playerIndex] = playerController;
-		playerController.playerInput.uiInputModule = matchingCharacter.inputModule;
-		matchingCharacter.Join();
+		matchingCharacter.Join(playerController);
 
 		if (!_hostLoaded)
 		{
 			_hostLoaded = true;
 			_lobbyHostIndex = playerController.playerIndex;
-			_cameraAnim.SetTrigger("ToCharacters");
+			if (_cameraAnim)
+				_cameraAnim.SetTrigger("ToCharacters");
 			_startSection.SetActive(false);
 			_lobbySection.SetActive(true);
 			SetUIControlSchemeFromController(playerController);
@@ -98,25 +99,26 @@ public class MainMenuManager : MonoBehaviour
 	void PlayerManager_OnPlayerControllerRemoved(object sender, GenericEventArgs<int> e)
 	{
 		var playerIndex = e.value;
-		_playerControllerByIndex.Remove(playerIndex);
-		_menuCharacters.First(c => c.playerIndex == playerIndex).BackOut();
 
-		if (_playerControllerByIndex.Count == 0)
+		if (PlayerManager.instance.PlayerControllers.Count == 0)
 		{
 			_hostLoaded = false;
-			_cameraAnim.SetTrigger("ToBase");
+			if (_cameraAnim)
+				_cameraAnim.SetTrigger("ToBase");
 			_startSection.SetActive(true);
 			_lobbySection.SetActive(false);
 		}
 		else if (playerIndex == _lobbyHostIndex)
 		{
-			SetUIControlSchemeFromController(_playerControllerByIndex.Values.First());
+			StartCoroutine(nameof(RefreshMenuCharacters));
 		}
 	}
 
 	void SetUIControlSchemeFromController(PlayerController controller)
 	{
-		_multiplayerEventSystem.SetSelectedGameObject(controller.usingMK ? null : _uiFirstSelected);
+		var multiplayerEventSystem = PlayerManager.instance.GetEventSystemForController(controller);
+		multiplayerEventSystem.playerRoot = gameObject;
+		multiplayerEventSystem.SetSelectedGameObject(controller.usingMK ? null : _uiFirstSelected);
 	}
 
 	IEnumerator IncreaseMusicIntensity()
@@ -129,11 +131,23 @@ public class MainMenuManager : MonoBehaviour
 		SimpleAudioManager.Manager.instance.SetIntensity(2);
 	}
 
-	Dictionary<int, PlayerController> _playerControllerByIndex;
-	EventSystem _lobbyEventSystem;
-	InputSystemUIInputModule _lobbyInputSystem;
+	IEnumerator RefreshMenuCharacters()
+	{
+		yield return new WaitForEndOfFrame();
+		SetUIControlSchemeFromController(PlayerManager.instance.PlayerControllers.First());
+		var activeIndexs = PlayerManager.instance.PlayerControllers.Select(c => c.playerIndex).ToList();
+		foreach (var controller in PlayerManager.instance.PlayerControllers)
+		{
+			var matchingCharacter = _menuCharacters[controller.playerIndex];
+			matchingCharacter.Join(controller);
+		}
+		foreach (var character in _menuCharacters.Where(c => !activeIndexs.Contains(c.playerIndex)))
+		{
+			character.BackOut();
+		}
+	}
+
 	MenuCharacter[] _menuCharacters;
-	MultiplayerEventSystem _multiplayerEventSystem;
 	int _lobbyHostIndex;
 
 	bool _hostLoaded = false;

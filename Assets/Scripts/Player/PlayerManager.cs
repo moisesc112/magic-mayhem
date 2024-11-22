@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public sealed class PlayerManager : Singleton<PlayerManager>
 {
 	[Header("Settings")]
 	public Player playerPrefab;
 	public bool spawnPlayerOnConnect = true;
+	[SerializeField] GameObject[] _playerInputSystems;
 
 	public ReadOnlyCollection<PlayerController> PlayerControllers => _playersByOwningController.Keys.ToList().AsReadOnly();
 	public ReadOnlyCollection<Player> players => _playersByOwningController.Values.ToList().AsReadOnly();
@@ -21,13 +23,18 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 	{
 		_playersByOwningController = new Dictionary<PlayerController, Player>();
 		_inputManager = GetComponent<PlayerInputManager>();
-
+		_inputSystemByController = new Dictionary<PlayerController, GameObject>();
 		DontDestroyOnLoad(gameObject);
 	}
 
 	public void RegisterPlayer(PlayerController controller)
 	{
 		_playersByOwningController.Add(controller, null);
+		var matchingPlayerInputSystem = _playerInputSystems[controller.playerIndex];
+		matchingPlayerInputSystem.SetActive(true);
+		_inputSystemByController.Add(controller, matchingPlayerInputSystem);
+		var inputModule = _inputSystemByController[controller].gameObject.GetComponent<InputSystemUIInputModule>();
+		controller.playerInput.uiInputModule = inputModule;
 		if (spawnPlayerOnConnect)
 			SpawnPlayer(controller);
 
@@ -41,6 +48,11 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 
 		matchingController.ReleaseControl();
 		_playersByOwningController.Remove(matchingController);
+		var matchingPlayerInputSystem = _inputSystemByController[matchingController];
+		matchingPlayerInputSystem.SetActive(false);
+		var eventSystem = GetEventSystemForController(matchingController);
+		eventSystem.SetSelectedGameObject(null);
+		eventSystem.playerRoot = null;
 
 		Destroy(matchingController.gameObject);
 
@@ -113,6 +125,9 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 		}
 	}
 
+	public InputSystemUIInputModule GetInputModuleForController(PlayerController controller) => _inputSystemByController[controller].gameObject.GetComponent<InputSystemUIInputModule>();
+	public MultiplayerEventSystem GetEventSystemForController(PlayerController controller) => _inputSystemByController[controller].gameObject.GetComponent<MultiplayerEventSystem>();
+
 	void EnsurePlayerIsRegistered(PlayerController controller)
 	{
 		if (!_playersByOwningController.TryGetValue(controller, out var existingPlayer))
@@ -121,4 +136,5 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 
 	Dictionary<PlayerController, Player> _playersByOwningController;
 	PlayerInputManager _inputManager;
+	Dictionary<PlayerController, GameObject> _inputSystemByController;
 }
