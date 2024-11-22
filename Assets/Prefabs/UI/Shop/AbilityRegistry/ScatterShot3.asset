@@ -17,7 +17,7 @@ MonoBehaviour:
     EVERYONE gets a shard!
   abiltyType: 2
   cooldown: 0.75
-  damage: 1
+  damage: 10
   cost: 150
   abilityPrefab: {fileID: 3487376971440152185, guid: 228d57a6f4f029f40b8d92f139c6ad78, type: 3}
   projectileDestoryAfterCollision: 1

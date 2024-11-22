@@ -17,7 +17,7 @@ MonoBehaviour:
     cold over here or is it just you???
   abiltyType: 0
   cooldown: 10
-  damage: 2
+  damage: 20
   cost: 10
   abilityPrefab: {fileID: 4825519324041658740, guid: 1ba1e5e5f99506b4693acae7b16efd54, type: 3}
   projectileDestoryAfterCollision: 1
@@ -28,3 +28,4 @@ MonoBehaviour:
   projectileSpread: 0
   castingSound: {fileID: 0}
   icon: {fileID: 21300000, guid: b6887065fa70da2459dd050db7223b7d, type: 3}
+  nextLevel: {fileID: 0}

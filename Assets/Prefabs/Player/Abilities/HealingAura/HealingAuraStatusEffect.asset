@@ -16,5 +16,5 @@ MonoBehaviour:
   statusEffectDescription: Healing per second while in Healing Aura radius
   stat: 2
   valueType: 0
-  value: 25
+  value: 250
   duration: 0

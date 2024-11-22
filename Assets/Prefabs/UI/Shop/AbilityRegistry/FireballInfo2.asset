@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Enhances fireball to be bigger and badder.
   abiltyType: 0
   cooldown: 5
-  damage: 15
+  damage: 150
   cost: 60
   abilityPrefab: {fileID: 2339616375373499159, guid: 11d2132c5e3d76b4e98ba02aa60eaf14, type: 3}
   projectileDestoryAfterCollision: 1

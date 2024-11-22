@@ -3252,7 +3252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e216d7fcddfef64e9d7848214cb861c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 30
   health: 0
   _ragdollComponent: {fileID: 1534788581507665486}
   lootDropComponent: {fileID: 5330381951948382734}
@@ -4081,7 +4081,7 @@ MonoBehaviour:
   _hitMask:
     serializedVersion: 2
     m_Bits: 64
-  _damage: 25
+  _damage: 50
 --- !u!4 &5871664809030092189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 446452, guid: 9119d186ed5f8824da8756f69a439a82, type: 3}

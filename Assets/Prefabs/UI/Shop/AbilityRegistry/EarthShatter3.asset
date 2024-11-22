@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Much lower cooldown. Make the landscape your canvas!
   abiltyType: 0
   cooldown: 4
-  damage: 4
+  damage: 40
   cost: 100
   abilityPrefab: {fileID: 1314945738539566, guid: 47c08d36d3b5b4d4b9ba5ffebfe2a4fd, type: 3}
   projectileDestoryAfterCollision: 0

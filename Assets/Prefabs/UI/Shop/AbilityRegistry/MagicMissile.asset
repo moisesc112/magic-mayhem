@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Fires a small magic projectile at your enemies. A wizard's go-to spell!
   abiltyType: 2
   cooldown: 0.33
-  damage: 1
+  damage: 10
   cost: 5
   abilityPrefab: {fileID: 3487376971440152185, guid: 41339c583dcb4704e937af594ca9cd54, type: 3}
   projectileDestoryAfterCollision: 1

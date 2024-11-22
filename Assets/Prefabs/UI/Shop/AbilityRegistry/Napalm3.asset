@@ -16,7 +16,7 @@ MonoBehaviour:
   description: These flames burn even faster! Tell your goblin friends to roast their
     marshmallows somewhere else!
   abiltyType: 0
-  cooldown: 12
+  cooldown: 120
   damage: 1
   cost: 180
   abilityPrefab: {fileID: 4814858020290734396, guid: 27bc4a606c7a36649bf1ac6cf232e8cf, type: 3}

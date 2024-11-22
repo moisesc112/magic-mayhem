@@ -17,7 +17,7 @@ MonoBehaviour:
     on fire!! Oh wait never mind, you are on fire....
   abiltyType: 0
   cooldown: 15
-  damage: 1
+  damage: 10
   cost: 15
   abilityPrefab: {fileID: 4814858020290734396, guid: 9aecef9e50a5f9b46a79605e6f37846b, type: 3}
   projectileDestoryAfterCollision: 0
