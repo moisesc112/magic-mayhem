@@ -12,13 +12,14 @@ public class RadialDamageSource : MonoBehaviour
 
 	private void Awake()
 	{
-        _objectsWithinRadius = new HashSet<GameObject>();
+		_objectsDeltDamage = new HashSet<GameObject>();
 	}
 	// Start is called before the first frame update
 	void Start()
     {
         transform.localScale = _damageInfo.initialSize;
-    }
+        _radius = Mathf.Max(_damageInfo.finalSize.magnitude / 2, 1);
+	}
 
     // Update is called once per frame
     void Update()
@@ -29,36 +30,36 @@ public class RadialDamageSource : MonoBehaviour
             _finishedExpanding = true;
             StartCoroutine(nameof(FinishExpanding));
         }
-
-        foreach (var obj in _objectsWithinRadius)
-        {
-            var healthComponent = obj.GetComponentInParent<HealthComponent>();
-            if (healthComponent)
-                healthComponent.TakeDamage(_damageInfo.damagePerSecond * Time.deltaTime);
-        }
     }
 
 	public void OnTriggerEnter(Collider other)
 	{
-		if (LayerMaskUtility.GameObjectIsInLayer(other.gameObject, _damageInfo.objectsToTrack))
-            _objectsWithinRadius.Add(other.gameObject);
+        // If not kinematic, apply explosion force
         if (!other.attachedRigidbody?.isKinematic ?? false)
-        {
-            var dir = other.attachedRigidbody.gameObject.transform.position - transform.position;
-            other.attachedRigidbody.AddForce(dir * _damageInfo.forceStrength, ForceMode.Impulse);
-        }
-	}
+            other.attachedRigidbody.AddExplosionForce(_damageInfo.forceStrength, transform.position, transform.localScale.magnitude, 2.0f);
 
-	public void OnTriggerExit(Collider other)
-	{
-        if (LayerMaskUtility.GameObjectIsInLayer(other.gameObject, _damageInfo.objectsToTrack))
-            _objectsWithinRadius.Remove(other.gameObject);
+        VerifyCollision(other.gameObject);
 	}
 
 	public void OnTriggerStay(Collider other)
 	{
-		if (LayerMaskUtility.GameObjectIsInLayer(other.gameObject, _damageInfo.objectsToTrack))
-			_objectsWithinRadius.Add(other.gameObject);
+		VerifyCollision(other.gameObject);
+	}
+
+    private void VerifyCollision(GameObject other)
+    {
+		if (LayerMaskUtility.GameObjectIsInLayer(other, _damageInfo.objectsToTrack) == false) return;
+		if (_objectsDeltDamage.Contains(other)) return;
+
+		_objectsDeltDamage.Add(other);
+		var hc = other.GetComponentInParent<HealthComponent>();
+		if (hc)
+        {
+            var baseDamage = _damageInfo.damage;
+            var distance = Vector3.Distance(other.transform.position, transform.position);
+            var multiplier = Mathf.Max(1 - (distance / _radius), 0);
+			hc.TakeDamage((int) (baseDamage * multiplier));
+        }
 	}
 
 	IEnumerator FinishExpanding()
@@ -76,6 +77,7 @@ public class RadialDamageSource : MonoBehaviour
     }
 
     bool _finishedExpanding;
-	HashSet<GameObject> _objectsWithinRadius;
+    HashSet<GameObject> _objectsDeltDamage;
     Vector3 _scale;
+    float _radius;
 }

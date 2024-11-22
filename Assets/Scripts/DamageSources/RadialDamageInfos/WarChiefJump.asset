@@ -16,7 +16,7 @@ MonoBehaviour:
   _finalSize: {x: 4, y: 4, z: 4}
   _expansionSpeed: 40
   _timeBeforeDestory: 0
-  _damagePerSecond: 1000
+  _damage: 100
   _forceStrength: 10
   _objectsToTrack:
     serializedVersion: 2

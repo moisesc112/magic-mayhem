@@ -10,7 +10,7 @@ public class RadialDamageInfo : ScriptableObject
 	[SerializeField] float _timeBeforeDestory = 0.0f;
 
 	[Header("Damage")]
-	[SerializeField] float _damagePerSecond = 0.0f;
+	[SerializeField] float _damage = 0.0f;
 	[SerializeField] float _forceStrength = 100.0f;
 
 	[Header("Tracking")]
@@ -21,7 +21,7 @@ public class RadialDamageInfo : ScriptableObject
 	public float expansionSpeed => _expansionSpeed;
 	public float timeBeforeDestory => _timeBeforeDestory;
 
-	public float damagePerSecond => _damagePerSecond;
+	public float damage => _damage;
 	public float forceStrength => _forceStrength;
 	
 	public LayerMask objectsToTrack => _objectsToTrack;
