@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
-  m_Name: HealingAura
+  m_Name: HealingAura3
   m_EditorClassIdentifier: 
-  abilityName: Healing Aura
-  description: Create a gentle circle of healing at the current location. Players
-    within this circle gain hp while this spell is active. Someone call a medic but
-    not for me!
+  abilityName: Healing Aura III
+  description: Bigger, longer, and greener than before!
   abiltyType: 0
-  cooldown: 30
+  cooldown: 25
   damage: 0
-  cost: 20
-  abilityPrefab: {fileID: 6331275906715107345, guid: 51e7a58f58dc5fd48aff6434084c857c, type: 3}
+  cost: 150
+  abilityPrefab: {fileID: 6331275906715107345, guid: 5a64fd555b1690642b5129aaacc746ff, type: 3}
   projectileDestoryAfterCollision: 0
-  despawnTime: 5
+  despawnTime: 8
   projectileTargetDirection: {x: 0, y: 0, z: 0}
   castingOffset: {x: 0, y: 0, z: 0}
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 0}
   icon: {fileID: -1075079217, guid: 6e6700484d4145f479ce06006a8d501d, type: 3}
-  nextLevel: {fileID: 11400000, guid: 6fdef0a3024e0e34a9f2c2d14e62b1f5, type: 2}
+  nextLevel: {fileID: 0}

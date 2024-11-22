@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
-  m_Name: EarthShatter
+  m_Name: EarthShatter3
   m_EditorClassIdentifier: 
-  abilityName: Earth Shatter
-  description: Shatter the ground and create earth fissures to damage and block enemies!
-    The town's groundskeeper will not appreciate this....
+  abilityName: Earth Shatter III
+  description: Much lower cooldown. Make the landscape your canvas!
   abiltyType: 0
-  cooldown: 10
-  damage: 3
-  cost: 20
-  abilityPrefab: {fileID: 1314945738539566, guid: 6acb31409410348419b2ab69ab1e1b10, type: 3}
+  cooldown: 4
+  damage: 4
+  cost: 100
+  abilityPrefab: {fileID: 1314945738539566, guid: 47c08d36d3b5b4d4b9ba5ffebfe2a4fd, type: 3}
   projectileDestoryAfterCollision: 0
   despawnTime: 8
   projectileTargetDirection: {x: 0, y: 0, z: 0}
@@ -28,4 +27,4 @@ MonoBehaviour:
   projectileSpread: 0
   castingSound: {fileID: 8300000, guid: 20f0407c248488a44af63dd5ed03de46, type: 3}
   icon: {fileID: -642281900, guid: f63a45932bba90b4bac33958f45d021c, type: 3}
-  nextLevel: {fileID: 11400000, guid: b10ec962b1d0efe46b2241caeeace3f4, type: 2}
+  nextLevel: {fileID: 0}
