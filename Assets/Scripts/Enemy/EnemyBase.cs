@@ -36,6 +36,13 @@ public class EnemyBase : MonoBehaviour
 	void Start()
 	{
 		DoStart();
+		
+		// Scale all enemy health by 1.5x per extra player
+		if (PlayerManager.instance.PlayerControllers.Count > 1)
+		{
+			_healthComponent.maxHealth *= ((PlayerManager.instance.PlayerControllers.Count - 1) * 1.5f);
+			_healthComponent.health = _healthComponent.maxHealth;
+		}
 	}
 
 	// Update is called once per frame
