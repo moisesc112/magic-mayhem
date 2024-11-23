@@ -33,13 +33,13 @@ public class Player : MonoBehaviour
 		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
 		_audioSource = GetComponentInChildren<AudioSource>();
 		_characterController = _avatar.GetComponent<CharacterController>();
-		UpdateHitRenderers();
 	}
 
 	void Start()
 	{
 		_previousPos = GetAvatarPosition();
 		_canPlayDeathSound = true;
+		StartCoroutine(nameof(UpdateHitRenderers));
 	}
 
 	void LateUpdate()
@@ -176,8 +176,10 @@ public class Player : MonoBehaviour
 	/// If we decide to include a character creator, 
 	/// the renderer material values may change which requires calling this method.
 	/// </summary>
-	private void UpdateHitRenderers()
+	private IEnumerator UpdateHitRenderers()
 	{
+		// CharacterCustomizer _must_ run before this in order to store the correct player color data.
+		yield return new WaitForEndOfFrame();
 		var activeRenderers = _avatar.GetComponentsInChildren<Renderer>(includeInactive: false);
 		GetComponent<PlayerHitVisualizer>().SetRenderers(activeRenderers);
 	}
