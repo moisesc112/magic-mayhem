@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7483853557331772052}
   - component: {fileID: 1259755932012799176}
   m_Layer: 7
-  m_Name: IceConeParent
+  m_Name: IceConeParent3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 257
-  abilityInfo: {fileID: 11400000, guid: a630f7e892eaf6c4bbeb1c92eba91cac, type: 2}
+  abilityInfo: {fileID: 11400000, guid: 7c6b7c07a871330458ea271cbb5f2fd5, type: 2}
   audioSource: {fileID: 1259755932012799176}
 --- !u!82 &1259755932012799176
 AudioSource:
@@ -231,6 +231,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5319630257603428579, guid: a45c68b51d1da3b4f89b3b1dee362251, type: 3}
+      propertyPath: abilityInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c6b7c07a871330458ea271cbb5f2fd5, type: 2}
     - target: {fileID: 5319630257603428579, guid: a45c68b51d1da3b4f89b3b1dee362251, type: 3}
       propertyPath: audioSource
       value: 
@@ -420,15 +424,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198309288121017052, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.77254903
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198309288121017052, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.28627452
+      value: 0.81960785
       objectReference: {fileID: 0}
     - target: {fileID: 198309288121017052, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0
+      value: 0.7137255
       objectReference: {fileID: 0}
     - target: {fileID: 198389469010234896, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -512,15 +516,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198850202209962820, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.7735849
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198850202209962820, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.28612044
+      value: 0.8187741
       objectReference: {fileID: 0}
     - target: {fileID: 198850202209962820, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0
+      value: 0.7122642
       objectReference: {fileID: 0}
     - target: {fileID: 198884999592258096, guid: 0c1728d993e157841969c6fc727b18fe, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
