@@ -3,16 +3,16 @@ using UnityEngine;
 public class NPCTrigger : MonoBehaviour
 {
 	public bool playerTalkingToNPC = false;
-	public GameObject ring;
 
     // Trigger the ui based on if the player is inside the collider
     public virtual void OnTriggerEnter(Collider collision)
 	{
 		if (collision.CompareTag("Player"))
 		{
+			var player = collision.gameObject.GetComponentInParent<Player>();
+			if (player)
+				player.SetPromptText(_talkToNpcTextFormat, ActionToTextMapper.PlayerInputAction.ACTIVATE);
 			playerTalkingToNPC = true;
-			ring.SetActive(true);
-
 		}
 	}
 
@@ -20,8 +20,12 @@ public class NPCTrigger : MonoBehaviour
 	{
 		if (collision.CompareTag("Player"))
 		{
+			var player = collision.gameObject.GetComponentInParent<Player>();
+			if (player)
+				player.ClearPromptText();
 			playerTalkingToNPC = false;
-			ring.SetActive(false);
 		}
 	}
+
+	string _talkToNpcTextFormat = "Press {0} to talk.";
 }

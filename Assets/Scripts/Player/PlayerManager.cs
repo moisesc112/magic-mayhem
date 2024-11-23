@@ -144,6 +144,12 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 		}
 	}
 
+	public void ClearAllTextPrompts()
+	{
+		foreach (var player in _playersByOwningController.Values)
+			player.ClearPromptText();
+	}
+
 	public InputSystemUIInputModule GetInputModuleForController(PlayerController controller) => _inputSystemByController[controller].gameObject.GetComponent<InputSystemUIInputModule>();
 	public MultiplayerEventSystem GetEventSystemForController(PlayerController controller) => _inputSystemByController[controller].gameObject.GetComponent<MultiplayerEventSystem>();
 

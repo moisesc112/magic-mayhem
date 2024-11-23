@@ -3,14 +3,7 @@ using UnityEngine;
 public class ShopTrigger : MonoBehaviour
 {
 	public bool playerInShop = false;
-	public GameObject ShopTriggerUI;
 	public GameObject ShopKeeper;
-
-	private void Start()
-    {	
-		ShopTriggerUI.SetActive(false);
-	}
-
 
 	// Trigger the ui based on if the player is inside the collider
 	public virtual void OnTriggerEnter(Collider collision)
@@ -18,21 +11,9 @@ public class ShopTrigger : MonoBehaviour
 		if (collision.CompareTag("Player"))
 		{
 			playerInShop = true;
-			if (ShopKeeper.activeSelf)
-			{
-				ShopTriggerUI.SetActive(true);
-			}
-		}
-	}
-
-	public virtual void OnTriggerStay(Collider collision)
-	{
-		if (collision.CompareTag("Player"))
-		{
-			if (!ShopKeeper.activeSelf)
-			{
-				ShopTriggerUI.SetActive(false);
-			}
+			var player = collision.gameObject.GetComponentInParent<Player>();
+			if (player)
+				player.SetPromptText(_openShopTextFormat, ActionToTextMapper.PlayerInputAction.OPENSTORE);
 		}
 	}
 
@@ -41,7 +22,11 @@ public class ShopTrigger : MonoBehaviour
 		if (collision.CompareTag("Player"))
 		{
 			playerInShop = false;
-			ShopTriggerUI.SetActive(false);
+			var player = collision.gameObject.GetComponentInParent<Player>();
+			if (player)
+				player.ClearPromptText();
 		}
 	}
+
+	string _openShopTextFormat = "Press {0} to open shop.";
 }
