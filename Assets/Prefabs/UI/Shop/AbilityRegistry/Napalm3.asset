@@ -17,7 +17,7 @@ MonoBehaviour:
     marshmallows somewhere else!
   abiltyType: 0
   cooldown: 120
-  damage: 1
+  damage: 10
   cost: 180
   abilityPrefab: {fileID: 4814858020290734396, guid: 27bc4a606c7a36649bf1ac6cf232e8cf, type: 3}
   projectileDestoryAfterCollision: 0

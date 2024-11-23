@@ -17,7 +17,7 @@ MonoBehaviour:
     you. Cool! Well no, warm actually.
   abiltyType: 0
   cooldown: 120
-  damage: 1
+  damage: 10
   cost: 90
   abilityPrefab: {fileID: 4814858020290734396, guid: c6887b2c7f74767468de5ee81c90f796, type: 3}
   projectileDestoryAfterCollision: 0
