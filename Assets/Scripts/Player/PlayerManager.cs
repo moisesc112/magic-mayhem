@@ -117,6 +117,25 @@ public sealed class PlayerManager : Singleton<PlayerManager>
 			controller.EnableMovement();
 	}
 
+	public void ClearAllUIRoots()
+	{
+		foreach(var controller in PlayerControllers)
+		{
+			var eventSystem = GetEventSystemForController(controller);
+			eventSystem.playerRoot = InGameMenu.instance.blankUI;
+			eventSystem.SetSelectedGameObject(null);
+		}
+	}
+
+	public void DisableAllInput() => SetAllInput(isEnabled: false);
+	public void EnableAllInput() => SetAllInput(isEnabled: true);
+
+	private void SetAllInput(bool isEnabled)
+	{
+		foreach (var controller in PlayerControllers)
+			GetInputModuleForController(controller).enabled = isEnabled;
+	}
+
 	public void AddGold(int amount)
 	{
 		foreach (var player in _playersByOwningController.Values)
