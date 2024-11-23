@@ -9,6 +9,7 @@ public sealed class LevelManager : Singleton<LevelManager>
     public float xMaxBoundary;
     public float zMinBoundary;
     public float zMaxBoundary;
+    public Transform[] PlayerSpawnLocations;
     public event System.Action UpdateBoundary;
 
 
@@ -24,8 +25,10 @@ public sealed class LevelManager : Singleton<LevelManager>
     private Animator westFogAnimator;
     private Animator northAndSouthFogAnimator;
 
+
     private Transform[] shopLocations;
     private Transform[] npcLocations;
+    private int[] minXPlayerPosition = { 76, 150 };
     private int waveCounter = 1;
     private float boundsIncrement = 75;
     private int plainsLevelWaveStart;
@@ -37,7 +40,7 @@ public sealed class LevelManager : Singleton<LevelManager>
         eastFogAnimator = eastFog.GetComponent<Animator>();
         northAndSouthFogAnimator = northAndSouthFog.GetComponent<Animator>();
 
-        if (WaveManager.instance is null || plainsBoundary is null || goblinBoundary is null) return;
+        if (WaveManager.instance is null || plainsBoundary is null || goblinBoundary is null || GameStateManager.instance is null) return;
         WaveManager.instance.waveFinished += WaveManager_WaveFinished;
         WaveManager.instance.waveStarted += WaveManager_WaveStarted;
         plainsLevelWaveStart = WaveManager.instance.startPlainsLevel;
@@ -73,11 +76,15 @@ public sealed class LevelManager : Singleton<LevelManager>
                 plainsBoundary.SetActive(true);
                 northAndSouthFogAnimator.SetTrigger("TriggerSecondLevel");
                 westFogAnimator.SetTrigger("TriggerSecondLevel");
+                GameStateManager.instance.TeleportPlayersToNewLevel(PlayerSpawnLocations[0], minXPlayerPosition[0]);
+                GameStateManager.instance.SetSpawnPoint(PlayerSpawnLocations[0]);
             }
             else
             {
                 goblinBoundary.SetActive(true);
                 westFogAnimator.SetTrigger("TriggerThirdLevel");
+                GameStateManager.instance.TeleportPlayersToNewLevel(PlayerSpawnLocations[1], minXPlayerPosition[1]);
+                GameStateManager.instance.SetSpawnPoint(PlayerSpawnLocations[1]);
             }
             xMinBoundary += boundsIncrement;
             BoundsUpdated();

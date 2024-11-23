@@ -88,6 +88,21 @@ public class Player : MonoBehaviour
 		gameObject.tag = "AlivePlayers";
 	}
 
+	public void TeleportPlayer(Transform spawnPoint)
+	{
+		_mover.enabled = false;
+		_castingComponent.enabled = false;
+		_ragdoll.EnableRagdoll();
+		transform.position = spawnPoint.position;
+		transform.rotation = spawnPoint.rotation;
+		_avatar.transform.localPosition = Vector3.zero;
+		_avatar.transform.localRotation = Quaternion.identity;
+
+		_ragdoll.DisableRagdoll();
+		_mover.enabled = true;
+		_castingComponent.enabled = true;
+	}
+
 	public void Release()
 	{
 		_owningController = null;

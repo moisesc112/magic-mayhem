@@ -71,6 +71,11 @@ public class GameStateManager : Singleton<GameStateManager>
 		gameEnded?.Invoke(this, new GenericEventArgs<bool>(true));
 	}
 
+	public void SetSpawnPoint(Transform newSpawnPoint)
+	{
+		_spawnPoint = newSpawnPoint;
+	}
+
 	private void SpawnDeadPlayers()
 	{
 		foreach (var player in PlayerManager.instance.players)
@@ -80,6 +85,18 @@ public class GameStateManager : Singleton<GameStateManager>
 				player.ResetPlayer(_spawnPoint);
 				FollowCam.instance.targets.Add(player.GetAvatarTransform());
 				player.PlayerStats.gold = Mathf.Min(player.PlayerStats.gold - 50, 0);
+			}
+		}
+	}
+
+	public void TeleportPlayersToNewLevel(Transform newLocation, float minX)
+	{
+		foreach (var player in PlayerManager.instance.players)
+		{
+			Transform thisPlayerTransform = player.GetAvatarTransform();
+			if (player.PlayerStats.IsAlive == true && thisPlayerTransform.position.x < minX)
+			{
+				player.TeleportPlayer(newLocation);
 			}
 		}
 	}
