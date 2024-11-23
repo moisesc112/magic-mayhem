@@ -17,5 +17,5 @@ MonoBehaviour:
     healing per second '
   stat: 2
   valueType: 0
-  value: 100
+  value: 125
   duration: 4
