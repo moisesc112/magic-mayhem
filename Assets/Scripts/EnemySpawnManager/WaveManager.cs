@@ -86,11 +86,11 @@ public sealed class WaveManager : Singleton<WaveManager>
 				aliveEnemies += group.GetEnemyCount();
 				Debug.Log("Spawning group");
 				Transform location;
-				if (waveNum < startPlainsLevel)
+				if (waveNum < startPlainsLevel-1)
 				{
 					location = _townSpawnLocations[UnityRandom.Range(0, _townSpawnLocations.Length)];
 				}
-				else if(waveNum < startGoblinLevel)
+				else if(waveNum < startGoblinLevel-1)
                 {
 					location = _plainsSpawnLocations[UnityRandom.Range(0, _plainsSpawnLocations.Length)];
 				}

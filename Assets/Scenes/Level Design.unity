@@ -16755,6 +16755,9 @@ MonoBehaviour:
   xMaxBoundary: 60
   zMinBoundary: -5
   zMaxBoundary: 60
+  PlayerSpawnLocations:
+  - {fileID: 2139627082}
+  - {fileID: 1001583698}
   shop: {fileID: 910910180}
   npc: {fileID: 1826043099}
   plainsBoundary: {fileID: 1921532400}
@@ -19240,6 +19243,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 472360, guid: 34d24984b60ffd3489f331d128ef0fbb, type: 3}
   m_PrefabInstance: {fileID: 1328720459}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1001583697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1001583698}
+  m_Layer: 0
+  m_Name: GoblinPlayerSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1001583698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001583697}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 168.42, y: 0, z: 59.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1860624335}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1005428517
 GameObject:
   m_ObjectHideFlags: 0
@@ -39386,6 +39420,8 @@ Transform:
   - {fileID: 125572388}
   - {fileID: 623232773}
   - {fileID: 1648557048}
+  - {fileID: 1001583698}
+  - {fileID: 2139627082}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41699,6 +41735,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db3d67dd27208cd4ca5cf3b47a7b9f8d, type: 3}
+--- !u!1 &2139627081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2139627082}
+  m_Layer: 0
+  m_Name: PlainPlayerSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2139627082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139627081}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 112.48, y: 0, z: 52.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1860624335}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140127788
 GameObject:
   m_ObjectHideFlags: 0
