@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 551a748250aa37a4788a42b2f8f39381, type: 3}
-  m_Name: IceCone
+  m_Name: IceCone3
   m_EditorClassIdentifier: 
-  abilityName: Ice Cone
-  description: Summons a frontal cone of ice that damages enemies. Is it a little
-    cold over here or is it just you???
+  abilityName: Ice Cone III
+  description: Absolute zero in a cone! Freeze them in their tracks and watch the
+    chaos unfold.
   abiltyType: 0
-  cooldown: 10
-  damage: 20
-  cost: 10
-  abilityPrefab: {fileID: 4825519324041658740, guid: c0266ccc7b8c8804d8c722738ca05c14, type: 3}
+  cooldown: 8
+  damage: 60
+  cost: 70
+  abilityPrefab: {fileID: 4825519324041658740, guid: 1ba1e5e5f99506b4693acae7b16efd54, type: 3}
   projectileDestoryAfterCollision: 1
   despawnTime: 1.5
   projectileTargetDirection: {x: 0, y: 0, z: 0}
@@ -27,5 +27,5 @@ MonoBehaviour:
   projectileTargetSpeed: 0
   projectileSpread: 0
   castingSound: {fileID: 0}
-  icon: {fileID: 21300000, guid: efa61c3c9d21c4442a315aa1baa8049b, type: 3}
-  nextLevel: {fileID: 11400000, guid: 0ec80a00958c5d440a34379cc54b481e, type: 2}
+  icon: {fileID: 21300000, guid: fac1bd7ed377abc4b9e001be268f2729, type: 3}
+  nextLevel: {fileID: 0}
