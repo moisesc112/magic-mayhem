@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1672045221927460789}
   - component: {fileID: 5913394728231059896}
   m_Layer: 7
-  m_Name: ChainLightningProjectile
+  m_Name: ChainLightningProjectile3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,11 +50,11 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 257
-  abilityInfo: {fileID: 11400000, guid: c942dbd948fce9f4c94995beafc18ad3, type: 2}
+  abilityInfo: {fileID: 11400000, guid: 8d5c2b9b3eb8f1e4a8496820eda9f506, type: 2}
   chainConnector: {fileID: 7266454224421825864, guid: 59b32a5ed1d761147bf2009cabbf0b50, type: 3}
   chainConnectorDetectionRadius: 10
-  chainConnectorTargetCap: 3
-  chainConnectorDamageReduction: 0.5
+  chainConnectorTargetCap: 5
+  chainConnectorDamageReduction: 1
   chainConnectorLayerMask:
     serializedVersion: 2
     m_Bits: 256

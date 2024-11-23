@@ -13,6 +13,7 @@ public class ChainLightning : Ability
 	private List<Transform> targets;
 	private int targetIndex;
 	private Transform currentTarget;
+	[SerializeField] LayerMask chainConnectorLayerMask;
 
 	public override void Awake()
 	{
@@ -26,9 +27,9 @@ public class ChainLightning : Ability
 		if (!hit && collision != null && !collision.CompareTag("Player") && collision.GetComponent<HealthComponent>() != null)
 		{
 			hit = true;
-			Collider[] chainConnectorRange = Physics.OverlapSphere(collision.transform.position, chainConnectorDetectionRadius, layerMask);
+			Collider[] chainConnectorRange = Physics.OverlapSphere(collision.transform.position, chainConnectorDetectionRadius, chainConnectorLayerMask);
 
-			foreach (Collider enemy in chainConnectorRange.Where(c => c.gameObject.GetComponent<HealthComponent>() != null))
+			foreach (Collider enemy in chainConnectorRange)
 			{
 				if(enemy.transform != collision.transform)
 				{
@@ -60,7 +61,6 @@ public class ChainLightning : Ability
 
 	public void PickTarget(Collider collision)
 	{
-		
 		var  midpoint = (collision.transform.position + targets[targetIndex].position) / 2;
 		var direction = collision.transform.position - targets[targetIndex].position;
 		var distance = direction.magnitude;
@@ -74,10 +74,7 @@ public class ChainLightning : Ability
 		targets[targetIndex].GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage()*chainConnectorDamageReduction);
 		currentTarget = targets[targetIndex];
 		targetIndex++;
-	}
 
-	public override void Update()
-	{
 		if (currentTarget != null && hit && targetIndex < chainConnectorTargetCap && targetIndex < targets.Count)
 		{
 			PickTarget(currentTarget.GetComponent<Collider>());
@@ -86,6 +83,5 @@ public class ChainLightning : Ability
 		{
 			Despawn();
 		}
-		base.Update();
 	}
 }
