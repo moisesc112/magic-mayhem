@@ -1,20 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class NPCMenu : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] InputSystemUIInputModule _inputModule;
-    [SerializeField] MultiplayerEventSystem multiplayerEventSystem;
-
     [Header("UIElements")]
-    [SerializeField] Button _nextWaveButton;
+    [SerializeField] Button _closeDialogButton;
 
-    public InputSystemUIInputModule inputModule => _inputModule;
     void Start()
     {
         if (WaveManager.instance is null) return;
@@ -40,31 +31,31 @@ public class NPCMenu : MonoBehaviour
 
     private void ExitNPC()
     {
-        multiplayerEventSystem.SetSelectedGameObject(null);
-        Time.timeScale = 1;
+		PlayerManager.instance.EnableAllMovement();
+        PlayerManager.instance.ClearAllUIRoots();
+		Time.timeScale = 1;
     }
 
-    private void EnterNPC()
+    private void EnterNPC(PlayerController callingController)
     {
-        // I commented this out because it wasn't working
-        //_player.owningController.playerInput.uiInputModule = _inputModule;
-        if (_usingMK == false)
-            multiplayerEventSystem.SetSelectedGameObject(_nextWaveButton.gameObject);
-        Time.timeScale = 0;
+		var eventSystem = PlayerManager.instance.GetEventSystemForController(callingController);
+        eventSystem.playerRoot = gameObject;
+		eventSystem.SetSelectedGameObject(callingController.usingMK ? null : _closeDialogButton.gameObject);
+
+        var inputModule = PlayerManager.instance.GetInputModuleForController(callingController);
+        inputModule.enabled = true;
+
+        PlayerManager.instance.DisableAllMovement();
+
+		Time.timeScale = 0;
     }
 
-    public void ConfigurePlayer(Player player)
-    {
-        _player = player;
-        _usingMK = player.owningController.usingMK;
-    }
-
-    public void ToggleNPCUI(bool isEnabled)
+    public void ToggleNPCUI(bool isEnabled, PlayerController callingController)
     {
         gameObject?.SetActive(isEnabled);
-        if (isEnabled)
+        if (isEnabled && callingController is object)
         {
-            EnterNPC();
+            EnterNPC(callingController);
         }
         else
         {
@@ -79,6 +70,8 @@ public class NPCMenu : MonoBehaviour
         WaveManager.instance.SkipShopPhase();
     }
 
-    Player _player;
-    bool _usingMK;
+    public void CloseDialog()
+    {
+        ToggleNPCUI(false, null);
+    }
 }

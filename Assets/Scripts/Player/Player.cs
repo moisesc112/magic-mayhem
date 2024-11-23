@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
 
 	public void ToggleNPCUI(bool isEnabled)
 	{
-		_npcMenu.ToggleNPCUI(isEnabled);
+		_npcMenu.ToggleNPCUI(isEnabled, owningController);
 	}
 
 	public void ActivateTrap(bool isActivated)

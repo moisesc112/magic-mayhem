@@ -87,6 +87,9 @@ public class PlayerController : MonoBehaviour
 
 	public void OnPauseGame(InputAction.CallbackContext context)
 	{
+		// HACK: If timescale is 0, game is already "paused".
+		if (Time.timeScale == 0) return;
+
 		if (_player && context.performed && InGameMenu.instance.RequestPause(this))
 		{
 			if (playerInShop)

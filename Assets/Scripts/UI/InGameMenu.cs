@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
@@ -9,19 +8,17 @@ public class InGameMenu : Singleton<InGameMenu>
 	public GameObject winText;
 	public GameObject menuPanel;
 	public bool gameOver { get; private set; } = false;
-
-	// Use similar fields to the shop ui
-	[SerializeField] MultiplayerEventSystem _multiplayerEventSystem;
-	[SerializeField] GameObject _firstSelectedGameObject;
-	[SerializeField] InputSystemUIInputModule _inputModule;
+	/// <summary>
+	/// Setting playerRoot to `null` on MultiplayerEventSystems seems to allow controll of the whole root.
+	/// Not ideal. Instead, just set it to this blank object so they can't control anything.
+	/// </summary>
+	public GameObject blankUI;
 
 	[Header("HUDs")]
 	[SerializeField] PlayerHUD []_playerHUDs;
 	[SerializeField] Shop[] _shopHUDs;
 	[SerializeField] PauseMenu[] _pauseMenus;
-	[SerializeField] NPCMenu[] _npcMenus;
-
-	public InputSystemUIInputModule inputSystemUIInputModule => _inputModule;
+	[SerializeField] NPCMenu _npcMenu;
 
 	protected override void DoAwake()
 	{
@@ -121,17 +118,15 @@ public class InGameMenu : Singleton<InGameMenu>
 		var matchingHUD = _playerHUDs[index];
 		var matchingShop = _shopHUDs[index];
 		var matchingPauseMenu = _pauseMenus[index];
-		var matchingNPCMenu = _npcMenus[index];
-		if (matchingHUD is null || matchingShop is null || matchingPauseMenu is null || matchingNPCMenu is null) return;
+		if (matchingHUD is null || matchingShop is null || matchingPauseMenu is null || _npcMenu is null) return;
 
 		matchingHUD.TrackPlayer(player);
 		matchingHUD.gameObject.SetActive(true);
 		
 		matchingShop.ConfigurePlayer(player);
 		player.SetShop(matchingShop);
-		player.SetNPCMenu(matchingNPCMenu);
+		player.SetNPCMenu(_npcMenu);
 
-		matchingNPCMenu.ConfigurePlayer(player);
 		matchingPauseMenu.ConfigurePlayer(player);
 	}
 
