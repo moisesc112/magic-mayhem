@@ -46,7 +46,17 @@ public class NPCText : MonoBehaviour
         infoText.text = newText;
     }
 
-    private string firstStage = "Traveler, the goblins are coming! Survive their onslaught for ten days, and use the time in between to buy more powerful spells from the shop! There are vases that contain gold, barrels with health potions and spike traps scattered around the map to aid you. Are you ready wield magic and ensure your survival!";
-    private string secondStage = "It looks like we are close to their encampment! If we can hold off for a couple more days we can push the fight to them! Also did you know you can upgrade your spells? It will definitely come in handy for the fights ahead";
-    private string thirdStage = "We made it to their base traveller! Their numbers grow thin. If we can defeat them here the town will be saved! I found this trap over here that I think you can activate! I heard it does a ton of damage!!!";
+    private string firstStage = @"Traveler, the goblins are coming!
+
+Survive their onslaught for ten days, and use the time in between to buy more powerful spells from the shop! There are vases that contain gold, barrels with health potions and spike traps scattered around the map to aid you.
+
+Are you ready wield magic and ensure your survival!";
+
+    private string secondStage = @"It looks like we are close to their encampment! If we can hold off for a couple more days we can push the fight to them!
+
+Also did you know you can upgrade your spells? It will definitely come in handy for the fights ahead";
+
+    private string thirdStage = @"We made it to their base traveller!
+
+Their numbers grow thin. If we can defeat them here the town will be saved! I found this trap over here that I think you can activate! I heard it does a ton of damage!!!";
 }
