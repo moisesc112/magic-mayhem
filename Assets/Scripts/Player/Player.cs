@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Linq;
+using static ActionToTextMapper;
 
 [RequireComponent(typeof(PlayerStats))]
 [RequireComponent(typeof(PlayerHitVisualizer))]
@@ -36,13 +38,22 @@ public class Player : MonoBehaviour
 		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
 		_audioSource = GetComponentInChildren<AudioSource>();
 		_characterController = _avatar.GetComponent<CharacterController>();
+		_buttonPromptText = GetComponentInChildren<ButtonPromptText>();
 	}
 
 	void Start()
 	{
 		_previousPos = GetAvatarPosition();
 		_canPlayDeathSound = true;
+		ClearPromptText();
 		StartCoroutine(nameof(UpdateHitRenderers));
+
+		WaveManager.instance.waveFinished += WaveManager_OnWaveFinished;
+	}
+
+	private void OnDestroy()
+	{
+		WaveManager.instance.waveFinished -= WaveManager_OnWaveFinished;
 	}
 
 	void LateUpdate()
@@ -181,6 +192,16 @@ public class Player : MonoBehaviour
 		return _inGameMenu.gameOver;
 	}
 
+	public void SetPromptText(string promptTextFormat, params PlayerInputAction[] values)
+	{
+		if (promptTextFormat is null || values is null) return;
+		var computedTextValues = values.Select(x => GetInputTextForAction(x, _owningController.usingMK)).ToArray();
+
+		_buttonPromptText.SetPrompt(string.Format(promptTextFormat, computedTextValues));
+	}
+
+	public void ClearPromptText() => _buttonPromptText.ClearPrompt();
+
 	// Same methodology as the enemy death
 	void HealthComp_OnDeath(object sender, EventArgs e)
 	{
@@ -227,6 +248,11 @@ public class Player : MonoBehaviour
 		_canPlayDeathSound = true;
 	}
 
+	private void WaveManager_OnWaveFinished(object sender, WaveEndedEventArgs e)
+	{
+		ClearPromptText();
+	}
+
 	public PlayerStats PlayerStats => GetComponent<PlayerStats>();
 
 	PlayerStats _playerStats;
@@ -247,4 +273,5 @@ public class Player : MonoBehaviour
 	Color _playerColor;
 	AudioSource _audioSource;
 	bool _canPlayDeathSound;
+	ButtonPromptText _buttonPromptText;
 }

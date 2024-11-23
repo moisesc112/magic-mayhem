@@ -67,6 +67,7 @@ public class NPCMenu : MonoBehaviour
     {
         if (WaveManager.instance is null) return;
         ExitNPC();
+        PlayerManager.instance.ClearAllTextPrompts();
         WaveManager.instance.SkipShopPhase();
     }
 

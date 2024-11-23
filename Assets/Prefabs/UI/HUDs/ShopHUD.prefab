@@ -2595,8 +2595,8 @@ MonoBehaviour:
   _frames:
   - {fileID: 3791022096292989356}
   - {fileID: 3657140032883702773}
-  _inputModule: {fileID: 0}
-  multiplayerEventSystem: {fileID: 0}
+  _toUpgradesText: {fileID: 6133480260983115933}
+  _toNewSpellsText: {fileID: 3190810362247785225}
   _shuffleIncreaseAmount: 1
   _shuffleCostCap: 30
   numOfSpells: 3

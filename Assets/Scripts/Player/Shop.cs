@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static ActionToTextMapper;
 
 public class Shop : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class Shop : MonoBehaviour
 	[SerializeField] TextMeshProUGUI _shufflePlayerGoldText;
 	[SerializeField] Button _shuffleButton;
 	[SerializeField] Image[] _frames;
+	[SerializeField] TextMeshProUGUI _toUpgradesText;
+	[SerializeField] TextMeshProUGUI _toNewSpellsText;
 
 	[Header("Settings")]
 	[SerializeField] int _shuffleIncreaseAmount = 1;
@@ -46,7 +49,10 @@ public class Shop : MonoBehaviour
 	private void OnDestroy()
 	{
 		if (WaveManager.instance != null)
+		{
 			WaveManager.instance.waveFinished -= WaveManager_OnWaveFinished;
+			WaveManager.instance.waveStarted -= WaveManager_OnWaveStarted;
+		}
 	}
 
 	public void ConfigurePlayer(Player player)
@@ -56,6 +62,8 @@ public class Shop : MonoBehaviour
 		ShuffleShopAbilityOptions(didPlayerUseShuffle: false);
 		foreach (var frame in _frames)
 			frame.color = player.playerColor;
+		_toUpgradesText.text = string.Format(_toUpgradeMenuTextFormat, GetInputTextForAction(PlayerInputAction.UPGRADES, PlayerUsingMK()));
+		_toNewSpellsText.text = string.Format(_toSpellsMenuTextFormat, GetInputTextForAction(PlayerInputAction.UPGRADES, PlayerUsingMK()));
 	}
 
 	public void PurchaseAbility(SpellOption spell)
@@ -376,4 +384,7 @@ public class Shop : MonoBehaviour
 	int _currentShuffleCost = SHUFFLE_COST_START;
 	bool _showingSpellList = true;
 	bool _shopOpen = false;
+
+	string _toUpgradeMenuTextFormat = "Press {0} for upgrades";
+	string _toSpellsMenuTextFormat = "Press {0} for new spells";
 }
