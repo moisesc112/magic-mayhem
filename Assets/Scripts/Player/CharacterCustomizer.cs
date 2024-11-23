@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityExtensions;
 public class CharacterCustomizer : MonoBehaviour
 {
-    [SerializeField] Material[] _playerMaterials;
+	[SerializeField] Material[] _playerMaterials;
 	[SerializeField] Player _player;
 
 	private void Start()
