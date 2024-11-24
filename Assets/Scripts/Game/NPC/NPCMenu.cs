@@ -5,6 +5,7 @@ public class NPCMenu : MonoBehaviour
 {
     [Header("UIElements")]
     [SerializeField] Button _closeDialogButton;
+    GameObject currentUI;
 
     void Start()
     {
@@ -50,11 +51,34 @@ public class NPCMenu : MonoBehaviour
 		Time.timeScale = 0;
     }
 
-    public void ToggleNPCUI(bool isEnabled, PlayerController callingController)
+    public void ToggleNPCUI(bool isEnabled, PlayerController callingController, NPCTrigger npcTrigger)
     {
         gameObject?.SetActive(isEnabled);
-        if (isEnabled && callingController is object)
+        if (isEnabled && callingController is object && npcTrigger != null)
         {
+            var npc = npcTrigger.GetComponentInParent<NPC>();
+            if (npc != null && npc.npcUI != null)
+            {
+                var uiGameObject = Instantiate(npc.npcUI);
+                uiGameObject.transform.SetParent(this.transform);
+                currentUI = uiGameObject;
+                var npcUI = uiGameObject.GetComponent<NPCUI>();
+                if (npcUI != null)
+                {
+                    _closeDialogButton = npcUI.GetCloseDialogButton();
+                    var skipShopButton = npcUI.GetSkipShopDialogButton();
+                    var playGameButton = npcUI.GetPlayGameDialogButton();
+                    var addGoldButton = npcUI.GetAddGoldDialogButton();
+                    if (_closeDialogButton != null)
+                        _closeDialogButton.onClick.AddListener(() => CloseDialog());
+                    if (skipShopButton != null)
+                        skipShopButton.onClick.AddListener(() => skipShopPhase());
+                    if (playGameButton != null)
+                        playGameButton.onClick.AddListener(() => PlayGame());
+                    if(addGoldButton != null)
+                        addGoldButton.onClick.AddListener(() => AddGold());
+                }
+            }
             EnterNPC(callingController);
         }
         else
@@ -73,6 +97,26 @@ public class NPCMenu : MonoBehaviour
 
     public void CloseDialog()
     {
-        ToggleNPCUI(false, null);
+        if (currentUI != null)
+        {
+            Destroy(currentUI);
+            currentUI = null;
+        }
+        ToggleNPCUI(false, null, null);
+    }
+
+    public void PlayGame()
+    {
+        CloseDialog();
+        LevelLoadManager.instance.ActivateLoadedScene();
+    }
+
+    public void AddGold()
+    {
+        foreach(var player in PlayerManager.instance.players)
+        {
+            player.PlayerStats.gold += 300;
+        }
+        CloseDialog();
     }
 }

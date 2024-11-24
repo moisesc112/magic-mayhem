@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
     [SerializeField] Transform[] _npcSpawnLocations;
     public Transform[] NPCSpawnLocations => _npcSpawnLocations;
+
+    public GameObject npcUI;
 
     void Start()
     {

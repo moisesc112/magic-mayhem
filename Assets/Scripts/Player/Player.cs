@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
 		_playerStats.onDeath += HealthComp_OnDeath;
 		_inGameMenu = FindObjectOfType<InGameMenu>();
 		_shopTrigger = FindObjectOfType<ShopTrigger>();
-		_npcTrigger = FindObjectOfType<NPCTrigger>();
 		_abilitySlotsComponent = _avatar.GetComponent<AbilitySlotsComponent>();
 		_audioSource = GetComponentInChildren<AudioSource>();
 		_characterController = _avatar.GetComponent<CharacterController>();
@@ -71,6 +70,8 @@ public class Player : MonoBehaviour
 	public void SetShop(Shop shop) => _shop = shop;
 
 	public void SetNPCMenu(NPCMenu NPCMenu) => _npcMenu = NPCMenu;
+
+	public void SetNpcTrigger(NPCTrigger npcTrigger) => _npcTrigger = npcTrigger;
 
 	public void Possess(PlayerController playerController, Color color)
 	{
@@ -173,7 +174,7 @@ public class Player : MonoBehaviour
 
 	public void ToggleNPCUI(bool isEnabled)
 	{
-		_npcMenu.ToggleNPCUI(isEnabled, owningController);
+		_npcMenu.ToggleNPCUI(isEnabled, owningController, _npcTrigger);
 	}
 
 	public void ActivateTrap(bool isActivated)

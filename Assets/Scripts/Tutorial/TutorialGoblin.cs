@@ -41,10 +41,9 @@ public class TutorialGoblin : MonoBehaviour
 	void Start()
 	{
 		_spawnPoint = gameObject.transform.position;
-		Init();
 	}
 
-	void Init()
+	public void Init()
 	{
 		gameObject.transform.position = _spawnPoint;
 		gameObject.transform.rotation = Quaternion.identity;
@@ -60,7 +59,7 @@ public class TutorialGoblin : MonoBehaviour
 			comp.OnInit();
 		}
 
-		StartCoroutine(nameof(GoToWayPoint));
+		//StartCoroutine(nameof(GoToWayPoint));
 	}
 
 	IEnumerator GoToWayPoint()
