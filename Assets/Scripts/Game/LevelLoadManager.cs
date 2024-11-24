@@ -3,32 +3,33 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public sealed class LevelLoadManager : MonoBehaviour
+public sealed class LevelLoadManager : Singleton<LevelLoadManager>
 {
-	public static LevelLoadManager instance => _instance;
-	public event EventHandler<LevelLoadedArgs> sceneLoaded;
-	
-	void Awake()
-	{
-		if (_instance != null && _instance != this)
-		{
-			Destroy(this);
-			return;
-		}
+	public event EventHandler<GenericEventArgs<string>> sceneLoaded;
 
-		_instance = this;
+	public bool sceneLoadedCompleted => _sceneLoadCompleted;
+	public const string tutorialSceneName = "Tutorial Level";
+	public const string gameSceneName = "Level Design";
+	public const string loadingSceneName = "Loading";
+	public const string menuSceneName = "Menu";
+
+	protected override void DoAwake()
+	{
 		DontDestroyOnLoad(gameObject);
 	}
 
-	public void LoadSceneAsync(string sceneName)
+	public void QueueScene(string sceneName) => _sceneToLoad = sceneName;
+
+	public void LoadSceneAsync()
 	{
 		StopCoroutine(nameof(LoadSceneAsync));
-		StartCoroutine(DoLoadSceneAsync(sceneName));
+		StartCoroutine(DoLoadSceneAsync());
 	}
 
-	private IEnumerator DoLoadSceneAsync(string sceneName)
+	private IEnumerator DoLoadSceneAsync()
 	{
-		_load = SceneManager.LoadSceneAsync(sceneName);
+		_sceneLoadCompleted = false;
+		_load = SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
 		_load.allowSceneActivation = false;
 		while (!_load.isDone)
 		{
@@ -41,7 +42,8 @@ public sealed class LevelLoadManager : MonoBehaviour
 		}
 		// Uncomment line below to simulate long load times.
 		//yield return new WaitForSeconds(10.0f);
-		RaiseSceneLoaded(sceneName);
+		_sceneLoadCompleted = true;
+		RaiseSceneLoaded(_sceneToLoad);
 	}
 
 	public void ActivateLoadedScene()
@@ -53,18 +55,10 @@ public sealed class LevelLoadManager : MonoBehaviour
 
 	private void RaiseSceneLoaded(string sceneName)
 	{
-		instance.sceneLoaded?.Invoke(instance, new LevelLoadedArgs(sceneName));
+		sceneLoaded?.Invoke(instance, new GenericEventArgs<string>(sceneName));
 	}
 
 	AsyncOperation _load;
-	static LevelLoadManager _instance;
-}
-
-public sealed class LevelLoadedArgs : EventArgs
-{
-    public LevelLoadedArgs(string scene)
-    {
-        sceneName = scene;
-    }
-    string sceneName { get; }
+	string _sceneToLoad;
+	bool _sceneLoadCompleted;
 }
