@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public sealed class NavPollerComponent : RefreshableComponent
 {
 	[SerializeField] DistancePollObject[] _distancePollInfos;
+	[SerializeField] bool _usePoller = true;
 
 	public bool assignNavDestination = true;
 	public Player TargetPlayer => _targetPlayer;
@@ -21,6 +22,8 @@ public sealed class NavPollerComponent : RefreshableComponent
 
 	void Update()
 	{
+		if (_usePoller is false) return;
+
 		if (_startPoll)
 		{
 			_startPoll = false;

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,56 +9,33 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Dissolver))]
 [RequireComponent(typeof(LootDropComponent))]
 [RequireComponent(typeof(HitVisualizer))]
-public class TutorialGoblin : MonoBehaviour
+public class TutorialGoblin : EnemyBase
 {
 	public Transform[] wayPoints;
 	[SerializeField] Renderer _targetRenderer;
 
-	void Awake()
+	protected override void DoAwake()
 	{
-		_agent = GetComponent<NavMeshAgent>();
 		_anim = GetComponent<Animator>();
-		_ragdoll = GetComponent<RagdollComponent>();
-		_health = GetComponent<HealthComponent>();
 		_dissolver = GetComponent<Dissolver>();
 		_dissolver.SetTargetRenderer(_targetRenderer);
-		_lootDrop = GetComponent<LootDropComponent>();
-		_healthBar = GetComponentInChildren<HealthBarComponent>();
-		_refreshableComponents = new List<RefreshableComponent>();
-		_refreshableComponents.AddRange(GetComponents<RefreshableComponent>());
-		_refreshableComponents.AddRange(GetComponentsInChildren<RefreshableComponent>(includeInactive: true));
-
-		_health.onDeath += HealthComponent_OnDeath;
-	}
-
-	private void HealthComponent_OnDeath(object sender, System.EventArgs e)
-	{
-		StartCoroutine(nameof(HandleDeath));
 	}
 
 	// Start is called before the first frame update
-	void Start()
+	protected override void DoStart()
 	{
 		_spawnPoint = gameObject.transform.position;
+		InitFromPool(_spawnPoint, null);
 	}
 
-	public void Init()
+	protected override IEnumerator SelfOnInit()
 	{
 		gameObject.transform.position = _spawnPoint;
 		gameObject.transform.rotation = Quaternion.identity;
 		_currentTargetWaypoint = 0;
-
-		_ragdoll.DisableRagdoll();
-		_dissolver.ResetEffect(deactivateGameObject: false);
-		_agent.enabled = true;
-
-		_health.health = _health.maxHealth;
-		foreach (var comp in _refreshableComponents)
-		{
-			comp.OnInit();
-		}
-
-		//StartCoroutine(nameof(GoToWayPoint));
+		gameObject.SetActive(true);
+		StartCoroutine(nameof(GoToWayPoint));
+		yield return null;
 	}
 
 	IEnumerator GoToWayPoint()
@@ -74,34 +50,17 @@ public class TutorialGoblin : MonoBehaviour
 		yield return GoToWayPoint();
 	}
 
-	IEnumerator HandleDeath()
+	protected override IEnumerator SelfOnKilled()
 	{
 		StopCoroutine(nameof(GoToWayPoint));
-		_ragdoll.EnableRagdoll();
-		_dissolver.StartDissolving();
-		_health.health = 0;
 
-		_agent.enabled = false;
-		_lootDrop.DropLoot();
-		if (_refreshableComponents != null)
-		{
-			foreach (var comp in _refreshableComponents)
-			{
-				comp.OnKilled();
-			}
-		}
 		yield return new WaitForSeconds(5.0f);
-		Init();
+		InitFromPool(_spawnPoint, null);
 	}
 
-	NavMeshAgent _agent;
 	Animator _anim;
 	RagdollComponent _ragdoll;
-	HealthComponent _health;
 	Dissolver _dissolver;
-	LootDropComponent _lootDrop;
-	HealthBarComponent _healthBar;
-	List<RefreshableComponent> _refreshableComponents;
 
 	public int _currentTargetWaypoint = 0;
 	Vector3 _spawnPoint;

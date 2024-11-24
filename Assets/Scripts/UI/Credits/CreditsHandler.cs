@@ -114,7 +114,6 @@ public class CreditsHandler : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(creditTexts.Count);
         foreach (var text in creditTexts)
         {
             if (text == null) continue;
