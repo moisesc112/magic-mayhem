@@ -11,7 +11,11 @@ public class NPCTrigger : MonoBehaviour
 		{
 			var player = collision.gameObject.GetComponentInParent<Player>();
 			if (player)
+			{
 				player.SetPromptText(_talkToNpcTextFormat, ActionToTextMapper.PlayerInputAction.ACTIVATE);
+				player.SetNpcTrigger(this);
+			}
+				
 			playerTalkingToNPC = true;
 		}
 	}
@@ -22,7 +26,10 @@ public class NPCTrigger : MonoBehaviour
 		{
 			var player = collision.gameObject.GetComponentInParent<Player>();
 			if (player)
+			{
 				player.ClearPromptText();
+				player.SetNpcTrigger(null);
+			}
 			playerTalkingToNPC = false;
 		}
 	}

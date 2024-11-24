@@ -16,13 +16,26 @@ public class MainMenuManager : MonoBehaviour
 	[Header("UIReferences")]
 	[SerializeField] GameObject _uiFirstSelected;
 
+	[SerializeField] CreditsHandler creditsHandler;
+
 	void Start()
 	{
 		PlayerManager.instance.SetJoiningEnabled(true);
 		PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
 		PlayerManager.instance.PlayerControllerRemoved += PlayerManager_OnPlayerControllerRemoved;
+		creditsHandler.CreditsEnded += CreditsHandler_OnCreditsEnded;
 
-		LevelLoadManager.instance.LoadSceneAsync(sceneToLoad);
+
+        var hasPlayed = PlayerPrefs.GetInt("RunsPlayed", 0) != 0;
+		if (!hasPlayed)
+		{
+			LevelLoadManager.instance.LoadSceneAsync("Tutorial Level");
+		}
+		else
+		{
+			LevelLoadManager.instance.LoadSceneAsync(sceneToLoad);
+		}
+
 		LevelLoadManager.instance.sceneLoaded += LevelManager_OnSceneLoaded;
 		_menuCharacters = GameObject.FindGameObjectsWithTag("MenuCharacter").Select(c => c.GetComponent<MenuCharacter>()).ToArray();
 
@@ -41,26 +54,42 @@ public class MainMenuManager : MonoBehaviour
 	}
 
 	void OnDestroy()
-	{		
+	{
 		PlayerManager.instance.PlayerControllerJoined -= PlayerManager_OnPlayerControllerJoined;
-		PlayerManager.instance.PlayerControllerRemoved -= PlayerManager_OnPlayerControllerRemoved;
-	}
+    }
 
 	public void StartGame()
 	{
+        if (_isCreditsPlaying) return;
+        PlayerPrefs.SetInt("RunsPlayed", PlayerPrefs.GetInt("RunsPlayed", 0) + 1);
 		PlayerManager.instance.SetJoiningEnabled(false);
 		LevelLoadManager.instance.ActivateLoadedScene();	
 	}
 
 	public void StartTutorial()
 	{
-		SceneManager.LoadScene("Tutorial Level");
+		if (_isCreditsPlaying) return;
+		PlayerPrefs.SetInt("RunsPlayed", PlayerPrefs.GetInt("RunsPlayed", 0) + 1);
+        PlayerManager.instance.SetJoiningEnabled(false);
+        SceneManager.LoadScene("Tutorial Level");
 	}
+
+	public void ShowCredits()
+	{
+        _isCreditsPlaying = true;
+        creditsHandler.OnStartCredits();
+    }
+
+	public void CreditsHandler_OnCreditsEnded(object sender, GenericEventArgs<bool> e)
+	{
+		_isCreditsPlaying = false;
+    }
 
 	public void QuitGame()
 	{
+        if (_isCreditsPlaying) return;
 #if UNITY_EDITOR
-		UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
 		Application.Quit();
 #endif
@@ -151,4 +180,5 @@ public class MainMenuManager : MonoBehaviour
 	int _lobbyHostIndex;
 
 	bool _hostLoaded = false;
+	bool _isCreditsPlaying = false;
 }
