@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NPCMenu : MonoBehaviour
@@ -108,7 +109,9 @@ public class NPCMenu : MonoBehaviour
     public void PlayGame()
     {
         CloseDialog();
-        LevelLoadManager.instance.ActivateLoadedScene();
+
+        LevelLoadManager.instance.QueueScene(LevelLoadManager.gameSceneName);
+        SceneManager.LoadScene(LevelLoadManager.loadingSceneName);
     }
 
     public void AddGold()

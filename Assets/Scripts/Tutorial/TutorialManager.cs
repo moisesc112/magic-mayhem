@@ -8,6 +8,6 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        LevelLoadManager.instance.LoadSceneAsync(sceneToLoad);
+        LevelLoadManager.instance.QueueScene(sceneToLoad);
     }
 }

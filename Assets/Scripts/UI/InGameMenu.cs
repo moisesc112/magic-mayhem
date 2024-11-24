@@ -84,7 +84,9 @@ public class InGameMenu : Singleton<InGameMenu>
 	public void RestartGame()
 	{
 		// reload the menu scene and reset time
-		SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+		LevelLoadManager.instance.QueueScene(LevelLoadManager.menuSceneName);
+
+		SceneManager.LoadScene(LevelLoadManager.loadingSceneName, LoadSceneMode.Single);
 		Time.timeScale = 1f;
 	}
 

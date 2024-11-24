@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,17 +23,6 @@ public class MainMenuManager : MonoBehaviour
 		PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
 		PlayerManager.instance.PlayerControllerRemoved += PlayerManager_OnPlayerControllerRemoved;
 		creditsHandler.CreditsEnded += CreditsHandler_OnCreditsEnded;
-
-
-        var hasPlayed = PlayerPrefs.GetInt("RunsPlayed", 0) != 0;
-		if (!hasPlayed)
-		{
-			LevelLoadManager.instance.LoadSceneAsync("Tutorial Level");
-		}
-		else
-		{
-			LevelLoadManager.instance.LoadSceneAsync(sceneToLoad);
-		}
 
 		LevelLoadManager.instance.sceneLoaded += LevelManager_OnSceneLoaded;
 		_menuCharacters = GameObject.FindGameObjectsWithTag("MenuCharacter").Select(c => c.GetComponent<MenuCharacter>()).ToArray();
@@ -61,17 +49,23 @@ public class MainMenuManager : MonoBehaviour
 	public void StartGame()
 	{
         if (_isCreditsPlaying) return;
-        PlayerPrefs.SetInt("RunsPlayed", PlayerPrefs.GetInt("RunsPlayed", 0) + 1);
+
+		var hasPlayed = PlayerPrefs.GetInt("RunsPlayed", 0) != 0;
+		LevelLoadManager.instance.QueueScene(hasPlayed ? LevelLoadManager.gameSceneName : LevelLoadManager.tutorialSceneName);
+
+		PlayerPrefs.SetInt("RunsPlayed", PlayerPrefs.GetInt("RunsPlayed", 0) + 1);
 		PlayerManager.instance.SetJoiningEnabled(false);
-		LevelLoadManager.instance.ActivateLoadedScene();	
+		SceneManager.LoadScene(LevelLoadManager.loadingSceneName);
 	}
 
 	public void StartTutorial()
 	{
 		if (_isCreditsPlaying) return;
+		LevelLoadManager.instance.QueueScene(LevelLoadManager.tutorialSceneName);
+
 		PlayerPrefs.SetInt("RunsPlayed", PlayerPrefs.GetInt("RunsPlayed", 0) + 1);
         PlayerManager.instance.SetJoiningEnabled(false);
-        SceneManager.LoadScene("Tutorial Level");
+        SceneManager.LoadScene(LevelLoadManager.loadingSceneName);
 	}
 
 	public void ShowCredits()
@@ -95,9 +89,10 @@ public class MainMenuManager : MonoBehaviour
 #endif
 	}
 
-	void LevelManager_OnSceneLoaded(object sender, LevelLoadedArgs args)
+	void LevelManager_OnSceneLoaded(object sender, GenericEventArgs<string> args)
 	{
 		LevelLoadManager.instance.sceneLoaded -= LevelManager_OnSceneLoaded;
+		LevelLoadManager.instance.ActivateLoadedScene();
 	}
 
 	void PlayerManager_OnPlayerControllerJoined(object sender, GenericEventArgs<PlayerController> e)
