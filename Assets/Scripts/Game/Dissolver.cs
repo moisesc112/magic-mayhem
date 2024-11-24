@@ -31,7 +31,7 @@ public class Dissolver : RefreshableComponent
 
 	public override void OnInit()
 	{
-		ResetEffect();
+		ResetEffect(false);
 	}
 
 	public override void OnKilled()

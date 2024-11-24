@@ -81,7 +81,7 @@ public class EnemyBase : MonoBehaviour
 			}
 		}
 
-		SelfOnInit();
+		StartCoroutine(nameof(SelfOnInit));
 
 		if (_releaseToPoolAction is null)
 			_releaseToPoolAction = releaseAction;
