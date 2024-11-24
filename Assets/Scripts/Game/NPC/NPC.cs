@@ -17,8 +17,11 @@ public class NPC : MonoBehaviour
 
     private void OnDestroy()
     {
-        WaveManager.instance.gameStarting -= WaveManager_GameStarted;
-        WaveManager.instance.waveStarted -= WaveManager_WaveStarted;
+		if (WaveManager.instance is object)
+        {
+			WaveManager.instance.gameStarting -= WaveManager_GameStarted;
+            WaveManager.instance.waveStarted -= WaveManager_WaveStarted;
+        }
     }
 
     private void WaveManager_GameStarted(object sender, GameStartedEventArgs e)

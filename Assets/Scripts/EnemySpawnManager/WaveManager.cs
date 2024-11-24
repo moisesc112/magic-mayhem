@@ -7,6 +7,7 @@ using UnityRandom = UnityEngine.Random;
 [RequireComponent(typeof(AudioSource))]
 public sealed class WaveManager : Singleton<WaveManager>
 {
+	public bool useManager = true;
 	public int timeBeforeGameStarts;
 	public int startPlainsLevel;
 	public int startGoblinLevel;
@@ -45,6 +46,8 @@ public sealed class WaveManager : Singleton<WaveManager>
 
 	protected override void DoStart()
 	{
+		if (useManager is false) return;
+
 		isGameFinished = false;
 		DisableShopDuringWave();
 		EnableNPCAfterWave();

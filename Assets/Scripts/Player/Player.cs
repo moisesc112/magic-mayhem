@@ -47,12 +47,14 @@ public class Player : MonoBehaviour
 		ClearPromptText();
 		StartCoroutine(nameof(UpdateHitRenderers));
 
-		WaveManager.instance.waveFinished += WaveManager_OnWaveFinished;
+		if (WaveManager.instance is object)
+			WaveManager.instance.waveFinished += WaveManager_OnWaveFinished;
 	}
 
 	private void OnDestroy()
 	{
-		WaveManager.instance.waveFinished -= WaveManager_OnWaveFinished;
+		if (WaveManager.instance is object)
+			WaveManager.instance.waveFinished -= WaveManager_OnWaveFinished;
 	}
 
 	void LateUpdate()

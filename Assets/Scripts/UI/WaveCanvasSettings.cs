@@ -23,7 +23,7 @@ public class WaveCanvasSettings : MonoBehaviour
 
 	void Start()
 	{
-		if (WaveManager.instance is null) return;
+		if (WaveManager.instance is null || WaveManager.instance.useManager is false) return;
 
 		WaveManager.instance.gameStarting += WaveManager_GameStarted;
 		WaveManager.instance.waveStarted += WaveManager_WaveStarted;
