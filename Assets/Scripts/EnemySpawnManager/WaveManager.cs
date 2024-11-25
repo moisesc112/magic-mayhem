@@ -105,8 +105,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 				{
 					for (int i = 0; i < enemy.amountToSpawn; i++)
 					{
-						var randomLoc = UnityRandom.insideUnitCircle * 3;
-						var finalLoc = location.position + new Vector3(randomLoc.x, 0, randomLoc.y);
+						var finalLoc = location.position;
 						_enemyFactory.SpawnEnemy(enemy.enemyToSpawn, finalLoc);
 						yield return new WaitForSeconds(wave.timeBetweenEnemies);
 					}

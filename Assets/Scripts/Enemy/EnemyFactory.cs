@@ -44,6 +44,7 @@ public class EnemyFactory : MonoBehaviour
 		spawnedEnemy.enabled = true;
 		spawnedEnemy.InitFromPool(location, releaseAction);
 		spawnedEnemy.gameObject.SetActive(true);
+		spawnedEnemy.transform.position = location;
 	}
 
 	Dictionary<EnemyToSpawn, (Func<EnemyBase> spawnEnemy, Action<EnemyBase> releaseAction)> _spawnValuesByEnemyToSpawn;
