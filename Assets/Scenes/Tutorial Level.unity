@@ -3692,6 +3692,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PhysicalShop
       objectReference: {fileID: 0}
+    - target: {fileID: 2186688284117759364, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
+      propertyPath: inTutorialScene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6128258149821158963, guid: 70cda8cab4815af49a9ba5d3c62ae49d, type: 3}
       propertyPath: m_RootOrder
       value: 1

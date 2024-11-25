@@ -49,8 +49,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 		if (useManager is false) return;
 
 		isGameFinished = false;
-		DisableShopDuringWave();
-		EnableNPCAfterWave();
 	}
 
 	protected override void DoAwake()
@@ -63,7 +61,12 @@ public sealed class WaveManager : Singleton<WaveManager>
 		_npcTrigger = FindObjectOfType<NPCTrigger>();
 	}
 
-    public void StartGame() => gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
+	public void StartGame()
+	{
+		gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
+		DisableShopDuringWave();
+		EnableNPCAfterWave();
+	}
 	
 	public void SpawnWaves()
 	{
