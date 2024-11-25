@@ -69,7 +69,7 @@ public class EnemyBase : MonoBehaviour
 		_agent.transform.position = location;
 
 		enabled = true;
-		_agent.enabled = true;
+		_agent.enabled = false;
 
 		_healthComponent.health = _healthComponent.maxHealth;
 

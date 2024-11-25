@@ -35,7 +35,6 @@ public sealed class NavPollerComponent : RefreshableComponent
 	public override void OnInit()
 	{
 		enabled = true;
-		_agent.enabled = true;
 		StartPolling();
 	}
 
@@ -87,7 +86,10 @@ public sealed class NavPollerComponent : RefreshableComponent
 			else
 			{
 				if (assignNavDestination)
+				{
 					_agent.SetDestination(_targetPlayer?.GetAvatarPosition() ?? Vector3.zero);
+					_agent.enabled = true;
+				}
 				yield return new WaitForSeconds(_distancePollInterval);
 			}
 		}
