@@ -11,8 +11,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 	public int timeBeforeGameStarts;
 	public int startPlainsLevel;
 	public int startGoblinLevel;
-	public GameObject shopkeeper;
-	public GameObject npc;
 
 	[SerializeField] EnemyFactory _enemyFactory;
 	[SerializeField] bool inTestingScene;
@@ -65,7 +63,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 	{
 		gameStarting?.Invoke(this, new GameStartedEventArgs(timeBeforeGameStarts));
 		DisableShopDuringWave();
-		EnableNPCAfterWave();
 	}
 	
 	public void SpawnWaves()
@@ -97,11 +94,11 @@ public sealed class WaveManager : Singleton<WaveManager>
 					location = _townSpawnLocations[UnityRandom.Range(0, _townSpawnLocations.Length)];
 				}
 				else if(waveNum < startGoblinLevel-1)
-                {
+				{
 					location = _plainsSpawnLocations[UnityRandom.Range(0, _plainsSpawnLocations.Length)];
 				}
-                else
-                {
+				else
+				{
 					location = _goblinSpawnLocations[UnityRandom.Range(0, _goblinSpawnLocations.Length)];
 				}
 				foreach (var enemy in group.enemySpawn)
@@ -126,7 +123,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 			{
 				waveFinished?.Invoke(this, new WaveEndedEventArgs(wave.timeToNextWave));
 				EnableShopAfterWave();
-				EnableNPCAfterWave();
 				yield return new WaitForSecondsOrCondition(
 					condition: () => shouldSkipWaveCooldown,
 					seconds: wave.timeToNextWave);
@@ -162,16 +158,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 				playerController.ForceCloseActiveShopUI();
 				playerController.ForceCloseNPC();
 			}
-			// Deactivate Shopkeeper
-			if (shopkeeper != null)
-            {
-				shopkeeper.SetActive(false);
-            }
-			// Deactivate npc
-			if (npc != null)
-			{
-				npc.SetActive(false);
-			}
 		}
 	}
 
@@ -182,20 +168,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 		{
 			playerController.playerInput.actions.FindAction("OpenShop").Enable();
 		}
-		// Activate Shopkeeper
-		if (shopkeeper != null)
-		{
-			shopkeeper.SetActive(true);
-		}
 	}
-
-	void EnableNPCAfterWave()
-	{
-		if (npc != null)
-		{
-			npc.SetActive(true);
-		}
-    }
 
 	public void SkipShopPhase()
 	{
@@ -205,8 +178,8 @@ public sealed class WaveManager : Singleton<WaveManager>
 		{
 			_waveCanvasSettings.CancelGameCountDown();
 		}
-        else
-        {
+		else
+		{
 			shouldSkipWaveCooldown = true;
 		}
 		_npcTrigger.playerTalkingToNPC = false;
