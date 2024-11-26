@@ -13,6 +13,7 @@ public class NPC : MonoBehaviour
         if (WaveManager.instance is null) return;
         WaveManager.instance.gameStarting += WaveManager_GameStarted;
         WaveManager.instance.waveStarted += WaveManager_WaveStarted;
+        WaveManager.instance.waveFinished += WaveManager_WaveEnded;
     }
 
     private void OnDestroy()
@@ -21,6 +22,7 @@ public class NPC : MonoBehaviour
         {
 			WaveManager.instance.gameStarting -= WaveManager_GameStarted;
             WaveManager.instance.waveStarted -= WaveManager_WaveStarted;
+            WaveManager.instance.waveFinished -= WaveManager_WaveEnded;
         }
     }
 

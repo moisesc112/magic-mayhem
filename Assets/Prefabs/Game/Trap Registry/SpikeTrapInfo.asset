@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpikeTrapInfo
   m_EditorClassIdentifier: 
   isActivated: 0
-  isSprung: 0
+  isSprung: 1
   activeDuration: 7
   damageCooldown: 0.5
   damage: 50
