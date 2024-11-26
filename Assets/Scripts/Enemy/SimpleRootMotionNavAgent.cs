@@ -95,8 +95,9 @@ public class SimpleRootMotionNavAgent : RefreshableComponent
 	private void UpdateAnimParamsFromSteering()
 	{
 		var dir = (_agent.steeringTarget - transform.position);
-		var avoidDir = GetAvoidanceDir();
-		dir += avoidDir;
+		/// `GetAvoidanceDir` uses a sphere cast for every enemy. This causes our frame rate to reach horrible numbers. Comment out until a better approach is figured out.
+		//var avoidDir = GetAvoidanceDir();
+		//dir += avoidDir;
 		var animDir = transform.InverseTransformDirection(dir);
 		if (animDir.sqrMagnitude > 1)
 			animDir = animDir.normalized;
