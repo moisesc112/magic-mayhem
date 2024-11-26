@@ -84,7 +84,7 @@ public class GameStateManager : Singleton<GameStateManager>
 			{
 				player.ResetPlayer(_spawnPoint);
 				FollowCam.instance.targets.Add(player.GetAvatarTransform());
-				player.PlayerStats.gold = Mathf.Min(player.PlayerStats.gold - 50, 0);
+				player.PlayerStats.gold = Mathf.Max(player.PlayerStats.gold - 50, 0);
 			}
 		}
 	}
