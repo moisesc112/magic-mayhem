@@ -110,7 +110,7 @@ public class NPCMenu : MonoBehaviour
     {
         CloseDialog();
 
-        LevelLoadManager.instance.QueueScene(LevelLoadManager.gameSceneName);
+		LevelLoadManager.instance.QueueScene(LevelLoadManager.gameSceneName);
         SceneManager.LoadScene(LevelLoadManager.loadingSceneName);
     }
 

@@ -53,7 +53,6 @@ public class MainMenuManager : MonoBehaviour
 		var hasPlayed = PlayerPrefs.GetInt("RunsPlayed", 0) != 0;
 		LevelLoadManager.instance.QueueScene(hasPlayed ? LevelLoadManager.gameSceneName : LevelLoadManager.tutorialSceneName);
 
-		PlayerPrefs.SetInt("RunsPlayed", PlayerPrefs.GetInt("RunsPlayed", 0) + 1);
 		PlayerManager.instance.SetJoiningEnabled(false);
 		SceneManager.LoadScene(LevelLoadManager.loadingSceneName);
 	}
@@ -63,7 +62,6 @@ public class MainMenuManager : MonoBehaviour
 		if (_isCreditsPlaying) return;
 		LevelLoadManager.instance.QueueScene(LevelLoadManager.tutorialSceneName);
 
-		PlayerPrefs.SetInt("RunsPlayed", PlayerPrefs.GetInt("RunsPlayed", 0) + 1);
         PlayerManager.instance.SetJoiningEnabled(false);
         SceneManager.LoadScene(LevelLoadManager.loadingSceneName);
 	}
