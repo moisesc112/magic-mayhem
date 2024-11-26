@@ -77,7 +77,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 		foreach (var wave in waves)
 		{
 			groupNum = 0;
-			Debug.Log("Spawning wave");
 			var enemyCount = wave.GetEnemyCount();
 			enemiesAlive = enemyCount;
 			aliveEnemies = 0;
@@ -87,7 +86,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 			foreach (var group in wave.groups)
 			{
 				aliveEnemies += group.GetEnemyCount();
-				Debug.Log("Spawning group");
 				Transform location;
 				if (waveNum < startPlainsLevel-1)
 				{
@@ -116,9 +114,7 @@ public sealed class WaveManager : Singleton<WaveManager>
 					condition: () => groupNum == wave.groups.Length || aliveEnemies == 0,
 					seconds: group.timeToNextGroup);
 			}
-			Debug.Log("Waiting for all enemies to be dead.");
 			yield return new WaitUntil(() => enemiesAlive == 0);
-			Debug.Log("Enemies dead");
 			if (++waveNum != waves.Length)
 			{
 				waveFinished?.Invoke(this, new WaveEndedEventArgs(wave.timeToNextWave));
@@ -130,7 +126,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 			}
 		}
 
-		Debug.Log("You win!");
 		StartCoroutine(nameof(GameWin));
 	}
 
@@ -172,7 +167,6 @@ public sealed class WaveManager : Singleton<WaveManager>
 
 	public void SkipShopPhase()
 	{
-		Debug.Log("Skipping Shop Phase");
 
 		if (_waveCanvasSettings.gameCountdownTextCoroutine != null)
 		{

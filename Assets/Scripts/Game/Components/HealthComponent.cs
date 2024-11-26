@@ -19,7 +19,6 @@ public class HealthComponent : MonoBehaviour
 
 	public virtual void TakeDamage(float damage)
 	{
-		Debug.Log($"took {damage} damage");
 		health -= damage;
 		damageTaken?.Invoke(this, new GenericEventArgs<float>(damage));
 		if (health <= 0)
@@ -31,8 +30,6 @@ public class HealthComponent : MonoBehaviour
 
     public virtual void HandleDeath()
     {
-        Debug.Log("Died");
-
         onDeath?.Invoke(this, null);
 	}
 

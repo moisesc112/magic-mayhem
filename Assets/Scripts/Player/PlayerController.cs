@@ -190,13 +190,11 @@ public class PlayerController : MonoBehaviour
 
 	public void OnDeviceLost(PlayerInput lostPlayer)
 	{
-		Debug.Log($"Player {lostPlayer.playerIndex} was lost.");
 		PlayerManager.instance.OnPlayerLeft(this);
 	}
 
 	public void OnDeviceRegained(PlayerInput player)
 	{
-		Debug.Log($"Player {player.playerIndex} has rejoined!");
 		PlayerManager.instance.OnPlayerRejoined(this);
 	}
 
