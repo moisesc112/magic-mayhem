@@ -38,7 +38,6 @@ public class Ability : MonoBehaviour
     {
         if (collision != null && collision.tag != "Player" && collision.GetComponent<HealthComponent>() != null)
         {
-            Debug.Log("Hit Enemy");
             collision.GetComponent<HealthComponent>().TakeDamage(GetAbilityDamage());
             if (abilityInfo.projectileDestoryAfterCollision)
             {
@@ -78,7 +77,6 @@ public class Ability : MonoBehaviour
             aimDirection = new Vector3(playerAimDirection.x, 0, playerAimDirection.y);
             return aimDirection;
         }
-        Debug.LogWarning("Player not set in ability");
         return Vector3.zero;
     }
 

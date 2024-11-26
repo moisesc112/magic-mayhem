@@ -19,7 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
 	void Start()
 	{
-		PlayerManager.instance.SetJoiningEnabled(true);
+        PlayerManager.instance.SetJoiningEnabled(true);
 		PlayerManager.instance.PlayerControllerJoined += PlayerManager_OnPlayerControllerJoined;
 		PlayerManager.instance.PlayerControllerRemoved += PlayerManager_OnPlayerControllerRemoved;
 		creditsHandler.CreditsEnded += CreditsHandler_OnCreditsEnded;

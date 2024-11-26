@@ -25,7 +25,6 @@ public abstract class AbstractTrap : MonoBehaviour
     public void ActivateTrap()
     {
         trapInfo.isActivated = true;
-        Debug.Log("Trap has been activated");
         _audioSource.PlayOneShot(trapActivateSound);
         TrapCooldownUI.ActivateCooldownUI();
         StartCoroutine(TrapActivationDuration());
@@ -39,7 +38,6 @@ public abstract class AbstractTrap : MonoBehaviour
         trapInfo.isActivated = false;
         myTrap.SetTrigger("ResetTrap");
         _audioSource.PlayOneShot(trapTriggerSound);
-        Debug.Log("Trap activation has expired");
     }
 
 
@@ -101,7 +99,6 @@ public abstract class AbstractTrap : MonoBehaviour
             if (!trackedEnemies[i].gameObject.activeInHierarchy) 
             {
                 trackedEnemies.RemoveAt(i);
-                Debug.Log("Enemy destroyed while in trigger");
             }
         }
     }

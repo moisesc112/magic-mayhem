@@ -39,20 +39,17 @@ public class PlayerStats : HealthComponent
     {
         if (IsShielded)
         {
-            Debug.Log("Attack Shielded");
             OnHitSound();
             return;
         }
         var randomDodgeChance = Random.Range(0f, 100f);
         if (randomDodgeChance < DodgeChance)
         {
-            Debug.Log("Attack Dodged");
             return;
         }
         var armorReducedDamage = damage * GetPercentDamageTakenWithArmor(Armor);
         if (IsInvulnerable)
         {
-            Debug.Log("Player is Invulnerable");
             armorReducedDamage = 0;
         }
         base.TakeDamage(armorReducedDamage);
